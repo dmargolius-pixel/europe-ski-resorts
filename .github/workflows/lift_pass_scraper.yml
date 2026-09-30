@@ -1,4 +1,3 @@
-# STREAMING_CHUNK:Configuring the GitHub Actions workflow schedule and triggers...
 name: Continuous Ski Resort Lift Pass Scraper (Phase 1)
 
 on:
@@ -12,7 +11,6 @@ jobs:
   run-tiered-scraper:
     runs-on: ubuntu-latest
 
-    # STREAMING_CHUNK:Setting up the environment and installing dependencies...
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -27,24 +25,36 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # STREAMING_CHUNK:Executing the scraper and handling output...
       - name: Run Tiered Lift Pass Scraper
         run: |
           python update_lift_passes.py
 
-      - name: Check for Updated CSV
-        id: check_csv
+      - name: Check Generated Output Files
+        id: check_files
         run: |
           if [ -f "Ski resorts - Updated 2026-27.csv" ]; then
-            echo "has_update=true" >> $GITHUB_OUTPUT
+            echo "has_csv=true" >> $GITHUB_OUTPUT
           else
-            echo "has_update=false" >> $GITHUB_OUTPUT
+            echo "has_csv=false" >> $GITHUB_OUTPUT
+          fi
+          if [ -f "lift_pass_audit_report.csv" ]; then
+            echo "has_audit=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_audit=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Upload Updated Dataset Artifact
-        if: steps.check_csv.outputs.has_update == 'true'
+        if: steps.check_files.outputs.has_csv == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: updated-lift-passes-2026-27
           path: Ski resorts - Updated 2026-27.csv
+          retention-days: 30
+
+      - name: Upload Audit Report Artifact
+        if: steps.check_files.outputs.has_audit == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lift-pass-audit-report
+          path: lift_pass_audit_report.csv
           retention-days: 30
