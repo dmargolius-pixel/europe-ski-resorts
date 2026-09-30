@@ -1,13 +1,11 @@
-/* STREAMING_CHUNK:Configuring GitHub Actions workflow for link monitoring... */
 name: Continuous Ski Resort Link Health Monitor
-on:
-schedule:
-# Runs automatically on the 1st of every month at 08:00 UTC
-- cron: '0 8 1 * *'
-workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+on: schedule: # Runs automatically on the 1st of every month at 08:00 UTC - cron: '0 8 1 * *' workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
 jobs:
 run-link-checker:
 runs-on: ubuntu-latest
+
 steps:
   - name: Checkout Repository
     uses: actions/checkout@v4
@@ -40,5 +38,4 @@ steps:
     with:
       name: broken-links-report
       path: broken_links_report.csv
-
 
