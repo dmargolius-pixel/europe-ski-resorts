@@ -11,6 +11,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # Configuration
 MASTER_CSV = 'Ski resorts - Master.csv'
 OUTPUT_CSV = 'Ski resorts - Updated 2026-27.csv'
+AUDIT_CSV = 'lift_pass_audit_report.csv'
 TIMEOUT_SECONDS = 12
 
 HEADERS = {
@@ -18,13 +19,17 @@ HEADERS = {
     'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8,de;q=0.7'
 }
 
+def clean_price(price_str):
+    """Helper to extract just the float value from a price string like '€69.00'."""
+    if not price_str: return 0.0
+    match = re.search(r'([0-9]+(?:\.[0-9]+)?)', str(price_str))
+    return float(match.group(1)) if match else 0.0
+
 def extract_tier1_json_ld(soup):
-    """Tier 1: Look for structured schema.org JSON-LD data (Highly Reliable)."""
     try:
         for script in soup.find_all('script', type='application/ld+json'):
             if script.string:
                 data = json.loads(script.string)
-                # Handle both single objects and lists of objects
                 items = data if isinstance(data, list) else [data]
                 for item in items:
                     if item.get('@type') in ['Product', 'Offer']:
@@ -39,7 +44,6 @@ def extract_tier1_json_ld(soup):
     return None
 
 def extract_tier2_css_classes(soup):
-    """Tier 2: Look for common pricing CSS classes/IDs (Moderately Reliable)."""
     target_classes = ['price', 'tarif', 'ticket-price', 'skipass-price', 'valeur']
     for class_name in target_classes:
         elements = soup.find_all(class_=re.compile(class_name, re.I))
@@ -54,14 +58,12 @@ def extract_tier2_css_classes(soup):
     return None
 
 def extract_tier3_contextual(soup):
-    """Tier 3: Look for proximity to contextual keywords (e.g., '1 day adult')."""
     keywords = ['1 day', '1 jour', 'tageskarte', 'adult', 'adulte', 'erwachsene']
     for keyword in keywords:
         elements = soup.find_all(string=re.compile(keyword, re.IGNORECASE))
         for el in elements:
             parent = el.parent
             if parent:
-                # Look at the parent's full text to find a price near the keyword
                 text = parent.get_text(strip=True)
                 match = re.search(r'(?:€|CHF)\s*([0-9]{2}(?:\.[0-9]{2})?)', text)
                 if match:
@@ -72,7 +74,6 @@ def extract_tier3_contextual(soup):
     return None
 
 def extract_tier4_global_regex(text):
-    """Tier 4: Global regex scan for realistic numbers (Original Fallback)."""
     patterns = [
         r'(?:€|EUR|CHF)\s*([0-9]{2}(?:\.[0-9]{2})?)',
         r'([0-9]{2}(?:\.[0-9]{2})?)\s*(?:€|EUR)'
@@ -82,42 +83,35 @@ def extract_tier4_global_regex(text):
         for match in matches:
             val = float(match.group(1))
             if 30 <= val <= 130:
-                # Defaulting to Euro if symbol isn't explicitly CHF in this block
                 return f"€{val:.2f}"
     return None
 
 def scrape_day_pass(url):
-    """Visits resort website and cascades through the 4 Tiers of extraction."""
     if not url or url == 'N/A':
         return None, "No URL"
         
     try:
-        # Using requests instead of urllib for better redirect/SSL handling
         response = requests.get(url, headers=HEADERS, timeout=TIMEOUT_SECONDS, verify=False)
         response.raise_for_status()
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
         
-        # Tier 1
         price = extract_tier1_json_ld(soup)
         if price: return price, "Tier 1 (JSON-LD)"
         
-        # Tier 2
         price = extract_tier2_css_classes(soup)
         if price: return price, "Tier 2 (CSS Class)"
         
-        # Tier 3
         price = extract_tier3_contextual(soup)
         if price: return price, "Tier 3 (Contextual)"
         
-        # Tier 4
         price = extract_tier4_global_regex(html_content)
         if price: return price, "Tier 4 (Regex)"
                     
     except requests.exceptions.RequestException as e:
-        return None, f"Connection Error"
+        return None, "Connection Error"
     except Exception as e:
-        return None, f"Parsing Error"
+        return None, "Parsing Error"
         
     return None, "No price found"
 
@@ -125,6 +119,8 @@ def main():
     print(f"Loading master dataset from '{MASTER_CSV}'...")
     
     updated_rows = []
+    audit_rows = [] # Store data for the new audit report
+    
     success_count = 0
     total_checked = 0
     
@@ -144,6 +140,9 @@ def main():
             updated_header = list(header)
             updated_header[pass_idx] = 'Day Pass (2026/27 Est)'
             updated_rows.append(updated_header)
+            
+            # Setup Audit Header
+            audit_rows.append(['Resort Name', 'Website', 'Old Price', 'New Price', 'Extraction Method', '% Difference', 'Review Flag'])
 
             for row in reader:
                 if len(row) <= max(name_idx, website_idx, pass_idx):
@@ -152,22 +151,46 @@ def main():
                     
                 resort_name = row[name_idx]
                 website = row[website_idx]
-                current_price = row[pass_idx]
+                current_price_str = row[pass_idx]
                 
                 total_checked += 1
                 print(f"[{total_checked}] {resort_name} ({website})")
                 
-                new_price, method = scrape_day_pass(website)
+                new_price_str, method = scrape_day_pass(website)
                 
                 new_row = list(row)
-                if new_price:
-                    print(f"  -> Found updated price: {new_price} via {method} (was {current_price})")
-                    new_row[pass_idx] = new_price
+                review_flag = "OK"
+                diff_pct = 0.0
+                
+                if new_price_str:
+                    old_val = clean_price(current_price_str)
+                    new_val = clean_price(new_price_str)
+                    
+                    if old_val > 0:
+                        diff_pct = ((new_val - old_val) / old_val) * 100
+                        
+                        # Flag suspicious changes: Drops in price, or increases over 15%
+                        if diff_pct < 0:
+                            review_flag = "FLAG: Price Dropped (Check if Child/Half-day pass)"
+                        elif diff_pct > 15:
+                            review_flag = "FLAG: High Increase (Check if Multi-day pass)"
+                        elif method == "Tier 4 (Regex)":
+                            review_flag = "WARNING: Found via Regex (Low Confidence)"
+                    
+                    print(f"  -> Found updated price: {new_price_str} via {method} (was {current_price_str}) - Flag: {review_flag}")
+                    new_row[pass_idx] = new_price_str
                     success_count += 1
                 else:
+                    new_price_str = current_price_str # Keep old if failed
+                    review_flag = f"INFO: {method} - Retained Old Price"
                     print(f"  -> {method}. Retaining existing baseline.")
                 
                 updated_rows.append(new_row)
+                
+                # Add to audit report
+                audit_rows.append([
+                    resort_name, website, current_price_str, new_price_str, method, f"{diff_pct:.1f}%", review_flag
+                ])
 
     except FileNotFoundError:
         print(f"[x] Error: Could not find '{MASTER_CSV}'.")
@@ -179,11 +202,76 @@ def main():
     print(f"Total resorts processed: {total_checked}")
     print(f"Successfully auto-refreshed pricing: {success_count} ({success_count/total_checked*100:.1f}%)")
     
+    # Save the main dataset
     with open(OUTPUT_CSV, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerows(updated_rows)
         
+    # Save the new audit report
+    with open(AUDIT_CSV, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        writer.writerows(audit_rows)
+        
     print(f"Updated master dataset saved to '{OUTPUT_CSV}'.")
+    print(f"Audit report saved to '{AUDIT_CSV}'. Please review flagged items!")
 
 if __name__ == '__main__':
     main()
+```
+```markdown:GitHub Actions Workflow:.github/workflows/lift_pass_scraper.yml
+name: Continuous Ski Resort Lift Pass Scraper (Phase 1)
+
+on:
+  schedule:
+    # Runs at 02:00 on the 1st of every month
+    - cron: '0 2 1 * *'
+  # Allows you to trigger the workflow manually from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-tiered-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Tiered Lift Pass Scraper
+        run: |
+          python update_lift_passes.py
+
+      - name: Check for Updated CSV
+        id: check_csv
+        run: |
+          if [ -f "Ski resorts - Updated 2026-27.csv" ]; then
+            echo "has_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_update=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload Updated Dataset Artifact
+        if: steps.check_csv.outputs.has_update == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: updated-lift-passes-2026-27
+          path: Ski resorts - Updated 2026-27.csv
+          retention-days: 30
+
+      # NEW STEP: Upload the Audit Report
+      - name: Upload Audit Report Artifact
+        if: steps.check_csv.outputs.has_update == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lift-pass-audit-report
+          path: lift_pass_audit_report.csv
+          retention-days: 30
