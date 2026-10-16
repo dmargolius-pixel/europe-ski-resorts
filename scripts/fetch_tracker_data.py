@@ -13,16 +13,11 @@ def fetch_json(url):
         return json.loads(response.read().decode())
 
 def get_weekly_metrics(lat, lon):
-    today = datetime.now(timezone.utc).date()
-    start_date = today - timedelta(days=7)
-    
-    start_str = start_date.isoformat()
-    end_str = today.isoformat()
-    
+    # Live forecast endpoint requires past_days=7 to query recent actuals
     current_url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={lat}&longitude={lon}"
-        f"&start_date={start_str}&end_date={end_str}"
+        f"&past_days=7&forecast_days=1"
         f"&daily=snowfall_sum,precipitation_sum,freezing_level_height_max"
         f"&timezone=auto"
     )
@@ -46,7 +41,11 @@ def get_weekly_metrics(lat, lon):
     valid_freezing = [fl for fl in freezing_list if fl is not None]
     avg_freezing_level = sum(valid_freezing) / len(valid_freezing) if valid_freezing else 0
 
+    # 10-Year ERA5 Historical Baseline (2014-2024)
+    today = datetime.now(timezone.utc).date()
+    start_date = today - timedelta(days=7)
     era5_snow_totals = []
+    
     for year in range(2014, 2024):
         hist_start = f"{year}-{start_date.strftime('%m-%d')}"
         hist_end = f"{year}-{today.strftime('%m-%d')}"
@@ -68,7 +67,6 @@ def get_weekly_metrics(lat, lon):
             continue
 
     baseline_snow = sum(era5_snow_totals) / len(era5_snow_totals) if era5_snow_totals else 1.0
-    
     snow_anomaly_pct = round(((current_snow - baseline_snow) / max(baseline_snow, 0.1)) * 100, 1)
 
     return {
