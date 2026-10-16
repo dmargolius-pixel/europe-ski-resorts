@@ -5,7 +5,7 @@ import urllib.request
 import urllib.error
 
 RESORTS_FILE = "resorts.json"
-OUTPUT_FILE = "public/data/el-nino-tracker.json"
+OUTPUT_FILE = "data/el-nino-tracker.json"
 
 def fetch_json(url):
     req = urllib.request.Request(url, headers={'User-Agent': 'EuropeSki-Tracker/1.0'})
