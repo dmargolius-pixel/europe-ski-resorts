@@ -1,0 +1,57 @@
+[
+  {
+    "id": "val-thorens",
+    "name": "Val Thorens",
+    "country": "France",
+    "region": "Northern Alps",
+    "tier": "High Altitude",
+    "latitude": 45.2981,
+    "longitude": 6.5800,
+    "base_elevation_m": 2300,
+    "top_elevation_m": 3230
+  },
+  {
+    "id": "morzine",
+    "name": "Morzine",
+    "country": "France",
+    "region": "Northern Alps",
+    "tier": "Low Altitude",
+    "latitude": 46.1792,
+    "longitude": 6.7089,
+    "base_elevation_m": 1000,
+    "top_elevation_m": 2020
+  },
+  {
+    "id": "cortina",
+    "name": "Cortina d'Ampezzo",
+    "country": "Italy",
+    "region": "Dolomites",
+    "tier": "Mid Altitude",
+    "latitude": 46.5369,
+    "longitude": 12.1357,
+    "base_elevation_m": 1224,
+    "top_elevation_m": 2828
+  },
+  {
+    "id": "kitzbuehel",
+    "name": "Kitzbühel",
+    "country": "Austria",
+    "region": "Tyrol",
+    "tier": "Low Altitude",
+    "latitude": 47.4464,
+    "longitude": 12.3921,
+    "base_elevation_m": 800,
+    "top_elevation_m": 2000
+  },
+  {
+    "id": "baqueira-beret",
+    "name": "Baqueira-Beret",
+    "country": "Spain",
+    "region": "Pyrenees",
+    "tier": "Mid Altitude",
+    "latitude": 42.6986,
+    "longitude": 0.9348,
+    "base_elevation_m": 1500,
+    "top_elevation_m": 2610
+  }
+]
