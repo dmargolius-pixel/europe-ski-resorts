@@ -1,0 +1,90 @@
+{
+  "last_updated": "2026-10-16T21:48:57.077817+00:00",
+  "summary": {
+    "overall_sample_size": 5,
+    "high_altitude_snow_anomaly_pct": -100.0,
+    "low_altitude_snow_anomaly_pct": -50.0
+  },
+  "resorts": [
+    {
+      "id": "val-thorens",
+      "name": "Val Thorens",
+      "country": "France",
+      "region": "Northern Alps",
+      "tier": "High Altitude",
+      "latitude": 45.2981,
+      "longitude": 6.58,
+      "base_elevation_m": 2300,
+      "top_elevation_m": 3230,
+      "current_snowfall_cm": 0,
+      "baseline_snowfall_cm": 4.2,
+      "snow_anomaly_pct": -100.0,
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0
+    },
+    {
+      "id": "morzine",
+      "name": "Morzine",
+      "country": "France",
+      "region": "Northern Alps",
+      "tier": "Low Altitude",
+      "latitude": 46.1792,
+      "longitude": 6.7089,
+      "base_elevation_m": 1000,
+      "top_elevation_m": 2020,
+      "current_snowfall_cm": 0,
+      "baseline_snowfall_cm": 0.8,
+      "snow_anomaly_pct": -100.0,
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0
+    },
+    {
+      "id": "cortina",
+      "name": "Cortina d'Ampezzo",
+      "country": "Italy",
+      "region": "Dolomites",
+      "tier": "Mid Altitude",
+      "latitude": 46.5369,
+      "longitude": 12.1357,
+      "base_elevation_m": 1224,
+      "top_elevation_m": 2828,
+      "current_snowfall_cm": 0,
+      "baseline_snowfall_cm": 0.0,
+      "snow_anomaly_pct": 0.0,
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0
+    },
+    {
+      "id": "kitzbuehel",
+      "name": "Kitzb\u00fchel",
+      "country": "Austria",
+      "region": "Tyrol",
+      "tier": "Low Altitude",
+      "latitude": 47.4464,
+      "longitude": 12.3921,
+      "base_elevation_m": 800,
+      "top_elevation_m": 2000,
+      "current_snowfall_cm": 0,
+      "baseline_snowfall_cm": 0.0,
+      "snow_anomaly_pct": 0.0,
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0
+    },
+    {
+      "id": "baqueira-beret",
+      "name": "Baqueira-Beret",
+      "country": "Spain",
+      "region": "Pyrenees",
+      "tier": "Mid Altitude",
+      "latitude": 42.6986,
+      "longitude": 0.9348,
+      "base_elevation_m": 1500,
+      "top_elevation_m": 2610,
+      "current_snowfall_cm": 0,
+      "baseline_snowfall_cm": 0.9,
+      "snow_anomaly_pct": -100.0,
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0
+    }
+  ]
+}
