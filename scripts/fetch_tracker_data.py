@@ -13,35 +13,34 @@ def fetch_json(url, timeout=10):
         return json.loads(response.read().decode())
 
 def get_weekly_metrics(lat, lon):
-    today = datetime.now(timezone.utc).date()
-    start_date = today - timedelta(days=7)
-    
-    # Corrected Open-Meteo forecast API call with explicit date ranges
+    # Use hourly endpoint variables for past 7 days forecast data
     current_url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={lat}&longitude={lon}"
-        f"&start_date={start_date.strftime('%Y-%m-%d')}&end_date={today.strftime('%Y-%m-%d')}"
-        f"&daily=snowfall_sum,precipitation_sum,freezing_level_height_max"
+        f"&past_days=7&forecast_days=1"
+        f"&hourly=snowfall,precipitation,freezing_level_height"
         f"&timezone=auto"
     )
     
     try:
         response_json = fetch_json(current_url, timeout=10)
-        current_data = response_json.get("daily", {})
+        current_data = response_json.get("hourly", {})
     except Exception as e:
         print(f"Error fetching forecast for lat {lat}, lon {lon}: {e}", flush=True)
         current_data = {}
 
-    snow_list = current_data.get("snowfall_sum") or []
-    precip_list = current_data.get("precipitation_sum") or []
-    freezing_list = current_data.get("freezing_level_height_max") or []
+    snow_list = current_data.get("snowfall") or []
+    precip_list = current_data.get("precipitation") or []
+    freezing_list = current_data.get("freezing_level_height") or []
 
     current_snow = sum(f for f in snow_list if f is not None)
     current_precip = sum(p for p in precip_list if p is not None)
     valid_freezing = [fl for fl in freezing_list if fl is not None]
     avg_freezing_level = sum(valid_freezing) / len(valid_freezing) if valid_freezing else 0
 
-    # 10-Year ERA5 Historical Baseline (2014-2024)
+    # 10-Year ERA5 Historical Baseline (2014-2024) using hourly snowfall parameter
+    today = datetime.now(timezone.utc).date()
+    start_date = today - timedelta(days=7)
     era5_snow_totals = []
     
     for year in range(2014, 2024):
@@ -59,7 +58,6 @@ def get_weekly_metrics(lat, lon):
             hist_json = fetch_json(archive_url, timeout=10)
             hist_data = hist_json.get("hourly", {})
             hist_snow_list = hist_data.get("snowfall") or []
-            # Convert hourly snowfall (cm) to daily sum equivalent
             total_hist = sum(s for s in hist_snow_list if s is not None)
             era5_snow_totals.append(total_hist)
         except Exception:
