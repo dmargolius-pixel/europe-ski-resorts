@@ -3,6 +3,8 @@
     "id": "chamonix",
     "name": "Chamonix",
     "country": "France",
+    "latitude": 45.9237,
+    "longitude": 6.8694,
     "base_elevation": 1035,
     "peak_elevation": 3842
   },
@@ -10,6 +12,8 @@
     "id": "val-disere",
     "name": "Val d'Isère",
     "country": "France",
+    "latitude": 45.4481,
+    "longitude": 6.9883,
     "base_elevation": 1850,
     "peak_elevation": 3456
   },
@@ -17,6 +21,8 @@
     "id": "tignes",
     "name": "Tignes",
     "country": "France",
+    "latitude": 45.4705,
+    "longitude": 6.9103,
     "base_elevation": 2100,
     "peak_elevation": 3456
   },
@@ -24,6 +30,8 @@
     "id": "courchevel",
     "name": "Courchevel",
     "country": "France",
+    "latitude": 45.4158,
+    "longitude": 6.6348,
     "base_elevation": 1850,
     "peak_elevation": 2738
   },
@@ -31,6 +39,8 @@
     "id": "meribel",
     "name": "Méribel",
     "country": "France",
+    "latitude": 45.3975,
+    "longitude": 6.5641,
     "base_elevation": 1450,
     "peak_elevation": 2952
   },
@@ -38,6 +48,8 @@
     "id": "val-thorens",
     "name": "Val Thorens",
     "country": "France",
+    "latitude": 45.2985,
+    "longitude": 6.5798,
     "base_elevation": 2300,
     "peak_elevation": 3200
   },
@@ -45,6 +57,8 @@
     "id": "les-arcs",
     "name": "Les Arcs",
     "country": "France",
+    "latitude": 45.5700,
+    "longitude": 6.7800,
     "base_elevation": 1200,
     "peak_elevation": 3226
   },
@@ -52,6 +66,8 @@
     "id": "la-plagne",
     "name": "La Plagne",
     "country": "France",
+    "latitude": 45.5050,
+    "longitude": 6.6775,
     "base_elevation": 1250,
     "peak_elevation": 3250
   },
@@ -59,6 +75,8 @@
     "id": "avoriaz",
     "name": "Avoriaz",
     "country": "France",
+    "latitude": 46.1947,
+    "longitude": 6.7725,
     "base_elevation": 1800,
     "peak_elevation": 2466
   },
@@ -66,6 +84,8 @@
     "id": "alpe-dhuez",
     "name": "Alpe d'Huez",
     "country": "France",
+    "latitude": 45.0909,
+    "longitude": 6.0664,
     "base_elevation": 1860,
     "peak_elevation": 3330
   },
@@ -73,6 +93,8 @@
     "id": "les-deux-alpes",
     "name": "Les Deux Alpes",
     "country": "France",
+    "latitude": 45.0069,
+    "longitude": 6.1264,
     "base_elevation": 1650,
     "peak_elevation": 3600
   },
@@ -80,6 +102,8 @@
     "id": "serre-chevalier",
     "name": "Serre Chevalier",
     "country": "France",
+    "latitude": 44.9450,
+    "longitude": 6.6575,
     "base_elevation": 1200,
     "peak_elevation": 2800
   },
@@ -87,6 +111,8 @@
     "id": "flaine",
     "name": "Flaine",
     "country": "France",
+    "latitude": 46.0075,
+    "longitude": 6.6919,
     "base_elevation": 1600,
     "peak_elevation": 2500
   },
@@ -94,6 +120,8 @@
     "id": "zermatt",
     "name": "Zermatt",
     "country": "Switzerland",
+    "latitude": 45.9763,
+    "longitude": 7.7491,
     "base_elevation": 1620,
     "peak_elevation": 3883
   },
@@ -101,6 +129,8 @@
     "id": "verbier",
     "name": "Verbier",
     "country": "Switzerland",
+    "latitude": 46.0965,
+    "longitude": 7.2273,
     "base_elevation": 1500,
     "peak_elevation": 3330
   },
@@ -108,6 +138,8 @@
     "id": "st-moritz",
     "name": "St. Moritz",
     "country": "Switzerland",
+    "latitude": 46.4908,
+    "longitude": 9.8355,
     "base_elevation": 1775,
     "peak_elevation": 3057
   },
@@ -115,6 +147,8 @@
     "id": "davos-klosters",
     "name": "Davos Klosters",
     "country": "Switzerland",
+    "latitude": 46.8048,
+    "longitude": 9.8360,
     "base_elevation": 1560,
     "peak_elevation": 2844
   },
@@ -122,6 +156,8 @@
     "id": "saas-fee",
     "name": "Saas-Fee",
     "country": "Switzerland",
+    "latitude": 46.1090,
+    "longitude": 7.9306,
     "base_elevation": 1800,
     "peak_elevation": 3600
   },
@@ -129,6 +165,8 @@
     "id": "wengen",
     "name": "Wengen",
     "country": "Switzerland",
+    "latitude": 46.6078,
+    "longitude": 7.9228,
     "base_elevation": 1274,
     "peak_elevation": 2320
   },
@@ -136,6 +174,8 @@
     "id": "grindelwald",
     "name": "Grindelwald",
     "country": "Switzerland",
+    "latitude": 46.6242,
+    "longitude": 8.0414,
     "base_elevation": 1034,
     "peak_elevation": 2500
   },
@@ -143,6 +183,8 @@
     "id": "engelberg",
     "name": "Engelberg",
     "country": "Switzerland",
+    "latitude": 46.8182,
+    "longitude": 8.4063,
     "base_elevation": 1050,
     "peak_elevation": 3020
   },
@@ -150,6 +192,8 @@
     "id": "crans-montana",
     "name": "Crans-Montana",
     "country": "Switzerland",
+    "latitude": 46.3125,
+    "longitude": 7.4828,
     "base_elevation": 1500,
     "peak_elevation": 3000
   },
@@ -157,6 +201,8 @@
     "id": "st-anton",
     "name": "St. Anton am Arlberg",
     "country": "Austria",
+    "latitude": 47.1306,
+    "longitude": 10.2662,
     "base_elevation": 1304,
     "peak_elevation": 2811
   },
@@ -164,6 +210,8 @@
     "id": "ischgl",
     "name": "Ischgl",
     "country": "Austria",
+    "latitude": 47.0139,
+    "longitude": 10.2917,
     "base_elevation": 1400,
     "peak_elevation": 2872
   },
@@ -171,6 +219,8 @@
     "id": "kitzbuhel",
     "name": "Kitzbühel",
     "country": "Austria",
+    "latitude": 47.4468,
+    "longitude": 12.3914,
     "base_elevation": 800,
     "peak_elevation": 2000
   },
@@ -178,6 +228,8 @@
     "id": "solden",
     "name": "Sölden",
     "country": "Austria",
+    "latitude": 46.9658,
+    "longitude": 11.0058,
     "base_elevation": 1377,
     "peak_elevation": 3340
   },
@@ -185,6 +237,8 @@
     "id": "mayrhofen",
     "name": "Mayrhofen",
     "country": "Austria",
+    "latitude": 47.1689,
+    "longitude": 11.8617,
     "base_elevation": 630,
     "peak_elevation": 2500
   },
@@ -192,6 +246,8 @@
     "id": "saalbach",
     "name": "Saalbach Hinterglemm",
     "country": "Austria",
+    "latitude": 47.3878,
+    "longitude": 12.6375,
     "base_elevation": 1003,
     "peak_elevation": 2100
   },
@@ -199,6 +255,8 @@
     "id": "zell-am-see",
     "name": "Zell am See",
     "country": "Austria",
+    "latitude": 47.3239,
+    "longitude": 12.7967,
     "base_elevation": 757,
     "peak_elevation": 2000
   },
@@ -206,6 +264,8 @@
     "id": "innsbruck",
     "name": "Innsbruck Nordkette",
     "country": "Austria",
+    "latitude": 47.2800,
+    "longitude": 11.3800,
     "base_elevation": 860,
     "peak_elevation": 2256
   },
@@ -213,6 +273,8 @@
     "id": "cortina",
     "name": "Cortina d'Ampezzo",
     "country": "Italy",
+    "latitude": 46.5405,
+    "longitude": 12.1357,
     "base_elevation": 1224,
     "peak_elevation": 2930
   },
@@ -220,6 +282,8 @@
     "id": "cervinia",
     "name": "Breuil-Cervinia",
     "country": "Italy",
+    "latitude": 45.9358,
+    "longitude": 7.6300,
     "base_elevation": 2050,
     "peak_elevation": 3480
   },
@@ -227,6 +291,8 @@
     "id": "livigno",
     "name": "Livigno",
     "country": "Italy",
+    "latitude": 46.5383,
+    "longitude": 10.1353,
     "base_elevation": 1816,
     "peak_elevation": 2798
   },
@@ -234,6 +300,8 @@
     "id": "val-gardena",
     "name": "Val Gardena",
     "country": "Italy",
+    "latitude": 46.5583,
+    "longitude": 11.7511,
     "base_elevation": 1236,
     "peak_elevation": 2518
   },
@@ -241,6 +309,8 @@
     "id": "madonna-di-campiglio",
     "name": "Madonna di Campiglio",
     "country": "Italy",
+    "latitude": 46.2294,
+    "longitude": 10.8258,
     "base_elevation": 1550,
     "peak_elevation": 2500
   },
@@ -248,6 +318,8 @@
     "id": "courmayeur",
     "name": "Courmayeur",
     "country": "Italy",
+    "latitude": 45.7969,
+    "longitude": 6.9675,
     "base_elevation": 1224,
     "peak_elevation": 2755
   },
@@ -255,6 +327,8 @@
     "id": "garmisch",
     "name": "Garmisch-Partenkirchen",
     "country": "Germany",
+    "latitude": 47.4919,
+    "longitude": 11.0954,
     "base_elevation": 740,
     "peak_elevation": 2050
   },
@@ -262,6 +336,8 @@
     "id": "oberstdorf",
     "name": "Oberstdorf",
     "country": "Germany",
+    "latitude": 47.4083,
+    "longitude": 10.2833,
     "base_elevation": 813,
     "peak_elevation": 2224
   },
@@ -269,6 +345,8 @@
     "id": "baqueira-beret",
     "name": "Baqueira Beret",
     "country": "Spain",
+    "latitude": 42.6997,
+    "longitude": 0.9333,
     "base_elevation": 1500,
     "peak_elevation": 2510
   },
@@ -276,6 +354,8 @@
     "id": "grandvalira",
     "name": "Grandvalira",
     "country": "Andorra",
+    "latitude": 42.5583,
+    "longitude": 1.6583,
     "base_elevation": 1710,
     "peak_elevation": 2640
   }
