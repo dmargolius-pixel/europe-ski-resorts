@@ -1,57 +1,282 @@
 [
   {
+    "id": "chamonix",
+    "name": "Chamonix",
+    "country": "France",
+    "base_elevation": 1035,
+    "peak_elevation": 3842
+  },
+  {
+    "id": "val-disere",
+    "name": "Val d'Isère",
+    "country": "France",
+    "base_elevation": 1850,
+    "peak_elevation": 3456
+  },
+  {
+    "id": "tignes",
+    "name": "Tignes",
+    "country": "France",
+    "base_elevation": 2100,
+    "peak_elevation": 3456
+  },
+  {
+    "id": "courchevel",
+    "name": "Courchevel",
+    "country": "France",
+    "base_elevation": 1850,
+    "peak_elevation": 2738
+  },
+  {
+    "id": "meribel",
+    "name": "Méribel",
+    "country": "France",
+    "base_elevation": 1450,
+    "peak_elevation": 2952
+  },
+  {
     "id": "val-thorens",
     "name": "Val Thorens",
     "country": "France",
-    "region": "Northern Alps",
-    "tier": "High Altitude",
-    "latitude": 45.2981,
-    "longitude": 6.5800,
-    "base_elevation_m": 2300,
-    "top_elevation_m": 3230
+    "base_elevation": 2300,
+    "peak_elevation": 3200
   },
   {
-    "id": "morzine",
-    "name": "Morzine",
+    "id": "les-arcs",
+    "name": "Les Arcs",
     "country": "France",
-    "region": "Northern Alps",
-    "tier": "Low Altitude",
-    "latitude": 46.1792,
-    "longitude": 6.7089,
-    "base_elevation_m": 1000,
-    "top_elevation_m": 2020
+    "base_elevation": 1200,
+    "peak_elevation": 3226
+  },
+  {
+    "id": "la-plagne",
+    "name": "La Plagne",
+    "country": "France",
+    "base_elevation": 1250,
+    "peak_elevation": 3250
+  },
+  {
+    "id": "avoriaz",
+    "name": "Avoriaz",
+    "country": "France",
+    "base_elevation": 1800,
+    "peak_elevation": 2466
+  },
+  {
+    "id": "alpe-dhuez",
+    "name": "Alpe d'Huez",
+    "country": "France",
+    "base_elevation": 1860,
+    "peak_elevation": 3330
+  },
+  {
+    "id": "les-deux-alpes",
+    "name": "Les Deux Alpes",
+    "country": "France",
+    "base_elevation": 1650,
+    "peak_elevation": 3600
+  },
+  {
+    "id": "serre-chevalier",
+    "name": "Serre Chevalier",
+    "country": "France",
+    "base_elevation": 1200,
+    "peak_elevation": 2800
+  },
+  {
+    "id": "flaine",
+    "name": "Flaine",
+    "country": "France",
+    "base_elevation": 1600,
+    "peak_elevation": 2500
+  },
+  {
+    "id": "zermatt",
+    "name": "Zermatt",
+    "country": "Switzerland",
+    "base_elevation": 1620,
+    "peak_elevation": 3883
+  },
+  {
+    "id": "verbier",
+    "name": "Verbier",
+    "country": "Switzerland",
+    "base_elevation": 1500,
+    "peak_elevation": 3330
+  },
+  {
+    "id": "st-moritz",
+    "name": "St. Moritz",
+    "country": "Switzerland",
+    "base_elevation": 1775,
+    "peak_elevation": 3057
+  },
+  {
+    "id": "davos-klosters",
+    "name": "Davos Klosters",
+    "country": "Switzerland",
+    "base_elevation": 1560,
+    "peak_elevation": 2844
+  },
+  {
+    "id": "saas-fee",
+    "name": "Saas-Fee",
+    "country": "Switzerland",
+    "base_elevation": 1800,
+    "peak_elevation": 3600
+  },
+  {
+    "id": "wengen",
+    "name": "Wengen",
+    "country": "Switzerland",
+    "base_elevation": 1274,
+    "peak_elevation": 2320
+  },
+  {
+    "id": "grindelwald",
+    "name": "Grindelwald",
+    "country": "Switzerland",
+    "base_elevation": 1034,
+    "peak_elevation": 2500
+  },
+  {
+    "id": "engelberg",
+    "name": "Engelberg",
+    "country": "Switzerland",
+    "base_elevation": 1050,
+    "peak_elevation": 3020
+  },
+  {
+    "id": "crans-montana",
+    "name": "Crans-Montana",
+    "country": "Switzerland",
+    "base_elevation": 1500,
+    "peak_elevation": 3000
+  },
+  {
+    "id": "st-anton",
+    "name": "St. Anton am Arlberg",
+    "country": "Austria",
+    "base_elevation": 1304,
+    "peak_elevation": 2811
+  },
+  {
+    "id": "ischgl",
+    "name": "Ischgl",
+    "country": "Austria",
+    "base_elevation": 1400,
+    "peak_elevation": 2872
+  },
+  {
+    "id": "kitzbuhel",
+    "name": "Kitzbühel",
+    "country": "Austria",
+    "base_elevation": 800,
+    "peak_elevation": 2000
+  },
+  {
+    "id": "solden",
+    "name": "Sölden",
+    "country": "Austria",
+    "base_elevation": 1377,
+    "peak_elevation": 3340
+  },
+  {
+    "id": "mayrhofen",
+    "name": "Mayrhofen",
+    "country": "Austria",
+    "base_elevation": 630,
+    "peak_elevation": 2500
+  },
+  {
+    "id": "saalbach",
+    "name": "Saalbach Hinterglemm",
+    "country": "Austria",
+    "base_elevation": 1003,
+    "peak_elevation": 2100
+  },
+  {
+    "id": "zell-am-see",
+    "name": "Zell am See",
+    "country": "Austria",
+    "base_elevation": 757,
+    "peak_elevation": 2000
+  },
+  {
+    "id": "innsbruck",
+    "name": "Innsbruck Nordkette",
+    "country": "Austria",
+    "base_elevation": 860,
+    "peak_elevation": 2256
   },
   {
     "id": "cortina",
     "name": "Cortina d'Ampezzo",
     "country": "Italy",
-    "region": "Dolomites",
-    "tier": "Mid Altitude",
-    "latitude": 46.5369,
-    "longitude": 12.1357,
-    "base_elevation_m": 1224,
-    "top_elevation_m": 2828
+    "base_elevation": 1224,
+    "peak_elevation": 2930
   },
   {
-    "id": "kitzbuehel",
-    "name": "Kitzbühel",
-    "country": "Austria",
-    "region": "Tyrol",
-    "tier": "Low Altitude",
-    "latitude": 47.4464,
-    "longitude": 12.3921,
-    "base_elevation_m": 800,
-    "top_elevation_m": 2000
+    "id": "cervinia",
+    "name": "Breuil-Cervinia",
+    "country": "Italy",
+    "base_elevation": 2050,
+    "peak_elevation": 3480
+  },
+  {
+    "id": "livigno",
+    "name": "Livigno",
+    "country": "Italy",
+    "base_elevation": 1816,
+    "peak_elevation": 2798
+  },
+  {
+    "id": "val-gardena",
+    "name": "Val Gardena",
+    "country": "Italy",
+    "base_elevation": 1236,
+    "peak_elevation": 2518
+  },
+  {
+    "id": "madonna-di-campiglio",
+    "name": "Madonna di Campiglio",
+    "country": "Italy",
+    "base_elevation": 1550,
+    "peak_elevation": 2500
+  },
+  {
+    "id": "courmayeur",
+    "name": "Courmayeur",
+    "country": "Italy",
+    "base_elevation": 1224,
+    "peak_elevation": 2755
+  },
+  {
+    "id": "garmisch",
+    "name": "Garmisch-Partenkirchen",
+    "country": "Germany",
+    "base_elevation": 740,
+    "peak_elevation": 2050
+  },
+  {
+    "id": "oberstdorf",
+    "name": "Oberstdorf",
+    "country": "Germany",
+    "base_elevation": 813,
+    "peak_elevation": 2224
   },
   {
     "id": "baqueira-beret",
-    "name": "Baqueira-Beret",
+    "name": "Baqueira Beret",
     "country": "Spain",
-    "region": "Pyrenees",
-    "tier": "Mid Altitude",
-    "latitude": 42.6986,
-    "longitude": 0.9348,
-    "base_elevation_m": 1500,
-    "top_elevation_m": 2610
+    "base_elevation": 1500,
+    "peak_elevation": 2510
+  },
+  {
+    "id": "grandvalira",
+    "name": "Grandvalira",
+    "country": "Andorra",
+    "base_elevation": 1710,
+    "peak_elevation": 2640
   }
 ]
