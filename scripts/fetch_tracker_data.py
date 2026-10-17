@@ -7,13 +7,12 @@ import urllib.error
 RESORTS_FILE = "resorts.json"
 OUTPUT_FILE = "data/el-nino-tracker.json"
 
-def fetch_json(url):
+def fetch_json(url, timeout=10):
     req = urllib.request.Request(url, headers={'User-Agent': 'EuropeSki-Tracker/1.0'})
-    with urllib.request.urlopen(req) as response:
+    with urllib.request.urlopen(req, timeout=timeout) as response:
         return json.loads(response.read().decode())
 
 def get_weekly_metrics(lat, lon):
-    # Live forecast endpoint requires past_days=7 to query recent actuals
     current_url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={lat}&longitude={lon}"
@@ -23,13 +22,16 @@ def get_weekly_metrics(lat, lon):
     )
     
     try:
-        response_json = fetch_json(current_url)
+        response_json = fetch_json(current_url, timeout=10)
         current_data = response_json.get("daily", {})
     except urllib.error.HTTPError as e:
-        print(f"HTTP Error for lat {lat}, lon {lon}: {e.code} - {e.reason}")
+        print(f"HTTP Error for lat {lat}, lon {lon}: {e.code} - {e.reason}", flush=True)
+        current_data = {}
+    except urllib.error.URLError as e:
+        print(f"URL Error for lat {lat}, lon {lon}: {e.reason}", flush=True)
         current_data = {}
     except Exception as e:
-        print(f"Error fetching forecast for lat {lat}, lon {lon}: {e}")
+        print(f"Error fetching forecast for lat {lat}, lon {lon}: {e}", flush=True)
         current_data = {}
 
     snow_list = current_data.get("snowfall_sum") or []
@@ -58,7 +60,7 @@ def get_weekly_metrics(lat, lon):
             f"&timezone=auto"
         )
         try:
-            hist_json = fetch_json(archive_url)
+            hist_json = fetch_json(archive_url, timeout=10)
             hist_data = hist_json.get("daily", {})
             hist_snow_list = hist_data.get("snowfall_sum") or []
             total_hist = sum(s for s in hist_snow_list if s is not None)
@@ -79,7 +81,7 @@ def get_weekly_metrics(lat, lon):
 
 def main():
     if not os.path.exists(RESORTS_FILE):
-        print(f"Error: {RESORTS_FILE} not found.")
+        print(f"Error: {RESORTS_FILE} not found.", flush=True)
         return
 
     with open(RESORTS_FILE, "r") as f:
@@ -87,12 +89,13 @@ def main():
 
     results = []
     for r in resorts:
-        print(f"Processing {r['name']}...")
+        print(f"Processing {r['name']}...", flush=True)
         metrics = get_weekly_metrics(r["latitude"], r["longitude"])
         results.append({**r, **metrics})
 
-    high_alt = [r for r in results if r.get("tier") == "High Altitude"]
-    low_alt = [r for r in results if r.get("tier") == "Low Altitude"]
+    # Classify by base elevation thresholds matching the summary cards
+    high_alt = [r for r in results if r.get("base_elevation", 0) > 1800]
+    low_alt = [r for r in results if r.get("base_elevation", 0) < 1200]
 
     avg_high_anomaly = sum(r["snow_anomaly_pct"] for r in high_alt) / len(high_alt) if high_alt else 0
     avg_low_anomaly = sum(r["snow_anomaly_pct"] for r in low_alt) / len(low_alt) if low_alt else 0
@@ -111,7 +114,7 @@ def main():
     with open(OUTPUT_FILE, "w") as f:
         json.dump(output_payload, f, indent=2)
 
-    print("Data processing complete.")
+    print("Data processing complete.", flush=True)
 
 if __name__ == "__main__":
     main()
