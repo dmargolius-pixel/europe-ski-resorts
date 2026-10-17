@@ -6,10 +6,11 @@ import concurrent.futures
 import time
 import os
 import ssl
+import re
 
 # Configuration
-TIMEOUT_SECONDS = 8
-MAX_WORKERS = 10  # Reduced concurrency slightly to avoid triggering rate limits (429)
+TIMEOUT_SECONDS = 12  # Increased from 8s to give slower servers (e.g. Sudelfeld, Ladurns) time to respond
+MAX_WORKERS = 8       # Slightly reduced to prevent rate limiting (502 / 401 errors)
 LOCAL_CSV_FILENAME = 'Ski resorts - Master.csv'
 
 # Google Sheets Direct CSV Export Link
@@ -20,7 +21,6 @@ def create_lenient_ssl_context():
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    # Lower cipher security level so legacy DH keys work
     try:
         ctx.set_ciphers('DEFAULT@SECLEVEL=1')
     except Exception:
@@ -35,7 +35,7 @@ def download_master_csv():
     try:
         req = urllib.request.Request(
             GOOGLE_SHEETS_CSV_URL,
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
         )
         with urllib.request.urlopen(req, timeout=15, context=SSL_CONTEXT) as response:
             content = response.read().decode('utf-8')
@@ -47,8 +47,19 @@ def download_master_csv():
         print(f"[x] Failed to download CSV from Google Drive: {e}")
         return False
 
+def test_url_request(target_url):
+    """Executes an HTTP request with modern browser headers."""
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7,fr;q=0.6',
+        'Cache-Control': 'no-cache'
+    }
+    req = urllib.request.Request(target_url, headers=headers)
+    return urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS, context=SSL_CONTEXT)
+
 def check_link(row_data):
-    """Worker function to test a single resort link concurrently with redirect and SSL handling."""
+    """Worker function to test resort links concurrently with HTTPS->HTTP fallback and error handling."""
     resort_name, url = row_data
     
     if not url or url.strip() == '' or url.lower() in ['n/a', 'https://closed', 'http://closed', 'closed']:
@@ -58,36 +69,53 @@ def check_link(row_data):
     if not target_url.startswith('http://') and not target_url.startswith('https://'):
         target_url = 'https://' + target_url
 
-    # Standard browser user-agent string to minimize 403/420/429 bot blocks
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7'
-    }
-
     try:
-        req = urllib.request.Request(target_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS, context=SSL_CONTEXT) as response:
+        with test_url_request(target_url) as response:
             return (resort_name, target_url, 'SUCCESS', response.status)
 
     except urllib.error.HTTPError as e:
-        # Treat 308 (Permanent Redirect) or 301/302 as success since the destination exists
+        # Treat redirects and bot/cloudflare protections as warnings/successes
         if e.code in [301, 302, 307, 308]:
             return (resort_name, target_url, 'SUCCESS', f"{e.code} Redirect")
-        # Treat Cloudflare/Bot Guard responses (403, 420, 429) as warnings rather than outright dead links
-        elif e.code in [403, 420, 429]:
-            return (resort_name, target_url, 'BOT_BLOCKED', f"HTTP {e.code} - Server blocking automated bot request")
+        elif e.code in [401, 403, 420, 429]:
+            return (resort_name, target_url, 'BOT_BLOCKED', f"HTTP {e.code} - Bot protection / auth required")
+        elif e.code in [500, 502, 503, 504]:
+            # Retry once with HTTP if HTTPS generated a gateway issue
+            if target_url.startswith('https://'):
+                fallback_url = target_url.replace('https://', 'http://', 1)
+                try:
+                    with test_url_request(fallback_url) as response:
+                        return (resort_name, fallback_url, 'SUCCESS', f"HTTP Fallback ({response.status})")
+                except Exception:
+                    pass
+            return (resort_name, target_url, 'SERVER_ERROR', f"HTTP {e.code} - Server Temporary Error")
         else:
             return (resort_name, target_url, 'HTTP_ERROR', e.code)
 
     except urllib.error.URLError as e:
         reason_str = str(e.reason)
-        # Check if the SSL context fallback was hit
+        # Attempt HTTP fallback for connection refused or SSL errors on port 443
+        if ('Connection refused' in reason_str or 'DH_KEY' in reason_str or 'CERTIFICATE' in reason_str) and target_url.startswith('https://'):
+            fallback_url = target_url.replace('https://', 'http://', 1)
+            try:
+                with test_url_request(fallback_url) as response:
+                    return (resort_name, fallback_url, 'SUCCESS', f"HTTP Fallback ({response.status})")
+            except Exception:
+                pass
+
         if 'DH_KEY_TOO_SMALL' in reason_str or 'CERTIFICATE_VERIFY_FAILED' in reason_str:
             return (resort_name, target_url, 'SSL_WARNING', reason_str)
         return (resort_name, target_url, 'URL_ERROR', reason_str)
 
     except socket.timeout:
+        # Try HTTP fallback on timeout in case HTTPS port is firewalled
+        if target_url.startswith('https://'):
+            fallback_url = target_url.replace('https://', 'http://', 1)
+            try:
+                with test_url_request(fallback_url) as response:
+                    return (resort_name, fallback_url, 'SUCCESS', f"HTTP Fallback ({response.status})")
+            except Exception:
+                pass
         return (resort_name, target_url, 'TIMEOUT', f'Exceeded {TIMEOUT_SECONDS}s')
 
     except Exception as e:
