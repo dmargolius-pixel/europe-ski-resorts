@@ -13,6 +13,7 @@ def fetch_json(url, timeout=10):
         return json.loads(response.read().decode())
 
 def get_weekly_metrics(lat, lon):
+    # Live forecast endpoint uses daily snowfall_sum
     current_url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={lat}&longitude={lon}"
@@ -24,12 +25,6 @@ def get_weekly_metrics(lat, lon):
     try:
         response_json = fetch_json(current_url, timeout=10)
         current_data = response_json.get("daily", {})
-    except urllib.error.HTTPError as e:
-        print(f"HTTP Error for lat {lat}, lon {lon}: {e.code} - {e.reason}", flush=True)
-        current_data = {}
-    except urllib.error.URLError as e:
-        print(f"URL Error for lat {lat}, lon {lon}: {e.reason}", flush=True)
-        current_data = {}
     except Exception as e:
         print(f"Error fetching forecast for lat {lat}, lon {lon}: {e}", flush=True)
         current_data = {}
@@ -43,7 +38,7 @@ def get_weekly_metrics(lat, lon):
     valid_freezing = [fl for fl in freezing_list if fl is not None]
     avg_freezing_level = sum(valid_freezing) / len(valid_freezing) if valid_freezing else 0
 
-    # 10-Year ERA5 Historical Baseline (2014-2024)
+    # 10-Year ERA5 Historical Baseline (2014-2024) using hourly snowfall parameter
     today = datetime.now(timezone.utc).date()
     start_date = today - timedelta(days=7)
     era5_snow_totals = []
@@ -56,13 +51,13 @@ def get_weekly_metrics(lat, lon):
             f"https://archive-api.open-meteo.com/v1/archive?"
             f"latitude={lat}&longitude={lon}"
             f"&start_date={hist_start}&end_date={hist_end}"
-            f"&daily=snowfall_sum"
+            f"&hourly=snowfall"
             f"&timezone=auto"
         )
         try:
             hist_json = fetch_json(archive_url, timeout=10)
-            hist_data = hist_json.get("daily", {})
-            hist_snow_list = hist_data.get("snowfall_sum") or []
+            hist_data = hist_json.get("hourly", {})
+            hist_snow_list = hist_data.get("snowfall") or []
             total_hist = sum(s for s in hist_snow_list if s is not None)
             era5_snow_totals.append(total_hist)
         except Exception:
@@ -93,7 +88,6 @@ def main():
         metrics = get_weekly_metrics(r["latitude"], r["longitude"])
         results.append({**r, **metrics})
 
-    # Classify by base elevation thresholds matching the summary cards
     high_alt = [r for r in results if r.get("base_elevation", 0) > 1800]
     low_alt = [r for r in results if r.get("base_elevation", 0) < 1200]
 
