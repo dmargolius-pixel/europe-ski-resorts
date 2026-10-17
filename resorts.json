@@ -358,5 +358,15 @@
     "longitude": 1.6583,
     "base_elevation": 1710,
     "peak_elevation": 2640
-  }
+  },
+  {
+  "id": "stubai-glacier",
+  "name": "Stubai Glacier",
+  "country": "Austria",
+  "latitude": 47.0092,
+  "longitude": 11.1083,
+  "base_elevation": 1695,
+  "peak_elevation": 3210
+}
+
 ]
