@@ -4,11 +4,34 @@ import urllib.error
 import socket
 import concurrent.futures
 import time
+import os
 
 # Configuration
 TIMEOUT_SECONDS = 6
 MAX_WORKERS = 15  # Number of concurrent threads to speed up the scan
-CSV_FILENAME = 'Ski resorts - Master.csv'
+LOCAL_CSV_FILENAME = 'Ski resorts - Master.csv'
+
+# Google Sheets Direct CSV Export Link
+# Derived from your spreadsheet ID: 14cKe2GisNZfv6sWbkVAZFXGm1WLroSazYh3XwwqK2IY and GID: 1311212911
+GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/14cKe2GisNZfv6sWbkVAZFXGm1WLroSazYh3XwwqK2IY/export?format=csv&gid=1311212911'
+
+def download_master_csv():
+    """Downloads the latest CSV export directly from Google Sheets."""
+    print("Fetching latest master CSV directly from Google Drive...")
+    try:
+        req = urllib.request.Request(
+            GOOGLE_SHEETS_CSV_URL,
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+        )
+        with urllib.request.urlopen(req, timeout=15) as response:
+            content = response.read().decode('utf-8')
+            with open(LOCAL_CSV_FILENAME, 'w', encoding='utf-8') as f:
+                f.write(content)
+        print(f"Successfully downloaded latest dataset to '{LOCAL_CSV_FILENAME}'.")
+        return True
+    except Exception as e:
+        print(f"[x] Failed to download CSV from Google Drive: {e}")
+        return False
 
 def check_link(row_data):
     """Worker function to test a single resort link concurrently."""
@@ -17,7 +40,6 @@ def check_link(row_data):
     if not url or url.strip() == '' or url.lower() == 'n/a':
         return (resort_name, url, 'NO_URL', 'No website provided')
 
-    # Ensure URL has a scheme
     target_url = url.strip()
     if not target_url.startswith('http://') and not target_url.startswith('https://'):
         target_url = 'https://' + target_url
@@ -39,10 +61,14 @@ def check_link(row_data):
         return (resort_name, target_url, 'UNKNOWN_ERROR', str(e))
 
 def main():
-    print(f"Loading '{CSV_FILENAME}'...")
-    
+    # Attempt to download the live master CSV first; fallback to local if available
+    downloaded = download_master_csv()
+    if not downloaded and not os.path.exists(LOCAL_CSV_FILENAME):
+        print(f"[x] Error: Master CSV is unavailable locally and could not be fetched from Google Drive.")
+        return
+
     try:
-        with open(CSV_FILENAME, 'r', encoding='utf-8') as file:
+        with open(LOCAL_CSV_FILENAME, 'r', encoding='utf-8') as file:
             reader = csv.reader(file)
             headers = next(reader)
             
@@ -59,7 +85,7 @@ def main():
                     resorts_to_check.append((row[name_idx], row[website_idx]))
 
     except FileNotFoundError:
-        print(f"[x] Error: Could not find '{CSV_FILENAME}'. Please ensure it is in your current directory.")
+        print(f"[x] Error: Could not find '{LOCAL_CSV_FILENAME}'.")
         return
 
     print(f"Found {len(resorts_to_check)} resorts to audit. Launching {MAX_WORKERS} concurrent threads...")
@@ -85,7 +111,6 @@ def main():
                 broken_links.append((resort_name, url, status_type, details))
                 print(f"[!] BROKEN/ERROR ({status_type}) - {resort_name} ({url}): {details}")
 
-            # Print periodic progress
             if completed % 50 == 0 or completed == len(resorts_to_check):
                 print(f"Progress: {completed}/{len(resorts_to_check)} checked...")
 
@@ -106,7 +131,7 @@ def main():
             writer = csv.writer(f)
             writer.writerow(['Resort Name', 'URL', 'Error Type', 'Details'])
             writer.writerows(broken_links)
-        print("Report saved successfully. You can now review or fix these URLs in your master dataset.")
+        print("Report saved successfully.")
     else:
         print("\nOutstanding! Zero broken links detected across the entire master dataset.")
 
