@@ -1,9 +1,11 @@
 {
-  "last_updated": "2026-10-18T07:23:23.846973+00:00",
+  "last_updated": "2026-10-18T08:10:49.584166+00:00",
   "summary": {
     "overall_sample_size": 41,
     "high_altitude_snow_anomaly_pct": -100.0,
-    "low_altitude_snow_anomaly_pct": -3.5
+    "low_altitude_snow_anomaly_pct": -3.9,
+    "high_altitude_snow_depth_cm": 0.0,
+    "low_altitude_snow_depth_cm": 0.0
   },
   "resorts": [
     {
@@ -18,7 +20,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 3.0,
-      "avg_freezing_level_m": 3515
+      "avg_freezing_level_m": 3515,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "val-disere",
@@ -29,10 +32,11 @@
       "base_elevation": 1850,
       "peak_elevation": 3456,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 2.8,
+      "baseline_snowfall_cm": 6.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 2.1,
-      "avg_freezing_level_m": 3582
+      "avg_freezing_level_m": 3582,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "tignes",
@@ -46,7 +50,8 @@
       "baseline_snowfall_cm": 6.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 2.5,
-      "avg_freezing_level_m": 3573
+      "avg_freezing_level_m": 3573,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "courchevel",
@@ -60,7 +65,8 @@
       "baseline_snowfall_cm": 1.2,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 2.0,
-      "avg_freezing_level_m": 3622
+      "avg_freezing_level_m": 3622,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "meribel",
@@ -71,10 +77,11 @@
       "base_elevation": 1450,
       "peak_elevation": 2952,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 0.5,
+      "baseline_snowfall_cm": 0.6,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 3.2,
-      "avg_freezing_level_m": 3627
+      "avg_freezing_level_m": 3627,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "val-thorens",
@@ -85,10 +92,11 @@
       "base_elevation": 2300,
       "peak_elevation": 3200,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 4.4,
+      "baseline_snowfall_cm": 4.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 7.5,
-      "avg_freezing_level_m": 3670
+      "avg_freezing_level_m": 3670,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "les-arcs",
@@ -102,7 +110,8 @@
       "baseline_snowfall_cm": 1.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 1.6,
-      "avg_freezing_level_m": 3610
+      "avg_freezing_level_m": 3610,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "la-plagne",
@@ -112,11 +121,12 @@
       "longitude": 6.6775,
       "base_elevation": 1250,
       "peak_elevation": 3250,
-      "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 2.5,
+      "current_snowfall_cm": 0,
+      "baseline_snowfall_cm": 3.0,
       "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 1.7,
-      "avg_freezing_level_m": 3609
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "avoriaz",
@@ -127,10 +137,11 @@
       "base_elevation": 1800,
       "peak_elevation": 2466,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.8,
+      "baseline_snowfall_cm": 2.0,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 10.9,
-      "avg_freezing_level_m": 3497
+      "avg_freezing_level_m": 3497,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "alpe-dhuez",
@@ -141,10 +152,11 @@
       "base_elevation": 1860,
       "peak_elevation": 3330,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.6,
+      "baseline_snowfall_cm": 1.3,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 8.9,
-      "avg_freezing_level_m": 3681
+      "avg_freezing_level_m": 3681,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "les-deux-alpes",
@@ -154,11 +166,12 @@
       "longitude": 6.1264,
       "base_elevation": 1650,
       "peak_elevation": 3600,
-      "current_snowfall_cm": 0.0,
+      "current_snowfall_cm": 0,
       "baseline_snowfall_cm": 2.9,
       "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 6.0,
-      "avg_freezing_level_m": 3714
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "serre-chevalier",
@@ -172,7 +185,8 @@
       "baseline_snowfall_cm": 4.0,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 6.0,
-      "avg_freezing_level_m": 3724
+      "avg_freezing_level_m": 3724,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "flaine",
@@ -183,10 +197,11 @@
       "base_elevation": 1600,
       "peak_elevation": 2500,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.1,
+      "baseline_snowfall_cm": 1.2,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 15.7,
-      "avg_freezing_level_m": 3520
+      "avg_freezing_level_m": 3520,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "zermatt",
@@ -200,7 +215,8 @@
       "baseline_snowfall_cm": 4.0,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.7,
-      "avg_freezing_level_m": 3503
+      "avg_freezing_level_m": 3503,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "verbier",
@@ -214,7 +230,8 @@
       "baseline_snowfall_cm": 4.5,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 3488
+      "avg_freezing_level_m": 3488,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "st-moritz",
@@ -225,10 +242,11 @@
       "base_elevation": 1775,
       "peak_elevation": 3057,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.9,
+      "baseline_snowfall_cm": 1.8,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.2,
-      "avg_freezing_level_m": 3296
+      "avg_freezing_level_m": 3296,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "davos-klosters",
@@ -239,10 +257,11 @@
       "base_elevation": 1560,
       "peak_elevation": 2844,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.4,
+      "baseline_snowfall_cm": 1.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.3,
-      "avg_freezing_level_m": 3209
+      "avg_freezing_level_m": 3209,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "saas-fee",
@@ -253,10 +272,11 @@
       "base_elevation": 1800,
       "peak_elevation": 3600,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.0,
+      "baseline_snowfall_cm": 2.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 2.9,
-      "avg_freezing_level_m": 3483
+      "avg_freezing_level_m": 3483,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "wengen",
@@ -270,7 +290,8 @@
       "baseline_snowfall_cm": 3.6,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 3370
+      "avg_freezing_level_m": 3370,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "grindelwald",
@@ -284,7 +305,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 0.1,
-      "avg_freezing_level_m": 3326
+      "avg_freezing_level_m": 3326,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "engelberg",
@@ -294,11 +316,12 @@
       "longitude": 8.4063,
       "base_elevation": 1050,
       "peak_elevation": 3020,
-      "current_snowfall_cm": 0.0,
+      "current_snowfall_cm": 0,
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
-      "weekly_precip_mm": 0.4,
-      "avg_freezing_level_m": 3281
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "crans-montana",
@@ -312,7 +335,8 @@
       "baseline_snowfall_cm": 2.3,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 3428
+      "avg_freezing_level_m": 3428,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "st-anton",
@@ -326,7 +350,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": -7.8,
       "weekly_precip_mm": 1.4,
-      "avg_freezing_level_m": 3193
+      "avg_freezing_level_m": 3193,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "ischgl",
@@ -338,9 +363,10 @@
       "peak_elevation": 2872,
       "current_snowfall_cm": 0.0,
       "baseline_snowfall_cm": 0.1,
-      "snow_anomaly_pct": -91.0,
+      "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 1.0,
-      "avg_freezing_level_m": 3159
+      "avg_freezing_level_m": 3159,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "kitzbuhel",
@@ -354,7 +380,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 6.2,
-      "avg_freezing_level_m": 3031
+      "avg_freezing_level_m": 3031,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "solden",
@@ -365,10 +392,11 @@
       "base_elevation": 1377,
       "peak_elevation": 3340,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.2,
+      "baseline_snowfall_cm": 1.1,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 1.0,
-      "avg_freezing_level_m": 3180
+      "avg_freezing_level_m": 3180,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "mayrhofen",
@@ -382,7 +410,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 2.2,
-      "avg_freezing_level_m": 3093
+      "avg_freezing_level_m": 3093,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "saalbach",
@@ -392,11 +421,12 @@
       "longitude": 12.6375,
       "base_elevation": 1003,
       "peak_elevation": 2100,
-      "current_snowfall_cm": 0.0,
+      "current_snowfall_cm": 0,
       "baseline_snowfall_cm": 0.0,
-      "snow_anomaly_pct": -35.0,
-      "weekly_precip_mm": 5.8,
-      "avg_freezing_level_m": 3025
+      "snow_anomaly_pct": -38.9,
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "zell-am-see",
@@ -410,7 +440,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 2.5,
-      "avg_freezing_level_m": 3003
+      "avg_freezing_level_m": 3003,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "innsbruck",
@@ -424,7 +455,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 3.0,
-      "avg_freezing_level_m": 3130
+      "avg_freezing_level_m": 3130,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "cortina",
@@ -438,7 +470,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 3.2,
-      "avg_freezing_level_m": 3250
+      "avg_freezing_level_m": 3250,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "cervinia",
@@ -448,11 +481,12 @@
       "longitude": 7.63,
       "base_elevation": 2050,
       "peak_elevation": 3480,
-      "current_snowfall_cm": 0.0,
+      "current_snowfall_cm": 0,
       "baseline_snowfall_cm": 2.2,
       "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 3.2,
-      "avg_freezing_level_m": 3570
+      "weekly_precip_mm": 0,
+      "avg_freezing_level_m": 0,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "livigno",
@@ -463,10 +497,11 @@
       "base_elevation": 1816,
       "peak_elevation": 2798,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 1.4,
+      "baseline_snowfall_cm": 1.5,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.5,
-      "avg_freezing_level_m": 3284
+      "avg_freezing_level_m": 3284,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "val-gardena",
@@ -480,7 +515,8 @@
       "baseline_snowfall_cm": 1.0,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 6.0,
-      "avg_freezing_level_m": 3266
+      "avg_freezing_level_m": 3266,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "madonna-di-campiglio",
@@ -494,7 +530,8 @@
       "baseline_snowfall_cm": 4.8,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.4,
-      "avg_freezing_level_m": 3412
+      "avg_freezing_level_m": 3412,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "courmayeur",
@@ -508,7 +545,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 2.2,
-      "avg_freezing_level_m": 3598
+      "avg_freezing_level_m": 3598,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "garmisch",
@@ -522,7 +560,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 1.8,
-      "avg_freezing_level_m": 3113
+      "avg_freezing_level_m": 3113,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "oberstdorf",
@@ -536,7 +575,8 @@
       "baseline_snowfall_cm": 0.0,
       "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 4.3,
-      "avg_freezing_level_m": 3132
+      "avg_freezing_level_m": 3132,
+      "snow_depth_cm": 0.0
     },
     {
       "id": "baqueira-beret",
@@ -549,8 +589,9 @@
       "current_snowfall_cm": 0.0,
       "baseline_snowfall_cm": 1.0,
       "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 1.6,
-      "avg_freezing_level_m": 3704
+      "weekly_precip_mm": 3.2,
+      "avg_freezing_level_m": 3704,
+      "snow_depth_cm": 4.0
     },
     {
       "id": "grandvalira",
@@ -561,10 +602,11 @@
       "base_elevation": 1710,
       "peak_elevation": 2640,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 2.1,
+      "baseline_snowfall_cm": 2.3,
       "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 11.5,
-      "avg_freezing_level_m": 3758
+      "weekly_precip_mm": 14.4,
+      "avg_freezing_level_m": 3758,
+      "snow_depth_cm": 14.0
     },
     {
       "id": "stubai-glacier",
@@ -575,10 +617,11 @@
       "base_elevation": 1695,
       "peak_elevation": 3210,
       "current_snowfall_cm": 0.1,
-      "baseline_snowfall_cm": 7.7,
+      "baseline_snowfall_cm": 7.9,
       "snow_anomaly_pct": -99.1,
       "weekly_precip_mm": 3.9,
-      "avg_freezing_level_m": 3140
+      "avg_freezing_level_m": 3140,
+      "snow_depth_cm": 0.0
     }
   ]
 }
