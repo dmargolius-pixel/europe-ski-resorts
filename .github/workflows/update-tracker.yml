@@ -2,8 +2,8 @@ name: Update Ski Tracker Data
 
 on:
   schedule:
-    # Runs every day at 06:15 UTC
-    - cron: '15 6 * * *'
+    # Runs every day at 02:47 UTC
+    - cron: '47 2 * * *'
   workflow_dispatch:
 
 jobs:
