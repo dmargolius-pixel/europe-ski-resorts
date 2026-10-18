@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from datetime import datetime, timedelta, timezone
 import urllib.request
 import urllib.error
@@ -8,13 +9,20 @@ RESORTS_FILE = "resorts.json"
 OUTPUT_FILE = "data/el-nino-tracker.json"
 HISTORY_FILE = "data/season-history.json"
 
-def fetch_json(url, timeout=10):
+def fetch_json(url, timeout=10, retries=3, backoff_factor=2):
     req = urllib.request.Request(url, headers={'User-Agent': 'EuropeSki-Tracker/1.0'})
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        return json.loads(response.read().decode())
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                return json.loads(response.read().decode())
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
+            # If it's a 503 Service Unavailable or network timeout, retry
+            if attempt == retries - 1:
+                raise e
+            sleep_time = backoff_factor * (attempt + 1)
+            time.sleep(sleep_time)
 
 def get_resort_metrics(lat, lon):
-    # Fetch forecast data including snow_depth (returned in meters)
     current_url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={lat}&longitude={lon}"
@@ -40,11 +48,9 @@ def get_resort_metrics(lat, lon):
     valid_freezing = [fl for fl in freezing_list if fl is not None]
     avg_freezing_level = sum(valid_freezing) / len(valid_freezing) if valid_freezing else 0
 
-    # Get latest available snow depth on the ground and convert from meters to cm
     valid_depths = [d for d in depth_list if d is not None]
     current_snow_depth = (valid_depths[-1] * 100) if valid_depths else 0.0
 
-    # 10-Year ERA5 Historical Baseline (2014-2024) for snowfall anomaly
     today = datetime.now(timezone.utc).date()
     start_date = today - timedelta(days=7)
     era5_snow_totals = []
@@ -122,7 +128,6 @@ def main():
     with open(OUTPUT_FILE, "w") as f:
         json.dump(output_payload, f, indent=2)
 
-    # --- Append daily record to seasonal history log ---
     history_data = {"history": []}
     if os.path.exists(HISTORY_FILE):
         try:
@@ -131,7 +136,6 @@ def main():
         except Exception:
             history_data = {"history": []}
 
-    # Remove today's entry if it already exists, ensuring no duplicates on re-runs
     history_entries = [entry for entry in history_data.get("history", []) if entry.get("date") != today_str]
     
     history_entries.append({
