@@ -16,7 +16,6 @@ def fetch_json(url, timeout=10, retries=3, backoff_factor=2):
             with urllib.request.urlopen(req, timeout=timeout) as response:
                 return json.loads(response.read().decode())
         except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
-            # If it's a 503 Service Unavailable or network timeout, retry
             if attempt == retries - 1:
                 raise e
             sleep_time = backoff_factor * (attempt + 1)
@@ -96,10 +95,17 @@ def main():
         resorts = json.load(f)
 
     results = []
+    marquee_depths = {}
+    target_marquee_ids = {"meribel", "verbier", "kitzbuhel", "cervinia"}
+
     for r in resorts:
         print(f"Processing {r['name']}...", flush=True)
         metrics = get_resort_metrics(r["latitude"], r["longitude"])
-        results.append({**r, **metrics})
+        resort_data = {**r, **metrics}
+        results.append(resort_data)
+
+        if r["id"] in target_marquee_ids:
+            marquee_depths[r["id"]] = resort_data["snow_depth_cm"]
 
     high_alt = [r for r in results if r.get("base_elevation", 0) > 1800]
     low_alt = [r for r in results if r.get("base_elevation", 0) < 1200]
@@ -141,7 +147,11 @@ def main():
     history_entries.append({
         "date": today_str,
         "high_alt_snow_depth_cm": round(avg_high_depth, 1),
-        "low_alt_snow_depth_cm": round(avg_low_depth, 1)
+        "low_alt_snow_depth_cm": round(avg_low_depth, 1),
+        "meribel_snow_depth_cm": marquee_depths.get("meribel", 0.0),
+        "verbier_snow_depth_cm": marquee_depths.get("verbier", 0.0),
+        "kitzbuhel_snow_depth_cm": marquee_depths.get("kitzbuhel", 0.0),
+        "cervinia_snow_depth_cm": marquee_depths.get("cervinia", 0.0)
     })
 
     history_entries.sort(key=lambda x: x["date"])
