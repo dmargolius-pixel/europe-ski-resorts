@@ -5,27 +5,27 @@
       "high_alt_snow_depth_cm": 0.0,
       "low_alt_snow_depth_cm": 0.0,
       "meribel_snow_depth_cm": 0.0,
-      "verbier_snow_depth_cm": 0.0,
+      "zermatt_snow_depth_cm": 0.0,
       "kitzbuhel_snow_depth_cm": 0.0,
-      "cervinia_snow_depth_cm": 0.0
+      "cortina_snow_depth_cm": 0.0
     },
     {
       "date": "2026-10-19",
       "high_alt_snow_depth_cm": 0.0,
       "low_alt_snow_depth_cm": 0.0,
       "meribel_snow_depth_cm": 0.0,
-      "verbier_snow_depth_cm": 0.0,
+      "zermatt_snow_depth_cm": 0.0,
       "kitzbuhel_snow_depth_cm": 0.0,
-      "cervinia_snow_depth_cm": 0.0
+      "cortina_snow_depth_cm": 0.0
     },
     {
       "date": "2026-10-20",
-      "high_alt_snow_depth_cm": 1.9,
+      "high_alt_snow_depth_cm": 2.0,
       "low_alt_snow_depth_cm": 0.0,
       "meribel_snow_depth_cm": 0.0,
-      "verbier_snow_depth_cm": 0.0,
+      "zermatt_snow_depth_cm": 31.0,
       "kitzbuhel_snow_depth_cm": 0.0,
-      "cervinia_snow_depth_cm": 7.0
+      "cortina_snow_depth_cm": 0.0
     }
   ]
 }
