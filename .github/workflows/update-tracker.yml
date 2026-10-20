@@ -23,17 +23,21 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Data Collector Script
-        run: python scripts/fetch_tracker_data.py
+      - name: Run Data Collector Scripts
+        run: |
+          python scripts/fetch_tracker_data.py
+          python scripts/fetch_personal_tracker_data.py
 
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/el-nino-tracker.json data/season-history.json
-          git diff --cached --quiet || (git commit -m "Auto-update El Nino tracker and season history [skip ci]" && git push)
-          
+          git add data/el-nino-tracker.json data/season-history.json data/personal-tracker.json data/personal-history.json
+          git diff --cached --quiet || (git commit -m "Auto-update public and personal ski trackers [skip ci]" && git push)
+
       - name: Purge jsDelivr Cache
         run: |
           curl -s "https://purge.jsdelivr.net/gh/dmargolius-pixel/europe-ski-resorts@main/data/el-nino-tracker.json"
           curl -s "https://purge.jsdelivr.net/gh/dmargolius-pixel/europe-ski-resorts@main/data/season-history.json"
+          curl -s "https://purge.jsdelivr.net/gh/dmargolius-pixel/europe-ski-resorts@main/data/personal-tracker.json"
+          curl -s "https://purge.jsdelivr.net/gh/dmargolius-pixel/europe-ski-resorts@main/data/personal-history.json"
