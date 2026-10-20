@@ -1,0 +1,11 @@
+Resort Name,Country,Website,Previous Price,New Price,Variance %,Extraction Stage,Source URL,Status
+Bigëll - Dardhë,Albania,https://ski-bigell.com/,€20.00,€20.70,+3.5%,Fallback (Index +3.5%),https://ski-bigell.com/,ESTIMATED
+Grandvalira,Andorra,https://grandvalira.com,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),https://grandvalira.com,ESTIMATED
+Ordino Arcalis,Andorra,https://ordinoarcalis.com,€51.00,€52.78,+3.5%,Fallback (Index +3.5%),https://ordinoarcalis.com,ESTIMATED
+Vallnord,Andorra,https://vallnord.com,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),https://vallnord.com,ESTIMATED
+Alpbach,Austria,https://skijuwel.com,€66.50,€68.00,+2.3%,Stage 1 (Official Site Link Spider),https://www.skijuwel.com/en/winter/tickets-and-prices,VERIFIED_SCRAPE
+Ankogel-Mallnitz,Austria,https://ankogel-ski.at,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://ankogel-ski.at,ESTIMATED
+Annaberg,Austria,https://annaberg.info,€46.00,€48.50,+5.4%,Stage 1 (Official Site Link Spider),https://www.annaberg.info/preise-sommer,VERIFIED_SCRAPE
+Auffach,Austria,https://www.skijuwel.com,€66.50,€68.00,+2.3%,Stage 1 (Official Site Link Spider),https://www.skijuwel.com/en/winter/tickets-and-prices,VERIFIED_SCRAPE
+Axamer Lizum,Austria,https://axamer-lizum.at,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),https://axamer-lizum.at,ESTIMATED
+Bad Gastein,Austria,https://skigastein.com,€73.90,€82.50,+11.6%,Stage 1 (Official Site Link Spider),https://www.skigastein.com/tickets-lifte/wintertickets/tageskarten/,VERIFIED_SCRAPE
