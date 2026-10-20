@@ -18,24 +18,6 @@
     "peak_elevation": 3456
   },
   {
-    "id": "tignes",
-    "name": "Tignes",
-    "country": "France",
-    "latitude": 45.4705,
-    "longitude": 6.9103,
-    "base_elevation": 2100,
-    "peak_elevation": 3456
-  },
-  {
-    "id": "courchevel",
-    "name": "Courchevel",
-    "country": "France",
-    "latitude": 45.4158,
-    "longitude": 6.6348,
-    "base_elevation": 1850,
-    "peak_elevation": 2738
-  },
-  {
     "id": "meribel",
     "name": "Méribel",
     "country": "France",
@@ -63,15 +45,6 @@
     "peak_elevation": 3226
   },
   {
-    "id": "la-plagne",
-    "name": "La Plagne",
-    "country": "France",
-    "latitude": 45.5050,
-    "longitude": 6.6775,
-    "base_elevation": 1250,
-    "peak_elevation": 3250
-  },
-  {
     "id": "avoriaz",
     "name": "Avoriaz",
     "country": "France",
@@ -79,15 +52,6 @@
     "longitude": 6.7725,
     "base_elevation": 1800,
     "peak_elevation": 2466
-  },
-  {
-    "id": "alpe-dhuez",
-    "name": "Alpe d'Huez",
-    "country": "France",
-    "latitude": 45.0909,
-    "longitude": 6.0664,
-    "base_elevation": 1860,
-    "peak_elevation": 3330
   },
   {
     "id": "les-deux-alpes",
@@ -117,6 +81,33 @@
     "peak_elevation": 2500
   },
   {
+    "id": "la-clusaz",
+    "name": "La Clusaz",
+    "country": "France",
+    "latitude": 45.9044,
+    "longitude": 6.4239,
+    "base_elevation": 1040,
+    "peak_elevation": 2600
+  },
+  {
+    "id": "megeve",
+    "name": "Megève",
+    "country": "France",
+    "latitude": 45.8567,
+    "longitude": 6.6179,
+    "base_elevation": 1050,
+    "peak_elevation": 2350
+  },
+  {
+    "id": "morzine",
+    "name": "Morzine",
+    "country": "France",
+    "latitude": 46.1800,
+    "longitude": 6.7091,
+    "base_elevation": 1000,
+    "peak_elevation": 2019
+  },
+  {
     "id": "zermatt",
     "name": "Zermatt",
     "country": "Switzerland",
@@ -144,15 +135,6 @@
     "peak_elevation": 3057
   },
   {
-    "id": "davos-klosters",
-    "name": "Davos Klosters",
-    "country": "Switzerland",
-    "latitude": 46.8048,
-    "longitude": 9.8360,
-    "base_elevation": 1560,
-    "peak_elevation": 2844
-  },
-  {
     "id": "saas-fee",
     "name": "Saas-Fee",
     "country": "Switzerland",
@@ -162,15 +144,6 @@
     "peak_elevation": 3600
   },
   {
-    "id": "wengen",
-    "name": "Wengen",
-    "country": "Switzerland",
-    "latitude": 46.6078,
-    "longitude": 7.9228,
-    "base_elevation": 1274,
-    "peak_elevation": 2320
-  },
-  {
     "id": "grindelwald",
     "name": "Grindelwald",
     "country": "Switzerland",
@@ -178,6 +151,15 @@
     "longitude": 8.0414,
     "base_elevation": 1034,
     "peak_elevation": 2500
+  },
+  {
+    "id": "adelboden-lenk",
+    "name": "Adelboden-Lenk",
+    "country": "Switzerland",
+    "latitude": 46.4630,
+    "longitude": 7.5162,
+    "base_elevation": 1068,
+    "peak_elevation": 2362
   },
   {
     "id": "engelberg",
@@ -261,13 +243,31 @@
     "peak_elevation": 2000
   },
   {
-    "id": "innsbruck",
-    "name": "Innsbruck Nordkette",
+    "id": "obertauern",
+    "name": "Obertauern",
     "country": "Austria",
-    "latitude": 47.2800,
-    "longitude": 11.3800,
-    "base_elevation": 860,
-    "peak_elevation": 2256
+    "latitude": 47.2494,
+    "longitude": 13.5570,
+    "base_elevation": 1630,
+    "peak_elevation": 2313
+  },
+  {
+    "id": "obergurgl",
+    "name": "Obergurgl-Hochgurgl",
+    "country": "Austria",
+    "latitude": 46.8794,
+    "longitude": 11.0387,
+    "base_elevation": 1930,
+    "peak_elevation": 3080
+  },
+  {
+    "id": "stubai-glacier",
+    "name": "Stubai Glacier",
+    "country": "Austria",
+    "latitude": 47.0092,
+    "longitude": 11.1083,
+    "base_elevation": 1695,
+    "peak_elevation": 3210
   },
   {
     "id": "cortina",
@@ -324,6 +324,33 @@
     "peak_elevation": 2755
   },
   {
+    "id": "kronplatz",
+    "name": "Kronplatz",
+    "country": "Italy",
+    "latitude": 46.7388,
+    "longitude": 11.9583,
+    "base_elevation": 973,
+    "peak_elevation": 2275
+  },
+  {
+    "id": "3-zinnen",
+    "name": "3 Zinnen Dolomites",
+    "country": "Italy",
+    "latitude": 46.7170,
+    "longitude": 12.3619,
+    "base_elevation": 1130,
+    "peak_elevation": 2200
+  },
+  {
+    "id": "sestriere",
+    "name": "Sestriere",
+    "country": "Italy",
+    "latitude": 44.9585,
+    "longitude": 6.8787,
+    "base_elevation": 2035,
+    "peak_elevation": 2823
+  },
+  {
     "id": "garmisch",
     "name": "Garmisch-Partenkirchen",
     "country": "Germany",
@@ -340,33 +367,5 @@
     "longitude": 10.2833,
     "base_elevation": 813,
     "peak_elevation": 2224
-  },
-  {
-    "id": "baqueira-beret",
-    "name": "Baqueira Beret",
-    "country": "Spain",
-    "latitude": 42.6997,
-    "longitude": 0.9333,
-    "base_elevation": 1500,
-    "peak_elevation": 2510
-  },
-  {
-    "id": "grandvalira",
-    "name": "Grandvalira",
-    "country": "Andorra",
-    "latitude": 42.5583,
-    "longitude": 1.6583,
-    "base_elevation": 1710,
-    "peak_elevation": 2640
-  },
-  {
-  "id": "stubai-glacier",
-  "name": "Stubai Glacier",
-  "country": "Austria",
-  "latitude": 47.0092,
-  "longitude": 11.1083,
-  "base_elevation": 1695,
-  "peak_elevation": 3210
-}
-
+  }
 ]
