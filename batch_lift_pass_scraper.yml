@@ -1,56 +1,696 @@
-name: Deep-Discovery Ski Lift Pass Scraper
+import csv
+import re
+import os
+import time
+import ssl
+import urllib.request
+import urllib.parse
+import urllib.error
+import argparse
+from html.parser import HTMLParser
 
-on:
-  workflow_dispatch:
-    inputs:
-      offset:
-        description: 'Starting row offset index (e.g. 0, 50, 100)'
-        required: true
-        default: '0'
-      limit:
-        description: 'Batch size (Number of resorts to process, e.g. 50)'
-        required: true
-        default: '50'
+try:
+    import requests
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
 
-permissions:
-  contents: write
+try:
+    from bs4 import BeautifulSoup
+    HAS_BS4 = True
+except ImportError:
+    HAS_BS4 = False
 
-jobs:
-  run-deep-scraper:
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
+try:
+    from playwright.sync_api import sync_playwright
+    HAS_PLAYWRIGHT = True
+except ImportError:
+    HAS_PLAYWRIGHT = False
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+# --- Configuration Constants ---
+DEFAULT_MASTER_CSV = 'Ski_resorts_Master.csv'
+FALLBACK_MASTER_CSV = 'Ski resorts - Master.csv'
+DEFAULT_OUTPUT_CSV = 'Ski resorts - Updated 2026-27.csv'
+DEFAULT_AUDIT_CSV = 'lift_pass_batch_audit.csv'
+TIMEOUT_SECONDS = 15
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+# Sanity Guardrails: Extracted price must be within [0.85x, 1.32x] of previous known price
+MIN_RATIO = 0.85
+MAX_RATIO = 1.32
+SEASON_INFLATION_RATE = 0.035
 
-      - name: Install Python Dependencies & Headless Chromium
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          playwright install --with-deps chromium
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-GB,en;q=0.9,de;q=0.8,fr;q=0.7,it;q=0.6,es;q=0.5',
+    'Cache-Control': 'no-cache'
+}
 
-      - name: Execute 4-Stage Deep Discovery Batch
-        run: |
-          python batch_lift_pass_scraper.py --offset ${{ github.event.inputs.offset }} --limit ${{ github.event.inputs.limit }}
+# Multilingual keywords used to score and discover pricing links on a resort homepage
+LINK_KEYWORDS_HIGH = [
+    'skipass', 'ski-pass', 'tageskarte', 'tarif', 'preise', 'prices',
+    'forfait', 'prezzi', 'listino', 'skiticket', 'liftpass', 'lift-pass',
+    'day-pass', 'tageskarten', 'tarifas', 'ticketpreise', 'winterpreise'
+]
+LINK_KEYWORDS_MEDIUM = [
+    'ticket', 'winter', 'bergbahn', 'remontees', 'impianti', 'rates', 'shop', 'tickets'
+]
 
-      - name: Commit and Push Updated CSVs to Repository
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add "Ski resorts - Updated 2026-27.csv" lift_pass_batch_audit.csv
-          git commit -m "Chore: Deep scrape batch offset ${{ github.event.inputs.offset }} (limit ${{ github.event.inputs.limit }})" || exit 0
-          git push
+# Keywords that indicate a number nearby is a 1-day adult ski pass
+CONTEXT_POSITIVE_KEYWORDS = [
+    '1 tag', '1-tag', 'tageskarte', 'erwachsene', '1 day', 'day pass', 'adult',
+    '1 jour', 'journée', 'journee', 'adulte', '1 giorno', 'giornaliero', 'adulto',
+    '1 día', '1 dia', 'forfait', 'skipass', 'hauptsaison', 'high season', 'peak',
+    'day ticket', 'adults'
+]
 
-      - name: Upload Updated Dataset & Audit Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: lift-pass-batch-offset-${{ github.event.inputs.offset }}
-          path: |
-            Ski resorts - Updated 2026-27.csv
-            lift_pass_batch_audit.csv
+# Keywords that indicate a number nearby is NOT a 1-day adult pass
+CONTEXT_NEGATIVE_KEYWORDS = [
+    '6 tage', '6 days', '6 jours', '6 giorni', 'saison', 'season pass',
+    'kinder', 'child', 'enfant', 'bambini', 'junior', 'senior', 'student',
+    'halbtageskarte', 'half day', 'demi-journée', '4 stunden', '4 hours',
+    '2 tage', '3 tage', '4 tage', '5 tage', '7 tage', 'familie', 'family',
+    'youth', 'jugend', ' Kleinkind', '10 days', '2 days', '3 days'
+]
+
+
+def create_ssl_context():
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    try:
+        ctx.set_ciphers('DEFAULT@SECLEVEL=1')
+    except Exception:
+        pass
+    return ctx
+
+
+SSL_CTX = create_ssl_context()
+
+
+class SimpleHTMLParser(HTMLParser):
+    """Built-in fallback parser in case BeautifulSoup4 is not installed locally."""
+    def __init__(self):
+        super().__init__()
+        self.links = []
+        self.text_parts = []
+        self._in_ignored = False
+        self._current_href = None
+        self._current_link_text = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('script', 'style', 'noscript', 'svg'):
+            self._in_ignored = True
+        elif tag == 'a':
+            attr_dict = dict(attrs)
+            self._current_href = attr_dict.get('href', '')
+            self._current_link_text = []
+
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript', 'svg'):
+            self._in_ignored = False
+        elif tag == 'a' and self._current_href is not None:
+            self.links.append((self._current_href, ' '.join(self._current_link_text)))
+            self._current_href = None
+
+    def handle_data(self, data):
+        if not self._in_ignored:
+            cleaned = data.strip()
+            if cleaned:
+                self.text_parts.append(cleaned)
+                if self._current_href is not None:
+                    self._current_link_text.append(cleaned)
+
+
+def fetch_html(url, timeout=TIMEOUT_SECONDS):
+    """Fetches HTML using requests if available, otherwise falls back to standard urllib."""
+    if HAS_REQUESTS:
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=timeout, verify=False, allow_redirects=True)
+            if resp.status_code == 200:
+                return resp.text, resp.url
+        except Exception:
+            return None, url
+    else:
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as response:
+                if response.status == 200:
+                    raw = response.read()
+                    return raw.decode('utf-8', errors='replace'), response.geturl()
+        except Exception:
+            return None, url
+    return None, url
+
+
+def clean_numeric_price(price_str):
+    """Converts formatted strings like '€68.50' or 'CHF 75,00' to float."""
+    if not price_str or str(price_str).strip().lower() in ['n/a', 'closed', 'none', '']:
+        return 0.0
+    normalized = str(price_str).replace(',', '.')
+    match = re.search(r'([0-9]+(?:\.[0-9]+)?)', normalized)
+    return float(match.group(1)) if match else 0.0
+
+
+def validate_price_bounds(val, prev_price_val):
+    """Validates candidate price against previous year's baseline or realistic bounds."""
+    if prev_price_val > 0:
+        return (prev_price_val * MIN_RATIO) <= val <= (prev_price_val * MAX_RATIO)
+    return 25.0 <= val <= 135.0
+
+
+def extract_structured_table_price(html_content, prev_price_val=0.0, default_currency='€'):
+    """
+    Specifically targets structured HTML pricing tables on Skiresort.info, Bergfex,
+    and official resort sites (e.g. id='selAd' or table rows containing Adult/Erwachsene).
+    """
+    if not html_content or not HAS_BS4:
+        return None
+
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # 1. Check Skiresort.info exact Adult Day Pass cell (id="selAd")
+    sel_ad = soup.find(id='selAd')
+    if sel_ad:
+        cell_text = sel_ad.get_text(separator=' ').strip()
+        val = clean_numeric_price(cell_text)
+        if validate_price_bounds(val, prev_price_val):
+            symbol = 'CHF' if ('CHF' in cell_text or default_currency == 'CHF') else '€'
+            return f"{symbol}{val:.2f}"
+
+    # 2. Check HTML tables where a row mentions Adult / Erwachsene / Adulte / Adulti
+    adult_row_keywords = ['erwachsene', 'adults', 'adult', 'adulte', 'adulti', 'adultos', '1 tag', '1 day', 'tageskarte']
+    neg_row_keywords = ['6 tage', '6 days', 'kinder', 'child', 'youth', 'jugend', 'senior', 'saison']
+
+    for tr in soup.find_all('tr'):
+        row_text = tr.get_text(separator=' ').strip()
+        row_lower = row_text.lower()
+        if any(ak in row_lower for ak in adult_row_keywords) and not any(nk in row_lower for nk in neg_row_keywords):
+            price = extract_best_price_from_text(row_text, prev_price_val, default_currency)
+            if price:
+                return price
+
+    return None
+
+
+def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€'):
+    """
+    Finds all currency-number pairs in the text, scores each candidate by surrounding
+    keywords (adult, 1-day, tageskarte vs child, 6-day), and returns the highest-confidence match.
+    """
+    if not text:
+        return None
+
+    pattern = re.compile(
+        r'(?:(€|EUR|CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*|-|\.\-)?|'
+        r'([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\s*(?:\.\-|-)?\s*(€|EUR|CHF|SFr\.?))',
+        re.IGNORECASE
+    )
+
+    candidates = []
+
+    for match in pattern.finditer(text):
+        curr1, val1, val2, curr2 = match.groups()
+        raw_curr = (curr1 or curr2 or '').upper()
+        raw_val = (val1 or val2 or '').replace(',', '.')
+
+        try:
+            val = float(raw_val)
+        except ValueError:
+            continue
+
+        if not validate_price_bounds(val, prev_price_val):
+            continue
+
+        start_ctx = max(0, match.start() - 140)
+        end_ctx = min(len(text), match.end() + 140)
+        context = text[start_ctx:end_ctx].lower()
+
+        score = 0
+        for pos_kw in CONTEXT_POSITIVE_KEYWORDS:
+            if pos_kw in context:
+                score += 6
+        for neg_kw in CONTEXT_NEGATIVE_KEYWORDS:
+            if neg_kw in context:
+                score -= 7
+
+        if prev_price_val > 0:
+            ratio = val / prev_price_val
+            if 1.00 <= ratio <= 1.12:
+                score += 10
+            elif 0.95 <= ratio < 1.00 or 1.12 < ratio <= 1.22:
+                score += 4
+
+        symbol = 'CHF' if ('CHF' in raw_curr or 'SFR' in raw_curr or default_currency == 'CHF') else '€'
+        candidates.append((score, val, f"{symbol}{val:.2f}"))
+
+    if not candidates:
+        return None
+
+    candidates.sort(key=lambda x: (x[0], x[1]), reverse=True)
+    best_score, best_val, best_formatted = candidates[0]
+
+    if best_score < -4:
+        return None
+
+    return best_formatted
+
+
+def parse_html_text_and_links(html_content, base_url):
+    """Extracts visible text and scored candidate links from raw HTML."""
+    links = []
+    if HAS_BS4:
+        soup = BeautifulSoup(html_content, 'html.parser')
+        for a in soup.find_all('a', href=True):
+            href = a['href'].strip()
+            text = a.get_text(separator=' ').strip()
+            links.append((href, text))
+        for tag in soup(['script', 'style', 'noscript', 'svg']):
+            tag.decompose()
+        visible_text = soup.get_text(separator=' ')
+    else:
+        parser = SimpleHTMLParser()
+        parser.feed(html_content)
+        links = parser.links
+        visible_text = ' '.join(parser.text_parts)
+
+    visible_text = re.sub(r'\s+', ' ', visible_text)
+
+    scored_urls = {}
+    parsed_base = urllib.parse.urlparse(base_url)
+    base_domain = parsed_base.netloc.lower().replace('www.', '')
+
+    for href, anchor_text in links:
+        if not href or href.startswith(('javascript:', 'mailto:', 'tel:', '#')):
+            continue
+        full_url = urllib.parse.urljoin(base_url, href)
+        parsed_link = urllib.parse.urlparse(full_url)
+        link_domain = parsed_link.netloc.lower().replace('www.', '')
+
+        if base_domain not in link_domain and not any(k in link_domain for k in ['ticket', 'skipass', 'shop', 'tarif', 'bergbahn']):
+            continue
+
+        if re.search(r'\.(jpg|jpeg|png|gif|svg|pdf|zip|mp4|ics)$', parsed_link.path, re.I):
+            continue
+
+        combined = f"{parsed_link.path.lower()} {anchor_text.lower()}"
+        score = 0
+        for kw in LINK_KEYWORDS_HIGH:
+            if kw in combined:
+                score += 10
+        for kw in LINK_KEYWORDS_MEDIUM:
+            if kw in combined:
+                score += 3
+
+        if score > 0:
+            scored_urls[full_url] = max(scored_urls.get(full_url, 0), score)
+
+    sorted_candidates = sorted(scored_urls.keys(), key=lambda u: scored_urls[u], reverse=True)
+    return visible_text, sorted_candidates[:8]
+
+
+def stage1_aggregator_search(resort_name, country, prev_price_val, default_currency):
+    """
+    Stage 1 (Highest Accuracy): Searches Skiresort.info and Bergfex internal site search
+    to find the exact resort profile URL (even when slugs have compound names),
+    then extracts the 1-day adult price directly from their standardized HTML table.
+    """
+    clean_name = re.sub(r'\(.*?\)', '', resort_name).strip()
+    slug = re.sub(r'[^a-z0-9]+', '-', clean_name.lower()).strip('-')
+
+    # 1A: Try direct Skiresort.info URLs first
+    direct_sr_urls = [
+        f"https://www.skiresort.info/ski-resort/{slug}/ski-pass-prices/",
+        f"https://www.skiresort.info/ski-resort/{slug}/"
+    ]
+    for sr_url in direct_sr_urls:
+        html, final_url = fetch_html(sr_url, timeout=10)
+        if html and ('selAd' in html or 'Ski pass prices' in html or 'Day ticket' in html):
+            price = extract_structured_table_price(html, prev_price_val, default_currency)
+            if not price:
+                text, _ = parse_html_text_and_links(html, final_url)
+                price = extract_best_price_from_text(text, prev_price_val, default_currency)
+            if price:
+                return price, "Stage 1A (Skiresort.info Direct)", final_url
+
+    # 1B: Use Skiresort.info internal search to resolve compound resort slugs
+    search_url = f"https://www.skiresort.info/search/?q={urllib.parse.quote(clean_name)}"
+    search_html, _ = fetch_html(search_url, timeout=12)
+    if search_html and HAS_BS4:
+        soup = BeautifulSoup(search_html, 'html.parser')
+        for a in soup.find_all('a', href=True):
+            href = a['href']
+            if '/ski-resort/' in href and href.count('/') >= 4:
+                full_resort_url = urllib.parse.urljoin("https://www.skiresort.info", href)
+                if not full_resort_url.endswith('/'):
+                    full_resort_url += '/'
+                prices_subpage = re.sub(r'/ski-resort/([^/]+)/.*$', r'/ski-resort/\1/ski-pass-prices/', full_resort_url)
+
+                for candidate_sr in [prices_subpage, full_resort_url]:
+                    sub_html, sub_final = fetch_html(candidate_sr, timeout=10)
+                    if sub_html:
+                        price = extract_structured_table_price(sub_html, prev_price_val, default_currency)
+                        if not price:
+                            text, _ = parse_html_text_and_links(sub_html, sub_final)
+                            price = extract_best_price_from_text(text, prev_price_val, default_currency)
+                        if price:
+                            return price, "Stage 1B (Skiresort.info Search)", sub_final
+                break
+
+    # 1C: Query Bergfex direct & search for European resorts
+    bf_direct = f"https://www.bergfex.com/{slug}/preise/"
+    bf_html, bf_final = fetch_html(bf_direct, timeout=10)
+    if bf_html:
+        price = extract_structured_table_price(bf_html, prev_price_val, default_currency)
+        if not price:
+            text, _ = parse_html_text_and_links(bf_html, bf_final)
+            price = extract_best_price_from_text(text, prev_price_val, default_currency)
+        if price:
+            return price, "Stage 1C (Bergfex Direct)", bf_final
+
+    # 1D: Bergfex autocomplete JSON search to resolve exact Bergfex slug
+    bf_ajax_url = f"https://www.bergfex.com/ym/ajax/autocomplete/?term={urllib.parse.quote(clean_name)}"
+    bf_json_raw, _ = fetch_html(bf_ajax_url, timeout=8)
+    if bf_json_raw:
+        matches = re.findall(r'"url"\s*:\s*"([^"]+)"', bf_json_raw)
+        for m_path in matches[:3]:
+            clean_path = m_path.replace('\\/', '/').strip('/')
+            if clean_path and not any(x in clean_path for x in ['sommer', 'langlauf', 'hotel']):
+                bf_candidate = f"https://www.bergfex.com/{clean_path}/preise/"
+                sub_html, sub_final = fetch_html(bf_candidate, timeout=10)
+                if sub_html:
+                    price = extract_structured_table_price(sub_html, prev_price_val, default_currency)
+                    if not price:
+                        text, _ = parse_html_text_and_links(sub_html, sub_final)
+                        price = extract_best_price_from_text(text, prev_price_val, default_currency)
+                    if price:
+                        return price, "Stage 1D (Bergfex Search)", sub_final
+
+    return None, None, None
+
+
+def stage2_spider_official_site(website_url, prev_price_val, default_currency):
+    """
+    Stage 2: Crawls the resort's official website, discovers pricing/skipass links in the DOM,
+    and visits top candidate pages to extract the 1-day adult price.
+    """
+    if not website_url or website_url.strip().lower() in ['n/a', 'closed', '']:
+        return None, None, []
+
+    base_url = website_url.strip().rstrip('/')
+    if not base_url.startswith(('http://', 'https://')):
+        base_url = 'https://' + base_url
+
+    html, final_url = fetch_html(base_url)
+    if not html:
+        return None, None, [base_url]
+
+    home_text, candidate_links = parse_html_text_and_links(html, final_url)
+
+    parsed_root = urllib.parse.urlparse(final_url)
+    root_domain_url = f"{parsed_root.scheme}://{parsed_root.netloc}"
+    for fallback_slug in ['/skipass', '/tarifs', '/preise', '/prices', '/tickets', '/prezzi']:
+        fallback_full = root_domain_url + fallback_slug
+        if fallback_full not in candidate_links:
+            candidate_links.append(fallback_full)
+
+    for link_url in candidate_links[:6]:
+        sub_html, sub_final_url = fetch_html(link_url, timeout=10)
+        if sub_html:
+            price = extract_structured_table_price(sub_html, prev_price_val, default_currency)
+            if not price:
+                sub_text, _ = parse_html_text_and_links(sub_html, sub_final_url)
+                price = extract_best_price_from_text(sub_text, prev_price_val, default_currency)
+            if price:
+                return price, "Stage 2 (Official Site Spider)", [sub_final_url]
+
+    price = extract_structured_table_price(html, prev_price_val, default_currency)
+    if not price:
+        price = extract_best_price_from_text(home_text, prev_price_val, default_currency)
+    if price:
+        return price, "Stage 2 (Official Homepage)", [final_url]
+
+    return None, None, (candidate_links[:3] if candidate_links else [final_url])
+
+
+def stage3_headless_browser(pw_page, target_urls, resort_name, country, prev_price_val, default_currency):
+    """
+    Stage 3: Uses a persistent Playwright Chromium page to render JS-heavy official ticket pages
+    AND perform a live browser search if static requests were blocked.
+    """
+    if not pw_page:
+        return None, None, None
+
+    # 3A: Render top candidate official pricing URLs in real Chromium
+    for url in (target_urls or [])[:2]:
+        try:
+            pw_page.goto(url, timeout=15000, wait_until="domcontentloaded")
+            pw_page.wait_for_timeout(1800)
+            rendered_html = pw_page.content()
+            price = extract_structured_table_price(rendered_html, prev_price_val, default_currency)
+            if not price:
+                text, _ = parse_html_text_and_links(rendered_html, url)
+                price = extract_best_price_from_text(text, prev_price_val, default_currency)
+            if price:
+                return price, "Stage 3A (Playwright Official JS)", url
+        except Exception:
+            continue
+
+    # 3B: Use Playwright to query Bing/Yahoo/DuckDuckGo for Skiresort.info or official price snippet
+    clean_name = re.sub(r'\(.*?\)', '', resort_name).strip()
+    search_queries = [
+        f'"{clean_name}" {country} ski pass price adult day skiresort.info',
+        f'"{clean_name}" {country} skipass tageskarte forfait adult day price'
+    ]
+    for q in search_queries:
+        try:
+            b_url = f"https://www.bing.com/search?q={urllib.parse.quote(q)}"
+            pw_page.goto(b_url, timeout=14000, wait_until="domcontentloaded")
+            pw_page.wait_for_timeout(1200)
+            b_html = pw_page.content()
+
+            # Check if a skiresort.info link appeared in Bing results
+            if HAS_BS4:
+                soup = BeautifulSoup(b_html, 'html.parser')
+                for a in soup.find_all('a', href=True):
+                    href = a['href']
+                    if 'skiresort.info/ski-resort/' in href or 'bergfex.' in href:
+                        pw_page.goto(href, timeout=14000, wait_until="domcontentloaded")
+                        pw_page.wait_for_timeout(1000)
+                        agg_html = pw_page.content()
+                        price = extract_structured_table_price(agg_html, prev_price_val, default_currency)
+                        if not price:
+                            text, _ = parse_html_text_and_links(agg_html, href)
+                            price = extract_best_price_from_text(text, prev_price_val, default_currency)
+                        if price:
+                            return price, "Stage 3B (Playwright Search -> Aggregator)", href
+
+            text, _ = parse_html_text_and_links(b_html, b_url)
+            price = extract_best_price_from_text(text, prev_price_val, default_currency)
+            if price:
+                return price, "Stage 3B (Playwright Search Snippet)", b_url
+        except Exception:
+            continue
+
+    return None, None, None
+
+
+def process_batch(master_csv, output_csv, audit_csv, offset, limit):
+    if not os.path.exists(master_csv) and os.path.exists(FALLBACK_MASTER_CSV):
+        master_csv = FALLBACK_MASTER_CSV
+
+    print("\n" + "=" * 72)
+    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER")
+    print(f" Input File  : {master_csv}")
+    print(f" Offset      : {offset} | Batch Limit: {limit}")
+    print(f" Capabilities: Requests={HAS_REQUESTS}, BS4={HAS_BS4}, Playwright={HAS_PLAYWRIGHT}")
+    print("=" * 72 + "\n")
+
+    if not os.path.exists(master_csv):
+        print(f"[x] Error: Master CSV '{master_csv}' not found in {os.getcwd()}")
+        return
+
+    with open(master_csv, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        rows = list(reader)
+
+    country_idx = next((i for i, h in enumerate(header) if 'Country' in h), 0)
+    name_idx = next((i for i, h in enumerate(header) if 'Resort Name' in h), 1)
+    region_idx = next((i for i, h in enumerate(header) if 'Region' in h or 'Area' in h), 2)
+    website_idx = next((i for i, h in enumerate(header) if 'Website' in h), 9)
+    pass_idx = next((i for i, h in enumerate(header) if 'Day Pass' in h or 'Pass' in h), 5)
+
+    batch_rows = rows[offset:offset + limit] if limit > 0 else rows[offset:]
+
+    if os.path.exists(output_csv) and offset > 0:
+        with open(output_csv, 'r', encoding='utf-8') as f:
+            all_output_rows = list(csv.reader(f))
+    else:
+        updated_header = list(header)
+        updated_header[pass_idx] = 'Day Pass (2026/27)'
+        all_output_rows = [updated_header] + [list(r) for r in rows]
+
+    audit_header = [
+        'Resort Name', 'Country', 'Website', 'Previous Price',
+        'New Price', 'Variance %', 'Extraction Stage', 'Source URL', 'Status'
+    ]
+    audit_rows = [audit_header]
+
+    stats = {'scraped': 0, 'estimated': 0, 'manual': 0}
+
+    # Cache verified prices by normalized website domain so interconnected ski area villages
+    # (e.g., SkiWelt, Zillertal Arena, 3 Vallees) share verified live prices automatically.
+    domain_price_cache = {}
+
+    pw_context_mgr = sync_playwright().start() if HAS_PLAYWRIGHT else None
+    pw_browser = None
+    pw_page = None
+    if pw_context_mgr:
+        try:
+            pw_browser = pw_context_mgr.chromium.launch(headless=True)
+            pw_page = pw_browser.new_page(user_agent=HEADERS['User-Agent'])
+        except Exception:
+            pw_page = None
+
+    try:
+        for idx, row in enumerate(batch_rows, start=offset):
+            if len(row) <= max(name_idx, website_idx, pass_idx):
+                continue
+
+            country = row[country_idx] if len(row) > country_idx else ""
+            resort_name = row[name_idx]
+            region_name = row[region_idx] if len(row) > region_idx else ""
+            website = row[website_idx]
+            prev_price_str = row[pass_idx]
+            prev_val = clean_numeric_price(prev_price_str)
+            default_curr = 'CHF' if ('CHF' in prev_price_str or country.strip().lower() == 'switzerland') else '€'
+
+            print(f"[{idx + 1}/{len(rows)}] {resort_name} ({country}) | Baseline: {prev_price_str}")
+
+            price, method, source_url = None, None, None
+
+            # Check shared domain cache first (e.g., multiple villages sharing skiwelt.at or zillertalarena.com)
+            norm_domain = urllib.parse.urlparse(website if '://' in website else f"https://{website}").netloc.lower().replace('www.', '')
+            if norm_domain and norm_domain in domain_price_cache:
+                cached_price, cached_url = domain_price_cache[norm_domain]
+                if validate_price_bounds(clean_numeric_price(cached_price), prev_val):
+                    price = cached_price
+                    method = "Stage 0 (Shared Ski Area Domain Cache)"
+                    source_url = cached_url
+
+            # Stage 1: Aggregator Internal Search & Structured Table Lookup (Skiresort.info & Bergfex)
+            if not price:
+                price, method, source_url = stage1_aggregator_search(resort_name, country, prev_val, default_curr)
+                # If resort name didn't hit, also try searching by Region/Ski Area name if present
+                if not price and '/' in region_name:
+                    area_part = region_name.split('/')[-1].strip()
+                    if area_part and len(area_part) > 3:
+                        price, method, source_url = stage1_aggregator_search(area_part, country, prev_val, default_curr)
+
+            # Stage 2: Official Resort Website Link Spidering
+            candidate_js_urls = []
+            if not price:
+                price, method, candidate_js_urls = stage2_spider_official_site(website, prev_val, default_curr)
+                if price and candidate_js_urls:
+                    source_url = candidate_js_urls[0]
+
+            # Stage 3: Persistent Headless Browser (Playwright JS Rendering + Browser Search)
+            if not price and pw_page:
+                price, method, js_url = stage3_headless_browser(
+                    pw_page, candidate_js_urls, resort_name, country, prev_val, default_curr
+                )
+                if price:
+                    source_url = js_url
+
+            # Record Result or Fallback
+            if price:
+                if norm_domain:
+                    domain_price_cache[norm_domain] = (price, source_url)
+                new_val = clean_numeric_price(price)
+                variance_pct = f"{((new_val - prev_val) / prev_val * 100):+.1f}%" if prev_val > 0 else "N/A"
+                status = "VERIFIED_SCRAPE"
+                stats['scraped'] += 1
+                print(f"   [+] {status}: {price} ({variance_pct}) via {method}")
+                print(f"       Source: {source_url}")
+            else:
+                if prev_val > 0:
+                    est_val = prev_val * (1 + SEASON_INFLATION_RATE)
+                    price = f"{default_curr}{est_val:.2f}"
+                    variance_pct = "+3.5%"
+                    method = "Fallback (Index +3.5%)"
+                    source_url = website
+                    status = "ESTIMATED"
+                    stats['estimated'] += 1
+                    print(f"   [~] ESTIMATED: {price} (Flagged for quick manual check)")
+                else:
+                    price = prev_price_str
+                    variance_pct = "0.0%"
+                    method = "None"
+                    source_url = website
+                    status = "MANUAL_REQUIRED"
+                    stats['manual'] += 1
+                    print(f"   [!] MANUAL REQUIRED: No baseline or live price found")
+
+            target_row_idx = idx + 1
+            updated_row = list(all_output_rows[target_row_idx]) if target_row_idx < len(all_output_rows) else list(row)
+            updated_row[pass_idx] = price
+            if target_row_idx < len(all_output_rows):
+                all_output_rows[target_row_idx] = updated_row
+            else:
+                all_output_rows.append(updated_row)
+
+            audit_rows.append([
+                resort_name, country, website, prev_price_str,
+                price, variance_pct, method, source_url, status
+            ])
+
+            time.sleep(1.0)
+    finally:
+        if pw_browser:
+            try:
+                pw_browser.close()
+            except Exception:
+                pass
+        if pw_context_mgr:
+            try:
+                pw_context_mgr.stop()
+            except Exception:
+                pass
+
+    with open(output_csv, 'w', newline='', encoding='utf-8') as f:
+        csv.writer(f).writerows(all_output_rows)
+
+    audit_mode = 'a' if (os.path.exists(audit_csv) and offset > 0) else 'w'
+    with open(audit_csv, audit_mode, newline='', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        if audit_mode == 'w':
+            writer.writerows(audit_rows)
+        else:
+            writer.writerows(audit_rows[1:])
+
+    total_batch = stats['scraped'] + stats['estimated'] + stats['manual']
+    capture_rate = (stats['scraped'] / total_batch * 100) if total_batch > 0 else 0.0
+
+    print("\n" + "=" * 72)
+    print(f" BATCH COMPLETE: {total_batch} Resorts Processed")
+    print(f" Live Verified Prices : {stats['scraped']} ({capture_rate:.1f}%)")
+    print(f" Indexed Fallbacks    : {stats['estimated']}")
+    print(f" Manual Check Needed  : {stats['manual']}")
+    print(f" Output CSV Saved To  : {output_csv}")
+    print(f" Audit Log Saved To   : {audit_csv}")
+    print("=" * 72 + "\n")
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Enhanced Deep Discovery Ski Lift Pass Scraper")
+    parser.add_argument('--master', type=str, default=DEFAULT_MASTER_CSV, help="Master input CSV path")
+    parser.add_argument('--output', type=str, default=DEFAULT_OUTPUT_CSV, help="Updated output CSV path")
+    parser.add_argument('--audit', type=str, default=DEFAULT_AUDIT_CSV, help="Audit log CSV path")
+    parser.add_argument('--offset', type=int, default=0, help="Starting row offset (default: 0)")
+    parser.add_argument('--limit', type=int, default=25, help="Number of resorts per batch (default: 25)")
+    args = parser.parse_args()
+
+    process_batch(args.master, args.output, args.audit, args.offset, args.limit)
