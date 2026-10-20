@@ -1,4 +1,4 @@
-name: Build and Update Ski Data
+name: Build and Update Ski Weather Data
 
 on:
   schedule:
