@@ -131,7 +131,7 @@ def main():
 
     results = []
     marquee_depths = {}
-    target_marquee_ids = {"meribel", "verbier", "kitzbuhel", "cervinia"}
+    target_marquee_ids = {"meribel", "zermatt", "kitzbuhel", "cortina"}
 
     for r in resorts:
         print(f"Processing {r['name']}...", flush=True)
@@ -195,9 +195,9 @@ def main():
         "high_alt_snow_depth_cm": round(avg_high_depth, 1),
         "low_alt_snow_depth_cm": round(avg_low_depth, 1),
         "meribel_snow_depth_cm": marquee_depths.get("meribel", 0.0),
-        "verbier_snow_depth_cm": marquee_depths.get("verbier", 0.0),
+        "zermatt_snow_depth_cm": marquee_depths.get("zermatt", 0.0),
         "kitzbuhel_snow_depth_cm": marquee_depths.get("kitzbuhel", 0.0),
-        "cervinia_snow_depth_cm": marquee_depths.get("cervinia", 0.0)
+        "cortina_snow_depth_cm": marquee_depths.get("cortina", 0.0)
     })
 
     history_entries.sort(key=lambda x: x["date"])
