@@ -20,12 +20,12 @@
     },
     {
       "date": "2026-10-20",
-      "high_alt_snow_depth_cm": 2.0,
+      "high_alt_snow_depth_cm": 1.9,
       "low_alt_snow_depth_cm": 0.0,
       "meribel_snow_depth_cm": 0.0,
       "verbier_snow_depth_cm": 0.0,
       "kitzbuhel_snow_depth_cm": 0.0,
-      "cervinia_snow_depth_cm": 9.0
+      "cervinia_snow_depth_cm": 7.0
     }
   ]
 }
