@@ -1,0 +1,83 @@
+[
+  {
+    "id": "saas-fee",
+    "name": "Saas-Fee",
+    "country": "Switzerland",
+    "latitude": 46.109,
+    "longitude": 7.9306,
+    "base_elevation": 1800,
+    "peak_elevation": 3600
+  },
+  {
+    "id": "zell-am-see",
+    "name": "Zell am See",
+    "country": "Austria",
+    "latitude": 47.3239,
+    "longitude": 12.7967,
+    "base_elevation": 757,
+    "peak_elevation": 2000
+  },
+  {
+    "id": "kaprun",
+    "name": "Kaprun (Kitzsteinhorn)",
+    "country": "Austria",
+    "latitude": 47.2725,
+    "longitude": 12.7564,
+    "base_elevation": 911,
+    "peak_elevation": 3029
+  },
+  {
+    "id": "meribel",
+    "name": "Méribel",
+    "country": "France",
+    "latitude": 45.3975,
+    "longitude": 6.5641,
+    "base_elevation": 1450,
+    "peak_elevation": 2952
+  },
+  {
+    "id": "isola-2000",
+    "name": "Isola 2000",
+    "country": "France",
+    "latitude": 44.1911,
+    "longitude": 7.1558,
+    "base_elevation": 1800,
+    "peak_elevation": 2610
+  },
+  {
+    "id": "belle-plagne",
+    "name": "Belle Plagne",
+    "country": "France",
+    "latitude": 45.505,
+    "longitude": 6.6775,
+    "base_elevation": 2050,
+    "peak_elevation": 3250
+  },
+  {
+    "id": "avoriaz",
+    "name": "Avoriaz",
+    "country": "France",
+    "latitude": 46.1947,
+    "longitude": 6.7725,
+    "base_elevation": 1800,
+    "peak_elevation": 2466
+  },
+  {
+    "id": "tignes",
+    "name": "Tignes",
+    "country": "France",
+    "latitude": 45.4705,
+    "longitude": 6.9103,
+    "base_elevation": 2100,
+    "peak_elevation": 3456
+  },
+  {
+    "id": "val-disere",
+    "name": "Val d'Isère",
+    "country": "France",
+    "latitude": 45.4481,
+    "longitude": 6.9883,
+    "base_elevation": 1850,
+    "peak_elevation": 3456
+  }
+]
