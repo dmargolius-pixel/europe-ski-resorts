@@ -1,61 +1,61 @@
-Resort Name,Country,Website,Previous Price,New Price,Variance %,Extraction Stage,Source URL,Status
-Bigëll - Dardhë,Albania,https://ski-bigell.com/,€20.00,€20.70,+3.5%,Fallback (Index +3.5%),https://ski-bigell.com/,ESTIMATED
-Grandvalira,Andorra,https://grandvalira.com,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),https://grandvalira.com,ESTIMATED
-Ordino Arcalis,Andorra,https://ordinoarcalis.com,€51.00,€52.78,+3.5%,Fallback (Index +3.5%),https://ordinoarcalis.com,ESTIMATED
-Vallnord,Andorra,https://vallnord.com,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),https://vallnord.com,ESTIMATED
-Alpbach,Austria,https://skijuwel.com,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://skijuwel.com,ESTIMATED
-Ankogel-Mallnitz,Austria,https://ankogel-ski.at,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://ankogel-ski.at,ESTIMATED
-Annaberg,Austria,https://annaberg.info,€46.00,€41.90,-8.9%,Stage 2 (Official Site Spider),https://www.annaberg.info/preise-sommer,VERIFIED_SCRAPE
-Auffach,Austria,https://www.skijuwel.com,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://www.skijuwel.com,ESTIMATED
-Axamer Lizum,Austria,https://axamer-lizum.at,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),https://axamer-lizum.at,ESTIMATED
-Bad Gastein,Austria,https://skigastein.com,€73.90,€100.00,+35.3%,Stage 2 (Official Site Spider),https://www.skigastein.com/tickets-lifte/wintertickets/all-in-card-white/,VERIFIED_SCRAPE
-Bad Kleinkirchheim,Austria,https://badkleinkirchheim.com,€62.00,€73.00,+17.7%,Stage 2 (Official Site Spider),https://www.badkleinkirchheim.com/skigebiet/preise-oeffnungszeiten/,VERIFIED_SCRAPE
-Bergeralm,Austria,https://bergeralm.net,€52.50,€60.20,+14.7%,Stage 1C (Bergfex Direct),https://www.bergfex.com/bergeralm/,VERIFIED_SCRAPE
-Brandnertal,Austria,https://brandnertal.at,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),https://brandnertal.at,ESTIMATED
-Brixen im Thale,Austria,https://www.skiwelt.at,€69.00,€79.50,+15.2%,Stage 1C (Bergfex Direct),https://www.bergfex.com/soell/,VERIFIED_SCRAPE
-Achensee - Christlum,Austria,https://www.christlum.at,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),https://www.christlum.at,ESTIMATED
-Dachstein Krippenstein,Austria,https://dachstein-salzkammergut.com,€59.90,€65.00,+8.5%,Stage 1C (Bergfex Direct),https://www.bergfex.com/dachstein-krippenstein/,VERIFIED_SCRAPE
-Dachstein West,Austria,https://dachstein.at,€64.90,€67.17,+3.5%,Fallback (Index +3.5%),https://dachstein.at,ESTIMATED
-Damüls-Mellau,Austria,https://damuels-mellau.at,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://damuels-mellau.at,ESTIMATED
-Diedamskopf,Austria,https://diedamskopf.at,€61.00,€70.00,+14.8%,Stage 1C (Bergfex Direct),https://www.bergfex.com/diedamskopf/,VERIFIED_SCRAPE
-Dreiländereck,Austria,https://3laendereck.at,€48.50,€49.00,+1.0%,Stage 1C (Bergfex Direct),https://www.bergfex.com/dreilaendereck/,VERIFIED_SCRAPE
-Ellmau,Austria,https://www.skiwelt.at,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),https://www.bergfex.com/soell/,VERIFIED_SCRAPE
-Ellmau - Going,Austria,https://skiwelt.at,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),https://www.bergfex.com/soell/,VERIFIED_SCRAPE
-Emberger Alm,Austria,https://embergeralm.com,€42.00,€36.50,-13.1%,Stage 2 (Official Site Spider),https://embergeralm.com/skiliftpreise_D.php,VERIFIED_SCRAPE
-Fageralm,Austria,https://reiteralm.at/,€57.00,€58.99,+3.5%,Fallback (Index +3.5%),https://reiteralm.at/,ESTIMATED
-Faschina-Fontanella,Austria,https://seilbahnen-faschina.at,€54.00,€56.50,+4.6%,Stage 1C (Bergfex Direct),https://www.bergfex.com/faschina/,VERIFIED_SCRAPE
-Fendels,Austria,https://kaunertal.com,€56.00,€58.00,+3.6%,Stage 1C (Bergfex Direct),https://www.bergfex.com/fendels/preise/,VERIFIED_SCRAPE
-Feuerkogel,Austria,https://feuerkogel.net,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),https://feuerkogel.net,ESTIMATED
-Fieberbrunn,Austria,https://www.fieberbrunn.com,€76.00,€82.00,+7.9%,Stage 1B (Bergfex Resort Page),https://www.bergfex.com/saalbach-hinterglemm-leogang/preise/,VERIFIED_SCRAPE
-Filzmoos,Austria,https://filzmoos.at,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),https://filzmoos.at,ESTIMATED
-Flachau,Austria,https://www.snow-space.com,€73.50,€79.00,+7.5%,Stage 1C (Bergfex Direct),https://www.bergfex.com/flachau/,VERIFIED_SCRAPE
-Fügen - Spieljoch,Austria,https://spieljochbahn.at,€72.50,€82.00,+13.1%,Stage 1C (Bergfex Direct),https://www.bergfex.com/fuegen-spieljoch/,VERIFIED_SCRAPE
-Gaberl,Austria,https://gaberl.at,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),https://gaberl.at,ESTIMATED
-Gaißau-Hintersee,Austria,https://gaissauhintersee.at,€45.00,€42.00,-6.7%,Stage 2 (Official Site Spider),https://www.gaissauhintersee.at/gaissau-hintersee-alle-infos-zu-skibetrieb-offnungszeiten-skipassen.html,VERIFIED_SCRAPE
-Galsterberg,Austria,https://galsterberg.at,€63.50,€74.00,+16.5%,Stage 1C (Bergfex Direct),https://www.bergfex.com/galsterberg/,VERIFIED_SCRAPE
-Galtür,Austria,https://galtuer.com,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),https://galtuer.com,ESTIMATED
-Gargellen,Austria,https://bergbahnen-gargellen.at,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://bergbahnen-gargellen.at,ESTIMATED
-Gemeindealpe,Austria,https://gemeindealpe.at,€48.50,€50.20,+3.5%,Fallback (Index +3.5%),https://gemeindealpe.at,ESTIMATED
-Gerlitzen,Austria,https://gerlitzen.com,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://gerlitzen.com,ESTIMATED
-Gerlos,Austria,https://www.zillertalarena.com,€76.00,€82.00,+7.9%,Stage 1C (Bergfex Direct),https://www.bergfex.com/gerlos/,VERIFIED_SCRAPE
-Glun Gezer,Austria,https://glungezerbahn.at,€51.50,€53.30,+3.5%,Fallback (Index +3.5%),https://glungezerbahn.at,ESTIMATED
-Goldeck,Austria,https://sportberg-goldeck.com,€59.00,€64.50,+9.3%,Stage 1C (Bergfex Direct),https://www.bergfex.com/goldeck/,VERIFIED_SCRAPE
-Golm,Austria,https://golm.at,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://golm.at,ESTIMATED
-Grebenzen,Austria,https://grebenzen.at,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),https://grebenzen.at,ESTIMATED
-Großeck-Speiereck,Austria,https://grosseck-speiereck.at,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),https://grosseck-speiereck.at,ESTIMATED
-Grossglockner Resort Kals-Matrei,Austria,https://gg-resort.at,€66.50,€67.00,+0.8%,Stage 2 (Official Site Spider),https://www.gg-resort.at/preise/sommer-preise,VERIFIED_SCRAPE
-Heiligenblut,Austria,https://heiligenblut.at,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),https://heiligenblut.at,ESTIMATED
-Heutal - Unken,Austria,https://www.natursport-heutal.at/,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),https://www.natursport-heutal.at/,ESTIMATED
-Hinterglemm,Austria,https://www.saalbach.com,€76.00,€82.00,+7.9%,Stage 1B (Bergfex Resort Page),https://www.bergfex.com/saalbach-hinterglemm-leogang/preise/,VERIFIED_SCRAPE
-Hinterstoder,Austria,https://hiwu.at,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://hiwu.at,ESTIMATED
-Hintertux Glacier,Austria,https://hintertuxergletscher.at,€72.50,€75.04,+3.5%,Fallback (Index +3.5%),https://hintertuxergletscher.at,ESTIMATED
-Hochficht,Austria,https://hochficht.at,€54.00,€44.50,-17.6%,Stage 2 (Official Site Spider),https://skisport.com/hochficht/de/tickets-preise,VERIFIED_SCRAPE
-Hochkar,Austria,https://hochkar.com,€52.50,€50.00,-4.8%,Stage 2 (Official Site Spider),https://www.hochkar.com/tickets-preise,VERIFIED_SCRAPE
-Hochkönig,Austria,https://hochkoenig.at,€73.90,€76.49,+3.5%,Fallback (Index +3.5%),https://hochkoenig.at,ESTIMATED
-Hochkössen,Austria,https://bergbahnen-koessen.at,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),https://bergbahnen-koessen.at,ESTIMATED
-Hochkrimml,Austria,https://www.zillertalarena.com,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),https://www.bergfex.com/gerlos/,VERIFIED_SCRAPE
-Hochoetz,Austria,https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area?_gl=1*iz6nbr*_up*MQ..*_ga*NTczNzAzNTA0LjE3OTA2OTU5ODg.*_ga_QS7BFE7NJ4*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGQ1cGFLX3NxbmpXeGVqc3FqdS1rRVE3dTdDSFplLXRMSVVB*_ga_CP77K3YGLD*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGRLR3ZCZGRMLVJjMFJYNEZvVEwwalR6RS02VDZxdlZoQmh3,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area?_gl=1*iz6nbr*_up*MQ..*_ga*NTczNzAzNTA0LjE3OTA2OTU5ODg.*_ga_QS7BFE7NJ4*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGQ1cGFLX3NxbmpXeGVqc3FqdS1rRVE3dTdDSFplLXRMSVVB*_ga_CP77K3YGLD*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGRLR3ZCZGRMLVJjMFJYNEZvVEwwalR6RS02VDZxdlZoQmh3,ESTIMATED
-Hochrindl,Austria,https://hochrindl.at,€41.00,€52.00,+26.8%,Stage 2 (Official Site Spider),https://www.hochrindl.at/hochrindl-winter/skifahren/tickets-preise/,VERIFIED_SCRAPE
-Hochzeiger,Austria,https://hochzeiger.com,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://hochzeiger.com,ESTIMATED
-Hochzillertal-Hochfügen,Austria,https://hochzillertal.com,€72.50,€82.00,+13.1%,Stage 1B (Bergfex Resort Page),https://www.bergfex.com/ski-gletscherwelt-zillertal3000-tux/,VERIFIED_SCRAPE
-Hohentauern,Austria,https://www.ski-hohentauern.at/,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),https://www.ski-hohentauern.at/,ESTIMATED
+Row Index,Country,Resort Name,Old Price (24/25),New Price (26/27),Variance (%),Discovery Stage,Review Status,Source URL,Matched Context Snippet
+1,Albania,Bigëll - Dardhë,€20.00,€20.70,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ski-bigell.com/,
+2,Andorra,Grandvalira,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://grandvalira.com,
+3,Andorra,Ordino Arcalis,€51.00,€52.78,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ordinoarcalis.com,
+4,Andorra,Vallnord,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://vallnord.com,
+5,Austria,Alpbach,€66.50,€71.50,+7.5%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/alpbachtal/preise/,"1 Tag € 71,50 € 36,00 € 57,50"
+6,Austria,Ankogel-Mallnitz,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ankogel-ski.at,
+7,Austria,Annaberg,€46.00,€47.61,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://annaberg.info,
+8,Austria,Auffach,€66.50,€71.50,+7.5%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/alpbachtal/preise/,"1 Tag € 71,50 € 36,00 € 57,50"
+9,Austria,Axamer Lizum,€58.50,€63.00,+7.7%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/axamer-lizum/preise/,r Lizum Map Show map Hide map Accommodation High season 2025/26 20.12.25 - 22.03.26 Adults Children Teens Seniors 1 Day € 63.00 € 38.00 € 50
+10,Austria,Bad Gastein,€73.90,€81.50,+10.3%,Stage 1C (Bergfex Direct),VERIFIED_SCRAPE,https://www.bergfex.com/badhofgastein/,"Pistes 84 km Prices € 81,50 (day ticket)"
+11,Austria,Bad Kleinkirchheim,€62.00,€63.00,+1.6%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.badkleinkirchheim.com/skigebiet/preise-oeffnungszeiten/,"der 9.00 - 16.00 Uhr € 73,00 € 66,00 € 55,00 € 36,50 9.00 - 13.00 Uhr € 65,00 € 59,00 € 49,00 € 33,00 12.00 - 16.00 Uhr € 63,00 € 57,00 € 47"
+12,Austria,Bergeralm,€52.50,€60.20,+14.7%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/bergeralm/preise/,"1 Tag € 60,20 € 36,10 € 45,10 € 57,10"
+13,Austria,Brandnertal,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://brandnertal.at,
+14,Austria,Brixen im Thale,€69.00,€79.50,+15.2%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,"1 Tag € 79,50 € 40,00 € 59,50 € 79,50"
+15,Austria,Achensee - Christlum,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.christlum.at,
+16,Austria,Dachstein Krippenstein,€59.90,€65.00,+8.5%,Stage 1C (Bergfex Direct),VERIFIED_SCRAPE,https://www.bergfex.com/dachstein-krippenstein/,"Pistes 10 km Prices € 65,00 (day ticket)"
+17,Austria,Dachstein West,€64.90,€67.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://dachstein.at,
+18,Austria,Damüls-Mellau,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://damuels-mellau.at,
+19,Austria,Diedamskopf,€61.00,€70.00,+14.8%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/diedamskopf/preise/,"1 Tag € 70,00 € 38,00 € 59,00 € 67,00"
+20,Austria,Dreiländereck,€48.50,€49.00,+1.0%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/dreilaendereck/preise/,Dreiländereck / Arnoldstein Map Show map Hide map Accommodation High season 2025/26 Adults Children Teens Seniors 1 Day € 49.00 € 24.50 € 24
+21,Austria,Ellmau,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,"1 Tag € 79,50 € 40,00 € 59,50 € 79,50"
+22,Austria,Ellmau - Going,€69.00,€79.50,+15.2%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/ellmau/preise/,"1 Tag € 79,50 € 40,00 € 59,50 € 79,50"
+23,Austria,Emberger Alm,€42.00,€44.50,+6.0%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/embergeralm/preise/,"1 Tag € 44,50 € 22,50 € 38,00 € 38,00"
+24,Austria,Fageralm,€57.00,€61.00,+7.0%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/fageralm/preise/,"1 Tag € 81,50 € 41,00 € 61,00"
+25,Austria,Faschina-Fontanella,€54.00,€56.50,+4.6%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/faschina/preise/,asses Faschina / Fontanella Map Show map Hide map Accommodation High season 2025/26 Adults Children Teens Seniors 1 Day € 56.50 € 34.00 € 50
+26,Austria,Fendels,€56.00,€58.00,+3.6%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.at/fendels/preise/,"1 Tag € 58,00 € 35,00 € 49,00"
+27,Austria,Feuerkogel,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://feuerkogel.net,
+28,Austria,Fieberbrunn,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.fieberbrunn.com,
+29,Austria,Filzmoos,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://filzmoos.at,
+30,Austria,Flachau,€73.50,€79.00,+7.5%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/flachau/preise/,Space Salzburg Map Show map Hide map Accommodation High season 2025/26 20.12.25 - 10.04.26 Adults Children Teens 1 Day € 79.00 € 39.50 € 59.
+31,Austria,Fügen - Spieljoch,€72.50,€82.00,+13.1%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/fuegen-spieljoch/preise/,asses Spieljoch / Fügen / Zillertal Map Show map Hide map Accommodation High season 2026/27 Adults Children Teens 1 Day € 82.00 € 37.00 € 65
+32,Austria,Gaberl,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gaberl.at,
+33,Austria,Gaißau-Hintersee,€45.00,€46.57,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gaissauhintersee.at,
+34,Austria,Galsterberg,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://galsterberg.at,
+35,Austria,Galtür,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://galtuer.com,
+36,Austria,Gargellen,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahnen-gargellen.at,
+37,Austria,Gemeindealpe,€48.50,€50.20,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gemeindealpe.at,
+38,Austria,Gerlitzen,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gerlitzen.com,
+39,Austria,Gerlos,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.zillertalarena.com,
+40,Austria,Glun Gezer,€51.50,€53.30,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://glungezerbahn.at,
+41,Austria,Goldeck,€59.00,€64.50,+9.3%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/goldeck/preise/,Goldeck am Millstätter See Map Show map Hide map Accommodation High season 2026/27 Adults Children Teens Seniors 1 Day € 64.50 € 32.50 € 48.
+42,Austria,Golm,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://golm.at,
+43,Austria,Grebenzen,€54.00,€57.50,+6.5%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/grebenzen/preise/,s Grebenzen / St. Lambrecht Map Show map Hide map Accommodation High season 2026/27 Adults Children Teens Seniors 1 Day € 57.50 € 29.00 € 46
+44,Austria,Großeck-Speiereck,€59.50,€64.00,+7.6%,Stage 1C (Bergfex Direct),VERIFIED_SCRAPE,https://www.bergfex.com/grosseck-speiereck/,"Pistes 50 km Prices € 64,00 (day ticket)"
+45,Austria,Grossglockner Resort Kals-Matrei,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gg-resort.at,
+46,Austria,Heiligenblut,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://heiligenblut.at,
+47,Austria,Heutal - Unken,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.natursport-heutal.at/,
+48,Austria,Hinterglemm,€76.00,€82.00,+7.9%,Stage 1C (Bergfex Direct),VERIFIED_SCRAPE,https://www.bergfex.com/saalbach-hinterglemm-leogang/,"Pistes 270 km Prices € 82,00 (day ticket)"
+49,Austria,Hinterstoder,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hiwu.at,
+50,Austria,Hintertux Glacier,€72.50,€82.00,+13.1%,Stage 1C (Bergfex Direct),VERIFIED_SCRAPE,https://www.bergfex.com/hintertux/,"Pistes 62 km Prices € 82,00 (day ticket)"
+51,Austria,Hochficht,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hochficht.at,
+52,Austria,Hochkar,€52.50,€54.34,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hochkar.com,
+53,Austria,Hochkönig,€73.90,€76.49,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hochkoenig.at,
+54,Austria,Hochkössen,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahnen-koessen.at,
+55,Austria,Hochkrimml,€76.00,€82.00,+7.9%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/krimml-hochkrimml/preise/,Krimml-Hochkrimml / Zillertal Arena Map Show map Hide map Accommodation High season 2026/27 Adults Children Teens 1 Day € 82.00 € 37.00 € 65
+56,Austria,Hochoetz,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area?_gl=1*iz6nbr*_up*MQ..*_ga*NTczNzAzNTA0LjE3OTA2OTU5ODg.*_ga_QS7BFE7NJ4*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGQ1cGFLX3NxbmpXeGVqc3FqdS1rRVE3dTdDSFplLXRMSVVB*_ga_CP77K3YGLD*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGRLR3ZCZGRMLVJjMFJYNEZvVEwwalR6RS02VDZxdlZoQmh3,
+57,Austria,Hochrindl,€41.00,€41.00,+0.0%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/hochrindl/preise/,3.00 1 Day from 11:00 € 49.00 € 27.00 € 40.00 € 40.00 1 Day from 12:00 € 46.00 € 26.00 € 38.00 € 38.00 1 Day from 13:00 € 41.00 € 24.00 € 37
+58,Austria,Hochzeiger,€62.00,€69.00,+11.3%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/hochzeiger/preise/,Show map Hide map Accommodation High season 2026/27 19.12.26 - 08.01.27 30.01.27 - 05.03.27 Adults Children Teens 1 Day € 69.00 € 41.00 € 56
+59,Austria,Hochzillertal-Hochfügen,€72.50,€82.00,+13.1%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/hochfuegen/preise/,es ski passes Hochfügen / Zillertal Map Show map Hide map Accommodation High season 2026/27 Adults Children Teens 1 Day € 82.00 € 37.00 € 65
+60,Austria,Hohentauern,€39.00,€44.00,+12.8%,Stage 1B (Bergfex /preise/),VERIFIED_SCRAPE,https://www.bergfex.com/hohentauern/preise/,passes Hohentauern Map Show map Hide map Accommodation High season 2025/26 Adults Children Teens 1 Day € 48.30 € 30.00 € 44.00 2 Hours € 39.
