@@ -1,1450 +1,756 @@
-import csv
-import re
-import os
-import time
-import ssl
-import unicodedata
-import urllib.request
-import urllib.parse
-import urllib.error
 import argparse
-from html.parser import HTMLParser
+import csv
+import datetime
+import io
+import os
+import re
+import time
+import unicodedata
+from urllib.parse import urljoin, urlparse
 
-try:
-    import requests
-    import urllib3
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    HAS_REQUESTS = True
-except ImportError:
-    HAS_REQUESTS = False
+import requests
+import urllib3
+from bs4 import BeautifulSoup
 
-try:
-    from bs4 import BeautifulSoup
-    HAS_BS4 = True
-except ImportError:
-    HAS_BS4 = False
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+# Optional Playwright & PDF support (gracefully degrades if not installed locally)
 try:
     from playwright.sync_api import sync_playwright
-    HAS_PLAYWRIGHT = True
+    PLAYWRIGHT_AVAILABLE = True
 except ImportError:
-    HAS_PLAYWRIGHT = False
+    PLAYWRIGHT_AVAILABLE = False
 
-# --- Configuration Constants ---
-DEFAULT_MASTER_CSV = 'Ski_resorts_Master.csv'
-FALLBACK_MASTER_CSV = 'Ski resorts - Master.csv'
-DEFAULT_OUTPUT_CSV = 'Ski resorts - Updated 2026-27.csv'
-DEFAULT_AUDIT_CSV = 'lift_pass_batch_audit.csv'
-DEFAULT_AUDIT_MD = 'lift_pass_batch_audit.md'
-TIMEOUT_SECONDS = 15
+try:
+    from pypdf import PdfReader
+    PDF_AVAILABLE = True
+except ImportError:
+    PDF_AVAILABLE = False
 
-# Sanity Guardrails: Extracted price must be within [0.80x, 1.40x] of previous known price
-MIN_RATIO = 0.80
-MAX_RATIO = 1.40
-SEASON_INFLATION_RATE = 0.035
+MASTER_CSV = 'Ski resorts - Master.csv'
+OUTPUT_CSV = 'Ski resorts - Updated 2026-27.csv'
+AUDIT_CSV = 'lift_pass_batch_audit.csv'
+LEGACY_AUDIT_CSV = 'lift_pass_audit_report.csv'
+TIMEOUT_SECONDS = 12
+SEASON_INFLATION_RATE = 0.035  # +3.5% fallback index
 
 HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-    'Accept-Language': 'en-GB,en;q=0.9,de;q=0.8,fr;q=0.7,it;q=0.6,es;q=0.5',
-    'Cache-Control': 'no-cache'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'Accept-Language': 'de-AT,de;q=0.9,en-GB;q=0.8,en;q=0.7,fr;q=0.6,it;q=0.5'
 }
 
-COUNTRY_TO_SKIRESORT_SLUG = {
-    'austria': 'austria',
-    'france': 'france',
-    'switzerland': 'switzerland',
-    'italy': 'italy',
-    'germany': 'germany',
-    'spain': 'spain',
-    'andorra': 'andorra',
-    'bulgaria': 'bulgaria',
-    'slovenia': 'slovenia',
-    'norway': 'norway',
-    'sweden': 'sweden',
-    'finland': 'finland',
-    'scotland': 'united-kingdom',
-    'uk': 'united-kingdom',
-    'united kingdom': 'united-kingdom',
-    'poland': 'poland',
-    'czech republic': 'czech-republic',
-    'slovakia': 'slovakia'
-}
-
-COUNTRY_TO_BERGFEX_SLUG = {
-    'austria': 'oesterreich',
-    'france': 'frankreich',
-    'switzerland': 'schweiz',
-    'italy': 'italien',
-    'germany': 'deutschland',
-    'slovenia': 'slowenien',
-    'spain': 'spanien',
-    'andorra': 'andorra',
-    'poland': 'polen',
-    'czech republic': 'tschechien',
-    'slovakia': 'slowakei'
-}
-
-# Maps common village/resort names to exact (Skiresort.info slugs, Bergfex slugs)
-RESORT_ALIASES = {
-    # Austria
-    'st anton': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['st-anton-am-arlberg']),
-    'st. anton': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['st-anton-am-arlberg']),
-    'st. anton am arlberg': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['st-anton-am-arlberg']),
-    'lech': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['lech-zuers-arlberg']),
-    'lech-zuers': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['lech-zuers-arlberg']),
-    'zuers': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['lech-zuers-arlberg']),
-    'stuben': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['stuben']),
-    'warth': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['warth-schroecken']),
-    'warth-schroecken': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['warth-schroecken']),
-    'kitzbuehel': (['kitzski-kitzbuehel-kirchberg'], ['kitzbuehel-kirchberg']),
-    'kirchberg': (['kitzski-kitzbuehel-kirchberg'], ['kitzbuehel-kirchberg']),
-    'ischgl': (['ischgl-samnaun-silvretta-arena'], ['ischgl']),
-    'soelden': (['soelden'], ['soelden']),
-    'saalbach': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['saalbach-hinterglemm-leogang']),
-    'hinterglemm': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['saalbach-hinterglemm-leogang']),
-    'leogang': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['saalbach-hinterglemm-leogang']),
-    'fieberbrunn': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['fieberbrunn']),
-    'soell': (['skiwelt-wilder-kaiser-brixental'], ['soell']),
-    'ellmau': (['skiwelt-wilder-kaiser-brixental'], ['ellmau']),
-    'westendorf': (['skiwelt-wilder-kaiser-brixental'], ['westendorf']),
-    'brixen im thale': (['skiwelt-wilder-kaiser-brixental'], ['brixen-im-thale']),
-    'scheffau': (['skiwelt-wilder-kaiser-brixental'], ['scheffau']),
-    'hopfgarten': (['skiwelt-wilder-kaiser-brixental'], ['hopfgarten']),
-    'going': (['skiwelt-wilder-kaiser-brixental'], ['ellmau']),
-    'skiwelt': (['skiwelt-wilder-kaiser-brixental'], ['soell']),
-    'zell am ziller': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['zell-am-ziller']),
-    'gerlos': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['gerlos']),
-    'koenigsleiten': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['koenigsleiten-wald']),
-    'hochkrimml': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['krimml']),
-    'zillertal arena': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['zell-am-ziller']),
-    'mayrhofen': (['mayrhofen-penken-ahorn-rastkogel-eggalm-mountopolis'], ['mayrhofen']),
-    'kaltenbach': (['kaltenbach-hochzillertal-hochfuegen-ski-optimal'], ['hochzillertal']),
-    'hochzillertal': (['kaltenbach-hochzillertal-hochfuegen-ski-optimal'], ['hochzillertal']),
-    'hochfuegen': (['kaltenbach-hochzillertal-hochfuegen-ski-optimal'], ['hochfuegen']),
-    'obergurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
-    'hochgurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
-    'obergurgl-hochgurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
-    'gurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
-    'flachau': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['flachau']),
-    'wagrain': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['wagrain']),
-    'st. johann': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['st-johann-alpendorf']),
-    'st johann': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['st-johann-alpendorf']),
-    'bad gastein': (['bad-gastein-bad-hofgastein-schlossalm-angertal-stubnerkogel'], ['bad-gastein']),
-    'bad hofgastein': (['bad-gastein-bad-hofgastein-schlossalm-angertal-stubnerkogel'], ['bad-hofgastein']),
-    'dorfgastein': (['dorfgastein-grossarltal'], ['dorfgastein']),
-    'schladming': (['schladming-planai-hochwurzen-hauser-kaibling-reiteralm-4-berge-skischaukel'], ['schladming-planai']),
-    'zell am see': (['schmittenhoehe-zell-am-see'], ['schmitten-zell-am-see']),
-    'kaprun': (['kitzsteinhorn-maisiflitzer-kaprun'], ['kitzsteinhorn-kaprun']),
-    'kitzsteinhorn': (['kitzsteinhorn-maisiflitzer-kaprun'], ['kitzsteinhorn-kaprun']),
-    'hintertux': (['hintertux-glacier-hintertuxer-gletscher'], ['hintertux']),
-    'hintertux glacier': (['hintertux-glacier-hintertuxer-gletscher'], ['hintertux']),
-    'hintertuxer gletscher': (['hintertux-glacier-hintertuxer-gletscher'], ['hintertux']),
-    'stubai': (['stubai-glacier-stubaier-gletscher'], ['stubaier-gletscher']),
-    'stubai glacier': (['stubai-glacier-stubaier-gletscher'], ['stubaier-gletscher']),
-    'stubaier gletscher': (['stubai-glacier-stubaier-gletscher'], ['stubaier-gletscher']),
-    'pitztal': (['pitztal-glacier-pitztaler-gletscher'], ['pitztaler-gletscher']),
-    'pitztal glacier': (['pitztal-glacier-pitztaler-gletscher'], ['pitztaler-gletscher']),
-    'kaunertal': (['kaunertal-glacier-kaunertaler-gletscher'], ['kaunertal']),
-    'alpbach': (['ski-juwel-alpbachtal-wildschoenau'], ['alpbachtal']),
-    'niederau': (['ski-juwel-alpbachtal-wildschoenau'], ['wildschoenau']),
-    'auffach': (['ski-juwel-alpbachtal-wildschoenau'], ['wildschoenau']),
-    'wildschoenau': (['ski-juwel-alpbachtal-wildschoenau'], ['wildschoenau']),
-    'maria alm': (['hochkoenig-maria-alm-dienten-muehlbach'], ['hochkoenig']),
-    'hochkoenig': (['hochkoenig-maria-alm-dienten-muehlbach'], ['hochkoenig']),
-    'damuels': (['damuels-mellau'], ['damuels']),
-    'damuels-mellau': (['damuels-mellau'], ['damuels']),
-    'galtuer': (['silvapark-galtuer'], ['galtuer']),
-    'kuehtai': (['kuehtai'], ['kuehtai']),
-    'nauders': (['nauders-am-reschenpass-bergkastel'], ['nauders']),
-    'oetz': (['hochoetz-oetz'], ['hochoetz']),
-    'hochoetz': (['hochoetz-oetz'], ['hochoetz']),
-    'nassfeld': (['nassfeld-hermagor'], ['nassfeld']),
-    'zauchensee': (['zauchensee-flachauwinkl'], ['zauchensee']),
-    'tauplitz': (['tauplitz-bad-mitterndorf'], ['tauplitz']),
-    'steinplatte': (['steinplatte-winklmoosalm-waidring-reit-im-winkl'], ['steinplatte']),
-    'waidring': (['steinplatte-winklmoosalm-waidring-reit-im-winkl'], ['steinplatte']),
-    'axamer lizum': (['axamer-lizum'], ['axamer-lizum']),
-    'seefeld': (['rosshuette-seefeld'], ['rosshuette']),
-    'turracher hoehe': (['turracher-hoehe'], ['turracher-hoehe']),
-    'kreischberg': (['kreischberg-st-georgen-am-kreischberg'], ['kreischberg']),
-    'katschberg': (['katschberg'], ['katschberg']),
-    'obertauern': (['obertauern'], ['obertauern']),
-    'serfaus-fiss-ladis': (['serfaus-fiss-ladis'], ['serfaus-fiss-ladis']),
-    'silvretta montafon': (['silvretta-montafon'], ['silvretta-montafon']),
-    # France
-    'val thorens': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['val-thorens']),
-    'courchevel': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['courchevel']),
-    'meribel': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['meribel']),
-    'les menuires': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['les-menuires']),
-    'st martin de belleville': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['saint-martin-de-belleville']),
-    'orelle': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['orelle']),
-    'tignes': (['tignes-val-d-isere'], ['tignes']),
-    'val d isere': (['tignes-val-d-isere'], ['val-d-isere']),
-    'la plagne': (['la-plagne-paradiski'], ['la-plagne']),
-    'les arcs': (['les-arcs-peisey-vallandry-paradiski'], ['les-arcs']),
-    'peisey-vallandry': (['les-arcs-peisey-vallandry-paradiski'], ['peisey-vallandry']),
-    'avoriaz': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['avoriaz']),
-    'morzine': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['morzine']),
-    'les gets': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['les-gets']),
-    'chatel': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['chatel']),
-    'flaine': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['flaine']),
-    'samoens': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['samoens']),
-    'les carroz': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['les-carroz']),
-    'morillon': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['morillon']),
-    'chamonix': (['brevent-flegere-chamonix'], ['chamonix-mont-blanc']),
-    'les 2 alpes': (['les-2-alpes'], ['les-2-alpes']),
-    'les deux alpes': (['les-2-alpes'], ['les-2-alpes']),
-    'alpe d huez': (['alpe-d-huez'], ['alpe-d-huez']),
-    'serre chevalier': (['serre-chevalier-briancon-chantemerle-villeneuve-la-salle-le-monetier-les-bains'], ['serre-chevalier']),
-    # Switzerland
-    'verbier': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['verbier']),
-    'nendaz': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['nendaz']),
-    'veysonnaz': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['veysonnaz']),
-    'thyon': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['thyon']),
-    'zermatt': (['zermatt-breuil-cervinia-valtournenche-matterhorn'], ['zermatt']),
-    'arosa': (['arosa-lenzerheide'], ['arosa-lenzerheide']),
-    'lenzerheide': (['arosa-lenzerheide'], ['arosa-lenzerheide']),
-    'davos': (['parsenn-davos-klosters'], ['davos-klosters']),
-    'klosters': (['parsenn-davos-klosters'], ['davos-klosters']),
-    'st moritz': (['corviglia-st-moritz'], ['st-moritz']),
-    'st. moritz': (['corviglia-st-moritz'], ['st-moritz']),
-    'laax': (['laax-flims-falera'], ['flims-laax-falera']),
-    'flims': (['laax-flims-falera'], ['flims-laax-falera']),
-    'grindelwald': (['kleine-scheidegg-maennlichen-grindelwald-wengen'], ['jungfrau-grindelwald-wengen']),
-    'wengen': (['kleine-scheidegg-maennlichen-grindelwald-wengen'], ['jungfrau-grindelwald-wengen']),
-    'engelberg': (['titlis-engelberg'], ['engelberg-titlis']),
-    'saas-fee': (['saas-fee'], ['saas-fee']),
-    'crans-montana': (['crans-montana'], ['crans-montana']),
-    # Italy
-    'val gardena': (['val-gardena-groeden'], ['groeden-st-ulrich']),
-    'selva': (['val-gardena-groeden'], ['groeden-wolkenstein']),
-    'alta badia': (['alta-badia'], ['alta-badia']),
-    'corvara': (['alta-badia'], ['alta-badia']),
-    'kronplatz': (['kronplatz-plan-de-corones'], ['kronplatz']),
-    'cortina': (['cortina-d-ampezzo'], ['cortina-d-ampezzo']),
-    'cortina d ampezzo': (['cortina-d-ampezzo'], ['cortina-d-ampezzo']),
-    'madonna di campiglio': (['madonna-di-campiglio-pinzolo-folgarida-marilleva'], ['madonna-di-campiglio']),
-    'livigno': (['livigno'], ['livigno']),
-    'sestriere': (['via-lattea-sestriere-sauze-d-oulx-san-sicario-claviere-montgenevre'], ['sestriere']),
-    'sauze d oulx': (['via-lattea-sestriere-sauze-d-oulx-san-sicario-claviere-montgenevre'], ['sauze-d-oulx']),
-    'cervinia': (['zermatt-breuil-cervinia-valtournenche-matterhorn'], ['cervinia'])
-}
-
-LINK_KEYWORDS_HIGH = [
-    'skipass', 'ski-pass', 'tageskarte', 'tarif', 'preise', 'prices',
-    'forfait', 'prezzi', 'listino', 'skiticket', 'liftpass', 'lift-pass',
-    'day-pass', 'tageskarten', 'tarifas', 'ticketpreise', 'winterpreise'
-]
-LINK_KEYWORDS_MEDIUM = [
-    'ticket', 'winter', 'bergbahn', 'remontees', 'impianti', 'rates', 'shop', 'tickets'
+POSITIVE_KEYWORDS = [
+    'erwachsene', 'erwachsener', 'adult', 'adults', 'adulte', 'adultes', 'adulti', 'adulto',
+    '1 tag', '1-tag', '1 day', '1-day', '1 jour', '1 journée', '1 giorno', 'giornaliero',
+    'tageskarte', 'tagesskipass', 'tages-skipass', 'day pass', 'day ticket', 'forfait 1 jour',
+    'hauptsaison', 'hochsaison', 'peak', 'high season', 'haute saison', 'alta stagione',
+    'kassa', 'kassenpreis', 'regulär', 'standard'
 ]
 
-CONTEXT_POSITIVE_KEYWORDS = [
-    '1 tag', '1-tag', 'tageskarte', 'erwachsene', '1 day', 'day pass', 'adult',
-    '1 jour', 'journée', 'journee', 'adulte', '1 giorno', 'giornaliero', 'adulto',
-    '1 día', '1 dia', 'forfait', 'skipass', 'hauptsaison', 'high season', 'peak',
-    'day ticket', 'adults', 'main season'
+NEGATIVE_KEYWORDS = [
+    'kind', 'kinder', 'child', 'children', 'enfant', 'enfants', 'bambini', 'bambino',
+    'jugend', 'youth', 'junior', 'senior', 'senioren', 'student', 'kleinkind', 'mini', 'bambini',
+    'halbtag', 'half day', 'half-day', 'demi-journée', 'mattino', 'pomeriggio', 'vormittag', 'nachmittag',
+    'stunden', 'hours', 'heures', 'ore', 'ab 11', 'ab 12', 'ab 13', 'ab 14',
+    'verleih', 'rental', 'location', 'noleggio', 'skischule', 'ski school', 'lesson',
+    'parking', 'parkplatz', 'depot', 'rodel', 'toboggan', 'sommer', 'summer', 'bike',
+    'wandern', 'hiking', 'all-in-card', 'saisonkarte', 'jahreskarte', 'season pass',
+    '2 tage', '3 tage', '4 tage', '5 tage', '6 tage', '2 days', '3 days', '6 days', '2 jours', '6 jours'
 ]
 
-CONTEXT_NEGATIVE_IMMEDIATE = [
-    '6 tage', '6 days', '6 jours', '6 giorni', 'saison', 'season pass',
-    'kinder', 'child', 'children', 'enfant', 'bambini', 'junior', 'senior',
-    'halbtageskarte', 'half day', 'demi-journée', '4 stunden', '4 hours',
-    '2 tage', '3 tage', '4 tage', '5 tage', '7 tage', 'youth', 'jugend',
-    'kleinkind', '10 days', '2 days', '3 days'
+# Dynamic teaser prefixes that indicate low-season "from €XX" prices rather than peak prices
+TEASER_PREFIX_KEYWORDS = [
+    'ab €', 'ab eur', 'ab chf', 'from €', 'from eur', 'from chf',
+    'à partir de', 'da €', 'nebensaison', 'vorsaison', 'low season', 'early bird', 'online-frühbucher'
 ]
 
-STOPWORDS = {
-    'ski', 'resort', 'area', 'glacier', 'gletscher', 'am', 'im', 'in', 'der',
-    'die', 'das', 'du', 'de', 'la', 'le', 'les', 'des', 'sur', 'val', 'st',
-    'saint', 'sankt', 'bad', 'arena', 'tirol', 'tyrol', 'salzburgerland',
-    'salzburg', 'vorarlberg', 'carinthia', 'styria', 'savoie', 'haute',
-    'valais', 'graubuenden', 'grisons', 'bernese', 'oberland', 'dolomites',
-    'trentino', 'alto', 'adige', 'aosta', 'piedmont', 'lombardy', 'pyrenees',
-    'bahnen', 'bergbahnen', 'skigebiet', 'snow', 'space'
+HIGH_PRIORITY_LINK_KEYWORDS = [
+    'skipass', 'tageskarte', 'tagesskipass', 'winterpreise', 'skitarife',
+    'preise', 'tarife', 'tarifs', 'forfait', 'prezzi', 'ticket', 'prices', 'billetterie', 'cennik'
+]
+
+# Forensic Fix #1 & #2: Strict blacklist for summer pages, season cards, and non-lift URLs
+BLACKLIST_LINK_KEYWORDS = [
+    'sommer', 'summer', 'ete', 'estate', 'bike', 'wandern', 'hiking', 'klettern',
+    'paragleiten', 'tandem', 'rodel', 'toboggan', 'camping', 'hotel', 'unterkunft',
+    'accommodation', 'webcam', 'wetter', 'weather', 'skischule', 'school', 'verleih',
+    'rental', 'jobs', 'karriere', 'impressum', 'datenschutz', 'privacy', 'contact',
+    'kontakt', 'all-in-card', 'saisonkarte', 'jahreskarte', 'season-pass', 'super-ski-card',
+    'freizeitticket', 'snow-card', 'magic-pass', 'gutschein', 'voucher', 'loipe', 'langlauf'
+]
+
+# Forensic Fix #4: Known Bergfex & aggregator slug overrides for rebrands, compound names, and regions
+BERGFEX_ALIAS_OVERRIDES = {
+    'alpbach': ['alpbachtal', 'skijuwel'],
+    'auffach': ['alpbachtal', 'skijuwel'],
+    'niederau': ['alpbachtal', 'skijuwel'],
+    'ankogel-mallnitz': ['ankogel'],
+    'achensee - christlum': ['christlum'],
+    'bad gastein': ['bad-gastein', 'schlossalm-angertal-stubnerkogel', 'gastein'],
+    'bad hofgastein': ['bad-hofgastein', 'schlossalm-angertal-stubnerkogel'],
+    'dorfgastein': ['dorfgastein-grossarltal'],
+    'brixen im thale': ['brixen-im-thale', 'soell', 'skiwelt'],
+    'ellmau': ['ellmau', 'soell', 'skiwelt'],
+    'ellmau - going': ['ellmau', 'soell', 'skiwelt'],
+    'söll': ['soell', 'skiwelt'],
+    'hopfgarten': ['hopfgarten', 'soell', 'skiwelt'],
+    'westendorf': ['westendorf', 'soell', 'skiwelt'],
+    'fageralm': ['fageralm', 'reiteralm'],
+    'fieberbrunn': ['fieberbrunn', 'saalbach-hinterglemm-leogang'],
+    'hinterglemm': ['saalbach-hinterglemm-leogang'],
+    'saalbach': ['saalbach-hinterglemm-leogang'],
+    'leogang': ['saalbach-hinterglemm-leogang'],
+    'glun gezer': ['glungezer'],
+    'grossglockner resort kals-matrei': ['kals-matrei', 'gg-resort'],
+    'hintertux glacier': ['hintertux'],
+    'hochkössen': ['koessen'],
+    'hochkrimml': ['hochkrimml-gerlosplatte', 'gerlos'],
+    'königsleiten': ['koenigsleiten', 'gerlos'],
+    'zell am ziller': ['zell-am-ziller', 'gerlos'],
+    'hochzillertal-hochfügen': ['hochzillertal', 'ski-gletscherwelt-zillertal3000-tux'],
+    'vallnord': ['pal-arinsal', 'vallnord-pal-arinsal'],
+    'ordino arcalis': ['ordino-arcalis'],
+    'grandvalira': ['grandvalira']
 }
 
-
-def create_ssl_context():
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-    try:
-        ctx.set_ciphers('DEFAULT@SECLEVEL=1')
-    except Exception:
-        pass
-    return ctx
-
-
-SSL_CTX = create_ssl_context()
-
-
-def strip_invisible_chars(text):
-    """Removes zero-width spaces (\u200b) and soft hyphens used by Skiresort.info."""
-    if not text:
-        return ""
-    return re.sub(r'[\u200b\u200c\u200d\u00ad\ufeff]', '', str(text))
-
-
-def strip_promotional_footer(html_or_text):
-    """
-    Removes ONLY the 'Further interesting ski resorts' / 'Weitere interessante Skigebiete'
-    promotional widget at the bottom of Skiresort.info pages so ad prices (like € 74,- for Sillian)
-    are never mistaken for the target resort's price.
-    NOTE: Does NOT strip 'Ski resorts nearby' because Bergfex places that label in its top navbar!
-    """
-    if not html_or_text:
-        return ""
-    markers = [
-        'Further interesting ski resorts',
-        'Weitere interessante Skigebiete',
-        'Autres domaines skiables intéressants',
-        'Altri comprensori sciistici interessanti'
-    ]
-    cut_idx = len(html_or_text)
-    for marker in markers:
-        pos = html_or_text.find(marker)
-        if pos != -1 and pos < cut_idx:
-            cut_idx = pos
-    return html_or_text[:cut_idx]
-
-
-def transliterate_text(text, german_umlauts=True):
-    """
-    Converts German umlauts (ä->ae, ö->oe, ü->ue, ß->ss) and accented characters
-    (é->e, à->a, etc.) into clean ASCII for URL slugs and fuzzy matching.
-    """
-    s = strip_invisible_chars(text).lower()
-    if german_umlauts:
-        s = s.replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue').replace('ß', 'ss')
-    else:
-        s = s.replace('ß', 'ss')
-    s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
-    return s
-
-
-def lookup_alias_slugs(resort_name, region_name=""):
-    """Looks up known multi-village or glacier slugs from RESORT_ALIASES."""
-    sr_slugs, bf_slugs = [], []
-    clean_r = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
-    norm_r = re.sub(r'[^a-z0-9\s\-]', ' ', transliterate_text(clean_r, german_umlauts=True))
-    norm_r = re.sub(r'\s+', ' ', norm_r).strip()
-
-    candidates = [norm_r]
-    for part in re.split(r'[/–\-]', norm_r):
-        p = part.strip()
-        if len(p) >= 3 and p not in candidates:
-            candidates.append(p)
-
-    if region_name and '/' in region_name:
-        reg_part = transliterate_text(region_name.split('/')[-1].strip(), german_umlauts=True)
-        reg_part = re.sub(r'[^a-z0-9\s\-]', ' ', reg_part).strip()
-        if reg_part and reg_part not in candidates:
-            candidates.append(reg_part)
-
-    for key in candidates:
-        if key in RESORT_ALIASES:
-            s_list, b_list = RESORT_ALIASES[key]
-            for s in s_list:
-                if s not in sr_slugs:
-                    sr_slugs.append(s)
-            for b in b_list:
-                if b not in bf_slugs:
-                    bf_slugs.append(b)
-    return sr_slugs, bf_slugs
-
-
-def make_slugs(name):
-    """Returns candidate URL slugs (both German 'oe/ue/ae' style and plain ASCII style)."""
-    clean = re.sub(r'\(.*?\)', '', strip_invisible_chars(name)).strip()
-    slug_de = re.sub(r'[^a-z0-9]+', '-', transliterate_text(clean, german_umlauts=True)).strip('-')
-    slug_ascii = re.sub(r'[^a-z0-9]+', '-', transliterate_text(clean, german_umlauts=False)).strip('-')
-    slugs = []
-    for s in [slug_de, slug_ascii]:
-        if s and s not in slugs:
-            slugs.append(s)
-    parts = re.split(r'[/\-–]', clean)
-    if len(parts) > 1:
-        first_part = parts[0].strip()
-        if len(first_part) >= 4:
-            sub_de = re.sub(r'[^a-z0-9]+', '-', transliterate_text(first_part, german_umlauts=True)).strip('-')
-            if sub_de and sub_de not in slugs:
-                slugs.append(sub_de)
-    return slugs
-
-
-def extract_significant_tokens(text):
-    """Extracts meaningful location tokens from a resort or region name for matching."""
-    norm = transliterate_text(text, german_umlauts=True)
-    raw_tokens = re.findall(r'[a-z0-9]{3,}', norm)
-    return [t for t in raw_tokens if t not in STOPWORDS]
-
-
-class SimpleHTMLParser(HTMLParser):
-    """Built-in fallback parser in case BeautifulSoup4 is not installed locally."""
-    def __init__(self):
-        super().__init__()
-        self.links = []
-        self.text_parts = []
-        self._in_ignored = False
-        self._current_href = None
-        self._current_link_text = []
-
-    def handle_starttag(self, tag, attrs):
-        if tag in ('script', 'style', 'noscript', 'svg'):
-            self._in_ignored = True
-        elif tag == 'a':
-            attr_dict = dict(attrs)
-            self._current_href = attr_dict.get('href', '')
-            self._current_link_text = []
-
-    def handle_endtag(self, tag):
-        if tag in ('script', 'style', 'noscript', 'svg'):
-            self._in_ignored = False
-        elif tag == 'a' and self._current_href is not None:
-            self.links.append((self._current_href, ' '.join(self._current_link_text)))
-            self._current_href = None
-
-    def handle_data(self, data):
-        if not self._in_ignored:
-            cleaned = strip_invisible_chars(data).strip()
-            if cleaned:
-                self.text_parts.append(cleaned)
-                if self._current_href is not None:
-                    self._current_link_text.append(cleaned)
-
-
-def fetch_html(url, timeout=TIMEOUT_SECONDS):
-    """Fetches HTML using requests if available, otherwise falls back to standard urllib."""
-    if HAS_REQUESTS:
-        try:
-            resp = requests.get(url, headers=HEADERS, timeout=timeout, verify=False, allow_redirects=True)
-            if resp.status_code == 200:
-                return strip_invisible_chars(resp.text), resp.url
-        except Exception:
-            return None, url
-    else:
-        try:
-            req = urllib.request.Request(url, headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as response:
-                if response.status == 200:
-                    raw = response.read()
-                    return strip_invisible_chars(raw.decode('utf-8', errors='replace')), response.geturl()
-        except Exception:
-            return None, url
-    return None, url
+# Known multi-resort syndicates that share an identical 1-day adult peak price
+SHARED_SYNDICATE_KEYS = [
+    'skiwelt', 'ski juwel', 'zillertal arena', 'skicircus', 'snow space salzburg',
+    '3 vallées', 'portes du soleil', 'paradiski', '4 vallées', 'via lattea', 'grand massif'
+]
 
 
 def clean_numeric_price(price_str):
-    """Converts formatted strings like '€68.50', '€ 83,-', or 'CHF 75,00' to float."""
-    if not price_str or str(price_str).strip().lower() in ['n/a', 'closed', 'none', 'dynamic', '']:
+    """Extracts float value from a price string."""
+    if not price_str:
         return 0.0
-    normalized = strip_invisible_chars(price_str).replace(',-', '.00').replace('.-', '.00').replace(',', '.')
-    match = re.search(r'([0-9]+(?:\.[0-9]+)?)', normalized)
-    return float(match.group(1)) if match else 0.0
+    match = re.search(r'([0-9]+(?:[\.,][0-9]+)?)', str(price_str))
+    if not match:
+        return 0.0
+    return float(match.group(1).replace(',', '.'))
 
 
-def validate_price_bounds(val, prev_price_val):
-    """Validates candidate price against previous year's baseline or realistic bounds."""
-    if val <= 0:
-        return False
-    if prev_price_val > 0:
-        return (prev_price_val * MIN_RATIO) <= val <= (prev_price_val * MAX_RATIO)
-    return 25.0 <= val <= 150.0
+def detect_currency(text, fallback_str=''):
+    """Determines whether CHF or EUR applies."""
+    if 'CHF' in str(text) or 'SFr' in str(text) or 'CHF' in str(fallback_str):
+        return 'CHF'
+    return '€'
 
 
-def parse_currency_price_from_snippet(snippet, prev_price_val=0.0, default_currency='€'):
+def transliterate_slug(text):
     """
-    Extracts a currency price from a short card or table cell snippet, handling
-    '€ 83,-', '€ 81.50', 'Price: € 82,00', and 'SFr. 94,- / approx. € 101,-'.
+    Forensic Fix #4: Properly transliterates German/European characters
+    (ä->ae, ö->oe, ü->ue, ß->ss) instead of stripping them, so Bergfex URLs
+    like /damuels-mellau/, /galtuer/, /hochkoenig/, and /grosseck-speiereck/ resolve.
     """
-    if not snippet:
-        return None
-    clean_snip = strip_invisible_chars(snippet)
-
-    if default_currency == 'CHF':
-        chf_match = re.search(
-            r'(?:CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*(?:,-|\.\-|-))?',
-            clean_snip, re.IGNORECASE
-        )
-        if not chf_match:
-            chf_match = re.search(
-                r'([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\s*(?:,-|\.\-|-)?\s*(?:CHF|SFr\.?)',
-                clean_snip, re.IGNORECASE
-            )
-        if chf_match:
-            val = clean_numeric_price(chf_match.group(1))
-            if validate_price_bounds(val, prev_price_val):
-                return f"CHF{val:.2f}"
-
-    pattern = re.compile(
-        r'(?:(€|EUR|CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*(?:,-|\.\-|-))?|'
-        r'([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\s*(?:,-|\.\-|-)?\s*(€|EUR|CHF|SFr\.?))',
-        re.IGNORECASE
-    )
-    for m in pattern.finditer(clean_snip):
-        c1, v1, v2, c2 = m.groups()
-        raw_curr = (c1 or c2 or '').upper()
-        val = clean_numeric_price(v1 or v2)
-        if validate_price_bounds(val, prev_price_val):
-            symbol = 'CHF' if ('CHF' in raw_curr or 'SFR' in raw_curr or default_currency == 'CHF') else '€'
-            return f"{symbol}{val:.2f}"
-    return None
+    s = str(text).lower().strip()
+    replacements = {
+        'ä': 'ae', 'ö': 'oe', 'ü': 'ue', 'ß': 'ss',
+        'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
+        'á': 'a', 'à': 'a', 'â': 'a', 'å': 'aa',
+        'ó': 'o', 'ò': 'o', 'ô': 'o', 'ø': 'oe',
+        'ú': 'u', 'ù': 'u', 'û': 'u', 'ñ': 'n', 'ç': 'c'
+    }
+    for k, v in replacements.items():
+        s = s.replace(k, v)
+    # Strip any remaining accents
+    s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
+    s = re.sub(r'[^a-z0-9]+', '-', s).strip('-')
+    return s
 
 
-class MultiAggregatorDirectoryIndex:
+def generate_bergfex_slugs(resort_name):
+    """Generates prioritized candidate Bergfex slugs for a resort name."""
+    raw_lower = resort_name.lower().strip()
+    candidates = []
+
+    if raw_lower in BERGFEX_ALIAS_OVERRIDES:
+        candidates.extend(BERGFEX_ALIAS_OVERRIDES[raw_lower])
+
+    # Primary transliterated slug (e.g. "Damüls-Mellau" -> "damuels-mellau")
+    primary = transliterate_slug(resort_name)
+    if primary and primary not in candidates:
+        candidates.append(primary)
+
+    # Strip noise words like "glacier", "gletscher", "resort", "ski area"
+    cleaned_words = re.sub(
+        r'\b(glacier|gletscher|resort|ski|arena|area|bergbahnen|skigebiet)\b',
+        '', raw_lower
+    ).strip()
+    cleaned_slug = transliterate_slug(cleaned_words)
+    if cleaned_slug and cleaned_slug not in candidates:
+        candidates.append(cleaned_slug)
+
+    # If hyphenated or spaced ("Achensee - Christlum", "Fügen - Spieljoch", "Ankogel-Mallnitz"),
+    # also try individual parts and concatenated parts
+    if ' - ' in raw_lower or '-' in raw_lower:
+        parts = [transliterate_slug(p) for p in re.split(r'\s*-\s*', raw_lower) if len(p.strip()) >= 4]
+        for p in parts:
+            if p and p not in candidates:
+                candidates.append(p)
+
+    # Concatenated without spaces (e.g. "Glun Gezer" -> "glungezer")
+    no_space = transliterate_slug(raw_lower.replace(' ', ''))
+    if no_space and no_space not in candidates:
+        candidates.append(no_space)
+
+    return candidates[:5]
+
+
+def score_price_candidates(text, prev_price=0.0, strict_non_negative=True):
     """
-    Stage 0 Pre-Indexer (v5):
-      1. Crawls Skiresort.info's Slope-Length & Country Directories (/sorted/slope-length/ and default).
-      2. Crawls Bergfex's Country Overview & Snow-Report Directories (/oesterreich/, /frankreich/,
-         /schweiz/, /italien/, etc.).
-    """
-    def __init__(self):
-        self.indexed_countries = set()
-        self.europe_top_indexed = False
-        self.sr_entries = {}
-        self.bf_entries = {}
-
-    def ensure_country_indexed(self, country_name):
-        c_key = (country_name or '').strip().lower()
-
-        if not self.europe_top_indexed:
-            self.europe_top_indexed = True
-            print("   [*] Pre-indexing Skiresort.info Europe Top Resorts (/europe/sorted/slope-length/)...", flush=True)
-            for page_num in range(1, 5):
-                url = (
-                    "https://www.skiresort.info/ski-resorts/europe/sorted/slope-length/"
-                    if page_num == 1
-                    else f"https://www.skiresort.info/ski-resorts/europe/sorted/slope-length/page/{page_num}/"
-                )
-                html, _ = fetch_html(url, timeout=12)
-                if not html or self._parse_skiresort_directory_page(html) == 0:
-                    break
-
-        if c_key in self.indexed_countries:
-            return
-        self.indexed_countries.add(c_key)
-
-        sr_slug = COUNTRY_TO_SKIRESORT_SLUG.get(c_key)
-        if sr_slug:
-            print(f"   [*] Pre-indexing Skiresort.info directory for {country_name.title()} ({sr_slug})...", flush=True)
-            url_templates = [
-                f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/",
-                f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/page/2/",
-                f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/page/3/",
-                f"https://www.skiresort.info/ski-resorts/{sr_slug}/",
-                f"https://www.skiresort.info/ski-resorts/{sr_slug}/page/2/",
-                f"https://www.skiresort.info/ski-resorts/{sr_slug}/page/3/"
-            ]
-            for url in url_templates:
-                html, _ = fetch_html(url, timeout=12)
-                if html:
-                    self._parse_skiresort_directory_page(html)
-
-        bf_slug = COUNTRY_TO_BERGFEX_SLUG.get(c_key)
-        if bf_slug:
-            print(f"   [*] Pre-indexing Bergfex directory for {country_name.title()} ({bf_slug})...", flush=True)
-            bf_main_url = f"https://www.bergfex.com/{bf_slug}/"
-            bf_html, _ = fetch_html(bf_main_url, timeout=12)
-            if bf_html:
-                self._parse_bergfex_country_page(bf_html)
-            bf_snow_url = f"https://www.bergfex.com/{bf_slug}/schneewerte/"
-            bf_snow_html, _ = fetch_html(bf_snow_url, timeout=12)
-            if bf_snow_html:
-                self._parse_bergfex_snow_index(bf_snow_html)
-
-    def _parse_skiresort_directory_page(self, html_content):
-        if not HAS_BS4:
-            return 0
-
-        soup = BeautifulSoup(html_content, 'html.parser')
-        added_or_updated = 0
-
-        for a in soup.find_all('a', href=True):
-            href = a['href'].strip()
-            if not re.search(r'/ski-resort/[^/]+/?$', href):
-                continue
-
-            anchor_text = strip_invisible_chars(a.get_text(separator=' ')).strip()
-            if not anchor_text or anchor_text.lower() in [
-                'details', 'ski resort status', 'snow report', 'trail map', 'test result'
-            ]:
-                continue
-
-            clean_title = re.sub(r'^\d+\.\s*', '', anchor_text).strip()
-            if len(clean_title) < 3 or clean_title.lower().startswith('ski resort '):
-                continue
-
-            full_url = urllib.parse.urljoin("https://www.skiresort.info", href)
-            if not full_url.endswith('/'):
-                full_url += '/'
-
-            card_node = a
-            card_text = ""
-            for _ in range(6):
-                parent = card_node.parent
-                if not parent:
-                    break
-                p_text = strip_invisible_chars(parent.get_text(separator=' ')).strip()
-                if p_text.count('Details') > 2 or len(p_text) > 1500:
-                    break
-                card_node = parent
-                card_text = p_text
-                if ('ski lifts' in p_text.lower() or 'test result' in p_text.lower()) and (
-                    '€' in p_text or 'SFr' in p_text or 'Details' in p_text
-                ):
-                    break
-
-            is_valid_card = ('ski lifts' in card_text.lower() or 'test result' in card_text.lower() or 'details' in card_text.lower())
-            has_price_symbol = ('€' in card_text or 'SFr' in card_text or 'CHF' in card_text)
-
-            existing = self.sr_entries.get(full_url)
-            if existing:
-                if has_price_symbol and not existing.get('has_price'):
-                    self.sr_entries[full_url] = {
-                        'title': clean_title,
-                        'norm_title': transliterate_text(clean_title, german_umlauts=True),
-                        'norm_ascii': transliterate_text(clean_title, german_umlauts=False),
-                        'norm_context': transliterate_text(card_text, german_umlauts=True),
-                        'url': full_url,
-                        'raw_card_text': card_text,
-                        'has_price': True,
-                        'source': 'Skiresort.info'
-                    }
-                    added_or_updated += 1
-                continue
-
-            if not is_valid_card and not has_price_symbol:
-                continue
-
-            self.sr_entries[full_url] = {
-                'title': clean_title,
-                'norm_title': transliterate_text(clean_title, german_umlauts=True),
-                'norm_ascii': transliterate_text(clean_title, german_umlauts=False),
-                'norm_context': transliterate_text(card_text, german_umlauts=True),
-                'url': full_url,
-                'raw_card_text': card_text,
-                'has_price': has_price_symbol,
-                'source': 'Skiresort.info'
-            }
-            added_or_updated += 1
-
-        return added_or_updated
-
-    def _parse_bergfex_country_page(self, html_content):
-        if not HAS_BS4:
-            return 0
-
-        soup = BeautifulSoup(html_content, 'html.parser')
-        count = 0
-        for a in soup.find_all('a', href=True):
-            href = a['href'].strip()
-            if not re.match(r'^/[a-z0-9\-]+/?$', href):
-                continue
-            if any(x in href for x in [
-                '/oesterreich', '/schweiz', '/frankreich', '/italien', '/deutschland',
-                '/slowenien', '/spanien', '/andorra', '/polen', '/tschechien', '/slowakei',
-                '/sommer', '/winter', '/wetter', '/webcams', '/schneewerte', '/pauschalen'
-            ]):
-                continue
-
-            title = strip_invisible_chars(a.get_text(separator=' ')).strip()
-            if len(title) < 3:
-                continue
-
-            full_url = urllib.parse.urljoin("https://www.bergfex.com", href)
-            if not full_url.endswith('/'):
-                full_url += '/'
-
-            card_node = a
-            card_text = ""
-            for _ in range(4):
-                parent = card_node.parent
-                if not parent:
-                    break
-                p_text = strip_invisible_chars(parent.get_text(separator=' ')).strip()
-                if len(p_text) > 800:
-                    break
-                card_node = parent
-                card_text = p_text
-                if 'price:' in p_text.lower() or 'preis:' in p_text.lower() or '€' in p_text or 'chf' in p_text.lower():
-                    break
-
-            has_price = ('€' in card_text or 'CHF' in card_text)
-            existing = self.bf_entries.get(full_url)
-            if not existing or (has_price and not existing.get('has_price')):
-                self.bf_entries[full_url] = {
-                    'title': title,
-                    'norm_title': transliterate_text(title, german_umlauts=True),
-                    'norm_ascii': transliterate_text(title, german_umlauts=False),
-                    'norm_context': transliterate_text(card_text, german_umlauts=True),
-                    'url': full_url,
-                    'raw_card_text': card_text,
-                    'has_price': has_price,
-                    'source': 'Bergfex'
-                }
-                count += 1
-        return count
-
-    def _parse_bergfex_snow_index(self, html_content):
-        if not HAS_BS4:
-            return 0
-
-        soup = BeautifulSoup(html_content, 'html.parser')
-        count = 0
-        for a in soup.find_all('a', href=True):
-            href = a['href'].strip()
-            m = re.match(r'^/([a-z0-9\-]+)/schneewerte/?$', href)
-            if not m:
-                continue
-            slug = m.group(1)
-            title = strip_invisible_chars(a.get_text(separator=' ')).strip()
-            if len(title) < 3:
-                continue
-            full_url = f"https://www.bergfex.com/{slug}/"
-            if full_url not in self.bf_entries:
-                self.bf_entries[full_url] = {
-                    'title': title,
-                    'norm_title': transliterate_text(title, german_umlauts=True),
-                    'norm_ascii': transliterate_text(title, german_umlauts=False),
-                    'norm_context': transliterate_text(title, german_umlauts=True),
-                    'url': full_url,
-                    'raw_card_text': '',
-                    'has_price': False,
-                    'source': 'Bergfex'
-                }
-                count += 1
-        return count
-
-    def _score_entries(self, entries_dict, resort_name, region_name):
-        clean_resort = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
-        norm_de = transliterate_text(clean_resort, german_umlauts=True)
-        norm_ascii = transliterate_text(clean_resort, german_umlauts=False)
-
-        resort_tokens = extract_significant_tokens(clean_resort)
-        region_tokens = extract_significant_tokens(region_name)
-        alias_sr_slugs, alias_bf_slugs = lookup_alias_slugs(resort_name, region_name)
-        all_alias_slugs = set(alias_sr_slugs + alias_bf_slugs)
-
-        scored = []
-        for entry in entries_dict.values():
-            score = 0
-            title_de = entry['norm_title']
-            title_ascii = entry['norm_ascii']
-            ctx_de = entry['norm_context']
-            entry_url = entry['url']
-
-            # Check if entry URL matches our known alias map
-            for a_slug in all_alias_slugs:
-                if f"/{a_slug}/" in entry_url:
-                    score += 120
-
-            if norm_de == title_de or norm_ascii == title_ascii:
-                score += 110
-            elif norm_de and len(norm_de) >= 4 and (
-                re.search(r'\b' + re.escape(norm_de) + r'\b', title_de) or
-                re.search(r'\b' + re.escape(norm_ascii) + r'\b', title_ascii)
-            ):
-                score += 75
-            elif norm_de and len(norm_de) >= 5 and (norm_de in title_de or norm_ascii in title_ascii):
-                score += 55
-
-            matched_resort_tokens = 0
-            for tok in resort_tokens:
-                if re.search(r'\b' + re.escape(tok) + r'\b', title_de) or re.search(r'\b' + re.escape(tok) + r'\b', title_ascii):
-                    score += 32
-                    matched_resort_tokens += 1
-                elif len(tok) >= 5 and (tok in title_de or tok in title_ascii):
-                    score += 20
-                    matched_resort_tokens += 1
-                elif re.search(r'\b' + re.escape(tok) + r'\b', ctx_de):
-                    score += 15
-                    matched_resort_tokens += 1
-
-            # Check region/ski-area tokens BEFORE filtering so satellite villages match their parent ski area
-            matched_region_tokens = 0
-            for r_tok in region_tokens:
-                if re.search(r'\b' + re.escape(r_tok) + r'\b', title_de) or re.search(r'\b' + re.escape(r_tok) + r'\b', title_ascii):
-                    score += 35
-                    matched_region_tokens += 1
-                elif r_tok in ctx_de:
-                    score += 12
-
-            if matched_resort_tokens == 0 and matched_region_tokens == 0 and score < 30:
-                continue
-
-            if entry.get('has_price'):
-                score += 5
-
-            if score >= 30:
-                scored.append((score, entry))
-
-        scored.sort(key=lambda x: x[0], reverse=True)
-        return [item[1] for item in scored[:3]]
-
-    def find_candidates(self, resort_name, region_name, country_name):
-        self.ensure_country_indexed(country_name)
-        sr_matches = self._score_entries(self.sr_entries, resort_name, region_name)
-        bf_matches = self._score_entries(self.bf_entries, resort_name, region_name)
-        return sr_matches, bf_matches
-
-
-def extract_structured_table_price(html_content, prev_price_val=0.0, default_currency='€'):
-    """
-    Targets structured HTML pricing tables and summary boxes on Skiresort.info, Bergfex,
-    and official resort websites. Automatically strips 'Further interesting ski resorts' ads.
-    """
-    if not html_content:
-        return None
-
-    clean_html = strip_promotional_footer(strip_invisible_chars(html_content))
-    plain_text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', clean_html))
-
-    # 1. Check Bergfex overview page summary widget: "Prices € 75,50 (day ticket)" / "Preise € 75,50 (Tageskarte)"
-    bf_summary = re.search(
-        r'(?:Prices|Preise|Price|Preis)\s*[:\s]*((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)\s*\((?:day ticket|Tageskarte)\)',
-        plain_text,
-        re.IGNORECASE
-    )
-    if bf_summary:
-        price = parse_currency_price_from_snippet(bf_summary.group(1), prev_price_val, default_currency)
-        if price:
-            return price
-
-    # 2. Check Skiresort.info plain-text sequence: "Adults Youth Children € 81.50"
-    sr_pattern = re.search(
-        r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?(?:\s+(?:Seniors|Senioren))?\s*'
-        r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
-        plain_text, re.IGNORECASE
-    )
-    if sr_pattern:
-        price = parse_currency_price_from_snippet(sr_pattern.group(1), prev_price_val, default_currency)
-        if price:
-            return price
-
-    if not HAS_BS4:
-        return None
-
-    soup = BeautifulSoup(clean_html, 'html.parser')
-
-    # 3. Check Skiresort.info exact Adult Day Pass cell (id="selAd")
-    sel_ad = soup.find(id='selAd')
-    if sel_ad:
-        cell_text = sel_ad.get_text(separator=' ').strip()
-        price = parse_currency_price_from_snippet(cell_text, prev_price_val, default_currency)
-        if price:
-            return price
-
-    # 4. Inspect HTML Tables (Row-oriented & Column-oriented)
-    adult_headers = ['erwachsene', 'adults', 'adult', 'adulte', 'adulti', 'adultos']
-    day_row_keywords = [
-        '1 tag', '1-tag', 'tageskarte', '1 day', 'day ticket', 'day pass',
-        '1 jour', 'journée', '1 giorno', 'giornaliero', 'main season', 'hauptsaison'
-    ]
-    neg_row_only = ['6 tage', '6 days', 'saison', 'season pass', 'halbtageskarte', 'half day']
-
-    for table in soup.find_all('table'):
-        table_text = re.sub(r'\s+', ' ', strip_invisible_chars(table.get_text(separator=' '))).strip()
-        tbl_sr = re.search(
-            r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?\s*'
-            r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
-            table_text, re.IGNORECASE
-        )
-        if tbl_sr:
-            price = parse_currency_price_from_snippet(tbl_sr.group(1), prev_price_val, default_currency)
-            if price:
-                return price
-
-        rows = table.find_all('tr')
-        for tr in rows:
-            row_text = tr.get_text(separator=' ').strip()
-            row_lower = row_text.lower()
-            if any(nk in row_lower for nk in neg_row_only):
-                continue
-            if any(ah in row_lower for ah in adult_headers) or any(dk in row_lower for dk in day_row_keywords):
-                first_cell = tr.find(['td', 'th'])
-                first_cell_lower = first_cell.get_text(separator=' ').strip().lower() if first_cell else ''
-                if any(ck in first_cell_lower for ck in ['kinder', 'child', 'youth', 'jugend', 'senior']):
-                    continue
-                price = parse_currency_price_from_snippet(row_text, prev_price_val, default_currency)
-                if price:
-                    return price
-
-    return None
-
-
-def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€'):
-    """
-    Finds all currency-number pairs in the text, scores each candidate by surrounding
-    keywords, and avoids promotional footer ads.
+    Scans text for valid ski pass prices (22 to 140) and scores each candidate
+    using surrounding positive/negative multilingual context and baseline proximity.
+    Forensic Fix #3: Strongly prefers non-negative seasonal increases (0% to +18%)
+    and penalizes dynamic "ab €XX" teaser prices or child/half-day prices.
     """
     if not text:
         return None
 
-    clean_text = strip_promotional_footer(strip_invisible_chars(text))
-
-    bf_match = re.search(
-        r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)\s*\((?:day ticket|Tageskarte)\)',
-        clean_text, re.IGNORECASE
-    )
-    if bf_match:
-        price = parse_currency_price_from_snippet(bf_match.group(1), prev_price_val, default_currency)
-        if price:
-            return price
-
-    sr_text_match = re.search(
-        r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?\s*'
-        r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
-        clean_text, re.IGNORECASE
-    )
-    if sr_text_match:
-        price = parse_currency_price_from_snippet(sr_text_match.group(1), prev_price_val, default_currency)
-        if price:
-            return price
-
-    pattern = re.compile(
-        r'(?:(€|EUR|CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*(?:,-|\.\-|-))?|'
-        r'([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\s*(?:,-|\.\-|-)?\s*(€|EUR|CHF|SFr\.?))',
-        re.IGNORECASE
-    )
+    normalized_text = re.sub(r'\s+', ' ', text)
+    patterns = [
+        r'(€|EUR|CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\b',
+        r'\b([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\s*(€|EUR|CHF|SFr\.?)'
+    ]
 
     candidates = []
 
-    for match in pattern.finditer(clean_text):
-        curr1, val1, val2, curr2 = match.groups()
-        raw_curr = (curr1 or curr2 or '').upper()
-        val = clean_numeric_price(val1 or val2)
+    for pat_idx, pattern in enumerate(patterns):
+        for match in re.finditer(pattern, normalized_text, re.IGNORECASE):
+            raw_curr = match.group(1) if pat_idx == 0 else match.group(2)
+            raw_val = match.group(2) if pat_idx == 0 else match.group(1)
 
-        if not validate_price_bounds(val, prev_price_val):
-            continue
+            try:
+                val = float(raw_val.replace(',', '.'))
+            except ValueError:
+                continue
 
-        pre_15 = clean_text[max(0, match.start() - 15):match.start()].lower()
-        if default_currency == 'CHF' and 'approx' in pre_15 and '€' in raw_curr:
-            continue
+            if not (20.0 <= val <= 135.0):
+                continue
 
-        start_ctx = max(0, match.start() - 120)
-        end_ctx = min(len(clean_text), match.end() + 80)
-        context = clean_text[start_ctx:end_ctx].lower()
-        immediate_pre = clean_text[max(0, match.start() - 40):match.start()].lower()
+            # Exclude suspiciously round 100.00 promo deposits unless baseline was >= 82
+            if val == 100.0 and prev_price < 82.0:
+                continue
 
-        score = 0
-        for pos_kw in CONTEXT_POSITIVE_KEYWORDS:
-            if pos_kw in context:
-                score += 6
-        for neg_kw in CONTEXT_NEGATIVE_IMMEDIATE:
-            if neg_kw in immediate_pre and not any(ak in immediate_pre for ak in ['adult', 'erwachsene', 'adulte', 'adulti']):
-                score -= 10
+            start_pos = max(0, match.start() - 120)
+            end_pos = min(len(normalized_text), match.end() + 120)
+            window = normalized_text[start_pos:end_pos]
+            window_lower = window.lower()
 
-        if score == 0:
-            continue
+            # Immediate prefix window (25 chars before match) to catch "ab €44,50"
+            prefix_lower = normalized_text[max(0, match.start() - 25):match.end()].lower()
 
-        if prev_price_val > 0:
-            ratio = val / prev_price_val
-            if 1.00 <= ratio <= 1.15:
-                score += 10
-            elif 0.95 <= ratio < 1.00 or 1.15 < ratio <= 1.28:
-                score += 5
+            score = 0
 
-        symbol = 'CHF' if ('CHF' in raw_curr or 'SFR' in raw_curr or default_currency == 'CHF') else '€'
-        candidates.append((score, val, f"{symbol}{val:.2f}"))
+            for kw in POSITIVE_KEYWORDS:
+                if kw in window_lower:
+                    score += 4
+
+            for kw in NEGATIVE_KEYWORDS:
+                if kw in window_lower:
+                    score -= 6
+
+            for teaser in TEASER_PREFIX_KEYWORDS:
+                if teaser in prefix_lower or teaser in window_lower:
+                    score -= 5
+
+            if any(yr in window_lower for yr in ['2026', '2027', '26/27', '2026/27', '25/26']):
+                score += 3
+            if any(old_yr in window_lower for old_yr in ['2021', '2022', '2023', '22/23']):
+                score -= 5
+
+            # Forensic Fix #2 & #3: Baseline proximity with non-negative inflation bias
+            if prev_price > 15.0:
+                pct_diff = (val - prev_price) / prev_price
+                if 0.0 <= pct_diff <= 0.165:
+                    score += 10  # Ideal realistic 1-2 season ski pass increase (0% to +16.5%)
+                elif 0.165 < pct_diff <= 0.22:
+                    score += 4   # Plausible higher increase (+16.5% to +22%)
+                elif -0.02 <= pct_diff < 0.0:
+                    score += 2   # Virtually unchanged price
+                elif -0.08 <= pct_diff < -0.02:
+                    score -= 7   # Almost certainly an online early-bird teaser or off-peak price
+                elif pct_diff < -0.08 or pct_diff > 0.22:
+                    score -= 12  # Child pass, half-day pass, or multi-day/season card
+
+                # Hard guardrail if strict_non_negative is enabled
+                if strict_non_negative and (pct_diff < -0.03 or pct_diff > 0.22):
+                    continue
+
+            curr_symbol = 'CHF' if 'chf' in raw_curr.lower() or 'sfr' in raw_curr.lower() else '€'
+            snippet_clean = window.strip()[:140]
+            candidates.append((score, val, curr_symbol, snippet_clean))
 
     if not candidates:
         return None
 
+    # Sort by highest score, then prefer the higher (peak) adult price among ties
     candidates.sort(key=lambda x: (x[0], x[1]), reverse=True)
-    best_score, _, best_formatted = candidates[0]
+    best_score, best_val, best_curr, best_snippet = candidates[0]
 
-    if best_score < 4:
+    if best_score < 0:
         return None
 
-    return best_formatted
+    return best_val, best_curr, best_score, best_snippet
 
 
-def parse_html_text_and_links(html_content, base_url):
-    """Extracts visible text and scored candidate links from raw HTML."""
-    clean_html = strip_promotional_footer(html_content)
-    links = []
-    if HAS_BS4:
-        soup = BeautifulSoup(clean_html, 'html.parser')
-        for a in soup.find_all('a', href=True):
-            href = a['href'].strip()
-            text = strip_invisible_chars(a.get_text(separator=' ')).strip()
-            links.append((href, text))
-        for tag in soup(['script', 'style', 'noscript', 'svg']):
-            tag.decompose()
-        visible_text = strip_invisible_chars(soup.get_text(separator=' '))
-    else:
-        parser = SimpleHTMLParser()
-        parser.feed(clean_html)
-        links = parser.links
-        visible_text = ' '.join(parser.text_parts)
+def parse_bergfex_price_page(html_content, prev_price=0.0):
+    """
+    Parses a Bergfex resort or /preise/ page specifically targeting the Adult (Erwachsene)
+    1-Day (Tageskarte) price, avoiding child/youth columns.
+    """
+    soup = BeautifulSoup(html_content, 'html.parser')
 
-    visible_text = re.sub(r'\s+', ' ', visible_text)
+    # Method A: Look for table rows or definition lists containing "Tageskarte" or "Erwachsene"
+    for tr in soup.find_all(['tr', 'dl', 'div']):
+        row_text = tr.get_text(' ', strip=True)
+        row_lower = row_text.lower()
+        if any(k in row_lower for k in ['tageskarte', '1 tag', 'tagesskipass', 'erwachsene', 'day ticket']):
+            if len(row_text) < 300:
+                cand = score_price_candidates(row_text, prev_price, strict_non_negative=True)
+                if cand:
+                    return cand
 
-    scored_urls = {}
-    parsed_base = urllib.parse.urlparse(base_url)
-    base_domain = parsed_base.netloc.lower().replace('www.', '')
+    # Method B: Full page text with contextual scoring
+    full_text = soup.get_text(' ', strip=True)
+    return score_price_candidates(full_text, prev_price, strict_non_negative=True)
 
-    for href, anchor_text in links:
+
+def fetch_from_bergfex(resort_name, country, prev_price=0.0):
+    """
+    Forensic Fix #4: Tests transliterated slugs and alias overrides on both
+    /slug/preise/ and /slug/ across bergfex.com and bergfex.at.
+    """
+    slugs = generate_bergfex_slugs(resort_name)
+    for slug in slugs:
+        urls_to_try = [
+            f"https://www.bergfex.com/{slug}/preise/",
+            f"https://www.bergfex.com/{slug}/",
+            f"https://www.bergfex.at/{slug}/preise/"
+        ]
+        for b_url in urls_to_try:
+            try:
+                resp = requests.get(b_url, headers=HEADERS, timeout=8, verify=False, allow_redirects=True)
+                if resp.status_code == 200 and 'bergfex' in resp.url:
+                    # Reject if redirected to a generic country search page or summer page
+                    if '/sommer/' in resp.url.lower():
+                        continue
+                    cand = parse_bergfex_price_page(resp.text, prev_price)
+                    if cand:
+                        stage_label = "Stage 1B (Bergfex /preise/)" if '/preise' in b_url else "Stage 1C (Bergfex Direct)"
+                        return cand, stage_label, resp.url
+            except Exception:
+                continue
+    return None, None, None
+
+
+def fetch_from_skiresort_info(resort_name, prev_price=0.0):
+    """Queries Skiresort.info resort overview page using transliterated slugs."""
+    slugs = generate_bergfex_slugs(resort_name)
+    for slug in slugs[:3]:
+        s_url = f"https://www.skiresort.info/ski-resort/{slug}/"
+        try:
+            resp = requests.get(s_url, headers=HEADERS, timeout=8, verify=False, allow_redirects=True)
+            if resp.status_code == 200 and '/ski-resort/' in resp.url:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                cand = score_price_candidates(soup.get_text(' ', strip=True), prev_price, strict_non_negative=True)
+                if cand:
+                    return cand, "Stage 1A (Skiresort.info)", resp.url
+        except Exception:
+            continue
+    return None, None, None
+
+
+def rank_internal_pricing_links(base_url, html_content):
+    """
+    Finds and ranks internal links likely to contain WINTER 1-day lift pass prices,
+    strictly blacklisting summer (`preise-sommer`, `sommer-preise`) and season-card pages.
+    """
+    soup = BeautifulSoup(html_content, 'html.parser')
+    base_domain = urlparse(base_url).netloc.replace('www.', '')
+    scored_links = {}
+    pdf_links = []
+
+    for a_tag in soup.find_all('a', href=True):
+        href = a_tag['href'].strip()
         if not href or href.startswith(('javascript:', 'mailto:', 'tel:', '#')):
             continue
-        full_url = urllib.parse.urljoin(base_url, href)
-        parsed_link = urllib.parse.urlparse(full_url)
-        link_domain = parsed_link.netloc.lower().replace('www.', '')
 
-        if base_domain not in link_domain and not any(k in link_domain for k in ['ticket', 'skipass', 'shop', 'tarif', 'bergbahn']):
+        full_url = urljoin(base_url, href)
+        parsed = urlparse(full_url)
+        link_domain = parsed.netloc.replace('www.', '')
+
+        if base_domain not in link_domain and not any(t in link_domain for t in ['skidata', 'axess', 'feratel', 'starjack']):
             continue
 
-        if re.search(r'\.(jpg|jpeg|png|gif|svg|pdf|zip|mp4|ics)$', parsed_link.path, re.I):
+        combined_text = (parsed.path + ' ' + a_tag.get_text(' ', strip=True)).lower()
+
+        # Forensic Fix #1 & #2: Immediately discard summer or season-card links
+        if any(bad in combined_text for bad in BLACKLIST_LINK_KEYWORDS):
             continue
 
-        combined = f"{parsed_link.path.lower()} {anchor_text.lower()}"
         score = 0
-        for kw in LINK_KEYWORDS_HIGH:
-            if kw in combined:
-                score += 10
-        for kw in LINK_KEYWORDS_MEDIUM:
-            if kw in combined:
-                score += 3
+        for kw in HIGH_PRIORITY_LINK_KEYWORDS:
+            if kw in combined_text:
+                score += 5
+
+        if any(w in combined_text for w in ['winter', 'hiver', 'inverno', 'skibetrieb', 'tageskarten', '2026', '2027']):
+            score += 6
 
         if score > 0:
-            scored_urls[full_url] = max(scored_urls.get(full_url, 0), score)
+            if parsed.path.lower().endswith('.pdf'):
+                pdf_links.append((score, full_url))
+            else:
+                if full_url not in scored_links or score > scored_links[full_url]:
+                    scored_links[full_url] = score
 
-    sorted_candidates = sorted(scored_urls.keys(), key=lambda u: scored_urls[u], reverse=True)
-    return visible_text, sorted_candidates[:8]
-
-
-def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, default_currency, agg_index):
-    """
-    Stage 1 (v5):
-      1A: Looks up the resort in the pre-indexed Skiresort.info & Bergfex Country Directories.
-      1B: Visits matched Skiresort.info profile page & Bergfex overview + /preise/ pages.
-      1C: Probes RESORT_ALIASES + direct umlaut-transliterated Skiresort.info & Bergfex URLs.
-    """
-    sr_matches, bf_matches = agg_index.find_candidates(resort_name, region_name, country)
-
-    # 1A: Check Skiresort.info Directory Card Price & Profile Page
-    for sr_entry in sr_matches:
-        card_price = parse_currency_price_from_snippet(
-            sr_entry['raw_card_text'], prev_price_val, default_currency
-        )
-        if card_price:
-            return card_price, "Stage 1A (Skiresort.info Directory Index)", sr_entry['url']
-
-        html, final_url = fetch_html(sr_entry['url'], timeout=10)
-        if html:
-            price = extract_structured_table_price(html, prev_price_val, default_currency)
-            if not price:
-                text, _ = parse_html_text_and_links(html, final_url)
-                price = extract_best_price_from_text(text, prev_price_val, default_currency)
-            if price:
-                return price, "Stage 1A (Skiresort.info Profile Page)", final_url
-
-    # 1B: Check Bergfex Directory Card Price, Main Overview Page ("Prices € XX (day ticket)"), and /preise/
-    for bf_entry in bf_matches:
-        card_price = parse_currency_price_from_snippet(
-            bf_entry['raw_card_text'], prev_price_val, default_currency
-        )
-        if card_price:
-            return card_price, "Stage 1B (Bergfex Directory Index)", bf_entry['url']
-
-        for bf_url in [bf_entry['url'], bf_entry['url'].rstrip('/') + '/preise/']:
-            html, final_url = fetch_html(bf_url, timeout=10)
-            if html:
-                price = extract_structured_table_price(html, prev_price_val, default_currency)
-                if not price:
-                    text, _ = parse_html_text_and_links(html, final_url)
-                    price = extract_best_price_from_text(text, prev_price_val, default_currency)
-                if price:
-                    return price, "Stage 1B (Bergfex Resort Page)", final_url
-
-    # 1C: Direct Alias & Slug Probing on Skiresort.info & Bergfex
-    alias_sr_slugs, alias_bf_slugs = lookup_alias_slugs(resort_name, region_name)
-    base_slugs = make_slugs(resort_name)
-    if '/' in region_name:
-        area_part = region_name.split('/')[-1].strip()
-        for s in make_slugs(area_part):
-            if s not in base_slugs:
-                base_slugs.append(s)
-
-    sr_candidates = alias_sr_slugs + [s for s in base_slugs if s not in alias_sr_slugs]
-    bf_candidates = alias_bf_slugs + [s for s in base_slugs if s not in alias_bf_slugs]
-
-    for slug in sr_candidates[:4]:
-        sr_url = f"https://www.skiresort.info/ski-resort/{slug}/"
-        html, final_url = fetch_html(sr_url, timeout=10)
-        if html and ('Ski pass prices' in html or 'Day ticket' in html or 'selAd' in html):
-            price = extract_structured_table_price(html, prev_price_val, default_currency)
-            if not price:
-                text, _ = parse_html_text_and_links(html, final_url)
-                price = extract_best_price_from_text(text, prev_price_val, default_currency)
-            if price:
-                return price, "Stage 1C (Skiresort.info Direct)", final_url
-
-    for slug in bf_candidates[:4]:
-        for bf_url in [f"https://www.bergfex.com/{slug}/", f"https://www.bergfex.com/{slug}/preise/"]:
-            bf_html, bf_final = fetch_html(bf_url, timeout=10)
-            if bf_html and ('day ticket' in bf_html.lower() or 'tageskarte' in bf_html.lower() or 'erwachsene' in bf_html.lower()):
-                price = extract_structured_table_price(bf_html, prev_price_val, default_currency)
-                if not price:
-                    text, _ = parse_html_text_and_links(bf_html, bf_final)
-                    price = extract_best_price_from_text(text, prev_price_val, default_currency)
-                if price:
-                    return price, "Stage 1C (Bergfex Direct)", bf_final
-
-    return None, None, None
+    sorted_html_links = [url for url, _ in sorted(scored_links.items(), key=lambda x: x[1], reverse=True)[:4]]
+    sorted_pdf_links = [url for _, url in sorted(pdf_links, key=lambda x: x[0], reverse=True)[:2]]
+    return sorted_html_links, sorted_pdf_links
 
 
-def stage2_spider_official_site(website_url, prev_price_val, default_currency):
-    """
-    Stage 2: Crawls the resort's official website, discovers pricing/skipass links in the DOM,
-    and visits top candidate pages to extract the 1-day adult price.
-    """
-    if not website_url or website_url.strip().lower() in ['n/a', 'closed', '']:
-        return None, None, []
-
-    base_url = website_url.strip().rstrip('/')
-    if not base_url.startswith(('http://', 'https://')):
-        base_url = 'https://' + base_url
-
-    html, final_url = fetch_html(base_url)
-    if not html:
-        return None, None, [base_url]
-
-    home_text, candidate_links = parse_html_text_and_links(html, final_url)
-
-    parsed_root = urllib.parse.urlparse(final_url)
-    root_domain_url = f"{parsed_root.scheme}://{parsed_root.netloc}"
-    for fallback_slug in ['/skipass', '/tarifs', '/preise', '/prices', '/tickets', '/prezzi']:
-        fallback_full = root_domain_url + fallback_slug
-        if fallback_full not in candidate_links:
-            candidate_links.append(fallback_full)
-
-    for link_url in candidate_links[:6]:
-        sub_html, sub_final_url = fetch_html(link_url, timeout=10)
-        if sub_html:
-            price = extract_structured_table_price(sub_html, prev_price_val, default_currency)
-            if not price:
-                sub_text, _ = parse_html_text_and_links(sub_html, sub_final_url)
-                price = extract_best_price_from_text(sub_text, prev_price_val, default_currency)
-            if price:
-                return price, "Stage 2 (Official Site Spider)", [sub_final_url]
-
-    price = extract_structured_table_price(html, prev_price_val, default_currency)
-    if not price:
-        price = extract_best_price_from_text(home_text, prev_price_val, default_currency)
-    if price:
-        return price, "Stage 2 (Official Homepage)", [final_url]
-
-    return None, None, (candidate_links[:3] if candidate_links else [final_url])
-
-
-def stage3_headless_browser(pw_page, target_urls, resort_name, country, prev_price_val, default_currency):
-    """
-    Stage 3: Uses a persistent Playwright Chromium page to render JS-heavy official ticket pages
-    AND perform a live browser search if static requests were blocked.
-    """
-    if not pw_page:
-        return None, None, None
-
-    for url in (target_urls or [])[:2]:
-        try:
-            pw_page.goto(url, timeout=15000, wait_until="domcontentloaded")
-            pw_page.wait_for_timeout(1800)
-            rendered_html = strip_invisible_chars(pw_page.content())
-            price = extract_structured_table_price(rendered_html, prev_price_val, default_currency)
-            if not price:
-                text, _ = parse_html_text_and_links(rendered_html, url)
-                price = extract_best_price_from_text(text, prev_price_val, default_currency)
-            if price:
-                return price, "Stage 3A (Playwright Official JS)", url
-        except Exception:
-            continue
-
-    clean_name = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
-    search_queries = [
-        f'"{clean_name}" {country} ski pass price adult day skiresort.info',
-        f'"{clean_name}" {country} skipass preise bergfex'
-    ]
-    for q in search_queries:
-        try:
-            b_url = f"https://www.bing.com/search?q={urllib.parse.quote(q)}"
-            pw_page.goto(b_url, timeout=14000, wait_until="domcontentloaded")
-            pw_page.wait_for_timeout(1200)
-            b_html = strip_invisible_chars(pw_page.content())
-
-            if HAS_BS4:
-                soup = BeautifulSoup(b_html, 'html.parser')
-                for a in soup.find_all('a', href=True):
-                    href = a['href']
-                    if 'skiresort.info/ski-resort/' in href or 'bergfex.' in href:
-                        pw_page.goto(href, timeout=14000, wait_until="domcontentloaded")
-                        pw_page.wait_for_timeout(1000)
-                        agg_html = strip_invisible_chars(pw_page.content())
-                        price = extract_structured_table_price(agg_html, prev_price_val, default_currency)
-                        if not price:
-                            text, _ = parse_html_text_and_links(agg_html, href)
-                            price = extract_best_price_from_text(text, prev_price_val, default_currency)
-                        if price:
-                            return price, "Stage 3B (Playwright Search -> Aggregator)", href
-
-            text, _ = parse_html_text_and_links(b_html, b_url)
-            price = extract_best_price_from_text(text, prev_price_val, default_currency)
-            if price:
-                return price, "Stage 3B (Playwright Search Snippet)", b_url
-        except Exception:
-            continue
-
-    return None, None, None
-
-
-def write_markdown_summary(audit_rows, stats, offset, limit):
-    """
-    Writes a rich Markdown Audit Table to both:
-      1. GitHub Actions Job Summary ($GITHUB_STEP_SUMMARY) so it appears visually on the Run Summary screen!
-      2. 'lift_pass_batch_audit.md' in the repository.
-    """
-    total_batch = stats['scraped'] + stats['estimated'] + stats['manual']
-    capture_rate = (stats['scraped'] / total_batch * 100) if total_batch > 0 else 0.0
-
-    md_lines = [
-        f"## Ski Lift Pass Audit Summary (Offset: `{offset}`, Limit: `{limit}`)",
-        "",
-        f"- **Total Resorts Processed:** `{total_batch}`",
-        f"- **Live Verified Prices (`VERIFIED_SCRAPE`):** `{stats['scraped']}` (**{capture_rate:.1f}%**)",
-        f"- **Indexed Fallbacks (`ESTIMATED` +3.5%):** `{stats['estimated']}`",
-        f"- **Manual Check Needed:** `{stats['manual']}`",
-        "",
-        "| # | Resort Name | Country | Prev Price | New Price | Variance | Status | Extraction Stage | Source URL |",
-        "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |"
-    ]
-
-    for i, r in enumerate(audit_rows[1:], start=offset + 1):
-        resort_name, country, website, prev_p, new_p, var_pct, method, src_url, status = r
-        badge = "✅ VERIFIED" if status == "VERIFIED_SCRAPE" else ("⚠️ ESTIMATED" if status == "ESTIMATED" else "❌ MANUAL")
-        md_lines.append(
-            f"| {i} | **{resort_name}** | {country} | `{prev_p}` | **`{new_p}`** | `{var_pct}` | {badge} | {method} | {src_url} |"
-        )
-
-    md_content = "\n".join(md_lines) + "\n"
-
-    # 1. Save to local markdown file in repo
+def extract_from_pdf(pdf_url, prev_price=0.0):
+    """Downloads a pricing PDF into memory and runs contextual candidate scoring."""
+    if not PDF_AVAILABLE or any(bad in pdf_url.lower() for bad in BLACKLIST_LINK_KEYWORDS):
+        return None
     try:
-        with open(DEFAULT_AUDIT_MD, 'w', encoding='utf-8') as f:
-            f.write(md_content)
+        resp = requests.get(pdf_url, headers=HEADERS, timeout=TIMEOUT_SECONDS, verify=False)
+        if resp.status_code == 200 and b'%PDF' in resp.content[:1024]:
+            reader = PdfReader(io.BytesIO(resp.content))
+            full_text = []
+            for page in reader.pages[:6]:
+                full_text.append(page.extract_text() or '')
+            return score_price_candidates(' '.join(full_text), prev_price, strict_non_negative=True)
+    except Exception:
+        pass
+    return None
+
+
+def scrape_with_playwright(url, prev_price=0.0):
+    """Uses Headless Chromium to dismiss cookie banners, render JS widgets, and score prices."""
+    if not PLAYWRIGHT_AVAILABLE or any(bad in url.lower() for bad in BLACKLIST_LINK_KEYWORDS):
+        return None, None
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent=HEADERS['User-Agent'],
+                locale='de-AT'
+            )
+            page = context.new_page()
+            page.goto(url, timeout=14000, wait_until='domcontentloaded')
+            page.wait_for_timeout(1200)
+
+            cookie_selectors = [
+                "button:has-text('Alle akzeptieren')",
+                "button:has-text('Accept all')",
+                "button:has-text('Tout accepter')",
+                "button:has-text('Accetta tutto')",
+                "#onetrust-accept-btn-handler",
+                "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"
+            ]
+            for sel in cookie_selectors:
+                try:
+                    btn = page.locator(sel).first
+                    if btn.is_visible(timeout=400):
+                        btn.click(timeout=800)
+                        page.wait_for_timeout(400)
+                        break
+                except Exception:
+                    pass
+
+            page.evaluate("window.scrollBy(0, 600)")
+            page.wait_for_timeout(800)
+
+            rendered_html = page.content()
+            visible_text = page.inner_text('body')
+            browser.close()
+
+            candidate = score_price_candidates(visible_text, prev_price, strict_non_negative=True)
+            return candidate, rendered_html
+    except Exception:
+        return None, None
+
+
+def get_syndicate_cache_key(region_str, website_url):
+    """Returns a normalized cache key if the resort belongs to a shared-price ski syndicate."""
+    reg_lower = str(region_str).lower()
+    for syn in SHARED_SYNDICATE_KEYS:
+        if syn in reg_lower:
+            return f"syndicate:{syn}"
+    if website_url and website_url.strip().lower() not in ['n/a', 'closed', '']:
+        t_url = website_url.strip()
+        if not t_url.startswith(('http://', 'https://')):
+            t_url = 'https://' + t_url
+        domain = urlparse(t_url).netloc.lower().replace('www.', '')
+        if domain:
+            return f"domain:{domain}"
+    return None
+
+
+def deep_discover_resort_price(resort_name, country, region_str, website_url, prev_price, shared_cache):
+    """
+    Executes the v6 4-Stage Deep Discovery Pipeline:
+      Stage 0: Shared Ski Area Syndicate & Domain Cache
+      Stage 1: Bergfex (/preise/ & Direct with Umlaut/Alias Engine) + Skiresort.info
+      Stage 2: Official Site Winter Spider (Summer & Season-Card Blacklisted) + PDF
+      Stage 3: Headless Chromium JS Rendering (Playwright)
+    """
+    # STAGE 0: Shared Ski Area / Domain Cache
+    cache_key = get_syndicate_cache_key(region_str, website_url)
+    if cache_key and cache_key in shared_cache:
+        cached_price, cached_source, cached_snippet = shared_cache[cache_key]
+        cached_val = clean_numeric_price(cached_price)
+        if prev_price <= 0 or (-0.03 <= (cached_val - prev_price) / prev_price <= 0.22):
+            return cached_price, "Stage 0 (Shared Ski Area Domain Cache)", cached_source, cached_snippet
+
+    # STAGE 1A/1B/1C: Bergfex Direct & /preise/ Lookup (Highest accuracy in v5)
+    cand, stage_label, b_url = fetch_from_bergfex(resort_name, country, prev_price)
+    if cand:
+        val, curr, score, snippet = cand
+        price_str = f"{curr}{val:.2f}"
+        if cache_key:
+            shared_cache[cache_key] = (price_str, b_url, snippet)
+        return price_str, stage_label, b_url, snippet
+
+    # STAGE 1D: Skiresort.info Direct Lookup
+    cand, stage_label, s_url = fetch_from_skiresort_info(resort_name, prev_price)
+    if cand:
+        val, curr, score, snippet = cand
+        price_str = f"{curr}{val:.2f}"
+        if cache_key:
+            shared_cache[cache_key] = (price_str, s_url, snippet)
+        return price_str, stage_label, s_url, snippet
+
+    # STAGE 2: Official Website Spider (with strict summer/season-card blacklist)
+    if not website_url or website_url.strip().lower() in ['n/a', 'closed', '']:
+        return None, "No URL", "SKIPPED", ""
+
+    target_url = website_url.strip()
+    if not target_url.startswith(('http://', 'https://')):
+        target_url = 'https://' + target_url
+
+    html_subpages = []
+    pdf_links = []
+
+    try:
+        resp = requests.get(target_url, headers=HEADERS, timeout=TIMEOUT_SECONDS, verify=False)
+        if resp.status_code == 200:
+            html_subpages, pdf_links = rank_internal_pricing_links(target_url, resp.text)
     except Exception:
         pass
 
-    # 2. Write directly to GitHub Actions Run Summary page ($GITHUB_STEP_SUMMARY)
-    step_summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
-    if step_summary_path:
+    for sub_url in html_subpages:
+        if any(bad in sub_url.lower() for bad in BLACKLIST_LINK_KEYWORDS):
+            continue
         try:
-            with open(step_summary_path, 'a', encoding='utf-8') as f:
-                f.write(md_content)
-            print("   [+] Wrote visual Markdown Audit Table to GitHub Actions Run Summary ($GITHUB_STEP_SUMMARY)!", flush=True)
-        except Exception as e:
-            print(f"   [!] Could not write to GITHUB_STEP_SUMMARY: {e}", flush=True)
+            sub_resp = requests.get(sub_url, headers=HEADERS, timeout=TIMEOUT_SECONDS, verify=False)
+            if sub_resp.status_code == 200 and not any(bad in sub_resp.url.lower() for bad in BLACKLIST_LINK_KEYWORDS):
+                sub_soup = BeautifulSoup(sub_resp.text, 'html.parser')
+                cand = score_price_candidates(sub_soup.get_text(' ', strip=True), prev_price, strict_non_negative=True)
+                if cand and cand[2] >= 6:
+                    val, curr, score, snippet = cand
+                    price_str = f"{curr}{val:.2f}"
+                    if cache_key:
+                        shared_cache[cache_key] = (price_str, sub_resp.url, snippet)
+                    return price_str, "Stage 2 (Official Site Spider)", sub_resp.url, snippet
+
+                _, more_pdfs = rank_internal_pricing_links(sub_resp.url, sub_resp.text)
+                for p_url in more_pdfs:
+                    if p_url not in pdf_links:
+                        pdf_links.append(p_url)
+        except Exception:
+            continue
+
+    # STAGE 2B: PDF Price Sheet Extraction
+    for pdf_url in pdf_links[:2]:
+        cand = extract_from_pdf(pdf_url, prev_price)
+        if cand and cand[2] >= 4:
+            val, curr, score, snippet = cand
+            price_str = f"{curr}{val:.2f}"
+            return price_str, "Stage 2B (Official PDF Price Sheet)", pdf_url, snippet
+
+    # STAGE 3: Headless Chromium JS Rendering on best winter pricing subpage
+    if html_subpages:
+        js_target = html_subpages[0]
+        cand, _ = scrape_with_playwright(js_target, prev_price)
+        if cand and cand[2] >= 6:
+            val, curr, score, snippet = cand
+            price_str = f"{curr}{val:.2f}"
+            if cache_key:
+                shared_cache[cache_key] = (price_str, js_target, snippet)
+            return price_str, "Stage 3 (Headless Chromium JS)", js_target, snippet
+
+    return None, "Fallback (Index +3.5%)", target_url, ""
 
 
-def process_batch(master_csv, output_csv, audit_csv, offset, limit):
-    if not os.path.exists(master_csv) and os.path.exists(FALLBACK_MASTER_CSV):
-        master_csv = FALLBACK_MASTER_CSV
-
-    print("\n" + "=" * 78, flush=True)
-    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER (v5 - Summary + Alias Engine)", flush=True)
-    print(f" Input File  : {master_csv}", flush=True)
-    print(f" Offset      : {offset} | Batch Limit: {limit}", flush=True)
-    print(f" Capabilities: Requests={HAS_REQUESTS}, BS4={HAS_BS4}, Playwright={HAS_PLAYWRIGHT}", flush=True)
-    print("=" * 78 + "\n", flush=True)
-
-    if not os.path.exists(master_csv):
-        print(f"[x] Error: Master CSV '{master_csv}' not found in {os.getcwd()}", flush=True)
+def write_github_step_summary(summary_rows, total_count, verified_count, estimated_count):
+    """Writes a clean Markdown audit table directly to $GITHUB_STEP_SUMMARY if running in GitHub Actions."""
+    summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+    if not summary_path:
         return
+    try:
+        pct = (verified_count / total_count * 100.0) if total_count else 0.0
+        lines = [
+            "## 🎿 v6 Deep-Discovery Lift Pass Scraper — Batch Audit Summary",
+            f"- **Resorts Processed:** `{total_count}`",
+            f"- **Live Verified Scrapes:** `{verified_count}` (`{pct:.1f}%`)",
+            f"- **Indexed Fallbacks (+3.5%):** `{estimated_count}`\n",
+            "| # | Resort Name | Country | Baseline | 2026/27 Price | Var % | Status | Discovery Stage | Source |",
+            "|---|---|---|---|---|---|---|---|---|"
+        ]
+        for r in summary_rows:
+            idx, country, name, old_p, new_p, var_s, stage, status, src, _ = r
+            src_display = f"[Link]({src})" if str(src).startswith('http') else str(src)
+            lines.append(f"| {idx} | **{name}** | {country} | {old_p} | **{new_p}** | `{var_s}` | `{status}` | {stage} | {src_display} |")
 
-    with open(master_csv, 'r', encoding='utf-8') as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
+        with open(summary_path, 'a', encoding='utf-8') as sf:
+            sf.write('\n'.join(lines) + '\n')
+        print("   [+] Wrote visual Markdown Audit Table to GitHub Actions Run Summary ($GITHUB_STEP_SUMMARY)!")
+    except Exception as e:
+        print(f"   [!] Could not write to $GITHUB_STEP_SUMMARY: {e}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="v6 Deep Discovery Lift Pass Scraper")
+    parser.add_argument('--offset', type=int, default=0, help="Starting row index (0-based)")
+    parser.add_argument('--limit', type=int, default=60, help="Max resorts to process in this batch (0 = all)")
+    parser.add_argument('--auto-batch', action='store_true', help="Automatically select next unvalidated resorts")
+    args = parser.parse_args()
+
+    try:
+        with open(MASTER_CSV, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            header = next(reader)
+            rows = list(reader)
+    except FileNotFoundError:
+        print(f"[x] Error: Master CSV '{MASTER_CSV}' not found.")
+        return
 
     country_idx = next((i for i, h in enumerate(header) if 'Country' in h), 0)
     name_idx = next((i for i, h in enumerate(header) if 'Resort Name' in h), 1)
-    region_idx = next((i for i, h in enumerate(header) if 'Region' in h or 'Area' in h), 2)
-    website_idx = next((i for i, h in enumerate(header) if 'Website' in h), 9)
+    region_idx = next((i for i, h in enumerate(header) if 'Region' in h), 2)
     pass_idx = next((i for i, h in enumerate(header) if 'Day Pass' in h or 'Pass' in h), 5)
+    website_idx = next((i for i, h in enumerate(header) if 'Website' in h), 9)
+    validated_idx = next((i for i, h in enumerate(header) if 'Last Validated' in h), None)
 
-    batch_rows = rows[offset:offset + limit] if limit > 0 else rows[offset:]
+    today_str = datetime.date.today().isoformat()
 
-    if os.path.exists(output_csv) and offset > 0:
-        with open(output_csv, 'r', encoding='utf-8') as f:
-            all_output_rows = list(csv.reader(f))
+    if args.auto_batch and validated_idx is not None:
+        unvalidated = [
+            idx for idx, r in enumerate(rows)
+            if len(r) > validated_idx and not str(r[validated_idx]).strip().startswith('2026-')
+        ]
+        target_indices = unvalidated[:args.limit] if args.limit > 0 else unvalidated
     else:
-        updated_header = list(header)
-        updated_header[pass_idx] = 'Day Pass (2026/27)'
-        all_output_rows = [updated_header] + [list(r) for r in rows]
+        start = max(0, args.offset)
+        end = start + args.limit if args.limit > 0 else len(rows)
+        target_indices = list(range(start, min(end, len(rows))))
 
+    print("\n" + "=" * 78)
+    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER (v6 - Umlaut + Winter Guardrails)")
+    print(f" Input File  : {MASTER_CSV}")
+    print(f" Offset      : {args.offset} | Batch Limit: {len(target_indices)}")
+    print(f" Capabilities: Requests=True, BS4=True, Playwright={PLAYWRIGHT_AVAILABLE}, PDF={PDF_AVAILABLE}")
+    print("=" * 78 + "\n")
+
+    updated_rows = [list(header)] + [list(r) for r in rows]
     audit_header = [
-        'Resort Name', 'Country', 'Website', 'Previous Price',
-        'New Price', 'Variance %', 'Extraction Stage', 'Source URL', 'Status'
+        'Row Index', 'Country', 'Resort Name', 'Old Price (24/25)',
+        'New Price (26/27)', 'Variance (%)', 'Discovery Stage',
+        'Review Status', 'Source URL', 'Matched Context Snippet'
     ]
     audit_rows = [audit_header]
+    summary_rows = []
+    shared_cache = {}
 
-    stats = {'scraped': 0, 'estimated': 0, 'manual': 0}
+    live_scraped = 0
+    indexed_fallback = 0
 
-    domain_price_cache = {}
-    agg_index = MultiAggregatorDirectoryIndex()
+    for count, row_idx in enumerate(target_indices, 1):
+        row = rows[row_idx]
+        if len(row) <= max(country_idx, name_idx, pass_idx, website_idx):
+            continue
 
-    pw_context_mgr = sync_playwright().start() if HAS_PLAYWRIGHT else None
-    pw_browser = None
-    pw_page = None
-    if pw_context_mgr:
-        try:
-            pw_browser = pw_context_mgr.chromium.launch(headless=True)
-            pw_page = pw_browser.new_page(user_agent=HEADERS['User-Agent'])
-        except Exception:
-            pw_page = None
+        country = row[country_idx].strip()
+        resort_name = row[name_idx].strip()
+        region_str = row[region_idx].strip() if len(row) > region_idx else ""
+        prev_price_str = row[pass_idx].strip()
+        website = row[website_idx].strip()
+        prev_val = clean_numeric_price(prev_price_str)
+        curr = detect_currency(prev_price_str, 'CHF' if country == 'Switzerland' else '€')
 
-    try:
-        for idx, row in enumerate(batch_rows, start=offset):
-            if len(row) <= max(name_idx, website_idx, pass_idx):
-                continue
+        print(f"[{row_idx + 1}/{len(rows)}] {resort_name} ({country}) | Baseline: {curr}{prev_val:.2f}")
 
-            country = row[country_idx] if len(row) > country_idx else ""
-            resort_name = row[name_idx]
-            region_name = row[region_idx] if len(row) > region_idx else ""
-            website = row[website_idx]
-            prev_price_str = row[pass_idx]
-            prev_val = clean_numeric_price(prev_price_str)
-            default_curr = 'CHF' if ('CHF' in prev_price_str or country.strip().lower() == 'switzerland') else '€'
+        scraped_price_str, stage, source_url, snippet = deep_discover_resort_price(
+            resort_name, country, region_str, website, prev_val, shared_cache
+        )
 
-            print(f"[{idx + 1}/{len(rows)}] {resort_name} ({country}) | Baseline: {prev_price_str}", flush=True)
+        updated_row = list(row)
+        is_numeric_only_col = prev_price_str.replace('.', '', 1).replace(',', '', 1).isdigit()
 
-            price, method, source_url = None, None, None
+        if scraped_price_str:
+            new_val = clean_numeric_price(scraped_price_str)
+            pct_change = ((new_val - prev_val) / prev_val * 100.0) if prev_val > 0 else 0.0
+            variance_str = f"{pct_change:+.1f}%"
+            status = "VERIFIED_SCRAPE"
+            live_scraped += 1
 
-            norm_domain = urllib.parse.urlparse(website if '://' in website else f"https://{website}").netloc.lower().replace('www.', '')
-            if norm_domain and norm_domain in domain_price_cache:
-                cached_price, cached_url = domain_price_cache[norm_domain]
-                if validate_price_bounds(clean_numeric_price(cached_price), prev_val):
-                    price = cached_price
-                    method = "Stage 0 (Shared Ski Area Domain Cache)"
-                    source_url = cached_url
+            formatted_master_val = f"{new_val:.2f}" if is_numeric_only_col else f"{curr}{new_val:.2f}"
+            display_new = f"{curr}{new_val:.2f}"
+            updated_row[pass_idx] = formatted_master_val
+            if validated_idx is not None and len(updated_row) > validated_idx:
+                updated_row[validated_idx] = today_str
 
-            # Stage 1: Dual Directory Index (Skiresort.info + Bergfex) & Alias/Direct Profile Lookup
-            if not price:
-                price, method, source_url = stage1_aggregator_search(
-                    resort_name, region_name, country, prev_val, default_curr, agg_index
-                )
-
-            # Stage 2: Official Resort Website Link Spidering
-            candidate_js_urls = []
-            if not price:
-                price, method, candidate_js_urls = stage2_spider_official_site(website, prev_val, default_curr)
-                if price and candidate_js_urls:
-                    source_url = candidate_js_urls[0]
-
-            # Stage 3: Persistent Headless Browser (Playwright JS Rendering + Browser Search)
-            if not price and pw_page:
-                price, method, js_url = stage3_headless_browser(
-                    pw_page, candidate_js_urls, resort_name, country, prev_val, default_curr
-                )
-                if price:
-                    source_url = js_url
-
-            if price:
-                if norm_domain:
-                    domain_price_cache[norm_domain] = (price, source_url)
-                new_val = clean_numeric_price(price)
-                variance_pct = f"{((new_val - prev_val) / prev_val * 100):+.1f}%" if prev_val > 0 else "N/A"
-                status = "VERIFIED_SCRAPE"
-                stats['scraped'] += 1
-                print(f"   [+] {status}: {price} ({variance_pct}) via {method}", flush=True)
-                print(f"       Source: {source_url}", flush=True)
-            else:
-                if prev_val > 0:
-                    est_val = prev_val * (1 + SEASON_INFLATION_RATE)
-                    price = f"{default_curr}{est_val:.2f}"
-                    variance_pct = "+3.5%"
-                    method = "Fallback (Index +3.5%)"
-                    source_url = website
-                    status = "ESTIMATED"
-                    stats['estimated'] += 1
-                    print(f"   [~] ESTIMATED: {price} (Flagged for quick manual check)", flush=True)
-                else:
-                    price = prev_price_str
-                    variance_pct = "0.0%"
-                    method = "None"
-                    source_url = website
-                    status = "MANUAL_REQUIRED"
-                    stats['manual'] += 1
-                    print(f"   [!] MANUAL REQUIRED: No baseline or live price found", flush=True)
-
-            target_row_idx = idx + 1
-            updated_row = list(all_output_rows[target_row_idx]) if target_row_idx < len(all_output_rows) else list(row)
-            updated_row[pass_idx] = price
-            if target_row_idx < len(all_output_rows):
-                all_output_rows[target_row_idx] = updated_row
-            else:
-                all_output_rows.append(updated_row)
-
-            audit_rows.append([
-                resort_name, country, website, prev_price_str,
-                price, variance_pct, method, source_url, status
-            ])
-
-            time.sleep(0.5)
-    finally:
-        if pw_browser:
-            try:
-                pw_browser.close()
-            except Exception:
-                pass
-        if pw_context_mgr:
-            try:
-                pw_context_mgr.stop()
-            except Exception:
-                pass
-
-    with open(output_csv, 'w', newline='', encoding='utf-8') as f:
-        csv.writer(f).writerows(all_output_rows)
-
-    audit_mode = 'a' if (os.path.exists(audit_csv) and offset > 0) else 'w'
-    with open(audit_csv, audit_mode, newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        if audit_mode == 'w':
-            writer.writerows(audit_rows)
+            print(f"   [+] VERIFIED_SCRAPE: {display_new} ({variance_str}) via {stage}")
+            print(f"       Source: {source_url}")
         else:
-            writer.writerows(audit_rows[1:])
+            est_val = prev_val * (1.0 + SEASON_INFLATION_RATE) if prev_val > 0 else 0.0
+            variance_str = "+3.5%"
+            status = "ESTIMATED"
+            stage = "Fallback (Index +3.5%)"
+            indexed_fallback += 1
 
-    # Write visual Markdown table to GitHub Actions Summary page ($GITHUB_STEP_SUMMARY) & repo .md file
-    write_markdown_summary(audit_rows, stats, offset, limit)
+            formatted_master_val = f"{est_val:.2f}" if is_numeric_only_col else f"{curr}{est_val:.2f}"
+            display_new = f"{curr}{est_val:.2f}"
+            updated_row[pass_idx] = formatted_master_val
+            print(f"   [~] ESTIMATED: {display_new} (Flagged for quick manual check)")
 
-    total_batch = stats['scraped'] + stats['estimated'] + stats['manual']
-    capture_rate = (stats['scraped'] / total_batch * 100) if total_batch > 0 else 0.0
+        updated_rows[row_idx + 1] = updated_row
+        row_record = [
+            row_idx + 1, country, resort_name, f"{curr}{prev_val:.2f}",
+            display_new, variance_str, stage, status, source_url, snippet
+        ]
+        audit_rows.append(row_record)
+        summary_rows.append(row_record)
 
-    print("\n" + "=" * 78, flush=True)
-    print(f" BATCH COMPLETE: {total_batch} Resorts Processed", flush=True)
-    print(f" Live Verified Prices : {stats['scraped']} ({capture_rate:.1f}%)", flush=True)
-    print(f" Indexed Fallbacks    : {stats['estimated']}", flush=True)
-    print(f" Manual Check Needed  : {stats['manual']}", flush=True)
-    print(f" Output CSV Saved To  : {output_csv}", flush=True)
-    print(f" Audit Log Saved To   : {audit_csv}", flush=True)
-    print("=" * 78, flush=True)
+    with open(OUTPUT_CSV, 'w', newline='', encoding='utf-8') as f:
+        csv.writer(f).writerows(updated_rows)
 
-    print("\n--- INLINE AUDIT LOG SUMMARY ---", flush=True)
-    print(f"{'Resort Name':<28} | {'Prev':<8} | {'New':<8} | {'Var %':<7} | {'Status':<15} | {'Stage'}", flush=True)
-    print("-" * 105, flush=True)
-    for r in audit_rows[1:]:
-        print(f"{r[0][:28]:<28} | {r[3]:<8} | {r[4]:<8} | {r[5]:<7} | {r[8]:<15} | {r[6]}", flush=True)
-    print("-" * 105 + "\n", flush=True)
+    # Save to both audit filenames so any workflow artifact step picks it up cleanly
+    for audit_filename in [AUDIT_CSV, LEGACY_AUDIT_CSV]:
+        with open(audit_filename, 'w', newline='', encoding='utf-8') as f:
+            csv.writer(f).writerows(audit_rows)
+
+    write_github_step_summary(summary_rows, len(target_indices), live_scraped, indexed_fallback)
+
+    pct_verified = (live_scraped / len(target_indices) * 100.0) if target_indices else 0.0
+    print("\n" + "=" * 78)
+    print(f" BATCH COMPLETE: {len(target_indices)} Resorts Processed")
+    print(f" Live Verified Prices : {live_scraped} ({pct_verified:.1f}%)")
+    print(f" Indexed Fallbacks    : {indexed_fallback}")
+    print(f" Output CSV Saved To  : {OUTPUT_CSV}")
+    print(f" Audit Log Saved To   : {AUDIT_CSV}")
+    print("=" * 78 + "\n")
+
+    print("--- INLINE AUDIT LOG SUMMARY ---")
+    print(f"{'Resort Name':<28} | {'Prev':<8} | {'New':<8} | {'Var %':<7} | {'Status':<15} | {'Stage'}")
+    print("-" * 105)
+    for r in summary_rows:
+        _, _, r_name, old_p, new_p, var_s, stg, stat, _, _ = r
+        print(f"{r_name[:28]:<28} | {old_p:<8} | {new_p:<8} | {var_s:<7} | {stat:<15} | {stg}")
+    print("-" * 105)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Enhanced Deep Discovery Ski Lift Pass Scraper v5")
-    parser.add_argument('--master', type=str, default=DEFAULT_MASTER_CSV, help="Master input CSV path")
-    parser.add_argument('--output', type=str, default=DEFAULT_OUTPUT_CSV, help="Updated output CSV path")
-    parser.add_argument('--audit', type=str, default=DEFAULT_AUDIT_CSV, help="Audit log CSV path")
-    parser.add_argument('--offset', type=int, default=0, help="Starting row offset (default: 0)")
-    parser.add_argument('--limit', type=int, default=60, help="Number of resorts per batch (default: 60)")
-    args = parser.parse_args()
-
-    process_batch(args.master, args.output, args.audit, args.offset, args.limit)
+    main()
