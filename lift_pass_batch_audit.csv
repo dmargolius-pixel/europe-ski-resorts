@@ -3,24 +3,99 @@ Bigëll - Dardhë,Albania,https://ski-bigell.com/,€20.00,€20.70,+3.5%,Fallba
 Grandvalira,Andorra,https://grandvalira.com,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),https://grandvalira.com,ESTIMATED
 Ordino Arcalis,Andorra,https://ordinoarcalis.com,€51.00,€52.78,+3.5%,Fallback (Index +3.5%),https://ordinoarcalis.com,ESTIMATED
 Vallnord,Andorra,https://vallnord.com,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),https://vallnord.com,ESTIMATED
-Alpbach,Austria,https://skijuwel.com,€66.50,€68.00,+2.3%,Stage 1 (Official Site Link Spider),https://www.skijuwel.com/en/winter/tickets-and-prices,VERIFIED_SCRAPE
+Alpbach,Austria,https://skijuwel.com,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://skijuwel.com,ESTIMATED
 Ankogel-Mallnitz,Austria,https://ankogel-ski.at,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://ankogel-ski.at,ESTIMATED
-Annaberg,Austria,https://annaberg.info,€46.00,€48.50,+5.4%,Stage 1 (Official Site Link Spider),https://www.annaberg.info/preise-sommer,VERIFIED_SCRAPE
-Auffach,Austria,https://www.skijuwel.com,€66.50,€68.00,+2.3%,Stage 1 (Official Site Link Spider),https://www.skijuwel.com/en/winter/tickets-and-prices,VERIFIED_SCRAPE
-Axamer Lizum,Austria,https://axamer-lizum.at,€58.50,€63.00,+7.7%,Stage 2 (Bergfex Pricing Table),https://www.bergfex.com/axamer-lizum/preise/,VERIFIED_SCRAPE
-Bad Gastein,Austria,https://skigastein.com,€73.90,€82.50,+11.6%,Stage 1 (Official Site Link Spider),https://www.skigastein.com/tickets-lifte/wintertickets/tageskarten/,VERIFIED_SCRAPE
-Bad Kleinkirchheim,Austria,https://badkleinkirchheim.com,€62.00,€63.00,+1.6%,Stage 1 (Official Site Link Spider),https://www.badkleinkirchheim.com/skigebiet/preise-oeffnungszeiten/,VERIFIED_SCRAPE
+Annaberg,Austria,https://annaberg.info,€46.00,€41.90,-8.9%,Stage 2 (Official Site Spider),https://www.annaberg.info/preise-sommer,VERIFIED_SCRAPE
+Auffach,Austria,https://www.skijuwel.com,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://www.skijuwel.com,ESTIMATED
+Axamer Lizum,Austria,https://axamer-lizum.at,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),https://axamer-lizum.at,ESTIMATED
+Bad Gastein,Austria,https://skigastein.com,€73.90,€100.00,+35.3%,Stage 2 (Official Site Spider),https://www.skigastein.com/tickets-lifte/wintertickets/all-in-card-white/,VERIFIED_SCRAPE
+Bad Kleinkirchheim,Austria,https://badkleinkirchheim.com,€62.00,€73.00,+17.7%,Stage 2 (Official Site Spider),https://www.badkleinkirchheim.com/skigebiet/preise-oeffnungszeiten/,VERIFIED_SCRAPE
 Bergeralm,Austria,https://bergeralm.net,€52.50,€54.34,+3.5%,Fallback (Index +3.5%),https://bergeralm.net,ESTIMATED
 Brandnertal,Austria,https://brandnertal.at,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),https://brandnertal.at,ESTIMATED
 Brixen im Thale,Austria,https://www.skiwelt.at,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),https://www.skiwelt.at,ESTIMATED
 Achensee - Christlum,Austria,https://www.christlum.at,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),https://www.christlum.at,ESTIMATED
-Dachstein Krippenstein,Austria,https://dachstein-salzkammergut.com,€59.90,€62.00,+3.5%,Fallback (Index +3.5%),https://dachstein-salzkammergut.com,ESTIMATED
+Dachstein Krippenstein,Austria,https://dachstein-salzkammergut.com,€59.90,€49.00,-18.2%,Stage 2 (Official Site Spider),https://shop.dachstein-salzkammergut.com/,VERIFIED_SCRAPE
 Dachstein West,Austria,https://dachstein.at,€64.90,€67.17,+3.5%,Fallback (Index +3.5%),https://dachstein.at,ESTIMATED
 Damüls-Mellau,Austria,https://damuels-mellau.at,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://damuels-mellau.at,ESTIMATED
-Diedamskopf,Austria,https://diedamskopf.at,€61.00,€63.00,+3.3%,Stage 1 (Official Site Link Spider),https://www.diedamskopf.at/de/winter-tickets.html,VERIFIED_SCRAPE
-Dreiländereck,Austria,https://3laendereck.at,€48.50,€55.00,+13.4%,Stage 1 (Official Site Link Spider),https://www.3laendereck.at/de/winter/preise,VERIFIED_SCRAPE
-Ellmau,Austria,https://www.skiwelt.at,€69.00,€71.00,+2.9%,Stage 2 (Bergfex Pricing Table),https://www.bergfex.com/ellmau/preise/,VERIFIED_SCRAPE
+Diedamskopf,Austria,https://diedamskopf.at,€61.00,€70.00,+14.8%,Stage 2 (Official Site Spider),https://www.diedamskopf.at/de/winter-tickets.html,VERIFIED_SCRAPE
+Dreiländereck,Austria,https://3laendereck.at,€48.50,€63.00,+29.9%,Stage 2 (Official Site Spider),https://www.3laendereck.at/de/winter/preise,VERIFIED_SCRAPE
+Ellmau,Austria,https://www.skiwelt.at,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),https://www.skiwelt.at,ESTIMATED
 Ellmau - Going,Austria,https://skiwelt.at,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),https://skiwelt.at,ESTIMATED
-Emberger Alm,Austria,https://embergeralm.com,€42.00,€50.00,+19.0%,Stage 1 (Official Site Link Spider),https://embergeralm.com/zimmer-preise-winter_D.html,VERIFIED_SCRAPE
-Fageralm,Austria,https://reiteralm.at/,€57.00,€64.50,+13.2%,Stage 1 (Official Site Link Spider),https://www.reiteralm.at/en/tickets-and-prices/prices-winter/ski-tickets,VERIFIED_SCRAPE
+Emberger Alm,Austria,https://embergeralm.com,€42.00,€36.50,-13.1%,Stage 2 (Official Site Spider),https://embergeralm.com/skiliftpreise_D.php,VERIFIED_SCRAPE
+Fageralm,Austria,https://reiteralm.at/,€57.00,€58.99,+3.5%,Fallback (Index +3.5%),https://reiteralm.at/,ESTIMATED
 Faschina-Fontanella,Austria,https://seilbahnen-faschina.at,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),https://seilbahnen-faschina.at,ESTIMATED
+Fendels,Austria,https://kaunertal.com,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),https://kaunertal.com,ESTIMATED
+Feuerkogel,Austria,https://feuerkogel.net,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),https://feuerkogel.net,ESTIMATED
+Fieberbrunn,Austria,https://www.fieberbrunn.com,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),https://www.fieberbrunn.com,ESTIMATED
+Filzmoos,Austria,https://filzmoos.at,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),https://filzmoos.at,ESTIMATED
+Flachau,Austria,https://www.snow-space.com,€73.50,€76.07,+3.5%,Fallback (Index +3.5%),https://www.snow-space.com,ESTIMATED
+Fügen - Spieljoch,Austria,https://spieljochbahn.at,€72.50,€77.50,+6.9%,Stage 2 (Official Site Spider),https://www.spieljochbahn.at/winter/tarife/,VERIFIED_SCRAPE
+Gaberl,Austria,https://gaberl.at,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),https://gaberl.at,ESTIMATED
+Gaißau-Hintersee,Austria,https://gaissauhintersee.at,€45.00,€42.00,-6.7%,Stage 2 (Official Site Spider),https://www.gaissauhintersee.at/gaissau-hintersee-alle-infos-zu-skibetrieb-offnungszeiten-skipassen.html,VERIFIED_SCRAPE
+Galsterberg,Austria,https://galsterberg.at,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),https://galsterberg.at,ESTIMATED
+Galtür,Austria,https://galtuer.com,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),https://galtuer.com,ESTIMATED
+Gargellen,Austria,https://bergbahnen-gargellen.at,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://bergbahnen-gargellen.at,ESTIMATED
+Gemeindealpe,Austria,https://gemeindealpe.at,€48.50,€50.20,+3.5%,Fallback (Index +3.5%),https://gemeindealpe.at,ESTIMATED
+Gerlitzen,Austria,https://gerlitzen.com,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://gerlitzen.com,ESTIMATED
+Gerlos,Austria,https://www.zillertalarena.com,€76.00,€85.00,+11.8%,Stage 2 (Official Site Spider),https://www.zillertalarena.com/zell/winter/skipass-tarife/,VERIFIED_SCRAPE
+Glun Gezer,Austria,https://glungezerbahn.at,€51.50,€53.30,+3.5%,Fallback (Index +3.5%),https://glungezerbahn.at,ESTIMATED
+Goldeck,Austria,https://sportberg-goldeck.com,€59.00,€64.50,+9.3%,Stage 3A (Playwright Official JS),https://www.sportberg-goldeck.com/en/winter/tarife/,VERIFIED_SCRAPE
+Golm,Austria,https://golm.at,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://golm.at,ESTIMATED
+Grebenzen,Austria,https://grebenzen.at,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),https://grebenzen.at,ESTIMATED
+Großeck-Speiereck,Austria,https://grosseck-speiereck.at,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),https://grosseck-speiereck.at,ESTIMATED
+Grossglockner Resort Kals-Matrei,Austria,https://gg-resort.at,€66.50,€67.00,+0.8%,Stage 2 (Official Site Spider),https://www.gg-resort.at/preise/sommer-preise,VERIFIED_SCRAPE
+Heiligenblut,Austria,https://heiligenblut.at,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),https://heiligenblut.at,ESTIMATED
+Heutal - Unken,Austria,https://www.natursport-heutal.at/,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),https://www.natursport-heutal.at/,ESTIMATED
+Hinterglemm,Austria,https://www.saalbach.com,€76.00,€70.00,-7.9%,Stage 2 (Official Site Spider),https://www.saalbach.com/de/winter/skitickets/ticketubersicht,VERIFIED_SCRAPE
+Hinterstoder,Austria,https://hiwu.at,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://hiwu.at,ESTIMATED
+Hintertux Glacier,Austria,https://hintertuxergletscher.at,€72.50,€75.04,+3.5%,Fallback (Index +3.5%),https://hintertuxergletscher.at,ESTIMATED
+Hochficht,Austria,https://hochficht.at,€54.00,€44.50,-17.6%,Stage 2 (Official Site Spider),https://skisport.com/hochficht/de/tickets-preise,VERIFIED_SCRAPE
+Hochkar,Austria,https://hochkar.com,€52.50,€50.00,-4.8%,Stage 2 (Official Site Spider),https://www.hochkar.com/tickets-preise,VERIFIED_SCRAPE
+Hochkönig,Austria,https://hochkoenig.at,€73.90,€76.49,+3.5%,Fallback (Index +3.5%),https://hochkoenig.at,ESTIMATED
+Hochkössen,Austria,https://bergbahnen-koessen.at,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),https://bergbahnen-koessen.at,ESTIMATED
+Hochkrimml,Austria,https://www.zillertalarena.com,€76.00,€85.00,+11.8%,Stage 0 (Shared Ski Area Domain Cache),https://www.zillertalarena.com/zell/winter/skipass-tarife/,VERIFIED_SCRAPE
+Hochoetz,Austria,https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area?_gl=1*iz6nbr*_up*MQ..*_ga*NTczNzAzNTA0LjE3OTA2OTU5ODg.*_ga_QS7BFE7NJ4*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGQ1cGFLX3NxbmpXeGVqc3FqdS1rRVE3dTdDSFplLXRMSVVB*_ga_CP77K3YGLD*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGRLR3ZCZGRMLVJjMFJYNEZvVEwwalR6RS02VDZxdlZoQmh3,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area?_gl=1*iz6nbr*_up*MQ..*_ga*NTczNzAzNTA0LjE3OTA2OTU5ODg.*_ga_QS7BFE7NJ4*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGQ1cGFLX3NxbmpXeGVqc3FqdS1rRVE3dTdDSFplLXRMSVVB*_ga_CP77K3YGLD*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGRLR3ZCZGRMLVJjMFJYNEZvVEwwalR6RS02VDZxdlZoQmh3,ESTIMATED
+Hochrindl,Austria,https://hochrindl.at,€41.00,€52.00,+26.8%,Stage 2 (Official Site Spider),https://www.hochrindl.at/hochrindl-winter/skifahren/tickets-preise/,VERIFIED_SCRAPE
+Hochzeiger,Austria,https://hochzeiger.com,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://hochzeiger.com,ESTIMATED
+Hochzillertal-Hochfügen,Austria,https://hochzillertal.com,€72.50,€75.04,+3.5%,Fallback (Index +3.5%),https://hochzillertal.com,ESTIMATED
+Hohentauern,Austria,https://www.ski-hohentauern.at/,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),https://www.ski-hohentauern.at/,ESTIMATED
+Hopfgarten,Austria,https://www.skiwelt.at,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),https://www.skiwelt.at,ESTIMATED
+Ischgl,Austria,https://ischgl.com,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),https://ischgl.com,ESTIMATED
+Jungholz,Austria,https://jungholz.de,€42.00,€55.50,+32.1%,Stage 2 (Official Site Spider),https://jungholz.de/skigebiet/preise.html,VERIFIED_SCRAPE
+Kappl,Austria,https://www.kappl-see.com/,€67.00,€69.34,+3.5%,Fallback (Index +3.5%),https://www.kappl-see.com/,ESTIMATED
+Kasberg,Austria,https://kasberg.at,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),https://kasberg.at,ESTIMATED
+Katschberg-Aineck,Austria,https://katschberg.at,€60.50,€62.62,+3.5%,Fallback (Index +3.5%),https://katschberg.at,ESTIMATED
+Kaunertal Glacier,Austria,https://kaunertaler-gletscher.at,€66.00,€60.00,-9.1%,Stage 2 (Official Site Spider),https://www.kaunertaler-gletscher.at/bergbahnen-fendels/tickets-und-preise/winter-einzeltickets-und-fussgaenger.html,VERIFIED_SCRAPE
+Kellerjoch,Austria,https://kellerjochbahn.at,€44.00,€45.54,+3.5%,Fallback (Index +3.5%),https://kellerjochbahn.at,ESTIMATED
+Kitzbühel,Austria,https://kitzbuehel.com,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),https://kitzbuehel.com,ESTIMATED
+Kitzsteinhorn - Kaprun,Austria,https://kitzsteinhorn.at,€76.00,€85.00,+11.8%,Stage 2 (Official Site Spider),https://www.kitzsteinhorn.at/en/tickets-prices/top-of-salzburg,VERIFIED_SCRAPE
+Kleinwalsertal (Kanzelwand - Ifen),Austria,https://kleinwalsertal.com,€62.50,€64.69,+3.5%,Fallback (Index +3.5%),https://kleinwalsertal.com,ESTIMATED
+Klippitztörl,Austria,https://klippitz.at,€46.00,€47.61,+3.5%,Fallback (Index +3.5%),https://klippitz.at,ESTIMATED
+Königsleiten,Austria,https://www.zillertalarena.com,€76.00,€85.00,+11.8%,Stage 0 (Shared Ski Area Domain Cache),https://www.zillertalarena.com/zell/winter/skipass-tarife/,VERIFIED_SCRAPE
+Koralpe,Austria,https://koralpe-kaernten.at,€43.00,€44.50,+3.5%,Fallback (Index +3.5%),https://koralpe-kaernten.at,ESTIMATED
+Kötschach-Mauthen,Austria,https://www.koemau.com/de/Winter-World/Skifahren/Skigebiet-Vorhegg,€32.00,€33.12,+3.5%,Fallback (Index +3.5%),https://www.koemau.com/de/Winter-World/Skifahren/Skigebiet-Vorhegg,ESTIMATED
+Kreischberg,Austria,https://kreischberg.at,€63.00,€52.00,-17.5%,Stage 2 (Official Homepage),https://www.kreischberg.at/,VERIFIED_SCRAPE
+Kühtai,Austria,https://www.kuehtai.info/,€57.00,€50.50,-11.4%,Stage 2 (Official Site Spider),https://www.kuehtai.info/winter/skipass-preise/,VERIFIED_SCRAPE
+Lachtal,Austria,https://lachtal.at,€59.00,€61.06,+3.5%,Fallback (Index +3.5%),https://lachtal.at,ESTIMATED
+Lackenhof am Ötscher,Austria,https://oetscher.at,€52.00,€41.90,-19.4%,Stage 2 (Official Site Spider),https://www.oetscher.at/tickets-preise,VERIFIED_SCRAPE
+Laterns - Gapfohl,Austria,https://laterns.net,€48.00,€51.50,+7.3%,Stage 2 (Official Site Spider),https://www.laterns.net/winter/tarife-betriebszeiten,VERIFIED_SCRAPE
+Lech Zürs ,Austria,https://lechzuers.com,€75.00,€77.62,+3.5%,Fallback (Index +3.5%),https://lechzuers.com,ESTIMATED
+Leogang,Austria,https://www.saalbach.com,€76.00,€70.00,-7.9%,Stage 0 (Shared Ski Area Domain Cache),https://www.saalbach.com/de/winter/skitickets/ticketubersicht,VERIFIED_SCRAPE
+Lermoos,Austria,https://zugspitzarena.com,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://zugspitzarena.com,ESTIMATED
+Lienz,Austria,https://www.lienzer-bergbahnen.at/,€62.00,€70.00,+12.9%,Stage 2 (Official Site Spider),https://www.lienzer-bergbahnen.at/en/#preise,VERIFIED_SCRAPE
+Loferer Alm,Austria,https://skialm-lofer.com,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),https://skialm-lofer.com,ESTIMATED
+Loser - Altaussee,Austria,https://loser.at,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),https://loser.at,ESTIMATED
+Mayrhofen,Austria,https://mayrhofen.at,€72.50,€82.00,+13.1%,Stage 2 (Official Site Spider),https://www.mayrhofen.at/de/mountopolis/winter/skipass-preise-oeffnungszeiten,VERIFIED_SCRAPE
+Mölltal Glacier,Austria,https://moelltaler-gletscher.at,€62.00,€72.00,+16.1%,Stage 2 (Official Site Spider),https://www.moelltaler-gletscher.at/tarife/winter/moelltaler-gletscher,VERIFIED_SCRAPE
+Mönichkirchen-Mariensee,Austria,https://schischaukel.net,€46.50,€48.13,+3.5%,Fallback (Index +3.5%),https://schischaukel.net,ESTIMATED
+Muttereralm,Austria,https://www.muttereralm.at/en/winter/winter-at-the-muttereralm/61-0.html,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),https://www.muttereralm.at/en/winter/winter-at-the-muttereralm/61-0.html,ESTIMATED
+Nassfeld,Austria,https://nassfeld.at,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://nassfeld.at,ESTIMATED
+Nauders,Austria,https://nauders.com,€61.00,€63.13,+3.5%,Fallback (Index +3.5%),https://nauders.com,ESTIMATED
+Niederau,Austria,https://www.skijuwel.com,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),https://www.skijuwel.com,ESTIMATED
+Niedere - Andelsbuch,Austria,https://www.bezau-bregenzerwald.com/en/activity/niedere-andelsbuch-bezau-ski-area-2/,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),https://www.bezau-bregenzerwald.com/en/activity/niedere-andelsbuch-bezau-ski-area-2/,ESTIMATED
+Nordkette,Austria,https://nordkette.com,€47.00,€48.64,+3.5%,Fallback (Index +3.5%),https://nordkette.com,ESTIMATED
+Obergurgl-Hochgurgl,Austria,https://obergurgl.com,€74.00,€76.59,+3.5%,Fallback (Index +3.5%),https://obergurgl.com,ESTIMATED
+Obertauern,Austria,https://obertauern.com,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),https://obertauern.com,ESTIMATED
+Patscherkofel,Austria,https://patscherkofelbahn.at,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),https://patscherkofelbahn.at,ESTIMATED
+Petzen,Austria,https://petzen.net,€46.00,€47.61,+3.5%,Fallback (Index +3.5%),https://petzen.net,ESTIMATED
+Pitztal Glacier,Austria,https://pitztaler-gletscher.at,€70.00,€72.45,+3.5%,Fallback (Index +3.5%),https://pitztaler-gletscher.at,ESTIMATED
