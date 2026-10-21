@@ -35,6 +35,7 @@ DEFAULT_MASTER_CSV = 'Ski_resorts_Master.csv'
 FALLBACK_MASTER_CSV = 'Ski resorts - Master.csv'
 DEFAULT_OUTPUT_CSV = 'Ski resorts - Updated 2026-27.csv'
 DEFAULT_AUDIT_CSV = 'lift_pass_batch_audit.csv'
+DEFAULT_AUDIT_MD = 'lift_pass_batch_audit.md'
 TIMEOUT_SECONDS = 15
 
 # Sanity Guardrails: Extracted price must be within [0.80x, 1.40x] of previous known price
@@ -82,6 +83,152 @@ COUNTRY_TO_BERGFEX_SLUG = {
     'poland': 'polen',
     'czech republic': 'tschechien',
     'slovakia': 'slowakei'
+}
+
+# Maps common village/resort names to exact (Skiresort.info slugs, Bergfex slugs)
+RESORT_ALIASES = {
+    # Austria
+    'st anton': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['st-anton-am-arlberg']),
+    'st. anton': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['st-anton-am-arlberg']),
+    'st. anton am arlberg': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['st-anton-am-arlberg']),
+    'lech': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['lech-zuers-arlberg']),
+    'lech-zuers': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['lech-zuers-arlberg']),
+    'zuers': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['lech-zuers-arlberg']),
+    'stuben': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['stuben']),
+    'warth': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['warth-schroecken']),
+    'warth-schroecken': (['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'], ['warth-schroecken']),
+    'kitzbuehel': (['kitzski-kitzbuehel-kirchberg'], ['kitzbuehel-kirchberg']),
+    'kirchberg': (['kitzski-kitzbuehel-kirchberg'], ['kitzbuehel-kirchberg']),
+    'ischgl': (['ischgl-samnaun-silvretta-arena'], ['ischgl']),
+    'soelden': (['soelden'], ['soelden']),
+    'saalbach': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['saalbach-hinterglemm-leogang']),
+    'hinterglemm': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['saalbach-hinterglemm-leogang']),
+    'leogang': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['saalbach-hinterglemm-leogang']),
+    'fieberbrunn': (['saalbach-hinterglemm-leogang-fieberbrunn-skicircus'], ['fieberbrunn']),
+    'soell': (['skiwelt-wilder-kaiser-brixental'], ['soell']),
+    'ellmau': (['skiwelt-wilder-kaiser-brixental'], ['ellmau']),
+    'westendorf': (['skiwelt-wilder-kaiser-brixental'], ['westendorf']),
+    'brixen im thale': (['skiwelt-wilder-kaiser-brixental'], ['brixen-im-thale']),
+    'scheffau': (['skiwelt-wilder-kaiser-brixental'], ['scheffau']),
+    'hopfgarten': (['skiwelt-wilder-kaiser-brixental'], ['hopfgarten']),
+    'going': (['skiwelt-wilder-kaiser-brixental'], ['ellmau']),
+    'skiwelt': (['skiwelt-wilder-kaiser-brixental'], ['soell']),
+    'zell am ziller': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['zell-am-ziller']),
+    'gerlos': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['gerlos']),
+    'koenigsleiten': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['koenigsleiten-wald']),
+    'hochkrimml': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['krimml']),
+    'zillertal arena': (['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml'], ['zell-am-ziller']),
+    'mayrhofen': (['mayrhofen-penken-ahorn-rastkogel-eggalm-mountopolis'], ['mayrhofen']),
+    'kaltenbach': (['kaltenbach-hochzillertal-hochfuegen-ski-optimal'], ['hochzillertal']),
+    'hochzillertal': (['kaltenbach-hochzillertal-hochfuegen-ski-optimal'], ['hochzillertal']),
+    'hochfuegen': (['kaltenbach-hochzillertal-hochfuegen-ski-optimal'], ['hochfuegen']),
+    'obergurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
+    'hochgurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
+    'obergurgl-hochgurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
+    'gurgl': (['gurgl-obergurgl-hochgurgl'], ['obergurgl-hochgurgl']),
+    'flachau': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['flachau']),
+    'wagrain': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['wagrain']),
+    'st. johann': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['st-johann-alpendorf']),
+    'st johann': (['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf'], ['st-johann-alpendorf']),
+    'bad gastein': (['bad-gastein-bad-hofgastein-schlossalm-angertal-stubnerkogel'], ['bad-gastein']),
+    'bad hofgastein': (['bad-gastein-bad-hofgastein-schlossalm-angertal-stubnerkogel'], ['bad-hofgastein']),
+    'dorfgastein': (['dorfgastein-grossarltal'], ['dorfgastein']),
+    'schladming': (['schladming-planai-hochwurzen-hauser-kaibling-reiteralm-4-berge-skischaukel'], ['schladming-planai']),
+    'zell am see': (['schmittenhoehe-zell-am-see'], ['schmitten-zell-am-see']),
+    'kaprun': (['kitzsteinhorn-maisiflitzer-kaprun'], ['kitzsteinhorn-kaprun']),
+    'kitzsteinhorn': (['kitzsteinhorn-maisiflitzer-kaprun'], ['kitzsteinhorn-kaprun']),
+    'hintertux': (['hintertux-glacier-hintertuxer-gletscher'], ['hintertux']),
+    'hintertux glacier': (['hintertux-glacier-hintertuxer-gletscher'], ['hintertux']),
+    'hintertuxer gletscher': (['hintertux-glacier-hintertuxer-gletscher'], ['hintertux']),
+    'stubai': (['stubai-glacier-stubaier-gletscher'], ['stubaier-gletscher']),
+    'stubai glacier': (['stubai-glacier-stubaier-gletscher'], ['stubaier-gletscher']),
+    'stubaier gletscher': (['stubai-glacier-stubaier-gletscher'], ['stubaier-gletscher']),
+    'pitztal': (['pitztal-glacier-pitztaler-gletscher'], ['pitztaler-gletscher']),
+    'pitztal glacier': (['pitztal-glacier-pitztaler-gletscher'], ['pitztaler-gletscher']),
+    'kaunertal': (['kaunertal-glacier-kaunertaler-gletscher'], ['kaunertal']),
+    'alpbach': (['ski-juwel-alpbachtal-wildschoenau'], ['alpbachtal']),
+    'niederau': (['ski-juwel-alpbachtal-wildschoenau'], ['wildschoenau']),
+    'auffach': (['ski-juwel-alpbachtal-wildschoenau'], ['wildschoenau']),
+    'wildschoenau': (['ski-juwel-alpbachtal-wildschoenau'], ['wildschoenau']),
+    'maria alm': (['hochkoenig-maria-alm-dienten-muehlbach'], ['hochkoenig']),
+    'hochkoenig': (['hochkoenig-maria-alm-dienten-muehlbach'], ['hochkoenig']),
+    'damuels': (['damuels-mellau'], ['damuels']),
+    'damuels-mellau': (['damuels-mellau'], ['damuels']),
+    'galtuer': (['silvapark-galtuer'], ['galtuer']),
+    'kuehtai': (['kuehtai'], ['kuehtai']),
+    'nauders': (['nauders-am-reschenpass-bergkastel'], ['nauders']),
+    'oetz': (['hochoetz-oetz'], ['hochoetz']),
+    'hochoetz': (['hochoetz-oetz'], ['hochoetz']),
+    'nassfeld': (['nassfeld-hermagor'], ['nassfeld']),
+    'zauchensee': (['zauchensee-flachauwinkl'], ['zauchensee']),
+    'tauplitz': (['tauplitz-bad-mitterndorf'], ['tauplitz']),
+    'steinplatte': (['steinplatte-winklmoosalm-waidring-reit-im-winkl'], ['steinplatte']),
+    'waidring': (['steinplatte-winklmoosalm-waidring-reit-im-winkl'], ['steinplatte']),
+    'axamer lizum': (['axamer-lizum'], ['axamer-lizum']),
+    'seefeld': (['rosshuette-seefeld'], ['rosshuette']),
+    'turracher hoehe': (['turracher-hoehe'], ['turracher-hoehe']),
+    'kreischberg': (['kreischberg-st-georgen-am-kreischberg'], ['kreischberg']),
+    'katschberg': (['katschberg'], ['katschberg']),
+    'obertauern': (['obertauern'], ['obertauern']),
+    'serfaus-fiss-ladis': (['serfaus-fiss-ladis'], ['serfaus-fiss-ladis']),
+    'silvretta montafon': (['silvretta-montafon'], ['silvretta-montafon']),
+    # France
+    'val thorens': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['val-thorens']),
+    'courchevel': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['courchevel']),
+    'meribel': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['meribel']),
+    'les menuires': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['les-menuires']),
+    'st martin de belleville': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['saint-martin-de-belleville']),
+    'orelle': (['les-3-vallees-val-thorens-les-menuires-meribel-courchevel'], ['orelle']),
+    'tignes': (['tignes-val-d-isere'], ['tignes']),
+    'val d isere': (['tignes-val-d-isere'], ['val-d-isere']),
+    'la plagne': (['la-plagne-paradiski'], ['la-plagne']),
+    'les arcs': (['les-arcs-peisey-vallandry-paradiski'], ['les-arcs']),
+    'peisey-vallandry': (['les-arcs-peisey-vallandry-paradiski'], ['peisey-vallandry']),
+    'avoriaz': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['avoriaz']),
+    'morzine': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['morzine']),
+    'les gets': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['les-gets']),
+    'chatel': (['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery'], ['chatel']),
+    'flaine': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['flaine']),
+    'samoens': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['samoens']),
+    'les carroz': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['les-carroz']),
+    'morillon': (['le-grand-massif-flaine-les-carroz-morillon-samoens-sixt'], ['morillon']),
+    'chamonix': (['brevent-flegere-chamonix'], ['chamonix-mont-blanc']),
+    'les 2 alpes': (['les-2-alpes'], ['les-2-alpes']),
+    'les deux alpes': (['les-2-alpes'], ['les-2-alpes']),
+    'alpe d huez': (['alpe-d-huez'], ['alpe-d-huez']),
+    'serre chevalier': (['serre-chevalier-briancon-chantemerle-villeneuve-la-salle-le-monetier-les-bains'], ['serre-chevalier']),
+    # Switzerland
+    'verbier': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['verbier']),
+    'nendaz': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['nendaz']),
+    'veysonnaz': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['veysonnaz']),
+    'thyon': (['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon'], ['thyon']),
+    'zermatt': (['zermatt-breuil-cervinia-valtournenche-matterhorn'], ['zermatt']),
+    'arosa': (['arosa-lenzerheide'], ['arosa-lenzerheide']),
+    'lenzerheide': (['arosa-lenzerheide'], ['arosa-lenzerheide']),
+    'davos': (['parsenn-davos-klosters'], ['davos-klosters']),
+    'klosters': (['parsenn-davos-klosters'], ['davos-klosters']),
+    'st moritz': (['corviglia-st-moritz'], ['st-moritz']),
+    'st. moritz': (['corviglia-st-moritz'], ['st-moritz']),
+    'laax': (['laax-flims-falera'], ['flims-laax-falera']),
+    'flims': (['laax-flims-falera'], ['flims-laax-falera']),
+    'grindelwald': (['kleine-scheidegg-maennlichen-grindelwald-wengen'], ['jungfrau-grindelwald-wengen']),
+    'wengen': (['kleine-scheidegg-maennlichen-grindelwald-wengen'], ['jungfrau-grindelwald-wengen']),
+    'engelberg': (['titlis-engelberg'], ['engelberg-titlis']),
+    'saas-fee': (['saas-fee'], ['saas-fee']),
+    'crans-montana': (['crans-montana'], ['crans-montana']),
+    # Italy
+    'val gardena': (['val-gardena-groeden'], ['groeden-st-ulrich']),
+    'selva': (['val-gardena-groeden'], ['groeden-wolkenstein']),
+    'alta badia': (['alta-badia'], ['alta-badia']),
+    'corvara': (['alta-badia'], ['alta-badia']),
+    'kronplatz': (['kronplatz-plan-de-corones'], ['kronplatz']),
+    'cortina': (['cortina-d-ampezzo'], ['cortina-d-ampezzo']),
+    'cortina d ampezzo': (['cortina-d-ampezzo'], ['cortina-d-ampezzo']),
+    'madonna di campiglio': (['madonna-di-campiglio-pinzolo-folgarida-marilleva'], ['madonna-di-campiglio']),
+    'livigno': (['livigno'], ['livigno']),
+    'sestriere': (['via-lattea-sestriere-sauze-d-oulx-san-sicario-claviere-montgenevre'], ['sestriere']),
+    'sauze d oulx': (['via-lattea-sestriere-sauze-d-oulx-san-sicario-claviere-montgenevre'], ['sauze-d-oulx']),
+    'cervinia': (['zermatt-breuil-cervinia-valtournenche-matterhorn'], ['cervinia'])
 }
 
 LINK_KEYWORDS_HIGH = [
@@ -142,9 +289,10 @@ def strip_invisible_chars(text):
 
 def strip_promotional_footer(html_or_text):
     """
-    Removes the 'Further interesting ski resorts' / 'Weitere interessante Skigebiete'
+    Removes ONLY the 'Further interesting ski resorts' / 'Weitere interessante Skigebiete'
     promotional widget at the bottom of Skiresort.info pages so ad prices (like € 74,- for Sillian)
     are never mistaken for the target resort's price.
+    NOTE: Does NOT strip 'Ski resorts nearby' because Bergfex places that label in its top navbar!
     """
     if not html_or_text:
         return ""
@@ -152,8 +300,7 @@ def strip_promotional_footer(html_or_text):
         'Further interesting ski resorts',
         'Weitere interessante Skigebiete',
         'Autres domaines skiables intéressants',
-        'Altri comprensori sciistici interessanti',
-        'Ski resorts nearby'
+        'Altri comprensori sciistici interessanti'
     ]
     cut_idx = len(html_or_text)
     for marker in markers:
@@ -175,6 +322,37 @@ def transliterate_text(text, german_umlauts=True):
         s = s.replace('ß', 'ss')
     s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
     return s
+
+
+def lookup_alias_slugs(resort_name, region_name=""):
+    """Looks up known multi-village or glacier slugs from RESORT_ALIASES."""
+    sr_slugs, bf_slugs = [], []
+    clean_r = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
+    norm_r = re.sub(r'[^a-z0-9\s\-]', ' ', transliterate_text(clean_r, german_umlauts=True))
+    norm_r = re.sub(r'\s+', ' ', norm_r).strip()
+
+    candidates = [norm_r]
+    for part in re.split(r'[/–\-]', norm_r):
+        p = part.strip()
+        if len(p) >= 3 and p not in candidates:
+            candidates.append(p)
+
+    if region_name and '/' in region_name:
+        reg_part = transliterate_text(region_name.split('/')[-1].strip(), german_umlauts=True)
+        reg_part = re.sub(r'[^a-z0-9\s\-]', ' ', reg_part).strip()
+        if reg_part and reg_part not in candidates:
+            candidates.append(reg_part)
+
+    for key in candidates:
+        if key in RESORT_ALIASES:
+            s_list, b_list = RESORT_ALIASES[key]
+            for s in s_list:
+                if s not in sr_slugs:
+                    sr_slugs.append(s)
+            for b in b_list:
+                if b not in bf_slugs:
+                    bf_slugs.append(b)
+    return sr_slugs, bf_slugs
 
 
 def make_slugs(name):
@@ -317,25 +495,23 @@ def parse_currency_price_from_snippet(snippet, prev_price_val=0.0, default_curre
 
 class MultiAggregatorDirectoryIndex:
     """
-    Stage 0 Pre-Indexer (v4):
-      1. Crawls Skiresort.info's Slope-Length & Country Directories (/sorted/slope-length/ and default),
-         properly ignoring bare intro-paragraph links so real resort cards are never skipped.
+    Stage 0 Pre-Indexer (v5):
+      1. Crawls Skiresort.info's Slope-Length & Country Directories (/sorted/slope-length/ and default).
       2. Crawls Bergfex's Country Overview & Snow-Report Directories (/oesterreich/, /frankreich/,
-         /schweiz/, /italien/, etc.), which list individual satellite villages with their exact
-         1-day pass price and resort slug.
+         /schweiz/, /italien/, etc.).
     """
     def __init__(self):
         self.indexed_countries = set()
         self.europe_top_indexed = False
-        self.sr_entries = {}  # keyed by full_url -> dict
-        self.bf_entries = {}  # keyed by full_url -> dict
+        self.sr_entries = {}
+        self.bf_entries = {}
 
     def ensure_country_indexed(self, country_name):
         c_key = (country_name or '').strip().lower()
 
         if not self.europe_top_indexed:
             self.europe_top_indexed = True
-            print("   [*] Pre-indexing Skiresort.info Europe Top Resorts (/europe/sorted/slope-length/)...")
+            print("   [*] Pre-indexing Skiresort.info Europe Top Resorts (/europe/sorted/slope-length/)...", flush=True)
             for page_num in range(1, 5):
                 url = (
                     "https://www.skiresort.info/ski-resorts/europe/sorted/slope-length/"
@@ -352,8 +528,7 @@ class MultiAggregatorDirectoryIndex:
 
         sr_slug = COUNTRY_TO_SKIRESORT_SLUG.get(c_key)
         if sr_slug:
-            print(f"   [*] Pre-indexing Skiresort.info directory for {country_name.title()} ({sr_slug})...")
-            # Crawl both slope-length sorted (puts all major resorts first) and default listing
+            print(f"   [*] Pre-indexing Skiresort.info directory for {country_name.title()} ({sr_slug})...", flush=True)
             url_templates = [
                 f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/",
                 f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/page/2/",
@@ -369,13 +544,11 @@ class MultiAggregatorDirectoryIndex:
 
         bf_slug = COUNTRY_TO_BERGFEX_SLUG.get(c_key)
         if bf_slug:
-            print(f"   [*] Pre-indexing Bergfex directory for {country_name.title()} ({bf_slug})...")
-            # 1. Main country overview page (contains 80 resorts with 'Price: € XX,XX')
+            print(f"   [*] Pre-indexing Bergfex directory for {country_name.title()} ({bf_slug})...", flush=True)
             bf_main_url = f"https://www.bergfex.com/{bf_slug}/"
             bf_html, _ = fetch_html(bf_main_url, timeout=12)
             if bf_html:
                 self._parse_bergfex_country_page(bf_html)
-            # 2. Country snow-report index (contains ALL resorts & villages on a single page with exact slugs)
             bf_snow_url = f"https://www.bergfex.com/{bf_slug}/schneewerte/"
             bf_snow_html, _ = fetch_html(bf_snow_url, timeout=12)
             if bf_snow_html:
@@ -400,14 +573,13 @@ class MultiAggregatorDirectoryIndex:
                 continue
 
             clean_title = re.sub(r'^\d+\.\s*', '', anchor_text).strip()
-            if len(clean_title) < 3:
+            if len(clean_title) < 3 or clean_title.lower().startswith('ski resort '):
                 continue
 
             full_url = urllib.parse.urljoin("https://www.skiresort.info", href)
             if not full_url.endswith('/'):
                 full_url += '/'
 
-            # Walk up the DOM to find the enclosing resort card
             card_node = a
             card_text = ""
             for _ in range(6):
@@ -424,13 +596,11 @@ class MultiAggregatorDirectoryIndex:
                 ):
                     break
 
-            # Critical v4 fix: Ignore inline links inside introductory paragraphs that aren't resort cards
             is_valid_card = ('ski lifts' in card_text.lower() or 'test result' in card_text.lower() or 'details' in card_text.lower())
             has_price_symbol = ('€' in card_text or 'SFr' in card_text or 'CHF' in card_text)
 
             existing = self.sr_entries.get(full_url)
             if existing:
-                # Only overwrite existing entry if the new card has a price and the old one didn't
                 if has_price_symbol and not existing.get('has_price'):
                     self.sr_entries[full_url] = {
                         'title': clean_title,
@@ -470,7 +640,6 @@ class MultiAggregatorDirectoryIndex:
         count = 0
         for a in soup.find_all('a', href=True):
             href = a['href'].strip()
-            # Bergfex resort links look like "/soelden/" or "/kitzsteinhorn-kaprun/"
             if not re.match(r'^/[a-z0-9\-]+/?$', href):
                 continue
             if any(x in href for x in [
@@ -488,7 +657,6 @@ class MultiAggregatorDirectoryIndex:
             if not full_url.endswith('/'):
                 full_url += '/'
 
-            # Find enclosing row/card text (which contains "Price: € 82,00")
             card_node = a
             card_text = ""
             for _ in range(4):
@@ -556,6 +724,8 @@ class MultiAggregatorDirectoryIndex:
 
         resort_tokens = extract_significant_tokens(clean_resort)
         region_tokens = extract_significant_tokens(region_name)
+        alias_sr_slugs, alias_bf_slugs = lookup_alias_slugs(resort_name, region_name)
+        all_alias_slugs = set(alias_sr_slugs + alias_bf_slugs)
 
         scored = []
         for entry in entries_dict.values():
@@ -563,6 +733,12 @@ class MultiAggregatorDirectoryIndex:
             title_de = entry['norm_title']
             title_ascii = entry['norm_ascii']
             ctx_de = entry['norm_context']
+            entry_url = entry['url']
+
+            # Check if entry URL matches our known alias map
+            for a_slug in all_alias_slugs:
+                if f"/{a_slug}/" in entry_url:
+                    score += 120
 
             if norm_de == title_de or norm_ascii == title_ascii:
                 score += 110
@@ -583,16 +759,20 @@ class MultiAggregatorDirectoryIndex:
                     score += 20
                     matched_resort_tokens += 1
                 elif re.search(r'\b' + re.escape(tok) + r'\b', ctx_de):
+                    score += 15
+                    matched_resort_tokens += 1
+
+            # Check region/ski-area tokens BEFORE filtering so satellite villages match their parent ski area
+            matched_region_tokens = 0
+            for r_tok in region_tokens:
+                if re.search(r'\b' + re.escape(r_tok) + r'\b', title_de) or re.search(r'\b' + re.escape(r_tok) + r'\b', title_ascii):
+                    score += 35
+                    matched_region_tokens += 1
+                elif r_tok in ctx_de:
                     score += 12
 
-            if resort_tokens and matched_resort_tokens == 0 and score < 30:
+            if matched_resort_tokens == 0 and matched_region_tokens == 0 and score < 30:
                 continue
-
-            for r_tok in region_tokens:
-                if r_tok in title_de or r_tok in title_ascii:
-                    score += 22
-                elif r_tok in ctx_de:
-                    score += 10
 
             if entry.get('has_price'):
                 score += 5
@@ -619,11 +799,12 @@ def extract_structured_table_price(html_content, prev_price_val=0.0, default_cur
         return None
 
     clean_html = strip_promotional_footer(strip_invisible_chars(html_content))
+    plain_text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', clean_html))
 
     # 1. Check Bergfex overview page summary widget: "Prices € 75,50 (day ticket)" / "Preise € 75,50 (Tageskarte)"
     bf_summary = re.search(
         r'(?:Prices|Preise|Price|Preis)\s*[:\s]*((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)\s*\((?:day ticket|Tageskarte)\)',
-        re.sub(r'<[^>]+>', ' ', clean_html),
+        plain_text,
         re.IGNORECASE
     )
     if bf_summary:
@@ -632,7 +813,6 @@ def extract_structured_table_price(html_content, prev_price_val=0.0, default_cur
             return price
 
     # 2. Check Skiresort.info plain-text sequence: "Adults Youth Children € 81.50"
-    plain_text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', clean_html))
     sr_pattern = re.search(
         r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?(?:\s+(?:Seniors|Senioren))?\s*'
         r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
@@ -665,8 +845,7 @@ def extract_structured_table_price(html_content, prev_price_val=0.0, default_cur
     neg_row_only = ['6 tage', '6 days', 'saison', 'season pass', 'halbtageskarte', 'half day']
 
     for table in soup.find_all('table'):
-        table_text = strip_invisible_chars(table.get_text(separator=' ')).strip()
-        # Check if this table has "Adults ... € XX" sequence
+        table_text = re.sub(r'\s+', ' ', strip_invisible_chars(table.get_text(separator=' '))).strip()
         tbl_sr = re.search(
             r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?\s*'
             r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
@@ -705,7 +884,6 @@ def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€
 
     clean_text = strip_promotional_footer(strip_invisible_chars(text))
 
-    # Fast check for Bergfex "(day ticket)" / "(Tageskarte)" or Skiresort "Adults Youth Children"
     bf_match = re.search(
         r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)\s*\((?:day ticket|Tageskarte)\)',
         clean_text, re.IGNORECASE
@@ -758,7 +936,6 @@ def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€
             if neg_kw in immediate_pre and not any(ak in immediate_pre for ak in ['adult', 'erwachsene', 'adulte', 'adulti']):
                 score -= 10
 
-        # Do not accept an uncontextualized number on a page that doesn't mention day/adult ticket nearby
         if score == 0:
             continue
 
@@ -840,10 +1017,10 @@ def parse_html_text_and_links(html_content, base_url):
 
 def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, default_currency, agg_index):
     """
-    Stage 1 (v4):
+    Stage 1 (v5):
       1A: Looks up the resort in the pre-indexed Skiresort.info & Bergfex Country Directories.
       1B: Visits matched Skiresort.info profile page & Bergfex overview + /preise/ pages.
-      1C: Tries direct umlaut-transliterated Skiresort.info & Bergfex URLs.
+      1C: Probes RESORT_ALIASES + direct umlaut-transliterated Skiresort.info & Bergfex URLs.
     """
     sr_matches, bf_matches = agg_index.find_candidates(resort_name, region_name, country)
 
@@ -882,15 +1059,19 @@ def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, 
                 if price:
                     return price, "Stage 1B (Bergfex Resort Page)", final_url
 
-    # 1C: Direct Slug Probing on Skiresort.info & Bergfex (both overview and /preise/)
-    candidate_slugs = make_slugs(resort_name)
+    # 1C: Direct Alias & Slug Probing on Skiresort.info & Bergfex
+    alias_sr_slugs, alias_bf_slugs = lookup_alias_slugs(resort_name, region_name)
+    base_slugs = make_slugs(resort_name)
     if '/' in region_name:
         area_part = region_name.split('/')[-1].strip()
         for s in make_slugs(area_part):
-            if s not in candidate_slugs:
-                candidate_slugs.append(s)
+            if s not in base_slugs:
+                base_slugs.append(s)
 
-    for slug in candidate_slugs[:3]:
+    sr_candidates = alias_sr_slugs + [s for s in base_slugs if s not in alias_sr_slugs]
+    bf_candidates = alias_bf_slugs + [s for s in base_slugs if s not in alias_bf_slugs]
+
+    for slug in sr_candidates[:4]:
         sr_url = f"https://www.skiresort.info/ski-resort/{slug}/"
         html, final_url = fetch_html(sr_url, timeout=10)
         if html and ('Ski pass prices' in html or 'Day ticket' in html or 'selAd' in html):
@@ -901,6 +1082,7 @@ def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, 
             if price:
                 return price, "Stage 1C (Skiresort.info Direct)", final_url
 
+    for slug in bf_candidates[:4]:
         for bf_url in [f"https://www.bergfex.com/{slug}/", f"https://www.bergfex.com/{slug}/preise/"]:
             bf_html, bf_final = fetch_html(bf_url, timeout=10)
             if bf_html and ('day ticket' in bf_html.lower() or 'tageskarte' in bf_html.lower() or 'erwachsene' in bf_html.lower()):
@@ -1017,19 +1199,67 @@ def stage3_headless_browser(pw_page, target_urls, resort_name, country, prev_pri
     return None, None, None
 
 
+def write_markdown_summary(audit_rows, stats, offset, limit):
+    """
+    Writes a rich Markdown Audit Table to both:
+      1. GitHub Actions Job Summary ($GITHUB_STEP_SUMMARY) so it appears visually on the Run Summary screen!
+      2. 'lift_pass_batch_audit.md' in the repository.
+    """
+    total_batch = stats['scraped'] + stats['estimated'] + stats['manual']
+    capture_rate = (stats['scraped'] / total_batch * 100) if total_batch > 0 else 0.0
+
+    md_lines = [
+        f"## Ski Lift Pass Audit Summary (Offset: `{offset}`, Limit: `{limit}`)",
+        "",
+        f"- **Total Resorts Processed:** `{total_batch}`",
+        f"- **Live Verified Prices (`VERIFIED_SCRAPE`):** `{stats['scraped']}` (**{capture_rate:.1f}%**)",
+        f"- **Indexed Fallbacks (`ESTIMATED` +3.5%):** `{stats['estimated']}`",
+        f"- **Manual Check Needed:** `{stats['manual']}`",
+        "",
+        "| # | Resort Name | Country | Prev Price | New Price | Variance | Status | Extraction Stage | Source URL |",
+        "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |"
+    ]
+
+    for i, r in enumerate(audit_rows[1:], start=offset + 1):
+        resort_name, country, website, prev_p, new_p, var_pct, method, src_url, status = r
+        badge = "✅ VERIFIED" if status == "VERIFIED_SCRAPE" else ("⚠️ ESTIMATED" if status == "ESTIMATED" else "❌ MANUAL")
+        md_lines.append(
+            f"| {i} | **{resort_name}** | {country} | `{prev_p}` | **`{new_p}`** | `{var_pct}` | {badge} | {method} | {src_url} |"
+        )
+
+    md_content = "\n".join(md_lines) + "\n"
+
+    # 1. Save to local markdown file in repo
+    try:
+        with open(DEFAULT_AUDIT_MD, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+    except Exception:
+        pass
+
+    # 2. Write directly to GitHub Actions Run Summary page ($GITHUB_STEP_SUMMARY)
+    step_summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+    if step_summary_path:
+        try:
+            with open(step_summary_path, 'a', encoding='utf-8') as f:
+                f.write(md_content)
+            print("   [+] Wrote visual Markdown Audit Table to GitHub Actions Run Summary ($GITHUB_STEP_SUMMARY)!", flush=True)
+        except Exception as e:
+            print(f"   [!] Could not write to GITHUB_STEP_SUMMARY: {e}", flush=True)
+
+
 def process_batch(master_csv, output_csv, audit_csv, offset, limit):
     if not os.path.exists(master_csv) and os.path.exists(FALLBACK_MASTER_CSV):
         master_csv = FALLBACK_MASTER_CSV
 
-    print("\n" + "=" * 78)
-    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER (v4 - Dual Directory Indexer)")
-    print(f" Input File  : {master_csv}")
-    print(f" Offset      : {offset} | Batch Limit: {limit}")
-    print(f" Capabilities: Requests={HAS_REQUESTS}, BS4={HAS_BS4}, Playwright={HAS_PLAYWRIGHT}")
-    print("=" * 78 + "\n")
+    print("\n" + "=" * 78, flush=True)
+    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER (v5 - Summary + Alias Engine)", flush=True)
+    print(f" Input File  : {master_csv}", flush=True)
+    print(f" Offset      : {offset} | Batch Limit: {limit}", flush=True)
+    print(f" Capabilities: Requests={HAS_REQUESTS}, BS4={HAS_BS4}, Playwright={HAS_PLAYWRIGHT}", flush=True)
+    print("=" * 78 + "\n", flush=True)
 
     if not os.path.exists(master_csv):
-        print(f"[x] Error: Master CSV '{master_csv}' not found in {os.getcwd()}")
+        print(f"[x] Error: Master CSV '{master_csv}' not found in {os.getcwd()}", flush=True)
         return
 
     with open(master_csv, 'r', encoding='utf-8') as f:
@@ -1087,7 +1317,7 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
             prev_val = clean_numeric_price(prev_price_str)
             default_curr = 'CHF' if ('CHF' in prev_price_str or country.strip().lower() == 'switzerland') else '€'
 
-            print(f"[{idx + 1}/{len(rows)}] {resort_name} ({country}) | Baseline: {prev_price_str}")
+            print(f"[{idx + 1}/{len(rows)}] {resort_name} ({country}) | Baseline: {prev_price_str}", flush=True)
 
             price, method, source_url = None, None, None
 
@@ -1099,7 +1329,7 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                     method = "Stage 0 (Shared Ski Area Domain Cache)"
                     source_url = cached_url
 
-            # Stage 1: Dual Directory Index (Skiresort.info + Bergfex) & Direct Profile Lookup
+            # Stage 1: Dual Directory Index (Skiresort.info + Bergfex) & Alias/Direct Profile Lookup
             if not price:
                 price, method, source_url = stage1_aggregator_search(
                     resort_name, region_name, country, prev_val, default_curr, agg_index
@@ -1127,8 +1357,8 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                 variance_pct = f"{((new_val - prev_val) / prev_val * 100):+.1f}%" if prev_val > 0 else "N/A"
                 status = "VERIFIED_SCRAPE"
                 stats['scraped'] += 1
-                print(f"   [+] {status}: {price} ({variance_pct}) via {method}")
-                print(f"       Source: {source_url}")
+                print(f"   [+] {status}: {price} ({variance_pct}) via {method}", flush=True)
+                print(f"       Source: {source_url}", flush=True)
             else:
                 if prev_val > 0:
                     est_val = prev_val * (1 + SEASON_INFLATION_RATE)
@@ -1138,7 +1368,7 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                     source_url = website
                     status = "ESTIMATED"
                     stats['estimated'] += 1
-                    print(f"   [~] ESTIMATED: {price} (Flagged for quick manual check)")
+                    print(f"   [~] ESTIMATED: {price} (Flagged for quick manual check)", flush=True)
                 else:
                     price = prev_price_str
                     variance_pct = "0.0%"
@@ -1146,7 +1376,7 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                     source_url = website
                     status = "MANUAL_REQUIRED"
                     stats['manual'] += 1
-                    print(f"   [!] MANUAL REQUIRED: No baseline or live price found")
+                    print(f"   [!] MANUAL REQUIRED: No baseline or live price found", flush=True)
 
             target_row_idx = idx + 1
             updated_row = list(all_output_rows[target_row_idx]) if target_row_idx < len(all_output_rows) else list(row)
@@ -1185,29 +1415,31 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
         else:
             writer.writerows(audit_rows[1:])
 
+    # Write visual Markdown table to GitHub Actions Summary page ($GITHUB_STEP_SUMMARY) & repo .md file
+    write_markdown_summary(audit_rows, stats, offset, limit)
+
     total_batch = stats['scraped'] + stats['estimated'] + stats['manual']
     capture_rate = (stats['scraped'] / total_batch * 100) if total_batch > 0 else 0.0
 
-    print("\n" + "=" * 78)
-    print(f" BATCH COMPLETE: {total_batch} Resorts Processed")
-    print(f" Live Verified Prices : {stats['scraped']} ({capture_rate:.1f}%)")
-    print(f" Indexed Fallbacks    : {stats['estimated']}")
-    print(f" Manual Check Needed  : {stats['manual']}")
-    print(f" Output CSV Saved To  : {output_csv}")
-    print(f" Audit Log Saved To   : {audit_csv}")
-    print("=" * 78)
+    print("\n" + "=" * 78, flush=True)
+    print(f" BATCH COMPLETE: {total_batch} Resorts Processed", flush=True)
+    print(f" Live Verified Prices : {stats['scraped']} ({capture_rate:.1f}%)", flush=True)
+    print(f" Indexed Fallbacks    : {stats['estimated']}", flush=True)
+    print(f" Manual Check Needed  : {stats['manual']}", flush=True)
+    print(f" Output CSV Saved To  : {output_csv}", flush=True)
+    print(f" Audit Log Saved To   : {audit_csv}", flush=True)
+    print("=" * 78, flush=True)
 
-    # Print plain-text Audit Table directly to console logs for immediate inspection
-    print("\n--- INLINE AUDIT LOG SUMMARY ---")
-    print(f"{'Resort Name':<28} | {'Prev':<8} | {'New':<8} | {'Var %':<7} | {'Status':<15} | {'Stage'}")
-    print("-" * 105)
+    print("\n--- INLINE AUDIT LOG SUMMARY ---", flush=True)
+    print(f"{'Resort Name':<28} | {'Prev':<8} | {'New':<8} | {'Var %':<7} | {'Status':<15} | {'Stage'}", flush=True)
+    print("-" * 105, flush=True)
     for r in audit_rows[1:]:
-        print(f"{r[0][:28]:<28} | {r[3]:<8} | {r[4]:<8} | {r[5]:<7} | {r[8]:<15} | {r[6]}")
-    print("-" * 105 + "\n")
+        print(f"{r[0][:28]:<28} | {r[3]:<8} | {r[4]:<8} | {r[5]:<7} | {r[8]:<15} | {r[6]}", flush=True)
+    print("-" * 105 + "\n", flush=True)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Enhanced Deep Discovery Ski Lift Pass Scraper v4")
+    parser = argparse.ArgumentParser(description="Enhanced Deep Discovery Ski Lift Pass Scraper v5")
     parser.add_argument('--master', type=str, default=DEFAULT_MASTER_CSV, help="Master input CSV path")
     parser.add_argument('--output', type=str, default=DEFAULT_OUTPUT_CSV, help="Updated output CSV path")
     parser.add_argument('--audit', type=str, default=DEFAULT_AUDIT_CSV, help="Audit log CSV path")
