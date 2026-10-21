@@ -37,10 +37,9 @@ DEFAULT_OUTPUT_CSV = 'Ski resorts - Updated 2026-27.csv'
 DEFAULT_AUDIT_CSV = 'lift_pass_batch_audit.csv'
 TIMEOUT_SECONDS = 15
 
-# Sanity Guardrails: Extracted price must be within [0.82x, 1.38x] of previous known price
-# Widened slightly to accommodate 2-year cumulative increases or regional pass consolidations
-MIN_RATIO = 0.82
-MAX_RATIO = 1.38
+# Sanity Guardrails: Extracted price must be within [0.80x, 1.40x] of previous known price
+MIN_RATIO = 0.80
+MAX_RATIO = 1.40
 SEASON_INFLATION_RATE = 0.035
 
 HEADERS = {
@@ -69,6 +68,20 @@ COUNTRY_TO_SKIRESORT_SLUG = {
     'poland': 'poland',
     'czech republic': 'czech-republic',
     'slovakia': 'slovakia'
+}
+
+COUNTRY_TO_BERGFEX_SLUG = {
+    'austria': 'oesterreich',
+    'france': 'frankreich',
+    'switzerland': 'schweiz',
+    'italy': 'italien',
+    'germany': 'deutschland',
+    'slovenia': 'slowenien',
+    'spain': 'spanien',
+    'andorra': 'andorra',
+    'poland': 'polen',
+    'czech republic': 'tschechien',
+    'slovakia': 'slowakei'
 }
 
 LINK_KEYWORDS_HIGH = [
@@ -101,7 +114,8 @@ STOPWORDS = {
     'saint', 'sankt', 'bad', 'arena', 'tirol', 'tyrol', 'salzburgerland',
     'salzburg', 'vorarlberg', 'carinthia', 'styria', 'savoie', 'haute',
     'valais', 'graubuenden', 'grisons', 'bernese', 'oberland', 'dolomites',
-    'trentino', 'alto', 'adige', 'aosta', 'piedmont', 'lombardy', 'pyrenees'
+    'trentino', 'alto', 'adige', 'aosta', 'piedmont', 'lombardy', 'pyrenees',
+    'bahnen', 'bergbahnen', 'skigebiet', 'snow', 'space'
 }
 
 
@@ -124,6 +138,29 @@ def strip_invisible_chars(text):
     if not text:
         return ""
     return re.sub(r'[\u200b\u200c\u200d\u00ad\ufeff]', '', str(text))
+
+
+def strip_promotional_footer(html_or_text):
+    """
+    Removes the 'Further interesting ski resorts' / 'Weitere interessante Skigebiete'
+    promotional widget at the bottom of Skiresort.info pages so ad prices (like € 74,- for Sillian)
+    are never mistaken for the target resort's price.
+    """
+    if not html_or_text:
+        return ""
+    markers = [
+        'Further interesting ski resorts',
+        'Weitere interessante Skigebiete',
+        'Autres domaines skiables intéressants',
+        'Altri comprensori sciistici interessanti',
+        'Ski resorts nearby'
+    ]
+    cut_idx = len(html_or_text)
+    for marker in markers:
+        pos = html_or_text.find(marker)
+        if pos != -1 and pos < cut_idx:
+            cut_idx = pos
+    return html_or_text[:cut_idx]
 
 
 def transliterate_text(text, german_umlauts=True):
@@ -149,7 +186,6 @@ def make_slugs(name):
     for s in [slug_de, slug_ascii]:
         if s and s not in slugs:
             slugs.append(s)
-    # Also add primary village slug if hyphenated or slashed (e.g. "Saalbach-Hinterglemm" -> "saalbach")
     parts = re.split(r'[/\-–]', clean)
     if len(parts) > 1:
         first_part = parts[0].strip()
@@ -224,7 +260,7 @@ def fetch_html(url, timeout=TIMEOUT_SECONDS):
 
 def clean_numeric_price(price_str):
     """Converts formatted strings like '€68.50', '€ 83,-', or 'CHF 75,00' to float."""
-    if not price_str or str(price_str).strip().lower() in ['n/a', 'closed', 'none', '']:
+    if not price_str or str(price_str).strip().lower() in ['n/a', 'closed', 'none', 'dynamic', '']:
         return 0.0
     normalized = strip_invisible_chars(price_str).replace(',-', '.00').replace('.-', '.00').replace(',', '.')
     match = re.search(r'([0-9]+(?:\.[0-9]+)?)', normalized)
@@ -237,19 +273,18 @@ def validate_price_bounds(val, prev_price_val):
         return False
     if prev_price_val > 0:
         return (prev_price_val * MIN_RATIO) <= val <= (prev_price_val * MAX_RATIO)
-    return 25.0 <= val <= 145.0
+    return 25.0 <= val <= 150.0
 
 
 def parse_currency_price_from_snippet(snippet, prev_price_val=0.0, default_currency='€'):
     """
     Extracts a currency price from a short card or table cell snippet, handling
-    '€ 83,-', '€ 81.50', and 'SFr. 94,- / approx. € 101,-'.
+    '€ 83,-', '€ 81.50', 'Price: € 82,00', and 'SFr. 94,- / approx. € 101,-'.
     """
     if not snippet:
         return None
     clean_snip = strip_invisible_chars(snippet)
 
-    # If Swiss resort, prioritize SFr. / CHF before any 'approx. €' conversion
     if default_currency == 'CHF':
         chf_match = re.search(
             r'(?:CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*(?:,-|\.\-|-))?',
@@ -265,7 +300,6 @@ def parse_currency_price_from_snippet(snippet, prev_price_val=0.0, default_curre
             if validate_price_bounds(val, prev_price_val):
                 return f"CHF{val:.2f}"
 
-    # General currency match
     pattern = re.compile(
         r'(?:(€|EUR|CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*(?:,-|\.\-|-))?|'
         r'([0-9]{2,3}(?:[\.,][0-9]{1,2})?)\s*(?:,-|\.\-|-)?\s*(€|EUR|CHF|SFr\.?))',
@@ -281,58 +315,90 @@ def parse_currency_price_from_snippet(snippet, prev_price_val=0.0, default_curre
     return None
 
 
-class SkiresortDirectoryIndex:
+class MultiAggregatorDirectoryIndex:
     """
-    Stage 0 Pre-Indexer: Crawls Skiresort.info country resort listings (50 resorts per page)
-    and caches every resort's full compound title, region breadcrumbs, profile URL, and
-    1-day adult price.
+    Stage 0 Pre-Indexer (v4):
+      1. Crawls Skiresort.info's Slope-Length & Country Directories (/sorted/slope-length/ and default),
+         properly ignoring bare intro-paragraph links so real resort cards are never skipped.
+      2. Crawls Bergfex's Country Overview & Snow-Report Directories (/oesterreich/, /frankreich/,
+         /schweiz/, /italien/, etc.), which list individual satellite villages with their exact
+         1-day pass price and resort slug.
     """
     def __init__(self):
         self.indexed_countries = set()
-        self.entries = []  # List of dicts: {title, norm_title, norm_context, url, price_str}
+        self.europe_top_indexed = False
+        self.sr_entries = {}  # keyed by full_url -> dict
+        self.bf_entries = {}  # keyed by full_url -> dict
 
     def ensure_country_indexed(self, country_name):
         c_key = (country_name or '').strip().lower()
-        sr_slug = COUNTRY_TO_SKIRESORT_SLUG.get(c_key)
-        if not sr_slug or sr_slug in self.indexed_countries:
+
+        if not self.europe_top_indexed:
+            self.europe_top_indexed = True
+            print("   [*] Pre-indexing Skiresort.info Europe Top Resorts (/europe/sorted/slope-length/)...")
+            for page_num in range(1, 5):
+                url = (
+                    "https://www.skiresort.info/ski-resorts/europe/sorted/slope-length/"
+                    if page_num == 1
+                    else f"https://www.skiresort.info/ski-resorts/europe/sorted/slope-length/page/{page_num}/"
+                )
+                html, _ = fetch_html(url, timeout=12)
+                if not html or self._parse_skiresort_directory_page(html) == 0:
+                    break
+
+        if c_key in self.indexed_countries:
             return
+        self.indexed_countries.add(c_key)
 
-        self.indexed_countries.add(sr_slug)
-        print(f"   [*] Pre-indexing Skiresort.info directory for {country_name.title()} ({sr_slug})...")
+        sr_slug = COUNTRY_TO_SKIRESORT_SLUG.get(c_key)
+        if sr_slug:
+            print(f"   [*] Pre-indexing Skiresort.info directory for {country_name.title()} ({sr_slug})...")
+            # Crawl both slope-length sorted (puts all major resorts first) and default listing
+            url_templates = [
+                f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/",
+                f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/page/2/",
+                f"https://www.skiresort.info/ski-resorts/{sr_slug}/sorted/slope-length/page/3/",
+                f"https://www.skiresort.info/ski-resorts/{sr_slug}/",
+                f"https://www.skiresort.info/ski-resorts/{sr_slug}/page/2/",
+                f"https://www.skiresort.info/ski-resorts/{sr_slug}/page/3/"
+            ]
+            for url in url_templates:
+                html, _ = fetch_html(url, timeout=12)
+                if html:
+                    self._parse_skiresort_directory_page(html)
 
-        # Crawl up to 6 pages (300 resorts per country, sorted by relevance/size)
-        for page_num in range(1, 7):
-            if page_num == 1:
-                url = f"https://www.skiresort.info/ski-resorts/{sr_slug}/"
-            else:
-                url = f"https://www.skiresort.info/ski-resorts/{sr_slug}/page/{page_num}/"
+        bf_slug = COUNTRY_TO_BERGFEX_SLUG.get(c_key)
+        if bf_slug:
+            print(f"   [*] Pre-indexing Bergfex directory for {country_name.title()} ({bf_slug})...")
+            # 1. Main country overview page (contains 80 resorts with 'Price: € XX,XX')
+            bf_main_url = f"https://www.bergfex.com/{bf_slug}/"
+            bf_html, _ = fetch_html(bf_main_url, timeout=12)
+            if bf_html:
+                self._parse_bergfex_country_page(bf_html)
+            # 2. Country snow-report index (contains ALL resorts & villages on a single page with exact slugs)
+            bf_snow_url = f"https://www.bergfex.com/{bf_slug}/schneewerte/"
+            bf_snow_html, _ = fetch_html(bf_snow_url, timeout=12)
+            if bf_snow_html:
+                self._parse_bergfex_snow_index(bf_snow_html)
 
-            html, _ = fetch_html(url, timeout=12)
-            if not html:
-                break
-
-            added = self._parse_directory_page(html, url)
-            if added == 0:
-                break
-
-    def _parse_directory_page(self, html_content, page_url):
+    def _parse_skiresort_directory_page(self, html_content):
         if not HAS_BS4:
             return 0
 
         soup = BeautifulSoup(html_content, 'html.parser')
-        seen_urls_on_page = set()
-        added_count = 0
+        added_or_updated = 0
 
-        # Find all resort links pointing to /ski-resort/<slug>/
         for a in soup.find_all('a', href=True):
             href = a['href'].strip()
             if not re.search(r'/ski-resort/[^/]+/?$', href):
                 continue
 
             anchor_text = strip_invisible_chars(a.get_text(separator=' ')).strip()
-            if not anchor_text or anchor_text.lower() in ['details', 'ski resort status', 'snow report', 'trail map']:
+            if not anchor_text or anchor_text.lower() in [
+                'details', 'ski resort status', 'snow report', 'trail map', 'test result'
+            ]:
                 continue
-            # Clean leading rank numbers like "1. Les 3 Vallées..."
+
             clean_title = re.sub(r'^\d+\.\s*', '', anchor_text).strip()
             if len(clean_title) < 3:
                 continue
@@ -340,10 +406,8 @@ class SkiresortDirectoryIndex:
             full_url = urllib.parse.urljoin("https://www.skiresort.info", href)
             if not full_url.endswith('/'):
                 full_url += '/'
-            if full_url in seen_urls_on_page:
-                continue
 
-            # Walk up the DOM to find the enclosing card for this single resort
+            # Walk up the DOM to find the enclosing resort card
             card_node = a
             card_text = ""
             for _ in range(6):
@@ -351,32 +415,141 @@ class SkiresortDirectoryIndex:
                 if not parent:
                     break
                 p_text = strip_invisible_chars(parent.get_text(separator=' ')).strip()
-                # Stop walking up if parent encompasses multiple resort cards
-                if p_text.count('Details') > 2 or len(p_text) > 1600:
+                if p_text.count('Details') > 2 or len(p_text) > 1500:
                     break
                 card_node = parent
                 card_text = p_text
-                if ('ski lifts' in p_text.lower() or 'details' in p_text.lower()) and ('€' in p_text or 'SFr' in p_text):
+                if ('ski lifts' in p_text.lower() or 'test result' in p_text.lower()) and (
+                    '€' in p_text or 'SFr' in p_text or 'Details' in p_text
+                ):
                     break
 
-            seen_urls_on_page.add(full_url)
-            self.entries.append({
+            # Critical v4 fix: Ignore inline links inside introductory paragraphs that aren't resort cards
+            is_valid_card = ('ski lifts' in card_text.lower() or 'test result' in card_text.lower() or 'details' in card_text.lower())
+            has_price_symbol = ('€' in card_text or 'SFr' in card_text or 'CHF' in card_text)
+
+            existing = self.sr_entries.get(full_url)
+            if existing:
+                # Only overwrite existing entry if the new card has a price and the old one didn't
+                if has_price_symbol and not existing.get('has_price'):
+                    self.sr_entries[full_url] = {
+                        'title': clean_title,
+                        'norm_title': transliterate_text(clean_title, german_umlauts=True),
+                        'norm_ascii': transliterate_text(clean_title, german_umlauts=False),
+                        'norm_context': transliterate_text(card_text, german_umlauts=True),
+                        'url': full_url,
+                        'raw_card_text': card_text,
+                        'has_price': True,
+                        'source': 'Skiresort.info'
+                    }
+                    added_or_updated += 1
+                continue
+
+            if not is_valid_card and not has_price_symbol:
+                continue
+
+            self.sr_entries[full_url] = {
                 'title': clean_title,
                 'norm_title': transliterate_text(clean_title, german_umlauts=True),
                 'norm_ascii': transliterate_text(clean_title, german_umlauts=False),
                 'norm_context': transliterate_text(card_text, german_umlauts=True),
                 'url': full_url,
-                'raw_card_text': card_text
-            })
-            added_count += 1
+                'raw_card_text': card_text,
+                'has_price': has_price_symbol,
+                'source': 'Skiresort.info'
+            }
+            added_or_updated += 1
 
-        return added_count
+        return added_or_updated
 
-    def find_best_match(self, resort_name, region_name, country_name, prev_price_val, default_currency):
-        self.ensure_country_indexed(country_name)
-        if not self.entries:
-            return None, None
+    def _parse_bergfex_country_page(self, html_content):
+        if not HAS_BS4:
+            return 0
 
+        soup = BeautifulSoup(html_content, 'html.parser')
+        count = 0
+        for a in soup.find_all('a', href=True):
+            href = a['href'].strip()
+            # Bergfex resort links look like "/soelden/" or "/kitzsteinhorn-kaprun/"
+            if not re.match(r'^/[a-z0-9\-]+/?$', href):
+                continue
+            if any(x in href for x in [
+                '/oesterreich', '/schweiz', '/frankreich', '/italien', '/deutschland',
+                '/slowenien', '/spanien', '/andorra', '/polen', '/tschechien', '/slowakei',
+                '/sommer', '/winter', '/wetter', '/webcams', '/schneewerte', '/pauschalen'
+            ]):
+                continue
+
+            title = strip_invisible_chars(a.get_text(separator=' ')).strip()
+            if len(title) < 3:
+                continue
+
+            full_url = urllib.parse.urljoin("https://www.bergfex.com", href)
+            if not full_url.endswith('/'):
+                full_url += '/'
+
+            # Find enclosing row/card text (which contains "Price: € 82,00")
+            card_node = a
+            card_text = ""
+            for _ in range(4):
+                parent = card_node.parent
+                if not parent:
+                    break
+                p_text = strip_invisible_chars(parent.get_text(separator=' ')).strip()
+                if len(p_text) > 800:
+                    break
+                card_node = parent
+                card_text = p_text
+                if 'price:' in p_text.lower() or 'preis:' in p_text.lower() or '€' in p_text or 'chf' in p_text.lower():
+                    break
+
+            has_price = ('€' in card_text or 'CHF' in card_text)
+            existing = self.bf_entries.get(full_url)
+            if not existing or (has_price and not existing.get('has_price')):
+                self.bf_entries[full_url] = {
+                    'title': title,
+                    'norm_title': transliterate_text(title, german_umlauts=True),
+                    'norm_ascii': transliterate_text(title, german_umlauts=False),
+                    'norm_context': transliterate_text(card_text, german_umlauts=True),
+                    'url': full_url,
+                    'raw_card_text': card_text,
+                    'has_price': has_price,
+                    'source': 'Bergfex'
+                }
+                count += 1
+        return count
+
+    def _parse_bergfex_snow_index(self, html_content):
+        if not HAS_BS4:
+            return 0
+
+        soup = BeautifulSoup(html_content, 'html.parser')
+        count = 0
+        for a in soup.find_all('a', href=True):
+            href = a['href'].strip()
+            m = re.match(r'^/([a-z0-9\-]+)/schneewerte/?$', href)
+            if not m:
+                continue
+            slug = m.group(1)
+            title = strip_invisible_chars(a.get_text(separator=' ')).strip()
+            if len(title) < 3:
+                continue
+            full_url = f"https://www.bergfex.com/{slug}/"
+            if full_url not in self.bf_entries:
+                self.bf_entries[full_url] = {
+                    'title': title,
+                    'norm_title': transliterate_text(title, german_umlauts=True),
+                    'norm_ascii': transliterate_text(title, german_umlauts=False),
+                    'norm_context': transliterate_text(title, german_umlauts=True),
+                    'url': full_url,
+                    'raw_card_text': '',
+                    'has_price': False,
+                    'source': 'Bergfex'
+                }
+                count += 1
+        return count
+
+    def _score_entries(self, entries_dict, resort_name, region_name):
         clean_resort = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
         norm_de = transliterate_text(clean_resort, german_umlauts=True)
         norm_ascii = transliterate_text(clean_resort, german_umlauts=False)
@@ -384,74 +557,86 @@ class SkiresortDirectoryIndex:
         resort_tokens = extract_significant_tokens(clean_resort)
         region_tokens = extract_significant_tokens(region_name)
 
-        best_entry = None
-        best_score = 0
-
-        for entry in self.entries:
+        scored = []
+        for entry in entries_dict.values():
             score = 0
             title_de = entry['norm_title']
             title_ascii = entry['norm_ascii']
             ctx_de = entry['norm_context']
 
-            # Exact or full phrase match in title
             if norm_de == title_de or norm_ascii == title_ascii:
-                score += 100
-            elif norm_de and len(norm_de) >= 4 and (norm_de in title_de or norm_ascii in title_ascii):
-                score += 65
+                score += 110
+            elif norm_de and len(norm_de) >= 4 and (
+                re.search(r'\b' + re.escape(norm_de) + r'\b', title_de) or
+                re.search(r'\b' + re.escape(norm_ascii) + r'\b', title_ascii)
+            ):
+                score += 75
+            elif norm_de and len(norm_de) >= 5 and (norm_de in title_de or norm_ascii in title_ascii):
+                score += 55
 
-            # Check individual village/resort tokens against card title and region breadcrumbs
             matched_resort_tokens = 0
             for tok in resort_tokens:
                 if re.search(r'\b' + re.escape(tok) + r'\b', title_de) or re.search(r'\b' + re.escape(tok) + r'\b', title_ascii):
-                    score += 30
+                    score += 32
                     matched_resort_tokens += 1
-                elif tok in title_de or tok in title_ascii:
-                    score += 18
+                elif len(tok) >= 5 and (tok in title_de or tok in title_ascii):
+                    score += 20
                     matched_resort_tokens += 1
                 elif re.search(r'\b' + re.escape(tok) + r'\b', ctx_de):
-                    score += 10
+                    score += 12
 
-            # If the resort name has tokens and none matched title or breadcrumbs, skip
-            if resort_tokens and matched_resort_tokens == 0 and score < 25:
+            if resort_tokens and matched_resort_tokens == 0 and score < 30:
                 continue
 
-            # Bonus if region/area tokens (e.g., "SkiWelt", "Zillertal", "3 Vallees", "Skicircus") also match
             for r_tok in region_tokens:
                 if r_tok in title_de or r_tok in title_ascii:
-                    score += 20
+                    score += 22
                 elif r_tok in ctx_de:
-                    score += 8
+                    score += 10
 
-            if score > best_score:
-                best_score = score
-                best_entry = entry
+            if entry.get('has_price'):
+                score += 5
 
-        if not best_entry or best_score < 28:
-            return None, None
+            if score >= 30:
+                scored.append((score, entry))
 
-        # Extract price from the card text first
-        price = parse_currency_price_from_snippet(
-            best_entry['raw_card_text'], prev_price_val, default_currency
-        )
-        return price, best_entry['url']
+        scored.sort(key=lambda x: x[0], reverse=True)
+        return [item[1] for item in scored[:3]]
+
+    def find_candidates(self, resort_name, region_name, country_name):
+        self.ensure_country_indexed(country_name)
+        sr_matches = self._score_entries(self.sr_entries, resort_name, region_name)
+        bf_matches = self._score_entries(self.bf_entries, resort_name, region_name)
+        return sr_matches, bf_matches
 
 
 def extract_structured_table_price(html_content, prev_price_val=0.0, default_currency='€'):
     """
-    Targets structured HTML pricing tables on Skiresort.info, Bergfex, and official resort sites.
-    Handles both Row-oriented tables (Erwachsene in <tr>) and Column-oriented tables
-    (Adults Youth Children € 81.50 € 75,- € 49,-).
+    Targets structured HTML pricing tables and summary boxes on Skiresort.info, Bergfex,
+    and official resort websites. Automatically strips 'Further interesting ski resorts' ads.
     """
     if not html_content:
         return None
 
-    clean_html = strip_invisible_chars(html_content)
+    clean_html = strip_promotional_footer(strip_invisible_chars(html_content))
 
-    # 1. Fast regex for Skiresort.info's "Adults Youth Children € 81.50 € 75,- € 49,-" layout
+    # 1. Check Bergfex overview page summary widget: "Prices € 75,50 (day ticket)" / "Preise € 75,50 (Tageskarte)"
+    bf_summary = re.search(
+        r'(?:Prices|Preise|Price|Preis)\s*[:\s]*((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)\s*\((?:day ticket|Tageskarte)\)',
+        re.sub(r'<[^>]+>', ' ', clean_html),
+        re.IGNORECASE
+    )
+    if bf_summary:
+        price = parse_currency_price_from_snippet(bf_summary.group(1), prev_price_val, default_currency)
+        if price:
+            return price
+
+    # 2. Check Skiresort.info plain-text sequence: "Adults Youth Children € 81.50"
+    plain_text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', clean_html))
     sr_pattern = re.search(
-        r'(?:Adults|Erwachsene)\s+(?:Youth|Jugend(?:liche)?)\s+(?:Children|Kinder)\s*'
+        r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?(?:\s+(?:Seniors|Senioren))?\s*'
         r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
-        clean_html, re.IGNORECASE
+        plain_text, re.IGNORECASE
     )
     if sr_pattern:
         price = parse_currency_price_from_snippet(sr_pattern.group(1), prev_price_val, default_currency)
@@ -463,7 +648,7 @@ def extract_structured_table_price(html_content, prev_price_val=0.0, default_cur
 
     soup = BeautifulSoup(clean_html, 'html.parser')
 
-    # 2. Check Skiresort.info exact Adult Day Pass cell (id="selAd")
+    # 3. Check Skiresort.info exact Adult Day Pass cell (id="selAd")
     sel_ad = soup.find(id='selAd')
     if sel_ad:
         cell_text = sel_ad.get_text(separator=' ').strip()
@@ -471,48 +656,34 @@ def extract_structured_table_price(html_content, prev_price_val=0.0, default_cur
         if price:
             return price
 
-    # 3. Check Column-Oriented & Row-Oriented HTML Tables
+    # 4. Inspect HTML Tables (Row-oriented & Column-oriented)
     adult_headers = ['erwachsene', 'adults', 'adult', 'adulte', 'adulti', 'adultos']
-    day_row_keywords = ['1 tag', '1-tag', 'tageskarte', '1 day', 'day ticket', 'day pass', '1 jour', 'journée', '1 giorno', 'giornaliero', 'main season', 'hauptsaison']
+    day_row_keywords = [
+        '1 tag', '1-tag', 'tageskarte', '1 day', 'day ticket', 'day pass',
+        '1 jour', 'journée', '1 giorno', 'giornaliero', 'main season', 'hauptsaison'
+    ]
     neg_row_only = ['6 tage', '6 days', 'saison', 'season pass', 'halbtageskarte', 'half day']
 
     for table in soup.find_all('table'):
+        table_text = strip_invisible_chars(table.get_text(separator=' ')).strip()
+        # Check if this table has "Adults ... € XX" sequence
+        tbl_sr = re.search(
+            r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?\s*'
+            r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
+            table_text, re.IGNORECASE
+        )
+        if tbl_sr:
+            price = parse_currency_price_from_snippet(tbl_sr.group(1), prev_price_val, default_currency)
+            if price:
+                return price
+
         rows = table.find_all('tr')
-        if not rows:
-            continue
-
-        # Check if any header row defines an "Adults" column index
-        adult_col_idx = None
-        for tr in rows[:3]:
-            cells = [c.get_text(separator=' ').strip().lower() for c in tr.find_all(['th', 'td'])]
-            for idx, cell_str in enumerate(cells):
-                if any(ah in cell_str for ah in adult_headers):
-                    adult_col_idx = idx
-                    break
-            if adult_col_idx is not None:
-                break
-
-        # If column-oriented table, inspect the cell at adult_col_idx in Day Ticket / Main Season rows
-        if adult_col_idx is not None:
-            for tr in rows:
-                cells = tr.find_all(['td', 'th'])
-                row_text_lower = tr.get_text(separator=' ').strip().lower()
-                if any(nk in row_text_lower for nk in neg_row_only):
-                    continue
-                if len(cells) > adult_col_idx:
-                    target_cell_text = cells[adult_col_idx].get_text(separator=' ').strip()
-                    price = parse_currency_price_from_snippet(target_cell_text, prev_price_val, default_currency)
-                    if price:
-                        return price
-
-        # Row-oriented table: row starts with or contains Adult / 1 Day keyword, grab FIRST valid price in row
         for tr in rows:
             row_text = tr.get_text(separator=' ').strip()
             row_lower = row_text.lower()
             if any(nk in row_lower for nk in neg_row_only):
                 continue
             if any(ah in row_lower for ah in adult_headers) or any(dk in row_lower for dk in day_row_keywords):
-                # Do not skip if 'youth'/'children' are in the same row; only skip if row starts with child/youth
                 first_cell = tr.find(['td', 'th'])
                 first_cell_lower = first_cell.get_text(separator=' ').strip().lower() if first_cell else ''
                 if any(ck in first_cell_lower for ck in ['kinder', 'child', 'youth', 'jugend', 'senior']):
@@ -527,16 +698,25 @@ def extract_structured_table_price(html_content, prev_price_val=0.0, default_cur
 def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€'):
     """
     Finds all currency-number pairs in the text, scores each candidate by surrounding
-    keywords, and avoids penalizing an Adult price when Youth/Child columns follow it.
+    keywords, and avoids promotional footer ads.
     """
     if not text:
         return None
 
-    clean_text = strip_invisible_chars(text)
+    clean_text = strip_promotional_footer(strip_invisible_chars(text))
 
-    # Check explicit "Adults Youth Children € 81.50" pattern in plain text first
+    # Fast check for Bergfex "(day ticket)" / "(Tageskarte)" or Skiresort "Adults Youth Children"
+    bf_match = re.search(
+        r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)\s*\((?:day ticket|Tageskarte)\)',
+        clean_text, re.IGNORECASE
+    )
+    if bf_match:
+        price = parse_currency_price_from_snippet(bf_match.group(1), prev_price_val, default_currency)
+        if price:
+            return price
+
     sr_text_match = re.search(
-        r'(?:Adults|Erwachsene)\s+(?:Youth|Jugend(?:liche)?)\s+(?:Children|Kinder)\s*'
+        r'(?:Adults|Erwachsene)(?:\s+(?:Youth|Jugend(?:liche)?))?(?:\s+(?:Children|Kinder))?\s*'
         r'((?:€|EUR|CHF|SFr\.?)\s*[0-9]{2,3}(?:[\.,][0-9]{1,2})?(?:\s*(?:,-|\.\-|-))?)',
         clean_text, re.IGNORECASE
     )
@@ -561,7 +741,6 @@ def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€
         if not validate_price_bounds(val, prev_price_val):
             continue
 
-        # Prefer CHF if resort baseline is CHF and snippet says "approx. €"
         pre_15 = clean_text[max(0, match.start() - 15):match.start()].lower()
         if default_currency == 'CHF' and 'approx' in pre_15 and '€' in raw_curr:
             continue
@@ -575,11 +754,13 @@ def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€
         for pos_kw in CONTEXT_POSITIVE_KEYWORDS:
             if pos_kw in context:
                 score += 6
-        # Only penalize if a negative keyword immediately precedes THIS specific number
-        # without an adult keyword right next to it
         for neg_kw in CONTEXT_NEGATIVE_IMMEDIATE:
             if neg_kw in immediate_pre and not any(ak in immediate_pre for ak in ['adult', 'erwachsene', 'adulte', 'adulti']):
                 score -= 10
+
+        # Do not accept an uncontextualized number on a page that doesn't mention day/adult ticket nearby
+        if score == 0:
+            continue
 
         if prev_price_val > 0:
             ratio = val / prev_price_val
@@ -595,9 +776,9 @@ def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€
         return None
 
     candidates.sort(key=lambda x: (x[0], x[1]), reverse=True)
-    best_score, best_val, best_formatted = candidates[0]
+    best_score, _, best_formatted = candidates[0]
 
-    if best_score < -4:
+    if best_score < 4:
         return None
 
     return best_formatted
@@ -605,9 +786,10 @@ def extract_best_price_from_text(text, prev_price_val=0.0, default_currency='€
 
 def parse_html_text_and_links(html_content, base_url):
     """Extracts visible text and scored candidate links from raw HTML."""
+    clean_html = strip_promotional_footer(html_content)
     links = []
     if HAS_BS4:
-        soup = BeautifulSoup(html_content, 'html.parser')
+        soup = BeautifulSoup(clean_html, 'html.parser')
         for a in soup.find_all('a', href=True):
             href = a['href'].strip()
             text = strip_invisible_chars(a.get_text(separator=' ')).strip()
@@ -617,7 +799,7 @@ def parse_html_text_and_links(html_content, base_url):
         visible_text = strip_invisible_chars(soup.get_text(separator=' '))
     else:
         parser = SimpleHTMLParser()
-        parser.feed(html_content)
+        parser.feed(clean_html)
         links = parser.links
         visible_text = ' '.join(parser.text_parts)
 
@@ -656,32 +838,51 @@ def parse_html_text_and_links(html_content, base_url):
     return visible_text, sorted_candidates[:8]
 
 
-def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, default_currency, sr_index):
+def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, default_currency, agg_index):
     """
-    Stage 1:
-      1A: Looks up the resort in the pre-indexed Skiresort.info Country Directory (resolves compound names & umlauts).
-      1B: Tries direct umlaut-transliterated Skiresort.info URLs (e.g. 'soelden', 'kuehtai').
-      1C: Tries Bergfex direct & autocomplete JSON search using umlaut-safe queries.
+    Stage 1 (v4):
+      1A: Looks up the resort in the pre-indexed Skiresort.info & Bergfex Country Directories.
+      1B: Visits matched Skiresort.info profile page & Bergfex overview + /preise/ pages.
+      1C: Tries direct umlaut-transliterated Skiresort.info & Bergfex URLs.
     """
-    # 1A: Pre-indexed Skiresort.info Country Directory Match
-    card_price, matched_sr_url = sr_index.find_best_match(
-        resort_name, region_name, country, prev_price_val, default_currency
-    )
-    if card_price and matched_sr_url:
-        return card_price, "Stage 1A (Skiresort.info Directory Index)", matched_sr_url
+    sr_matches, bf_matches = agg_index.find_candidates(resort_name, region_name, country)
 
-    # If directory index matched the URL, fetch the resort page directly to parse its table
-    if matched_sr_url:
-        html, final_url = fetch_html(matched_sr_url, timeout=10)
+    # 1A: Check Skiresort.info Directory Card Price & Profile Page
+    for sr_entry in sr_matches:
+        card_price = parse_currency_price_from_snippet(
+            sr_entry['raw_card_text'], prev_price_val, default_currency
+        )
+        if card_price:
+            return card_price, "Stage 1A (Skiresort.info Directory Index)", sr_entry['url']
+
+        html, final_url = fetch_html(sr_entry['url'], timeout=10)
         if html:
             price = extract_structured_table_price(html, prev_price_val, default_currency)
             if not price:
                 text, _ = parse_html_text_and_links(html, final_url)
                 price = extract_best_price_from_text(text, prev_price_val, default_currency)
             if price:
-                return price, "Stage 1A (Skiresort.info Indexed Page)", final_url
+                return price, "Stage 1A (Skiresort.info Profile Page)", final_url
 
-    # 1B: Try direct umlaut-normalized Skiresort.info slugs
+    # 1B: Check Bergfex Directory Card Price, Main Overview Page ("Prices € XX (day ticket)"), and /preise/
+    for bf_entry in bf_matches:
+        card_price = parse_currency_price_from_snippet(
+            bf_entry['raw_card_text'], prev_price_val, default_currency
+        )
+        if card_price:
+            return card_price, "Stage 1B (Bergfex Directory Index)", bf_entry['url']
+
+        for bf_url in [bf_entry['url'], bf_entry['url'].rstrip('/') + '/preise/']:
+            html, final_url = fetch_html(bf_url, timeout=10)
+            if html:
+                price = extract_structured_table_price(html, prev_price_val, default_currency)
+                if not price:
+                    text, _ = parse_html_text_and_links(html, final_url)
+                    price = extract_best_price_from_text(text, prev_price_val, default_currency)
+                if price:
+                    return price, "Stage 1B (Bergfex Resort Page)", final_url
+
+    # 1C: Direct Slug Probing on Skiresort.info & Bergfex (both overview and /preise/)
     candidate_slugs = make_slugs(resort_name)
     if '/' in region_name:
         area_part = region_name.split('/')[-1].strip()
@@ -698,41 +899,17 @@ def stage1_aggregator_search(resort_name, region_name, country, prev_price_val, 
                 text, _ = parse_html_text_and_links(html, final_url)
                 price = extract_best_price_from_text(text, prev_price_val, default_currency)
             if price:
-                return price, "Stage 1B (Skiresort.info Direct)", final_url
+                return price, "Stage 1C (Skiresort.info Direct)", final_url
 
-    # 1C: Bergfex direct & autocomplete JSON search
-    for slug in candidate_slugs[:2]:
-        bf_direct = f"https://www.bergfex.com/{slug}/preise/"
-        bf_html, bf_final = fetch_html(bf_direct, timeout=10)
-        if bf_html and ('Tageskarte' in bf_html or 'Erwachsene' in bf_html or 'Skipass' in bf_html):
-            price = extract_structured_table_price(bf_html, prev_price_val, default_currency)
-            if not price:
-                text, _ = parse_html_text_and_links(bf_html, bf_final)
-                price = extract_best_price_from_text(text, prev_price_val, default_currency)
-            if price:
-                return price, "Stage 1C (Bergfex Direct)", bf_final
-
-    clean_name = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
-    primary_token = re.split(r'[/\-–]', clean_name)[0].strip()
-    for query_term in [clean_name, primary_token]:
-        if not query_term or len(query_term) < 3:
-            continue
-        bf_ajax_url = f"https://www.bergfex.com/ym/ajax/autocomplete/?term={urllib.parse.quote(query_term)}"
-        bf_json_raw, _ = fetch_html(bf_ajax_url, timeout=8)
-        if bf_json_raw:
-            matches = re.findall(r'"url"\s*:\s*"([^"]+)"', bf_json_raw)
-            for m_path in matches[:3]:
-                clean_path = m_path.replace('\\/', '/').strip('/')
-                if clean_path and not any(x in clean_path for x in ['sommer', 'langlauf', 'hotel', 'wetter', 'webcams']):
-                    bf_candidate = f"https://www.bergfex.com/{clean_path}/preise/"
-                    sub_html, sub_final = fetch_html(bf_candidate, timeout=10)
-                    if sub_html:
-                        price = extract_structured_table_price(sub_html, prev_price_val, default_currency)
-                        if not price:
-                            text, _ = parse_html_text_and_links(sub_html, sub_final)
-                            price = extract_best_price_from_text(text, prev_price_val, default_currency)
-                        if price:
-                            return price, "Stage 1D (Bergfex Autocomplete)", sub_final
+        for bf_url in [f"https://www.bergfex.com/{slug}/", f"https://www.bergfex.com/{slug}/preise/"]:
+            bf_html, bf_final = fetch_html(bf_url, timeout=10)
+            if bf_html and ('day ticket' in bf_html.lower() or 'tageskarte' in bf_html.lower() or 'erwachsene' in bf_html.lower()):
+                price = extract_structured_table_price(bf_html, prev_price_val, default_currency)
+                if not price:
+                    text, _ = parse_html_text_and_links(bf_html, bf_final)
+                    price = extract_best_price_from_text(text, prev_price_val, default_currency)
+                if price:
+                    return price, "Stage 1C (Bergfex Direct)", bf_final
 
     return None, None, None
 
@@ -806,7 +983,7 @@ def stage3_headless_browser(pw_page, target_urls, resort_name, country, prev_pri
     clean_name = re.sub(r'\(.*?\)', '', strip_invisible_chars(resort_name)).strip()
     search_queries = [
         f'"{clean_name}" {country} ski pass price adult day skiresort.info',
-        f'"{clean_name}" {country} skipass tageskarte forfait adult day price'
+        f'"{clean_name}" {country} skipass preise bergfex'
     ]
     for q in search_queries:
         try:
@@ -844,12 +1021,12 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
     if not os.path.exists(master_csv) and os.path.exists(FALLBACK_MASTER_CSV):
         master_csv = FALLBACK_MASTER_CSV
 
-    print("\n" + "=" * 72)
-    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER (v3 - Directory Indexer)")
+    print("\n" + "=" * 78)
+    print(" ENHANCED DEEP-DISCOVERY SKI LIFT PASS SCRAPER (v4 - Dual Directory Indexer)")
     print(f" Input File  : {master_csv}")
     print(f" Offset      : {offset} | Batch Limit: {limit}")
     print(f" Capabilities: Requests={HAS_REQUESTS}, BS4={HAS_BS4}, Playwright={HAS_PLAYWRIGHT}")
-    print("=" * 72 + "\n")
+    print("=" * 78 + "\n")
 
     if not os.path.exists(master_csv):
         print(f"[x] Error: Master CSV '{master_csv}' not found in {os.getcwd()}")
@@ -885,7 +1062,7 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
     stats = {'scraped': 0, 'estimated': 0, 'manual': 0}
 
     domain_price_cache = {}
-    sr_index = SkiresortDirectoryIndex()
+    agg_index = MultiAggregatorDirectoryIndex()
 
     pw_context_mgr = sync_playwright().start() if HAS_PLAYWRIGHT else None
     pw_browser = None
@@ -914,7 +1091,6 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
 
             price, method, source_url = None, None, None
 
-            # Check shared domain cache first
             norm_domain = urllib.parse.urlparse(website if '://' in website else f"https://{website}").netloc.lower().replace('www.', '')
             if norm_domain and norm_domain in domain_price_cache:
                 cached_price, cached_url = domain_price_cache[norm_domain]
@@ -923,10 +1099,10 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                     method = "Stage 0 (Shared Ski Area Domain Cache)"
                     source_url = cached_url
 
-            # Stage 1: Country Directory Index + Umlaut-Safe Aggregator Search
+            # Stage 1: Dual Directory Index (Skiresort.info + Bergfex) & Direct Profile Lookup
             if not price:
                 price, method, source_url = stage1_aggregator_search(
-                    resort_name, region_name, country, prev_val, default_curr, sr_index
+                    resort_name, region_name, country, prev_val, default_curr, agg_index
                 )
 
             # Stage 2: Official Resort Website Link Spidering
@@ -944,7 +1120,6 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                 if price:
                     source_url = js_url
 
-            # Record Result or Fallback
             if price:
                 if norm_domain:
                     domain_price_cache[norm_domain] = (price, source_url)
@@ -986,7 +1161,7 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
                 price, variance_pct, method, source_url, status
             ])
 
-            time.sleep(0.6)
+            time.sleep(0.5)
     finally:
         if pw_browser:
             try:
@@ -1013,18 +1188,26 @@ def process_batch(master_csv, output_csv, audit_csv, offset, limit):
     total_batch = stats['scraped'] + stats['estimated'] + stats['manual']
     capture_rate = (stats['scraped'] / total_batch * 100) if total_batch > 0 else 0.0
 
-    print("\n" + "=" * 72)
+    print("\n" + "=" * 78)
     print(f" BATCH COMPLETE: {total_batch} Resorts Processed")
     print(f" Live Verified Prices : {stats['scraped']} ({capture_rate:.1f}%)")
     print(f" Indexed Fallbacks    : {stats['estimated']}")
     print(f" Manual Check Needed  : {stats['manual']}")
     print(f" Output CSV Saved To  : {output_csv}")
     print(f" Audit Log Saved To   : {audit_csv}")
-    print("=" * 72 + "\n")
+    print("=" * 78)
+
+    # Print plain-text Audit Table directly to console logs for immediate inspection
+    print("\n--- INLINE AUDIT LOG SUMMARY ---")
+    print(f"{'Resort Name':<28} | {'Prev':<8} | {'New':<8} | {'Var %':<7} | {'Status':<15} | {'Stage'}")
+    print("-" * 105)
+    for r in audit_rows[1:]:
+        print(f"{r[0][:28]:<28} | {r[3]:<8} | {r[4]:<8} | {r[5]:<7} | {r[8]:<15} | {r[6]}")
+    print("-" * 105 + "\n")
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Enhanced Deep Discovery Ski Lift Pass Scraper v3")
+    parser = argparse.ArgumentParser(description="Enhanced Deep Discovery Ski Lift Pass Scraper v4")
     parser.add_argument('--master', type=str, default=DEFAULT_MASTER_CSV, help="Master input CSV path")
     parser.add_argument('--output', type=str, default=DEFAULT_OUTPUT_CSV, help="Updated output CSV path")
     parser.add_argument('--audit', type=str, default=DEFAULT_AUDIT_CSV, help="Audit log CSV path")
