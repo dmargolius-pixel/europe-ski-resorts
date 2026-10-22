@@ -875,6 +875,42 @@ def match_in_bulk_cache(resort_name, bulk_records):
     scored_matches.sort(key=lambda x: x[0], reverse=True)
     return [m[1] for m in scored_matches[:4]]
 
+
+def extract_skiresort_detail_price(html_content, prev_price=0.0):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    full_text = re.sub(r'\s+', ' ', soup.get_text(' ', strip=True))
+
+    m_block = re.search(
+        r'(?:Day ticket|Tageskarte).*?(?:Adults|Erwachsene).*?(CHF|SFr\.?|€|EUR)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*,\s*-|\b)',
+        full_text,
+        re.IGNORECASE
+    )
+    if m_block:
+        curr_raw = m_block.group(1).upper()
+        curr = 'CHF' if ('CHF' in curr_raw or 'SFR' in curr_raw) else '€'
+        val = float(m_block.group(2).replace(',', '.'))
+        if is_within_guardrail(val, prev_price, is_trusted_aggregator=True):
+            snippet = m_block.group(0)[:140]
+            return val, curr, 25, snippet
+
+    return parse_html_for_best_price(html_content, prev_price, is_trusted_aggregator=True)
+
+
+def extract_adult_price_from_html_tables(soup, prev_price=0.0, is_trusted_aggregator=False):
+    price_regex = re.compile(
+        r'(?:(€|EUR|CHF|SFr\.?)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*,\s*-|\b)|\b([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*,\s*-)?\s*(€|EUR|CHF|SFr\.?))',
+        re.IGNORECASE
+    )
+
+    best_table_cand = None
+
+    for tr in soup.find_all(['tr', 'dl', 'li']):
+        row_text = tr.get_text(' ', strip=True)
+        row_lower = row_text.lower()
+
+        if len(row_text) > 350 or len(row_text) < 6:
+            continue
+
         if any(neg in row_lower for neg in NON_DAY_NEGATIVE_KEYWORDS):
             continue
 
@@ -1012,6 +1048,13 @@ def score_price_candidates(text, prev_price=0.0, is_trusted_aggregator=False):
 
 def parse_html_for_best_price(html_content, prev_price=0.0, is_trusted_aggregator=False):
     soup = BeautifulSoup(html_content, 'html.parser')
+    table_cand = extract_adult_price_from_html_tables(soup, prev_price, is_trusted_aggregator)
+    if table_cand:
+        return table_cand
+    full_text = soup.get_text(' ', strip=True)
+    return score_price_candidates(full_text, prev_price, is_trusted_aggregator)
+
+
 def resolve_via_aggregators(resort_name, country, prev_price=0.0, preserved_cache=None):
     """
     v10 Phase 1 & Phase 2:
@@ -1354,7 +1397,7 @@ def write_github_step_summary(summary_rows, total_count, verified_count, estimat
     try:
         pct = (verified_count / total_count * 100.0) if total_count else 0.0
         lines = [
-            "## 🎿 v9 Cumulative Bulk-Aggregator Lift Pass Scraper — Audit Summary",
+            "## 🎿 v10 Precision Bulk-Aggregator Lift Pass Scraper — Audit Summary",
             f"- **Resorts Processed:** `{total_count}`",
             f"- **Live Verified Scrapes:** `{verified_count}` (`{pct:.1f}%`)",
             f"- **Indexed Fallbacks (+3.5%):** `{estimated_count}`\n",
@@ -1412,7 +1455,7 @@ def main():
         target_indices = list(range(start, min(end, len(rows))))
 
     print("\n" + "=" * 78)
-    print(" CUMULATIVE SKI LIFT PASS SCRAPER (v9 - Anchor-First Bulk Table + State Cache)")
+    print(" PRECISION BULK-AGGREGATOR LIFT PASS SCRAPER (v10 - Anti-Collision + Full 435)")
     print(f" Input File  : {MASTER_CSV}")
     print(f" Offset      : {args.offset} | Batch Limit: {len(target_indices)}")
     print(f" Capabilities: Requests=True, BS4=True, Playwright={PLAYWRIGHT_AVAILABLE}, PDF={PDF_AVAILABLE}")
