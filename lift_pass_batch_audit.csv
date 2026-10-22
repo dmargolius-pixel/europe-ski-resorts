@@ -4,298 +4,398 @@ Row Index,Country,Resort Name,Old Price (24/25),New Price (26/27),Variance (%),D
 3,Andorra,Ordino Arcalis,€51.00,€52.78,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ordinoarcalis.com,
 4,Andorra,Vallnord,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://vallnord.com,
 5,Austria,Alpbach,€66.50,€71.50,+7.5%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.skijuwel.com/de/winter/tickets-und-preise,"1 Tag € 71,50 € 57,50 € 36,00"
-6,Austria,Ankogel-Mallnitz,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ankogel-ski.at,
+6,Austria,Ankogel-Mallnitz,€62.00,€58.00,-6.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/ankogel/,Bergfex Austria Bulk Table (Ankogel Ankogel / Mallnitz (2.636 m) 2.636 m): €58.00
 7,Austria,Annaberg,€46.00,€47.61,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://annaberg.info,
 8,Austria,Auffach,€66.50,€71.50,+7.5%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.skijuwel.com/de/winter/tickets-und-preise,"1 Tag € 71,50 € 57,50 € 36,00"
-9,Austria,Axamer Lizum,€58.50,€60.55,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://axamer-lizum.at,
-10,Austria,Bad Gastein,€73.90,€76.49,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skigastein.com,
+9,Austria,Axamer Lizum,€58.50,€63.00,+7.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/axamer-lizum/,Bergfex Austria Bulk Table (Axamer Lizum Axamer Lizum (2.340 m) 2.340 m): €63.00
+10,Austria,Bad Gastein,€73.90,€81.50,+10.3%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/badhofgastein/preise/,Preserved verified price (€81.50)
 11,Austria,Bad Kleinkirchheim,€62.00,€73.00,+17.7%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.badkleinkirchheim.com/skigebiet/preise-oeffnungszeiten/,"Tageskarte Normaltarif € 73,00 € 66,00 € 55,00 € 36,50"
-12,Austria,Bergeralm,€52.50,€60.20,+14.7%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/bergeralm/preise/,1 Day € 60.20 € 36.10 € 45.10 € 57.10
+12,Austria,Bergeralm,€52.50,€60.20,+14.7%,Stage 1C (Bergfex Direct Overview),VERIFIED_SCRAPE,https://www.bergfex.at/bergeralm/,"00 Uhr Montag RUHETAG! Wochenendbetrieb vom 18.09.26 bis 25.10.26 Lifte 2 2 2 2 Pisten 29 km Preise € 60,20 (Tageskarte) Wettervorschau Heut"
 13,Austria,Brandnertal,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://brandnertal.at,
-14,Austria,Brixen im Thale,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.skiwelt.at,
-15,Austria,Achensee - Christlum,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.christlum.at,
-16,Austria,Dachstein Krippenstein,€59.90,€65.00,+8.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/dachstein-krippenstein/preise/,"1 Tag € 65,00 € 33,80 € 46,80 € 61,80"
-17,Austria,Dachstein West,€64.90,€67.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://dachstein.at,
-18,Austria,Damüls-Mellau,€66.50,€75.50,+13.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/damuels/preise/,"1 Tag € 75,50 € 42,50 € 70,00 € 73,00"
-19,Austria,Diedamskopf,€61.00,€70.00,+14.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.diedamskopf.at/de/winter-tickets.html,"1 Tag € 70,- € 67,- € 59,- € 38,- € 5,-"
-20,Austria,Dreiländereck,€48.50,€56.00,+15.5%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.3laendereck.at/de/preise,"4,– 1 Erwachsener und 2 Kinder (Berg- & Talfahrt) € 45,– 2 Erwachsene und 1 Kind (Berg- & Talfahrt) € 56,– 2 Erwachsene und 2 Kinder (Berg- "
-21,Austria,Ellmau,€69.00,€79.50,+15.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/ellmau/preise/,1 Day € 79.50 € 40.00 € 59.50 € 79.50
-22,Austria,Ellmau - Going,€69.00,€79.50,+15.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/ellmau/preise/,"1 Tag € 79,50 € 40,00 € 59,50 € 79,50"
+14,Austria,Brixen im Thale,€69.00,€79.50,+15.2%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,Preserved verified price (€79.50)
+15,Austria,Achensee - Christlum,€58.00,€69.00,+19.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/achensee/,Bergfex Austria Bulk Table (Achensee Achensee (1.840 m) 1.840 m): €69.00
+16,Austria,Dachstein Krippenstein,€59.90,€65.00,+8.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/dachstein-krippenstein/,Bergfex Austria Bulk Table (Krippenstein Dachstein Krippenstein / Obertraun (2.100 m) 2.100 m): €65.00
+17,Austria,Dachstein West,€64.90,€69.90,+7.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/gosau/,Bergfex Austria Bulk Table (Gosau Gosau / Dachstein West (1.650 m) 1.650 m): €69.90
+18,Austria,Damüls-Mellau,€66.50,€75.50,+13.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/damuels/,Bergfex Austria Bulk Table (Damüls Damüls (2.051 m) 2.051 m): €75.50
+19,Austria,Diedamskopf,€61.00,€70.00,+14.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/diedamskopf/,Bergfex Austria Bulk Table (Diedamskopf Diedamskopf / Schoppernau (2.060 m) 2.060 m): €70.00
+20,Austria,Dreiländereck,€48.50,€56.00,+15.5%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.3laendereck.at/de/preise,"4,– 1 Erwachsener und 2 Kinder (Berg- & Talfahrt) € 45,– 2 Erwachsene und 1 Kind (Berg- & Talfahrt) € 56,– 2 Erwachsene und 2 Kinder (Berg-"
+21,Austria,Ellmau,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,Preserved verified price (€79.50)
+22,Austria,Ellmau - Going,€69.00,€79.50,+15.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/going/,Bergfex Austria Bulk Table (Going SkiWelt / Going (1.267 m) 1.267 m): €79.50
 23,Austria,Emberger Alm,€42.00,€44.50,+6.0%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://embergeralm.com/skiliftpreise_D.php,"Erwachsene: € 44,50"
-24,Austria,Fageralm,€57.00,€58.99,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://reiteralm.at/,
-25,Austria,Faschina-Fontanella,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://seilbahnen-faschina.at,
-26,Austria,Fendels,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kaunertal.com,
-27,Austria,Feuerkogel,€54.00,€59.50,+10.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/feuerkogel/preise/,1 Day € 59.50 € 31.00 € 43.00 € 56.60
-28,Austria,Fieberbrunn,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.fieberbrunn.com,
+24,Austria,Fageralm,€57.00,€61.00,+7.0%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/fageralm/preise/,Preserved verified price (€61.00)
+25,Austria,Faschina-Fontanella,€54.00,€56.50,+4.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/faschina/,Bergfex Austria Bulk Table (Faschina Faschina / Fontanella (2.000 m) 2.000 m): €56.50
+26,Austria,Fendels,€56.00,€58.00,+3.6%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/fendels/preise/,Preserved verified price (€58.00)
+27,Austria,Feuerkogel,€54.00,€59.50,+10.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/feuerkogel/,Bergfex Austria Bulk Table (Feuerkogel Feuerkogel / Ebensee (1.592 m) 1.592 m): €59.50
+28,Austria,Fieberbrunn,€76.00,€82.00,+7.9%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/leogang/preise/,"1 Tag € 82,00 € 41,00 € 61,50"
 29,Austria,Filzmoos,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://filzmoos.at,
-30,Austria,Flachau,€73.50,€76.07,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.snow-space.com,
-31,Austria,Fügen - Spieljoch,€72.50,€82.00,+13.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/fuegen-spieljoch/preise/,"1 Tag € 82,00 € 37,00 € 65,50"
+30,Austria,Flachau,€73.50,€79.00,+7.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/flachau/preise/,"1 Tag € 79,00 € 39,50 € 59,50"
+31,Austria,Fügen - Spieljoch,€72.50,€82.00,+13.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/hochfuegen/,Bergfex Austria Bulk Table (Hochfügen Hochfügen / Zillertal (2.500 m) 2.500 m): €82.00
 32,Austria,Gaberl,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gaberl.at,
 33,Austria,Gaißau-Hintersee,€45.00,€46.57,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gaissauhintersee.at,
-34,Austria,Galsterberg,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://galsterberg.at,
+34,Austria,Galsterberg,€63.50,€74.00,+16.5%,Stage 1C (Bergfex Direct Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.com/galsterberg/,Preserved verified price (€74.00)
 35,Austria,Galtür,€58.50,€63.00,+7.7%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/silvapark-galtuer/preise/,1 Day € 63.00 € 37.00 € 37.00 € 54.50
 36,Austria,Gargellen,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahnen-gargellen.at,
-37,Austria,Gemeindealpe,€48.50,€50.20,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gemeindealpe.at,
+37,Austria,Gemeindealpe,€48.50,€53.00,+9.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/gemeindealpe/,Bergfex Austria Bulk Table (Gemeindealpe Gemeindealpe / Mitterbach (1.626 m) 1.626 m): €53.00
 38,Austria,Gerlitzen,€62.00,€73.00,+17.7%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/gerlitzen-alpe/preise/,"1 Tag € 73,00 € 36,50 € 55,00 € 66,00"
-39,Austria,Gerlos,€76.00,€85.00,+11.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.zillertalarena.com/winter/skigebiet/tickets-tarife/,"t Bergstation Rosenalm (1744m) € 128,00 € 64,00 5x Berg- & Talfahrt Mittelstation Wiesenalm (1309m) € 85,00 € 42,50 Gerlossteinbahn Erwachse"
-40,Austria,Glun Gezer,€51.50,€53.30,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://glungezerbahn.at,
+39,Austria,Gerlos,€76.00,€82.00,+7.9%,Stage 1C (Bergfex Direct Overview),VERIFIED_SCRAPE,https://www.bergfex.at/gerlos/,"nden Gewittern ist ein vorzeitiger Betriebsschluss möglich. Lifte 3 18 20 13 1 Pisten 150 km Preise € 82,00 (Tageskarte) Wettervorschau Heut"
+40,Austria,Glun Gezer,€51.50,€50.00,-2.9%,Stage 1C (Bergfex Direct Overview),VERIFIED_SCRAPE,https://www.bergfex.at/glungezer/,"27. Juni, 25. Juli, 29. August 2026 - letzte Talfahrt um 23 Uhr Lifte 1 1 1 1 2 Pisten 23 km Preise € 50,00 (Tageskarte) Wettervorschau Heut"
 41,Austria,Goldeck,€59.00,€64.50,+9.3%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/goldeck/preise/,"1 Tag € 64,50 € 32,50 € 48,50 € 58,00"
 42,Austria,Golm,€66.50,€68.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://golm.at,
-43,Austria,Grebenzen,€54.00,€62.00,+14.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://grebenzen.at/winter/infos-tickets/,"büro Erwachsene Jugend (1997 - 2009) Studenten Kinder (2010 - 2019) 1 54,50€ 43,50€ 27,50€ 1,5 77,00€ 62,00€ 39,00€ 2 87,50€ 70,00€ 44,00€ 2"
-44,Austria,Großeck-Speiereck,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://grosseck-speiereck.at,
-45,Austria,Grossglockner Resort Kals-Matrei,€66.50,€74.00,+11.3%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/matrei/preise/,1 Day € 74.00 € 37.00
+43,Austria,Grebenzen,€54.00,€57.50,+6.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/grebenzen/preise/,"1 Tag € 57,50 € 29,00 € 46,00 € 46,00"
+44,Austria,Großeck-Speiereck,€59.50,€64.00,+7.6%,Stage 1C (Bergfex Direct Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.com/grosseck-speiereck/,Preserved verified price (€64.00)
+45,Austria,Grossglockner Resort Kals-Matrei,€66.50,€74.00,+11.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/matrei/,Bergfex Austria Bulk Table (Matrei Matrei / GG Resorts Kals-Matrei (2.403 m) 2.403 m): €74.00
 46,Austria,Heiligenblut,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://heiligenblut.at,
 47,Austria,Heutal - Unken,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.natursport-heutal.at/,
-48,Austria,Hinterglemm,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.saalbach.com,
+48,Austria,Hinterglemm,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/leogang/preise/,"1 Tag € 82,00 € 41,00 € 61,50"
 49,Austria,Hinterstoder,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hiwu.at,
-50,Austria,Hintertux Glacier,€72.50,€82.00,+13.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/hintertux/preise/,"1 Tag € 82,00 € 37,00 € 65,50"
+50,Austria,Hintertux Glacier,€72.50,€82.00,+13.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/hintertux/,Bergfex Austria Bulk Table (Hintertux Hintertuxer Gletscher / Hintertux / Zillertal (3.250 m) 3.250 m): €82.00
 51,Austria,Hochficht,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hochficht.at,
 52,Austria,Hochkar,€52.50,€54.34,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hochkar.com,
-53,Austria,Hochkönig,€73.90,€76.49,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hochkoenig.at,
+53,Austria,Hochkönig,€73.90,€81.00,+9.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/hochkoenig-maria-alm-dienten-muehlbach/preise/,"1 Tag € 81,00 € 40,50 € 61,00"
 54,Austria,Hochkössen,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahnen-koessen.at,
-55,Austria,Hochkrimml,€76.00,€85.00,+11.8%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.zillertalarena.com/winter/skigebiet/tickets-tarife/,"t Bergstation Rosenalm (1744m) € 128,00 € 64,00 5x Berg- & Talfahrt Mittelstation Wiesenalm (1309m) € 85,00 € 42,50 Gerlossteinbahn Erwachse"
+55,Austria,Hochkrimml,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/gerlos/,"nden Gewittern ist ein vorzeitiger Betriebsschluss möglich. Lifte 3 18 20 13 1 Pisten 150 km Preise € 82,00 (Tageskarte) Wettervorschau Heut"
 56,Austria,Hochoetz,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.oetztal.com/en/activities/winter/skiing-snowboarding/hochoetz-ski-area?_gl=1*iz6nbr*_up*MQ..*_ga*NTczNzAzNTA0LjE3OTA2OTU5ODg.*_ga_QS7BFE7NJ4*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGQ1cGFLX3NxbmpXeGVqc3FqdS1rRVE3dTdDSFplLXRMSVVB*_ga_CP77K3YGLD*czE3OTA2OTU5ODckbzEkZzAkdDE3OTA2OTU5ODckajYwJGwwJGgwJGRLR3ZCZGRMLVJjMFJYNEZvVEwwalR6RS02VDZxdlZoQmh3,
 57,Austria,Hochrindl,€41.00,€43.00,+4.9%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.hochrindl.at/hochrindl-winter/skifahren/tickets-preise/,"Tageskarte € 52,00 € 29,00 € 43,00"
 58,Austria,Hochzeiger,€62.00,€69.00,+11.3%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/hochzeiger/preise/,1 Day € 69.00 € 41.00 € 56.00
-59,Austria,Hochzillertal-Hochfügen,€72.50,€82.00,+13.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/hochfuegen/preise/,"1 Tag € 82,00 € 37,00 € 65,50"
-60,Austria,Hohentauern,€39.00,€44.00,+12.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/hohentauern/preise/,"1 Tag € 48,30 € 30,00 € 44,00"
-61,Austria,Hopfgarten,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.com/ellmau/preise/,1 Day € 79.50 € 40.00 € 59.50 € 79.50
+59,Austria,Hochzillertal-Hochfügen,€72.50,€82.00,+13.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/hochfuegen/,Bergfex Austria Bulk Table (Hochfügen Hochfügen / Zillertal (2.500 m) 2.500 m): €82.00
+60,Austria,Hohentauern,€39.00,€48.30,+23.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/hohentauern/,Bergfex Austria Bulk Table (Hohentauern Hohentauern (1.800 m) 1.800 m): €48.30
+61,Austria,Hopfgarten,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,Preserved verified price (€79.50)
 62,Austria,Ischgl,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ischgl.com,
 63,Austria,Jungholz,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://jungholz.de,
-64,Austria,Kappl,€67.00,€69.34,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.kappl-see.com/,
-65,Austria,Kasberg,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kasberg.at,
+64,Austria,Kappl,€67.00,€67.00,+0.0%,Stage 1C (Bergfex Direct Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.com/kappl/,Preserved verified price (€67.00)
+65,Austria,Kasberg,€54.00,€58.00,+7.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/gruenau-kasberg/,Bergfex Austria Bulk Table (Kasberg Kasberg / Grünau im Almtal (1.600 m) 1.600 m): €58.00
 66,Austria,Katschberg-Aineck,€60.50,€69.00,+14.0%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/katschberg/preise/,"1 Tag € 73,00 € 36,50 € 54,50 € 69,00"
-67,Austria,Kaunertal Glacier,€66.00,€68.31,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kaunertaler-gletscher.at,
-68,Austria,Kellerjoch,€44.00,€45.50,+3.4%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/kellerjoch/preise/,"1 Tag € 45,50 € 26,00 € 34,00"
-69,Austria,Kitzbühel,€72.00,€83.00,+15.3%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/kitzbuehel-kirchberg/preise/,"1 Tag € 83,00 € 41,50 € 62,50"
-70,Austria,Kitzsteinhorn - Kaprun,€76.00,€82.00,+7.9%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/kitzsteinhorn-kaprun/preise/,"1 Tag € 82,00 € 41,00 € 61,50"
-71,Austria,Kleinwalsertal (Kanzelwand - Ifen),€62.50,€64.69,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kleinwalsertal.com,
+67,Austria,Kaunertal Glacier,€66.00,€77.00,+16.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kaunertal/,Bergfex Austria Bulk Table (Kaunertal Kaunertaler Gletscher / Kaunertal (3.113 m) 3.113 m): €77.00
+68,Austria,Kellerjoch,€44.00,€45.50,+3.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kellerjoch/,Bergfex Austria Bulk Table (Kellerjochbahn Schwaz-Pill / Kellerjochbahn (1.888 m) 1.888 m): €45.50
+69,Austria,Kitzbühel,€72.00,€83.00,+15.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kitzbueheler-alpen-mittersill/,Bergfex Austria Bulk Table (Panoramabahn Panoramabahn Kitzbüheler Alpen / Mittersill (1.892 m) 1.892 m): €83.00
+70,Austria,Kitzsteinhorn - Kaprun,€76.00,€82.00,+7.9%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kitzsteinhorn-kaprun/,Bergfex Austria Bulk Table (Kitzsteinhorn / Kaprun / Zell am See): €82.00
+71,Austria,Kleinwalsertal (Kanzelwand - Ifen),€62.50,€72.90,+16.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kleinwalsertal-kanzelwand/,Bergfex Austria Bulk Table (Kanzelwand Kleinwalsertal / Kanzelwand / Fellhorn (1.967 m) 1.967 m): €72.90
 72,Austria,Klippitztörl,€46.00,€47.00,+2.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/klippitztoerl/preise/,"1 Tag € 47,00 € 28,00 € 43,00 € 43,00"
-73,Austria,Königsleiten,€76.00,€85.00,+11.8%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.zillertalarena.com/winter/skigebiet/tickets-tarife/,"t Bergstation Rosenalm (1744m) € 128,00 € 64,00 5x Berg- & Talfahrt Mittelstation Wiesenalm (1309m) € 85,00 € 42,50 Gerlossteinbahn Erwachse"
-74,Austria,Koralpe,€43.00,€44.50,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://koralpe-kaernten.at,
+73,Austria,Königsleiten,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/gerlos/,"nden Gewittern ist ein vorzeitiger Betriebsschluss möglich. Lifte 3 18 20 13 1 Pisten 150 km Preise € 82,00 (Tageskarte) Wettervorschau Heut"
+74,Austria,Koralpe,€43.00,€41.50,-3.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/koralpe/preise/,"1 Tag € 41,50 € 21,50 € 35,00 € 35,00"
 75,Austria,Kötschach-Mauthen,€32.00,€37.00,+15.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/koetschach-mauthen/preise/,1 Day from  10:00 € 37.00 € 18.50 € 28.00 € 33.00
-76,Austria,Kreischberg,€63.00,€65.20,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kreischberg.at,
-77,Austria,Kühtai,€57.00,€62.00,+8.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/kuehtai/preise/,1 Day € 62.00 € 34.00 € 50.00
-78,Austria,Lachtal,€59.00,€61.06,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lachtal.at,
+76,Austria,Kreischberg,€63.00,€72.00,+14.3%,Stage 1C (Bergfex Direct Overview),VERIFIED_SCRAPE,https://www.bergfex.at/kreischberg/,"h, Donnerstag, Freitag und Samstag jeweils von 9.00 bis 16.00 Uhr Lifte 1 5 3 3 Pisten 42 km Preise € 72,00 (Tageskarte) Wettervorschau Heut"
+77,Austria,Kühtai,€57.00,€62.00,+8.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kuehtai/,Bergfex Austria Bulk Table (Kühtai Kühtai (2.520 m) 2.520 m): €62.00
+78,Austria,Lachtal,€59.00,€59.00,+0.0%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/lachtal/preise/,Preserved verified price (€59.00)
 79,Austria,Lackenhof am Ötscher,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://oetscher.at,
-80,Austria,Laterns - Gapfohl,€48.00,€50.00,+4.2%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.laterns.net/winter/tarife-betriebszeiten,"s 56,00 EUR 30,00 EUR 49,00 EUR bis 2 h - RV 18,50 EUR 10,50 EUR 16,50 EUR bis 3 h - RV 16,00 EUR 9,50 EUR 14,50 EUR bis 4 h - RV 10,50 EUR "
-81,Austria,Lech Zürs,€75.00,€85.00,+13.3%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/lech-zuers-arlberg/preise/,"1 Tag € 85,00 € 51,00 € 78,00 € 78,00"
-82,Austria,Leogang,€76.00,€82.00,+7.9%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/leogang/preise/,1 Day € 82.00 € 41.00 € 61.50
-83,Austria,Lermoos,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://zugspitzarena.com,
-84,Austria,Lienz,€62.00,€70.00,+12.9%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.lienzer-bergbahnen.at/#preise,"/27 Tageskarten 2026/27 Tageskarten Erwachsene (ab 2007) Kinder (2008–2020) HS NS HS NS 09:00 74,00 € 70,00 € 37,00 € 35,00 € 11:00 63,00 € "
+80,Austria,Laterns - Gapfohl,€48.00,€53.00,+10.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/laterns/,Bergfex Austria Bulk Table (Laterns Laterns / Gapfohl (1.785 m) 1.785 m): €53.00
+81,Austria,Lech Zürs,€75.00,€85.00,+13.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/lech-zuers-arlberg/,Bergfex Austria Bulk Table (Lech Zürs Lech Zürs / Arlberg (2.811 m) 2.811 m): €85.00
+82,Austria,Leogang,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/leogang/preise/,"1 Tag € 82,00 € 41,00 € 61,50"
+83,Austria,Lermoos,€62.00,€70.50,+13.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/lermoos/,Bergfex Austria Bulk Table (Lermoos Lermoos / Grubigsteinbahnen (2.160 m) 2.160 m): €70.50
+84,Austria,Lienz,€62.00,€70.00,+12.9%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.lienzer-bergbahnen.at/#preise,"/27 Tageskarten 2026/27 Tageskarten Erwachsene (ab 2007) Kinder (2008–2020) HS NS HS NS 09:00 74,00 € 70,00 € 37,00 € 35,00 € 11:00 63,00 €"
 85,Austria,Loferer Alm,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skialm-lofer.com,
 86,Austria,Loser - Altaussee,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://loser.at,
-87,Austria,Mayrhofen,€72.50,€82.00,+13.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/mayrhofen/preise/,"1 Tag € 82,00 € 37,00 € 65,50"
+87,Austria,Mayrhofen,€72.50,€82.00,+13.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/ski-gletscherwelt-zillertal3000-tux/,Bergfex Austria Bulk Table (Zillertal 3000 Ski- und Gletscherwelt Zillertal 3000 / Zillertal (3.250 m) 3.250): €82.00
 88,Austria,Mölltal Glacier,€62.00,€72.00,+16.1%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.moelltaler-gletscher.at/tarife/winter/moelltaler-gletscher,1 Tag € 72 € 58 € 36
 89,Austria,Mönichkirchen-Mariensee,€46.50,€48.13,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://schischaukel.net,
-90,Austria,Muttereralm,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.muttereralm.at/en/winter/winter-at-the-muttereralm/61-0.html,
-91,Austria,Nassfeld,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://nassfeld.at,
+90,Austria,Muttereralm,€48.00,€57.00,+18.8%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.com/muttereralm/preise/,Preserved verified price (€57.00)
+91,Austria,Nassfeld,€62.00,€73.00,+17.7%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/nassfeld/preise/,Preserved verified price (€73.00)
 92,Austria,Nauders,€61.00,€70.00,+14.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/nauders/preise/,"1 Tag € 70,00 € 31,50 € 52,50 € 64,50"
 93,Austria,Niederau,€66.50,€71.50,+7.5%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.skijuwel.com/de/winter/tickets-und-preise,"1 Tag € 71,50 € 57,50 € 36,00"
 94,Austria,Niedere - Andelsbuch,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.bezau-bregenzerwald.com/en/activity/niedere-andelsbuch-bezau-ski-area-2/,
-95,Austria,Nordkette,€47.00,€48.64,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://nordkette.com,
-96,Austria,Obergurgl-Hochgurgl,€74.00,€75.50,+2.0%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/obergurgl-hochgurgl/preise/,"1 Tag € 75,50 € 42,50 € 60,50"
-97,Austria,Obertauern,€62.00,€72.00,+16.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/obertauern/preise/,1 Day € 72.00 € 36.00 € 54.00 € 68.00
-98,Austria,Patscherkofel,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://patscherkofelbahn.at,
-99,Austria,Petzen,€46.00,€49.00,+6.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/petzen/preise/,1 Day € 49.00 € 25.00 € 35.00
-100,Austria,Pitztal Glacier,€70.00,€72.45,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pitztaler-gletscher.at,
+95,Austria,Nordkette,€47.00,€56.00,+19.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/innsbruck-nordkette/,Bergfex Austria Bulk Table (Nordkette Innsbruck / Nordkette (2.260 m) 2.260 m): €56.00
+96,Austria,Obergurgl-Hochgurgl,€74.00,€74.00,+0.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/gurgl-obergurgl-hochgurgl/,"(East Tyrol) East Tyrolean Hochpustertal Test result 1307 m ( 1100 m - 2407 m ) 22.4 km 7 ski lifts € 74,- Details St. Jakob im Defereggenta"
+97,Austria,Obertauern,€62.00,€72.00,+16.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/obertauern/,Bergfex Austria Bulk Table (Obertauern Obertauern (2.315 m) 2.315 m): €72.00
+98,Austria,Patscherkofel,€49.00,€52.00,+6.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/innsbruck-igls-patscherkofel/,Bergfex Austria Bulk Table (Patscherkofel Innsbruck Igls / Patscherkofel (1.965 m) 1.965 m): €52.00
+99,Austria,Petzen,€46.00,€49.00,+6.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/petzen/,Bergfex Austria Bulk Table (Petzen Petzen / Feistritz ob Bleiburg (1.920 m) 1.920 m): €49.00
+100,Austria,Pitztal Glacier,€70.00,€77.00,+10.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/pitztalergletscher/,Bergfex Austria Bulk Table (Pitztal Gletscher Pitztaler Gletscher / Rifflsee / Pitztal (3.440 m) 3.440 m): €77.00
 101,Austria,Planneralm,€49.50,€55.50,+12.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/planneralm/preise/,1 Day from  12:00 € 55.50 € 28.50 € 46.00
-102,Austria,Präbichl,€52.50,€54.34,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://praebichl.at,
+102,Austria,Präbichl,€52.50,€55.50,+5.7%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/praebichl-vordernberg/,Day ticket Main season Adults Youth Children € 55.50
 103,Austria,Ranggerköpfl,€42.00,€49.00,+16.7%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/ranggerkoepfl/preise/,"1 Tag € 49,00 € 26,00 € 45,00"
-104,Austria,Rauris,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://raurisertal.at,
-105,Austria,Reiteralm,€57.00,€58.99,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://reiteralm.at/,
-106,Austria,Riesneralm,€53.50,€55.37,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://riesneralm.at,
+104,Austria,Rauris,€59.50,€65.00,+9.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/rauris/preise/,"1 Tag € 65,00 € 30,00 € 47,50 € 61,50"
+105,Austria,Reiteralm,€57.00,€61.00,+7.0%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/fageralm/preise/,Preserved verified price (€61.00)
+106,Austria,Riesneralm,€53.50,€62.00,+15.9%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.at/riesneralm/preise/,Preserved verified price (€62.00)
 107,Austria,Rofan,€48.50,€46.50,-4.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/rofan/preise/,"1 Tag € 46,50 € 27,50 -"
-108,Austria,Saalbach,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.com/leogang/preise/,1 Day € 82.00 € 41.00 € 61.50
-109,Austria,Schetteregg,€41.00,€42.43,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://schetteregg.at,
+108,Austria,Saalbach,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/leogang/preise/,"1 Tag € 82,00 € 41,00 € 61,50"
+109,Austria,Schetteregg,€41.00,€49.00,+19.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/schetteregg/,Bergfex Austria Bulk Table (Schetteregg Schetteregg (1.400 m) 1.400 m): €49.00
 110,Austria,Schladming,€73.50,€76.07,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://schladming-dachstein.at,
 111,Austria,Schlick 2000,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://schlick2000.at,
-112,Austria,See,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahn.com,
-113,Austria,Seefeld - Rosshütte,€59.50,€62.50,+5.0%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/seefeld-rosshuette/preise/,"1 Tag € 62,50 € 42,00 € 59,00"
+112,Austria,See,€63.50,€82.00,+29.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kitzsteinhorn-kaprun/,Bergfex Austria Bulk Table (Kitzsteinhorn / Kaprun / Zell am See): €82.00
+113,Austria,Seefeld - Rosshütte,€59.50,€62.50,+5.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/seefeld-rosshuette/,Bergfex Austria Bulk Table (Rosshütte Seefeld / Rosshütte (2.064 m) 2.064 m): €62.50
 114,Austria,Semmering (Hirschenkogel),€49.00,€53.50,+9.2%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.semmering.com/betriebszeiten-winter/,"1 Tageskarte 9:00 - 16:00 Uhr 59,50 € 53,50 € 30,00 €"
 115,Austria,Semmering (Stuhleck),€59.50,€67.00,+12.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/semmering-stuhleck/preise/,1 Day € 67.00 € 33.50 € 58.00
-116,Austria,Serfaus-Fiss-Ladis,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://serfaus-fiss-ladis.at,
-117,Austria,Sillian-Hochpustertal,€61.00,€70.00,+14.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/sillian/preise/,1 Day € 70.00 € 35.00
-118,Austria,Silvretta Montafon,€74.00,€76.59,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://silvretta-montafon.at,
+116,Austria,Serfaus-Fiss-Ladis,€72.00,€80.50,+11.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/serfaus-fiss-ladis/preise/,"1 Tag € 80,50 € 52,00 € 69,00 € 79,50"
+117,Austria,Sillian-Hochpustertal,€61.00,€74.00,+21.3%,Stage 1C (Bergfex Direct Overview),VERIFIED_SCRAPE,https://www.bergfex.at/sillian/,"ahl Lifte 2 Sommer 2027: 23.07.2027 - 28.08.207 Sonntag Ruhetag Lifte 1 1 3 2 Pisten 22.4 km Preise € 74,00 (Tageskarte) Wettervorschau Heut"
+118,Austria,Silvretta Montafon,€74.00,€77.00,+4.1%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/silvretta-montafon/,"Day ticket Main season Adults Children € 77,-"
 119,Austria,Simonhöhe,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://simonhoehe.at,
-120,Austria,Sölden,€76.00,€86.50,+13.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/soelden/preise/,1 Day € 86.50 € 47.50 € 69.00
-121,Austria,Söll,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.com/ellmau/preise/,1 Day € 79.50 € 40.00 € 59.50 € 79.50
-122,Austria,Sonnenkopf,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://sonnenkopf.com,
-123,Austria,Sonntag-Stein,€44.00,€50.00,+13.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/sonntag/preise/,"1 Tag € 50,00 € 32,00 € 42,00 € 44,00"
-124,Austria,St. Anton am Arlberg,€75.00,€77.62,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.stantonamarlberg.com/,
+120,Austria,Sölden,€76.00,€86.50,+13.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/soelden/,Bergfex Austria Bulk Table (Sölden Sölden (3.340 m) 3.340 m): €86.50
+121,Austria,Söll,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,Preserved verified price (€79.50)
+122,Austria,Sonnenkopf,€58.00,€64.00,+10.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sonnenkopf/,Bergfex Austria Bulk Table (Sonnenkopf Sonnenkopf / Klostertal (2.300 m) 2.300 m): €64.00
+123,Austria,Sonntag-Stein,€44.00,€50.00,+13.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sonntag/,Bergfex Austria Bulk Table (Sonntag Seilbahnen Sonntag (1.750 m) 1.750 m): €50.00
+124,Austria,St. Anton am Arlberg,€75.00,€85.00,+13.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/lech-zuers-arlberg/,Bergfex Austria Bulk Table (Lech Zürs Lech Zürs / Arlberg (2.811 m) 2.811 m): €85.00
 125,Austria,St. Jakob im Defereggental,€61.00,€63.13,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://stjakob-ski.at,
-126,Austria,St. Jakob im Walde,€29.00,€31.90,+10.0%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.familienschiberg.at/familien-skigebiet-steiermark/liftpreise-st-jakob.html,"267 Tipp: Liftkarten für Familien mit rund 10 Prozent Ermäßigung! Punktekarte Erwachsene 30 Punkte: € 31,90 60 Punkte: € 55,60 Jugend 30 Pun"
-127,Austria,St. Johann,€73.50,€76.07,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.snow-space.com,
-128,Austria,St. Johann in Tirol,€63.00,€65.20,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kitzbueheler-alpen.com,
-129,Austria,St. Ulrich-Buchensteinwand,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahn-pillersee.com,
+126,Austria,St. Jakob im Walde,€29.00,€33.00,+13.8%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/st-jakob-im-walde/,"Day ticket Main season Adults Youth Children € 33,-"
+127,Austria,St. Johann,€73.50,€79.00,+7.5%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/flachau/preise/,"1 Tag € 79,00 € 39,50 € 59,50"
+128,Austria,St. Johann in Tirol,€63.00,€65.00,+3.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/stjohann-tirol/,Bergfex Austria Bulk Table (St. Johann/Tirol St. Johann in Tirol (1.604 m) 1.604 m): €65.00
+129,Austria,St. Ulrich-Buchensteinwand,€56.00,€52.00,-7.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/pillersee-hochfilzen/,Bergfex Austria Bulk Table (Pillersee Bergbahn Pillersee / Buchensteinwand (1.456 m) 1.456 m): €52.00
 130,Austria,Steinplatte-Waidring,€63.00,€65.20,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://steinplatte.tirol,
-131,Austria,Stubai Glacier,€63.60,€65.83,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://stubaier-gletscher.com,
-132,Austria,Tauplitz,€57.50,€59.51,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://dietauplitz.com,
-133,Austria,Turracher Höhe,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://turracherhoehe.at,
-134,Austria,Unterberg,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://schigebiet-unterberg.at,
-135,Austria,Wagrain,€73.50,€76.07,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.snow-space.com,
-136,Austria,Warth-Schröcken,€75.00,€79.50,+6.0%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/warth-schroecken/preise/,"1 Tag € 79,50 € 39,00 € 69,00 € 74,50"
-137,Austria,Weinebene,€37.00,€38.29,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://weinebene.at,
-138,Austria,Weissensee,€36.00,€37.26,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://weissensee.com,
-139,Austria,Werfenweng,€53.00,€61.00,+15.1%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.bergbahnen-werfenweng.com/winter/preise-zeiten/stunden-eintagesskipaesse,"0 Jugendliche € 35,00 Kinder € 26,00 Senioren € 44,00 Kleinkinder € 5,00 Kartentyp 1 Tag Erwachsene € 61,00 Jugendliche € 44,00 Kinder € 32,"
-140,Austria,Westendorf,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.com/ellmau/preise/,1 Day € 79.50 € 40.00 € 59.50 € 79.50
-141,Austria,Wildkogel,€61.50,€63.65,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://wildkogel-arena.at,
+131,Austria,Stubai Glacier,€63.60,€75.50,+18.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/stubaier-gletscher/,Bergfex Austria Bulk Table (Stubaital Stubaier Gletscher / Stubaital (3.210 m) 3.210 m): €75.50
+132,Austria,Tauplitz,€57.50,€62.00,+7.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/tauplitz/preise/,"1 Tag € 62,00 € 31,50 € 52,50"
+133,Austria,Turracher Höhe,€63.50,€72.50,+14.2%,Stage 1C (Bergfex Direct Overview),VERIFIED_SCRAPE,https://www.bergfex.at/turracherhoehe/,"henends, Samstags & Sonntags, von 09:00 bis 16:00 Uhr geöffnet. Lifte 1 1 7 7 1 Pisten 42 km Preise € 72,50 (Tageskarte) Wettervorschau Heut"
+134,Austria,Unterberg,€38.00,€36.50,-3.9%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/unterberg/,Day ticket Main season Adults Youth Children € 36.50
+135,Austria,Wagrain,€73.50,€79.00,+7.5%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/flachau/preise/,"1 Tag € 79,00 € 39,50 € 59,50"
+136,Austria,Warth-Schröcken,€75.00,€79.50,+6.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/warth-schroecken/,Bergfex Austria Bulk Table (Warth/Schröcken Warth / Schröcken am Arlberg (2.811 m) 2.811 m): €79.50
+137,Austria,Weinebene,€37.00,€38.50,+4.1%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/weinebene-frantschach-sankt-gertraud/,Day ticket Main season Adults Youth Children € 38.50
+138,Austria,Weissensee,€36.00,€41.90,+16.4%,Stage 1C (Bergfex /preise/ Verified Cache),VERIFIED_SCRAPE,https://www.bergfex.com/weissensee/preise/,Preserved verified price (€41.90)
+139,Austria,Werfenweng,€53.00,€61.00,+15.1%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/werfenweng/preise/,"1 Tag € 61,00 € 32,00 € 44,00 € 54,50"
+140,Austria,Westendorf,€69.00,€79.50,+15.2%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/soell/preise/,Preserved verified price (€79.50)
+141,Austria,Wildkogel,€61.50,€69.50,+13.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/wildkogel-neukirchen-bramberg/,Day ticket Main season Adults Youth Children € 69.50
 142,Austria,Wurzeralm,€57.00,€58.99,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://hiwu.at,
 143,Austria,Zahmer Kaiser,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,SKIPPED,
-144,Austria,Zell am See,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://zellamsee-kaprun.com,
-145,Austria,Zell am Ziller,€76.00,€85.00,+11.8%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.zillertalarena.com/winter/skigebiet/tickets-tarife/,"t Bergstation Rosenalm (1744m) € 128,00 € 64,00 5x Berg- & Talfahrt Mittelstation Wiesenalm (1309m) € 85,00 € 42,50 Gerlossteinbahn Erwachse"
-146,Austria,Zillertal Arena,€72.50,€85.00,+17.2%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.zillertalarena.com/winter/skigebiet/tickets-tarife/,"t Bergstation Rosenalm (1744m) € 128,00 € 64,00 5x Berg- & Talfahrt Mittelstation Wiesenalm (1309m) € 85,00 € 42,50 Gerlossteinbahn Erwachse"
-147,Bosnia & Herzegovina,Bjelasnica,€18.00,€18.63,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bjelasnica.ba,
-148,Bosnia & Herzegovina,Jahorina,€35.00,€41.00,+17.1%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.oc-jahorina.com/en/cjenovnik-ski-karata-sezona-2026-27/,"ts, 83 KM / €42.5 for children, 90 KM / €46 for seniors and teens. Night skiing for adults: 80 KM / €41 . Discount periods: 6 Dec 2026 (seas"
-149,Bulgaria,Bansko,€46.00,€47.61,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://banskoski.com,
-150,Bulgaria,Borovets,€42.00,€43.30,+3.1%,Stage 3 (Headless Chromium JS),VERIFIED_SCRAPE,https://borovets-bg.com,правят само от индивидуални клиенти. УЧИЛИЩЕ 03 / ОБУЧЕНИЕ Epic Пакети за Ски и Сноуборд Училище от 43.30 €/ден ВКЛЮЧВА Лифт карта Ски или с
-151,Bulgaria,Pamporovo,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pamporovo.me,
-152,Cyprus,Troodos - Mount Olympus,€25.00,€25.87,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://cyprusski.com,
-153,Czech Republic,Harrachov,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.harrachov.cz,
-154,Czech Republic,Klínovec,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://klinovec.cz,
+144,Austria,Zell am See,€72.00,€82.00,+13.9%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kitzsteinhorn-kaprun/,Bergfex Austria Bulk Table (Kitzsteinhorn / Kaprun / Zell am See): €82.00
+145,Austria,Zell am Ziller,€76.00,€82.00,+7.9%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/gerlos/,"nden Gewittern ist ein vorzeitiger Betriebsschluss möglich. Lifte 3 18 20 13 1 Pisten 150 km Preise € 82,00 (Tageskarte) Wettervorschau Heut"
+146,Austria,Zillertal Arena,€72.50,€82.00,+13.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/hintertux/,Bergfex Austria Bulk Table (Hintertux Hintertuxer Gletscher / Hintertux / Zillertal (3.250 m) 3.250 m): €82.00
+147,Bosnia & Herzegovina,Bjelasnica,€18.00,€21.00,+16.7%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/babin-do-bjelasnica/,"Main season Adults Youth Children BAM 59,- BAM 47,- BAM 42,- approx. € 30,- approx. € 24,- approx. € 21,- Night Skiing » Babin Do – Bjelašni"
+148,Bosnia & Herzegovina,Jahorina,€35.00,€44.00,+25.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/jahorina/,Skiresort.info Bosnia & Herzegovina Directory (Jahorina): €44.00
+149,Bulgaria,Bansko,€46.00,€59.00,+28.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/bansko/,Skiresort.info Bulgaria Directory (Bansko): €59.00
+150,Bulgaria,Borovets,€42.00,€54.00,+28.6%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/borovets/,"Day ticket Main season Adults Youth Children € 54,-"
+151,Bulgaria,Pamporovo,€38.00,€44.99,+18.4%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/pamporovo/,Day ticket Main season Adults Youth Children € 44.99
+152,Cyprus,Troodos - Mount Olympus,€25.00,€25.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/troodos-mount-olympos/,Skiresort.info Cyprus Directory (Troodos – Mount Olympos): €25.00
+153,Czech Republic,Harrachov,€35.00,€45.00,+28.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/certova-hora-harrachov/,Skiresort.info Czech Republic Directory (Čertova hora – Harrachov): €45.00
+154,Czech Republic,Klínovec,€39.00,€51.00,+30.8%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/klinovec-keilberg/,"Day ticket Main season Adults Children CZK 1250,- CZK 750,- approx. € 51,-"
 155,Czech Republic,Lipno,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lipno.info,
-156,Czech Republic,Pec pod Sněžkou,€40.00,€41.40,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skiresort.cz,
-157,Czech Republic,Špindlerův Mlýn,€45.00,€46.57,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skiareal.cz,
-158,Finland,Levi,€53.50,€55.37,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://levi.fi,
-159,Finland,Ruka,€54.00,€55.89,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ruka.fi,
-160,Finland,Ylläs,€53.00,€54.85,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://yllas.fi,
-161,France,Alpe d'Huez,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://alpedhuez.com,
-162,France,Auron,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.stationsnicecotedazur.com/,
-163,France,Aussois,€36.00,€37.26,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://aussois.com,
-164,France,Avoriaz,€57.00,€59.00,+3.5%,Stage 3 (Headless Chromium JS),VERIFIED_SCRAPE,https://avoriaz.com/decouvrir/les-incontournables/tarifs-des-forfaits-hiver/,"maxi 43,00 € - 55,00 € 43,00 € - 51,00 € 43,00 € - 44,00 € 43,00 € - 51,00 € 22,50 € 1 jour CAISSE 59,00 € 55,00 € 46,00 € 55,00 € 26,00 € 1"
-165,France,Ax 3 Domaines,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.ax.ski/,
-166,France,Bonneval-sur-Arc,€34.00,€37.20,+9.4%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/bonneval-sur-arc/preise/,"1 Tag € 37,20 € 29,70 € 35,20"
-167,France,Cauterets,€43.00,€46.00,+7.0%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.n-py.com/fr/cauterets/forfaits-ski,"Tarif 1 jour 46€ 32,20€ 39,10€"
-168,France,Chamonix,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://chamonix.com,
-169,France,Chamrousse,€39.50,€44.00,+11.4%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/chamrousse/preise/,1 Day € 44.00 € 28.50 € 35.00 € 35.00
-170,France,Châtel,€51.00,€51.00,+0.0%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/chatel/preise/,1 Day € 68.00 € 81.00 € 51.00 € 61.00 € 61.00 € 73.00 - € 73.00
-171,France,Courchevel,€72.00,€74.52,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://courchevel.com,
-172,France,Flaine,€57.00,€59.00,+3.5%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.flaine.com/forfaits-ski/,s Réduit De 8 à 25 ans Mini – 8 ans et 75 ans et + Saison PREM’S jusqu’au 30 septembre 2026 658€ 438€ 59€ Saison PROMO jusqu’au 15 novembre 
-173,France,Gavarnie-Gèdre,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.ski-gavarnie.com/en/,
-174,France,Ghisoni - Capanelle,€15.00,€15.52,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ghisoni.corsica,
-175,France,Gourette,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gourette.com,
-176,France,Grand Tourmalet,€52.00,€61.00,+17.3%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.n-py.com/fr/cauterets/forfaits-ski,"Forfait FastPass 1 jour • Cauterets • Adulte Optimisez votre temps sur les pistes sans attendre à la télécabine du Lys, en optant pour l’opt"
-177,France,Guzet-Neige,€39.00,€40.00,+2.6%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.guzet.ski/fr/activites-hiver,"randonnée au rythme de la Meute : En traîneau ou en canikart (en fonction de la neige) 50€ adulte, 40€ enfant (dès 12 ans). Canirando adulte"
+156,Czech Republic,Pec pod Sněžkou,€40.00,€40.00,+0.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/pec-pod-snezkou/,"season Adults Youth Children CZK 1490,- CZK 1270,- CZK 970,- approx. € 61,- approx. € 52,- approx. € 40,- Night Skiing » Pec pod Sněžkou/Jav"
+157,Czech Republic,Špindlerův Mlýn,€45.00,€49.00,+8.9%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/spindleruv-mlyn/,"season Adults Youth Children CZK 1690,- CZK 1360,- CZK 1190,- approx. € 69,- approx. € 56,- approx. € 49,- Night Skiing » Špindlerův Mlýn - "
+158,Finland,Levi,€53.50,€58.00,+8.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/levi/,Skiresort.info Finland Directory (ski resort Levi): €58.00
+159,Finland,Ruka,€54.00,€58.00,+7.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/ruka/,Skiresort.info Finland Directory (Ruka): €58.00
+160,Finland,Ylläs,€53.00,€58.00,+9.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/yllaes/,Skiresort.info Finland Directory (Ylläs): €58.00
+161,France,Alpe d'Huez,€62.00,€66.00,+6.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/oz-en-oisans-3300/,Bergfex France Bulk Table (Oz en Oisans Oz 3300 / Espace Alpe d'Huez (3.330 m) 3.330 m): €66.00
+162,France,Auron,€42.00,€44.00,+4.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/auron/,Bergfex France Bulk Table (Auron Auron (2.450 m) 2.450 m): €44.00
+163,France,Aussois,€36.00,€40.00,+11.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/aussois/,Bergfex France Bulk Table (Aussois Aussois (2.750 m) 2.750 m): €40.00
+164,France,Avoriaz,€57.00,€72.00,+26.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery/,Skiresort.info France Directory (Les Portes du Soleil – Morzine/​Avoriaz/​Les Gets/​Châtel/​Morgins/​Champéry): €72.00
+165,France,Ax 3 Domaines,€42.00,€47.00,+11.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/ax-3-domaines-ax-les-thermes/,Skiresort.info France Directory (Ax 3 Domaines – Ax-les-Thermes): €47.00
+166,France,Bonneval-sur-Arc,€34.00,€37.20,+9.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/bonneval-sur-arc/,Bergfex France Bulk Table (Bonneval sur Arc Bonneval sur Arc (3.000 m) 3.000 m): €37.20
+167,France,Cauterets,€43.00,€45.00,+4.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/cauterets-le-lys/,Bergfex France Bulk Table (Cauterets Cauterets - Le Lys (2.450 m) 2.450 m): €45.00
+168,France,Chamonix,€76.00,€74.00,-2.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/grands-montets-chamonix/,Bergfex France Bulk Table (Grands Montets Grands Montets / Argentière (2.765 m) 2.765 m): €74.00
+169,France,Chamrousse,€39.50,€44.00,+11.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/chamrousse/,Bergfex France Bulk Table (Chamrousse Chamrousse (2.250 m) 2.250 m): €44.00
+170,France,Châtel,€51.00,€61.00,+19.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/chatel/preise/,"1 Tag € 68,00 € 81,00 € 51,00 € 61,00 € 61,00 € 73,00 - € 73,00"
+171,France,Courchevel,€72.00,€81.80,+13.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/courchevel/,Bergfex France Bulk Table (Courchevel Courchevel / Les 3 Vallées (2.738 m) 2.738 m): €81.80
+172,France,Flaine,€57.00,€61.00,+7.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/le-grand-massif-flaine-les-carroz-morillon-samoens-sixt/,Skiresort.info France Directory (Le Grand Massif – Flaine/​Les Carroz/​Morillon/​Samoëns/​Sixt): €61.00
+173,France,Gavarnie-Gèdre,€35.00,€34.00,-2.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/gavarnie-gedre-les-especieres/,Skiresort.info France Directory (Gavarnie/​Gèdre – Les Espécières): €34.00
+174,France,Ghisoni - Capanelle,€15.00,€20.00,+33.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/ghisoni/,Skiresort.info France Directory (Ghisoni): €20.00
+175,France,Gourette,€39.00,€44.00,+12.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/gourette-eaux-bonnes/,Skiresort.info France Directory (Gourette (Eaux Bonnes)): €44.00
+176,France,Grand Tourmalet,€52.00,€53.00,+1.9%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/grand-tourmalet-bareges-la-mongie/,Bergfex France Bulk Table (Grand Tourmalet Grand Tourmalet - Pic du Midi / Barèges - La Mongie (2.500 m) 2.): €53.00
+177,France,Guzet-Neige,€39.00,€38.00,-2.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/guzet/,Bergfex France Bulk Table (Guzet Guzet (2.100 m) 2.100 m): €38.00
 178,France,Hautacam,€25.00,€25.87,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.hautacam.com,
-179,France,Isola 2000,€42.00,€44.00,+4.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://isola2000.com/forfaits-ski/,"Adulte (26 à 61 ans) 44,00 € 35,20 €"
-180,France,La Bresse-Hohneck,€33.00,€38.00,+15.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/la-bresse-hohneck/preise/,"1 Tag € 40,00 € 34,00 € 38,00"
-181,France,La Clusaz,€46.50,€48.13,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://laclusaz.com,
-182,France,La Grave,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lagrave-lameije.com,
-183,France,La Pierre Saint-Martin,€39.00,€46.00,+17.9%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.n-py.com/fr/cauterets/forfaits-ski,"Tarif 1 jour 46€ 32,20€ 39,10€"
-184,France,La Plagne,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://la-plagne.com,
-185,France,La Rosière,€54.00,€58.00,+7.4%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/la-rosiere/preise/,"1 Tag € 58,00 € 43,50 € 52,00"
-186,France,Le Grand Bornand,€43.50,€49.40,+13.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/le-grand-bornand/preise/,1 Day € 52.00 € 36.40 € 44.20 € 49.40
-187,France,Le Lioran,€35.50,€36.74,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lelioran.com,
-188,France,Le Mont-Dore,€36.00,€37.26,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://sancy.com,
-189,France,Lélex-Crozet,€34.00,€35.19,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://monts-jura.com,
-190,France,Les 7 Laux,€41.50,€43.00,+3.6%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/les-7-laux/preise/,"1 Tag € 43,00 € 25,50 € 33,00 € 40,00"
-191,France,Les Angles,€43.00,€44.50,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lesangles.com,
-192,France,Les Arcs,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lesarcs.com,
-193,France,Les Carroz,€57.50,€59.00,+2.6%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.lescarroz.com/domaine-skiable/,"-25 ans) : Hiver – 488€ / Hiver + Eté : 578€ Tarif Mini* (pour les moins de 8 ans et 75 ans et +) : 59€ En savoir plus Les carroz, le ski sa"
-194,France,Les Contamines-Montjoie,€54.00,€58.50,+8.3%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.lescontamines.net/skipass_tarifs.html,1 jour liberté non daté 55.50€ 65.00€ 58.50€
-195,France,Les Deux Alpes,€60.00,€62.10,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://les2alpes.com,
-196,France,Les Gets,€54.00,€56.00,+3.7%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.lesgets.com/forfaits/,1 jour 56 € 44 € 48 € 52 €
-197,France,Les Karellis,€33.00,€34.15,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://karellis.com,
-198,France,Les Menuires,€62.00,€70.00,+12.9%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://lesmenuires.com/fr/forfaits-ski?ref=shortcut,1 jour 70 €
-199,France,Les Orres,€42.50,€44.50,+4.7%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/les-orres/preise/,"1 Tag € 44,50 € 37,00"
+179,France,Isola 2000,€42.00,€44.00,+4.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/isola-2000/,Skiresort.info France Directory (Isola 2000): €44.00
+180,France,La Bresse-Hohneck,€33.00,€40.30,+22.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/la-bresse-hohneck/,Skiresort.info France Directory (La Bresse – Hohneck): €40.30
+181,France,La Clusaz,€46.50,€54.50,+17.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/la-clusaz/,Bergfex France Bulk Table (La Clusaz La Clusaz - Lake Annecy Ski Resort (2.600 m) 2.600 m): €54.50
+182,France,La Grave,€58.00,€62.00,+6.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/la-grave-la-meije/,Skiresort.info France Directory (La Grave – La Meije): €62.00
+183,France,La Pierre Saint-Martin,€39.00,€42.50,+9.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/la-pierre-saint-martin/,Skiresort.info France Directory (La Pierre Saint Martin): €42.50
+184,France,La Plagne,€65.00,€70.00,+7.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/la-plagne-paradiski/,Skiresort.info France Directory (La Plagne (Paradiski)): €70.00
+185,France,La Rosière,€54.00,€58.00,+7.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/espace-san-bernardo-la-rosiere-la-thuile/,Skiresort.info France Directory (Espace San Bernardo – La Rosière/​La Thuile): €58.00
+186,France,Le Grand Bornand,€43.50,€52.00,+19.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/le-grand-bornand/,Skiresort.info France Directory (Le Grand Bornand): €52.00
+187,France,Le Lioran,€35.50,€41.30,+16.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/le-lioran/,Skiresort.info France Directory (Le Lioran): €41.30
+188,France,Le Mont-Dore,€36.00,€42.70,+18.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/le-mont-dore/,Skiresort.info France Directory (Le Mont-Dore): €42.70
+189,France,Lélex-Crozet,€34.00,€38.00,+11.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/lelex-crozet/,Bergfex France Bulk Table (Lélex - Crozet Lélex - Crozet (1.680 m) 1.680 m): €38.00
+190,France,Les 7 Laux,€41.50,€43.00,+3.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/les-7-laux/,Bergfex France Bulk Table (Les 7 Laux Les 7 Laux (2.400 m) 2.400 m): €43.00
+191,France,Les Angles,€43.00,€47.00,+9.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-angles/,Skiresort.info France Directory (Les Angles): €47.00
+192,France,Les Arcs,€65.00,€70.00,+7.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-arcs-peisey-vallandry-paradiski/,Skiresort.info France Directory (Les Arcs/​Peisey-Vallandry (Paradiski)): €70.00
+193,France,Les Carroz,€57.50,€61.00,+6.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/le-grand-massif-flaine-les-carroz-morillon-samoens-sixt/,Skiresort.info France Directory (Le Grand Massif – Flaine/​Les Carroz/​Morillon/​Samoëns/​Sixt): €61.00
+194,France,Les Contamines-Montjoie,€54.00,€54.50,+0.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-contamines-hauteluce/,Skiresort.info France Directory (Les Contamines/​Hauteluce): €54.50
+195,France,Les Deux Alpes,€60.00,€66.00,+10.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/les2alpes/,Bergfex France Bulk Table (Les 2 Alpes Les 2 Alpes (3.600 m) 3.600 m): €66.00
+196,France,Les Gets,€54.00,€72.00,+33.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery/,Skiresort.info France Directory (Les Portes du Soleil – Morzine/​Avoriaz/​Les Gets/​Châtel/​Morgins/​Champéry): €72.00
+197,France,Les Karellis,€33.00,€36.00,+9.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-karellis/,Skiresort.info France Directory (Les Karellis): €36.00
+198,France,Les Menuires,€62.00,€69.00,+11.3%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-3-vallees-val-thorens-les-menuires-meribel-courchevel/,"lifts » Total: 159 1 4 37 55 35 3 24 Ski pass prices Day ticket Main season Adults Children € 84.20 € 69,- Night Skiing » Les 3 Vallées Acco"
+199,France,Les Orres,€42.50,€44.50,+4.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/les-orres/,Bergfex France Bulk Table (Les Orres Les Orres (2.720 m) 2.720 m): €44.50
 200,France,Les Rousses,€37.00,€38.29,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lesrousses.com,
-201,France,Les Saisies,€44.80,€46.37,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lessaisies.com,
-202,France,Les Sybelles,€53.50,€55.37,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://sybelles.ski,
-203,France,Luz-Ardiden,€40.00,€43.00,+7.5%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/luz-ardiden/preise/,"1 Tag € 43,00 € 40,00"
-204,France,Megève,€59.50,€61.58,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://megeve.com,
-205,France,Méribel,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://meribel.net,
-206,France,Métabief,€32.00,€33.90,+5.9%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/metabief/preise/,1 Day € 33.90 € 26.90 € 30.20 € 30.20
-207,France,Montgenèvre,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://montgenevre.com,
-208,France,Morzine,€48.00,€48.00,+0.0%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.morzine-avoriaz.com/decouvrir/hiver/ski-alpin/forfaits/,"fait adulte Morzine-Les Gets Le prix du forfait Morzine-Les Gets pour 1 adulte, tarif 1 jour est de 48,00 € en 2026 Où acheter mon forfait M"
-209,France,Orcières Merlette,€41.50,€46.00,+10.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/orcieres-merlette/preise/,"1 Tag € 46,00 € 38,50 € 43,00"
-210,France,Orelle,€79.00,€84.20,+6.6%,Stage 2B (Official PDF Price Sheet),VERIFIED_SCRAPE,https://www.orelle.net/build/files/orelle-3-vallees-tarifs-forfaits-ski_min-fr.e408e5f0.pdf,"s://carreneige.com/fr/ Par jour 8-21 jours 3,50 € 28,00 € Tarif des forfaits de ski 3 Vallées 75,10 € 84,20 € 168,40 € 252,60 € 336,80 € 421"
-211,France,Peisey-Vallandry,€70.00,€72.45,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.peisey-vallandry.com,
-212,France,Peyragudes,€46.50,€51.00,+9.7%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/peyragudes/preise/,"1 Tag € 51,00 € 45,00 -"
-213,France,Piau Engaly,€42.00,€44.00,+4.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/piau-engaly/preise/,1 Day € 44.00 € 38.50
-214,France,Pralognan-la-Vanoise,€35.50,€36.74,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pralognan.com,
-215,France,Praloup,€44.50,€46.06,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://praloup.com,
-216,France,Praz de Lys - Sommand,€32.00,€33.12,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://prazdelys-sommand.com,
+201,France,Les Saisies,€44.80,€50.00,+11.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/espace-diamant-les-saisies-notre-dame-de-bellecombe-praz-sur-arly-flumet-crest-voland/,Skiresort.info France Directory (Espace Diamant – Les Saisies/​Notre-Dame-de-Bellecombe/​Praz sur Arly/​Flumet/​C): €50.00
+202,France,Les Sybelles,€53.50,€59.30,+10.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/la-toussuire/,Bergfex France Bulk Table (La Toussuire La Toussuire - Les Sybelles (2.431 m) 2.431 m): €59.30
+203,France,Luz-Ardiden,€40.00,€43.00,+7.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/luz-ardiden/,Bergfex France Bulk Table (Luz Ardiden Luz Ardiden (2.500 m) 2.500 m): €43.00
+204,France,Megève,€59.50,€63.50,+6.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/megeve/,Bergfex France Bulk Table (Megève Megève (2.350 m) 2.350 m): €63.50
+205,France,Méribel,€69.00,€84.00,+21.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-3-vallees-val-thorens-les-menuires-meribel-courchevel/,Skiresort.info France Directory (Les 3 Vallées – Val Thorens/​Les Menuires/​Méribel/​Courchevel): €84.00
+206,France,Métabief,€32.00,€33.90,+5.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/metabief/,Skiresort.info France Directory (Métabief): €33.90
+207,France,Montgenèvre,€52.00,€66.00,+26.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre/,Skiresort.info France Directory (Via Lattea – Sestriere/​Sauze d’Oulx/​San Sicario/​Claviere/​Montgenèvre): €66.00
+208,France,Morzine,€48.00,€54.00,+12.5%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery/,"Total: 163 2 9 70 72 5 5 Ski pass prices Day ticket Main season Adults Youth Children € 72,- € 65,- € 54,- Accommodation at this ski resort "
+209,France,Orcières Merlette,€41.50,€46.00,+10.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/orcieres-merlette-1850/,Skiresort.info France Directory (Orcières Merlette 1850): €46.00
+210,France,Orelle,€79.00,€84.00,+6.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/orelle-val-thorens/,Bergfex France Bulk Table (Orelle Orelle Val Thorens / Les 3 Vallées (3.230 m) 3.230 m): €84.00
+211,France,Peisey-Vallandry,€70.00,€70.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/les-arcs-peisey-vallandry-paradiski/,Skiresort.info France Directory (Les Arcs/​Peisey-Vallandry (Paradiski)): €70.00
+212,France,Peyragudes,€46.50,€51.00,+9.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/peyragudes/,Bergfex France Bulk Table (Peyragudes Peyragudes (2.400 m) 2.400 m): €51.00
+213,France,Piau Engaly,€42.00,€44.00,+4.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/piau-engaly/,Bergfex France Bulk Table (Piau-Engaly Piau-Engaly (2.528 m) 2.528 m): €44.00
+214,France,Pralognan-la-Vanoise,€35.50,€41.00,+15.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/pralognan-la-vanoise/,Bergfex France Bulk Table (Pralognan Pralognan la Vanoise (2.355 m) 2.355 m): €41.00
+215,France,Praloup,€44.50,€48.50,+9.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/praloup/,Bergfex France Bulk Table (Pra Loup Pra Loup / Espace Lumière (2.500 m) 2.500 m): €48.50
+216,France,Praz de Lys - Sommand,€32.00,€36.00,+12.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/praz-de-lys-sommand-taninges-mieussy/,Skiresort.info France Directory (Praz de Lys/​Sommand (Taninges/​Mieussy)): €36.00
 217,France,Risoul 1850,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://risoul.com,
-218,France,Saint-François-Longchamp,€53.00,€54.85,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://saintfrancoislongchamp.com,
-219,France,Saint-Lary-Soulan,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://saintlary.com,
-220,France,Sainte-Foy,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://saintefoy-ski.com/,
-221,France,Samoëns,€57.50,€59.51,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.samoens.com,
-222,France,Serre Chevalier,€60.00,€62.10,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://serre-chevalier.com,
+218,France,Saint-François-Longchamp,€53.00,€54.00,+1.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/saint-lary-soulan/,Skiresort.info France Directory (Saint-Lary-Soulan): €54.00
+219,France,Saint-Lary-Soulan,€49.00,€54.00,+10.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/saint-lary-soulan/,Skiresort.info France Directory (Saint-Lary-Soulan): €54.00
+220,France,Sainte-Foy,€39.00,€40.50,+3.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/sainte-foy-tarentaise/,Skiresort.info France Directory (Sainte-Foy-Tarentaise): €40.50
+221,France,Samoëns,€57.50,€61.00,+6.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/samoens/,Bergfex France Bulk Table (Samoëns Samoëns / Le Grand Massif (2.120 m) 2.120 m): €61.00
+222,France,Serre Chevalier,€60.00,€68.00,+13.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/serre-chevalier-briancon-chantemerle-villeneuve-la-salle-le-monetier-les-bains/,Skiresort.info France Directory (Serre Chevalier – Briançon/​Chantemerle/​Villeneuve-la-Salle/​Le Monêtier-les-Ba): €68.00
 223,France,St Martin de Belleville,€79.00,€84.20,+6.6%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://st-martin-belleville.com/fr/forfaits-ski,"1 jour 84,20 €"
-224,France,SuperBesse,€40.00,€43.50,+8.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://superbesse.com/domaine-skiable/forfaits/,"u lundi au jeudi compris, en basse saison) - 19,00 € 21,00 € 26,00 € 23,00 € 1 jour - 31,00 € 34,70 € 43,50 € 37,90 € 1 jour (promotion vala"
-225,France,Tignes,€65.00,€70.00,+7.7%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.tignes.net/ski/forfaits-ski,"1 jour 70,00€ 57,00€"
-226,France,Val Cenis,€45.00,€49.50,+10.0%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/val-cenis/preise/,1 Day € 49.50 € 41.00 € 46.00
-227,France,Val d'Allos (La Foux),€44.50,€46.06,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://en.valdallos.com/,
-228,France,Val d'Ese,€20.00,€20.70,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.bastelica.fr/index.php/station-de-ski/informations-pratiques/,
-229,France,Val d'Isère,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://valdisere.com,
-230,France,Val Thorens,€65.00,€75.00,+15.4%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/val-thorens/preise/,"1 Tag € 75,00 € 62,00 € 18,00"
-231,France,Valberg,€37.50,€38.81,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://valberg.com,
-232,France,Valfréjus,€38.00,€39.33,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://valfrejus.com,
-233,France,Valloire,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://valloire.net,
-234,France,Valmorel,€53.00,€55.00,+3.8%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.at/valmorel/preise/,"1 Tag € 55,00 € 45,00 € 49,50"
-235,France,Vars,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://vars.com,
-236,Georgia,Gudauri,€18.00,€18.63,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gudauri.com,
-237,Germany,Balderschwang,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://balderschwang.de,
-238,Germany,Brauneck,€49.50,€51.23,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://brauneck-bergbahn.de,
-239,Germany,Feldberg,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://feldberg-erlebnis.de,
-240,Germany,Garmisch-Partenkirchen,€64.00,€67.00,+4.7%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://zugspitze.de/de/Service-Informationen/Tickets-Tarife/Winter-26-27,"amilie Erw. 62,50 € 67,00 € Familie Kind (6–18 J.) 31,00 € 34,00 € Schwerbehinderte ab GdB 60 62,50 € 67,00 € Zum Webshop Gültigkeitsdauer 1"
+224,France,SuperBesse,€40.00,€42.70,+6.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/superbesse-puy-de-sancy/,Skiresort.info France Directory (SuperBesse – Puy de Sancy): €42.70
+225,France,Tignes,€65.00,€75.00,+15.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/tignes-val-disere/,Skiresort.info France Directory (Tignes/​Val d'Isère): €75.00
+226,France,Val Cenis,€45.00,€49.50,+10.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/val-cenis-lanslevillard-lanslebourg-termignon/,Skiresort.info France Directory (Val Cenis – Lanslevillard/​Lanslebourg/​Termignon): €49.50
+227,France,Val d'Allos (La Foux),€44.50,€48.50,+9.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/val-dallos/,Bergfex France Bulk Table (Val d'Allos Val d'Allos (2.600 m) 2.600 m): €48.50
+228,France,Val d'Ese,€20.00,€20.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/val-dese/,Skiresort.info France Directory (Val d'Ese): €20.00
+229,France,Val d'Isère,€65.00,€75.00,+15.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/tignes-val-disere/,Skiresort.info France Directory (Tignes/​Val d'Isère): €75.00
+230,France,Val Thorens,€65.00,€84.00,+29.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/orelle-val-thorens/,Bergfex France Bulk Table (Orelle Orelle Val Thorens / Les 3 Vallées (3.230 m) 3.230 m): €84.00
+231,France,Valberg,€37.50,€37.00,-1.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/beuil-les-launes/,Bergfex France Bulk Table (Beuil Launes Beuil Les Launes - Beuil / Valberg (2.675 m) 2.675 m): €37.00
+232,France,Valfréjus,€38.00,€43.00,+13.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/valfrejus/,Skiresort.info France Directory (Valfréjus): €43.00
+233,France,Valloire,€48.00,€53.60,+11.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/valloire/,Bergfex France Bulk Table (Valloire Valloire - Galibier Thabor (2.750 m) 2.750 m): €53.60
+234,France,Valmorel,€53.00,€58.50,+10.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/le-grand-domaine-valmorel-doucy-celliers-st-francois-longchamp/,Skiresort.info France Directory (Le Grand Domaine – Valmorel/​Doucy/​Celliers/​St François Longchamp): €58.50
+235,France,Vars,€49.00,€58.00,+18.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/vars/,Bergfex France Bulk Table (Vars Vars - La Fôret Blanche (2.750 m) 2.750 m): €58.00
+236,Georgia,Gudauri,€18.00,€24.00,+33.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/gudauri/,Skiresort.info Georgia Directory (Gudauri): €24.00
+237,Germany,Balderschwang,€39.00,€49.00,+25.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/balderschwang-hochschelpen-riedberger-horn/,Skiresort.info Germany Directory (Balderschwang – Hochschelpen/​Riedberger Horn): €49.00
+238,Germany,Brauneck,€49.50,€55.00,+11.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/brauneck-lenggries-wegscheid/,Skiresort.info Germany Directory (Brauneck – Lenggries/​Wegscheid): €55.00
+239,Germany,Feldberg,€49.00,€59.00,+20.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/feldberg-seebuck-grafenmatt-fahl/,Skiresort.info Germany Directory (Feldberg – Seebuck/​Grafenmatt/​Fahl): €59.00
+240,Germany,Garmisch-Partenkirchen,€64.00,€69.00,+7.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/garmisch-classic-garmisch-partenkirchen/,Skiresort.info Germany Directory (Garmisch-Classic – Garmisch-Partenkirchen): €69.00
 241,Germany,Großer Arber,€42.00,€48.00,+14.3%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.arber.de/preise/,"1 Tag 48,00 € 32,00 €"
-242,Germany,Hocheck,€32.00,€34.50,+7.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://hocheck.com/tagespreise-winter/,"eise im Winter 2025/2026 Tageskarte Tageskarte Kinder ermäßigt Erwachsene ab 9.15 Uhr 18,50 € 29,00 € 34,50 € ab 11.00 Uhr 17,50 € 28,00 € 3"
-243,Germany,Jenner,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://jennerbahn.de,
+242,Germany,Hocheck,€32.00,€34.50,+7.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/oberaudorf-hocheck/,Skiresort.info Germany Directory (Oberaudorf – Hocheck): €34.50
+243,Germany,Jenner,€42.00,€45.00,+7.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/jenner-schoenau-am-koenigssee/,Skiresort.info Germany Directory (Jenner – Schönau am Königssee): €45.00
 244,Germany,Kampenwand,€37.00,€38.29,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kampenwand.de,
-245,Germany,Oberjoch,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bergbahnen-hindelang-oberjoch.de,
-246,Germany,Oberstdorf,€62.50,€64.69,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://oberstdorf.de,
-247,Germany,Oberwiesenthal,€39.00,€40.36,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://fichtelberg-ski.de,
-248,Germany,Reit im Winkl,€58.00,€66.00,+13.8%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://winklmoosalm.de/tickets/winklmoos,"2-Tageskarte 66,00 € 63,00 € 49,50 € 33,00 €"
-249,Germany,Spitzingsee-Tegernsee,€49.50,€51.23,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://alpenbahnen-spitzingsee.de,
-250,Germany,Sudelfeld,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.sudelfeld.de,
-251,Germany,Winterberg,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skiliftkarussell.de,
-252,Greece,Parnassos,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://parnassos-ski.gr,
-253,Italy,3 Zinnen Dolomites,€74.00,€76.59,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://dreizinnen.com,
-254,Italy,Abetone,€42.00,€43.47,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://abetone.com,
-255,Italy,Alpe Lusia / San Pellegrino,€66.00,€68.31,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.dolomitisuperski.com/it/comprensori/alpe-lusia-san-pellegrino,
-256,Italy,Alta Badia,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://altabadia.org,
-257,Italy,Andalo - Paganella,€62.00,€64.17,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://paganella.net,
-258,Italy,Aprica,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://apricaonline.com,
-259,Italy,Arabba / Marmolada,€74.00,€75.00,+1.4%,Stage 2B (Official PDF Price Sheet),VERIFIED_SCRAPE,https://www.arabba.it/files/content/1386804_55461_2_0/06-arabba-marmolada-prezzi-prices-2026-2027.pdf,"9-2018 01/01/1961 PM € 48,00 € 42,00 € 44,00 PM € 52,00 € 46,00 € 48,00 1 € 68,00 € 48,00 € 61,00 1 € 75,00 € 53,00 € 68,00 2 € 134,00 € 94,"
-260,Italy,Bardonecchia,€46.00,€47.61,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bardonecchia.it,
-261,Italy,Bormio,€56.00,€57.96,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://bormio.eu,
+245,Germany,Oberjoch,€48.00,€55.00,+14.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/oberjoch-bad-hindelang-iseler/,Skiresort.info Germany Directory (Oberjoch (Bad Hindelang) – Iseler): €55.00
+246,Germany,Oberstdorf,€62.50,€68.70,+9.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/nebelhorn-oberstdorf/,Skiresort.info Germany Directory (Nebelhorn – Oberstdorf): €68.70
+247,Germany,Oberwiesenthal,€39.00,€41.00,+5.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/fichtelberg-oberwiesenthal/,Skiresort.info Germany Directory (Fichtelberg – Oberwiesenthal): €41.00
+248,Germany,Reit im Winkl,€58.00,€66.00,+13.8%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/steinplatte-winklmoosalm-waidring-reit-im-winkl/,"Day ticket Main season Adults Youth Children € 66,-"
+249,Germany,Spitzingsee-Tegernsee,€49.50,€53.00,+7.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/spitzingsee-tegernsee/,Skiresort.info Germany Directory (Spitzingsee-Tegernsee): €53.00
+250,Germany,Sudelfeld,€52.00,€55.00,+5.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/sudelfeld-bayrischzell/,Skiresort.info Germany Directory (Sudelfeld – Bayrischzell): €55.00
+251,Germany,Winterberg,€48.00,€52.00,+8.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/winterberg-skiliftkarussell/,Skiresort.info Germany Directory (Winterberg (Skiliftkarussell)): €52.00
+252,Greece,Parnassos,€35.00,€35.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/mount-parnassos-fterolakka-kellaria/,Skiresort.info Greece Directory (Mount Parnassos – Fterolakka/​Kellaria): €35.00
+253,Italy,3 Zinnen Dolomites,€74.00,€83.00,+12.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/drei-zinnen-dolomiten/,Bergfex Italy Bulk Table (3 Zinnen 3 Zinnen Dolomiten (2.225 m) 2.225 m): €83.00
+254,Italy,Abetone,€42.00,€53.00,+26.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/abetone-val-di-luce/,Skiresort.info Italy Directory (Abetone/​Val di Luce): €53.00
+255,Italy,Alpe Lusia / San Pellegrino,€66.00,€71.00,+7.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/alpe-lusia-moena-bellamonte/,Skiresort.info Italy Directory (Alpe Lusia – Moena/​Bellamonte): €71.00
+256,Italy,Alta Badia,€76.00,€89.00,+17.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/alta-badia/,Bergfex Italy Bulk Table (Alta Badia Alta Badia (2.778 m) 2.778 m): €89.00
+257,Italy,Andalo - Paganella,€62.00,€68.00,+9.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/paganella/,Bergfex Italy Bulk Table (Paganella Paganella - Andalo (2.125 m) 2.125 m): €68.00
+258,Italy,Aprica,€52.00,€54.00,+3.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/aprica/,Bergfex Italy Bulk Table (Aprica Aprica (2.300 m) 2.300 m): €54.00
+259,Italy,Arabba / Marmolada,€74.00,€75.00,+1.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/arabba-marmolada/,Skiresort.info Italy Directory (Arabba/​Marmolada): €75.00
+260,Italy,Bardonecchia,€46.00,€44.00,-4.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/bardonecchia/,Bergfex Italy Bulk Table (Bardonecchia Bardonecchia (2.800 m) 2.800 m): €44.00
+261,Italy,Bormio,€56.00,€60.00,+7.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/bormio-cima-bianca/,Skiresort.info Italy Directory (Bormio – Cima Bianca): €60.00
 262,Italy,Camigliatello Silano,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.arsacweb.it/arsac-impianti-sportivi-invernali/,
-263,Italy,Campo Felice,€41.00,€42.43,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://campofelice.it,
-264,Italy,Campo Imperatore,€30.00,€36.00,+20.0%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.ilgransasso.it/skipass/,"Skipass giornaliero convenzionato € 25,00 € 36,00"
-265,Italy,Canazei,€70.00,€72.45,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://fassa.com,
-266,Italy,Carezza,€62.00,€68.00,+9.7%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://carezza.it/de/bergbahnen/skigebiet/tickets_preise,"Erwachsene € 68,00 € 52,00"
-267,Italy,Cervinia,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://cervinia.it,
-268,Italy,Civetta,€66.00,€72.00,+9.1%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://skicivetta.com/skipass-civetta,"es 0.5 (afternoon) 12-16.30 € 55,00 € 36,00 € 50,00 0.5 (morning) 8.30-13 € 59,00 € 41,00 € 54,00 1 € 72,00 € 50,00 € 65,00 2 € 144,00 € 101"
-269,Italy,Claviere,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.claviere.it,
-270,Italy,Cortina d'Ampezzo,€76.00,€78.66,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://cortina.dolomiti.org,
-271,Italy,Courmayeur,€65.00,€69.00,+6.2%,Stage 1C (Bergfex /preise/ Page),VERIFIED_SCRAPE,https://www.bergfex.com/courmayeur/preise/,1 Day € 69.00 € 17.50
-272,Italy,Crévacol,€37.00,€37.00,+0.0%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.crevacol.it/tariffe/,"anni: gratuito* Bambino < 8 anni non contestuale: € 3,00​ 5 CORSE Adulto: € 42,00 Senior > 65 anni: € 37,00 Giovane < 24 anni: € 34,00 Junio"
-273,Italy,Etna Nord - Piano Provenzana,€45.00,€46.57,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pianoprovenzana.com,
+263,Italy,Campo Felice,€41.00,€45.00,+9.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/campo-felice-rocca-di-cambio/,Skiresort.info Italy Directory (Campo Felice – Rocca di Cambio): €45.00
+264,Italy,Campo Imperatore,€30.00,€35.00,+16.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/gran-sasso-campo-imperatore/,Skiresort.info Italy Directory (Gran Sasso – Campo Imperatore): €35.00
+265,Italy,Canazei,€70.00,€83.00,+18.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sellaronda-dolomiten/,Bergfex Italy Bulk Table (Sellaronda Sellaronda - Dolomiten (3.000 m) 3.000 m): €83.00
+266,Italy,Carezza,€62.00,€72.00,+16.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/carezza-karersee-rosengarten/,Bergfex Italy Bulk Table (Carezza Carezza - Karersee - Rosengarten (2.337 m) 2.337 m): €72.00
+267,Italy,Cervinia,€65.00,€63.00,-3.1%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/zermatt-breuil-cervinia-valtournenche-matterhorn/,"season Adults Youth Children SFr. 116,- SFr. 99,- SFr. 59,- approx. € 125,- approx. € 106,- approx. € 63,- Accommodation at this ski resort "
+268,Italy,Civetta,€66.00,€70.00,+6.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/civetta-alleghe-selva-di-cadore-palafavera-zoldo/,Skiresort.info Italy Directory (Civetta – Alleghe/​Selva di Cadore/​Palafavera/​Zoldo): €70.00
+269,Italy,Claviere,€58.00,€66.00,+13.8%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre/,"Day ticket Main season Adults Children € 66,-"
+270,Italy,Cortina d'Ampezzo,€76.00,€83.00,+9.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sellaronda-dolomiten/,Bergfex Italy Bulk Table (Sellaronda Sellaronda - Dolomiten (3.000 m) 3.000 m): €83.00
+271,Italy,Courmayeur,€65.00,€69.00,+6.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/courmayeur-checrouit-val-veny/,Skiresort.info Italy Directory (Courmayeur – Chécrouit/​Val Veny): €69.00
+272,Italy,Crévacol,€37.00,€37.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/crevacol/,Skiresort.info Italy Directory (Crévacol): €37.00
+273,Italy,Etna Nord - Piano Provenzana,€45.00,€54.50,+21.1%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/etna-nord-piano-provenzana-linguaglossa/,Swabia (Schwaben) Oberallgäu Hörnerdörfer Test result 525 m ( 880 m - 1405 m ) 16.5 km 7 ski lifts € 54.50 Details Hochoetz – Oetz Europe Au
 274,Italy,Etna Sud - Nicolosi,€45.00,€46.57,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://funiviaetna.com,
-275,Italy,Folgaria - Fiorentini,€55.00,€56.92,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://alpecimbra.it,
-276,Italy,Folgarida - Marilleva,€68.00,€72.00,+5.9%,Stage 2B (Official PDF Price Sheet),VERIFIED_SCRAPE,https://www.ski.it/ski/documenti-file/skipass/listini/2026-2027ListinoFolgaridaMarilleva.pdf,"A STAGIONE dal 20 dicembre 2026 al 06 gennaio 2027 dal 07 al 20 febbraio 2027 Adulto Junior Bambino € 72,00€ 44,00€ 63,00 € 32,00 € 68,00 € "
-277,Italy,Gambarie d'Aspromonte,€30.00,€31.05,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://gambarie.it,
-278,Italy,Gitschberg Jochtal,€68.00,€73.00,+7.4%,Stage 2B (Official PDF Price Sheet),VERIFIED_SCRAPE,https://www.gitschberg-jochtal.com/fileadmin/files/PDF/Preise_Gitschberg_Jochtal_-_Brixen_mit_Kombipaesse.pdf,"€ 45,00 € 58,00 ½* € 58,00 € 41,00 € 52,00 ½* € 64,00 € 45,00 € 58,00 1* € 66,00 € 46,00 € 59,00 1* € 73,00 € 51,00 € 66,00 2 € 129,00 € 90,"
-279,Italy,Klausberg,€70.00,€72.45,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skiworldahrntal.it,
-280,Italy,Kronplatz,€77.00,€79.69,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kronplatz.com,
-281,Italy,La Thuile,€57.00,€58.99,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://lathuile.it,
-282,Italy,Ladurns,€55.00,€56.92,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.ladurns.it,
-283,Italy,Limone Piemonte,€44.00,€48.00,+9.1%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://riservabianca.it/tariffe,ariffe skipass Home Skipass Tariffe Tariffe skipass stagione 2026/2027 Giornaliero adulti da € 32 a € 48 In base alla data Stagionale adulti
-284,Italy,Livigno,€63.50,€65.72,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://livigno.eu,
-285,Italy,Madesimo,€52.00,€53.82,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://madesimo.com,
-286,Italy,Madonna di Campiglio,€79.00,€81.77,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://campigliodolomiti.it,
-287,Italy,Meran 2000,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://meran2000.com,
-288,Italy,Mondolè Ski (Prato Nevoso),€46.00,€47.61,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pratonevoso.com,
-289,Italy,Monte Bondone,€48.00,€49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://skimontebondone.it,
-290,Italy,Monte Cavallo - Vipiteno,€57.00,€63.00,+10.5%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.montecavallo.com/it/inverno/comprensorio-sciistico-monte-cavallo/prezzi-orari-d-apertura.html,"1 giorno 63,00 € 44,00 € 57,00 € 60,00 €"
-291,Italy,Monterosa Ski,€65.00,€67.27,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://visitmonterosa.com,
-292,Italy,Obereggen,€69.00,€74.00,+7.2%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://obereggen.com/de/bergbahnen/winter/tickets_skipass_preise,"hsaison 20.12.2026 - 09.01.2027 31.01.2027 - 13.03.2027 Online Shop Tage Erwachsene Junior Senior 1 € 74,00 € 52,00 € 67,00 2 € 145,00 € 102"
+275,Italy,Folgaria - Fiorentini,€55.00,€55.00,+0.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/altipiani-folgaria-lavarone-luserna/,Bergfex Italy Bulk Table (Folgaria Folgaria - Fiorentini / Alpe Cimbra (1.822 m) 1.822 m): €55.00
+276,Italy,Folgarida - Marilleva,€68.00,€85.00,+25.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/madonna-di-campiglio-pinzolo-folgarida-marilleva/,Skiresort.info Italy Directory (Madonna di Campiglio/​Pinzolo/​Folgàrida/​Marilleva): €85.00
+277,Italy,Gambarie d'Aspromonte,€30.00,€28.00,-6.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/gambarie-daspromonte/,Skiresort.info Italy Directory (Gambarie d'Aspromonte): €28.00
+278,Italy,Gitschberg Jochtal,€68.00,€73.00,+7.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/gitschberg-jochtal/,Bergfex Italy Bulk Table (Gitschberg Gitschberg Jochtal (2.510 m) 2.510 m): €73.00
+279,Italy,Klausberg,€70.00,€77.00,+10.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/klausberg-tauferer-ahrntal/,Bergfex Italy Bulk Table (Klausberg Klausberg – Skiworld Ahrntal (2.510 m) 2.510 m): €77.00
+280,Italy,Kronplatz,€77.00,€83.00,+7.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/kronplatz/,Bergfex Italy Bulk Table (Kronplatz Kronplatz - Dolomiten (2.275 m) 2.275 m): €83.00
+281,Italy,La Thuile,€57.00,€56.00,-1.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/thuile-rosiere-aostatal/,Bergfex Italy Bulk Table (La Thuile La Thuile - La Rosiere / San Bernardo (2.800 m) 2.800 m): €56.00
+282,Italy,Ladurns,€55.00,€57.00,+3.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/ladurns-gossensass-pflerschtal/,Bergfex Italy Bulk Table (Ladurns Ladurns - Pflerschtal (2.023 m) 2.023 m): €57.00
+283,Italy,Limone Piemonte,€44.00,€48.00,+9.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/riserva-bianca-limone-piemonte/,Skiresort.info Italy Directory (Riserva Bianca – Limone Piemonte): €48.00
+284,Italy,Livigno,€63.50,€74.50,+17.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/livigno/,Bergfex Italy Bulk Table (Livigno Livigno (2.785 m) 2.785 m): €74.50
+285,Italy,Madesimo,€52.00,€59.00,+13.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/valchiavenna/,Bergfex Italy Bulk Table (Valchiavenna Valchiavenna - Madesimo/​Campodolcino (2.948 m) 2.948 m): €59.00
+286,Italy,Madonna di Campiglio,€79.00,€85.00,+7.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/madonna-di-campiglio-pinzolo-folgarida-marilleva/,Skiresort.info Italy Directory (Madonna di Campiglio/​Pinzolo/​Folgàrida/​Marilleva): €85.00
+287,Italy,Meran 2000,€58.00,€62.50,+7.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/meran-2000/,Skiresort.info Italy Directory (Meran 2000): €62.50
+288,Italy,Mondolè Ski (Prato Nevoso),€46.00,€52.00,+13.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/mondole-ski-artesina-frabosa-soprana-prato-nevoso/,Skiresort.info Italy Directory (Mondolè Ski – Artesina/​Frabosa Soprana/​Prato Nevoso): €52.00
+289,Italy,Monte Bondone,€48.00,€52.00,+8.3%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/monte-bondone/,Bergfex Italy Bulk Table (Monte Bondone Monte Bondone (2.090 m) 2.090 m): €52.00
+290,Italy,Monte Cavallo - Vipiteno,€57.00,€61.00,+7.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/rosskopf-monte-cavallo-sterzing-vipiteno/,Skiresort.info Italy Directory (Rosskopf (Monte Cavallo) – Sterzing (Vipiteno)): €61.00
+291,Italy,Monterosa Ski,€65.00,€69.00,+6.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/alagna-valsesia-gressoney-la-trinite-champoluc-frachey-monterosa-ski/,Skiresort.info Italy Directory (Alagna Valsesia/​Gressoney-La-Trinité/​Champoluc/​Frachey (Monterosa Ski)): €69.00
+292,Italy,Obereggen,€69.00,€71.00,+2.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/latemar-obereggen-pampeago-predazzo/,Skiresort.info Italy Directory (Latemar – Obereggen/​Pampeago/​Predazzo): €71.00
 293,Italy,Passo Tonale,€64.00,€72.00,+12.5%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.pontedilegnotonale.com/it/skipass/prezzi-skipass/,or 09.12.2026 - 18.12.2026 3 ore € 50 4 ore € 53 5 ore € 57 1 € 62 Adulto € 50 Junior 2 € 98 Adulto € 72 Junior 19.12.2026 - 25.12.2026 3 or
 294,Italy,Piano Battaglia,€25.00,€25.87,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pianobattaglia.it,
-295,Italy,Pila,€53.00,€54.85,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://pila.it,
-296,Italy,Plose,€60.00,€62.10,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://plose.org,
+295,Italy,Pila,€53.00,€53.00,+0.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/pila-aostatal/,Bergfex Italy Bulk Table (Pila Pila / Aostatal (2.709 m) 2.709 m): €53.00
+296,Italy,Plose,€60.00,€73.00,+21.7%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/plose-brixen/,Bergfex Italy Bulk Table (Plose Brixen Plose Brixen (2.505 m) 2.505 m): €73.00
 297,Italy,Pragelato,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.comune.pragelato.to.it,
-298,Italy,Ratschings-Jaufen,€63.00,€65.20,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://ratschings-jaufen.it,
-299,Italy,Ravascletto-Zoncolan,€44.00,€48.50,+10.2%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.turismofvg.it/de/berg365/tarife/winter-skipass/nicht-einwohner-tagestickets,"1 Tag € 55,00 € 48,50 € 18,00 FREE"
-300,Italy,Reinswald,€51.00,€53.00,+3.9%,Stage 2 (Official Site Spider),VERIFIED_SCRAPE,https://www.reinswald.com/preise-tickets,"2-Tageskarte ab 75,50 € ab 68,00 € ab 53,00 €"
+298,Italy,Ratschings-Jaufen,€63.00,€70.00,+11.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/ratschings-jaufen-wipptal/,Bergfex Italy Bulk Table (Jaufen Ratschings Jaufen (2.150 m) 2.150 m): €70.00
+299,Italy,Ravascletto-Zoncolan,€44.00,€55.00,+25.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/ravascletto-zoncolan/,Bergfex Italy Bulk Table (Zoncolan Ravascletto-Zoncolan (2.000 m) 2.000 m): €55.00
+300,Italy,Reinswald,€51.00,€54.00,+5.9%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/reinswald-sarntal/,Bergfex Italy Bulk Table (Reinswald Reinswald Sarntal (2.460 m) 2.460 m): €54.00
+301,Italy,Roccaraso,€54.00,€60.00,+11.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/alto-sangro-roccaraso-rivisondoli/,Skiresort.info Italy Directory (Alto Sangro – Roccaraso/​Rivisondoli): €60.00
+302,Italy,San Martino di Castrozza,€66.00,€61.00,-7.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sanmartino-di-castrozza/,Bergfex Italy Bulk Table (San Martino San Martino di Castrozza / Rolle Pass (2.350 m) 2.350 m): €61.00
+303,Italy,Sansicario,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://www.vialattea.it/comprensorio/sansicario/,
+304,Italy,Santa Caterina Valfurva,€54.00,€63.00,+16.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/santa-caterina-valfurva/,Skiresort.info Italy Directory (Santa Caterina Valfurva): €63.00
+305,Italy,Sauze d'Oulx,€58.00,€60.03,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://sauzedoulx.net,
+306,Italy,Schnalstal,€58.00,€63.00,+8.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/schnalstal/,Bergfex Italy Bulk Table (Schnalstal Schnalstal / Kurzras (3.251 m) 3.251 m): €63.00
+307,Italy,Schöneben-Haideralm,€61.00,€70.00,+14.8%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/schoeneben-haideralm-reschenpass/,Bergfex Italy Bulk Table (Reschenpass Schöneben - Haideralm / Reschenpass (2.350 m) 2.350 m): €70.00
+308,Italy,Schwemmalm,€53.00,€58.00,+9.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/schwemmalm-ultental/,Bergfex Italy Bulk Table (Schwemmalm Schwemmalm - Ultental (2.625 m) 2.625 m): €58.00
+309,Italy,Sella Nevea,€44.00,€55.00,+25.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sella-nevea/,Bergfex Italy Bulk Table (Sella Nevea Sella Nevea (2.133 m) 2.133 m): €55.00
+310,Italy,Sestriere,€58.00,€66.00,+13.8%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre/,"Day ticket Main season Adults Children € 66,-"
+311,Italy,Speikboden,€70.00,€77.00,+10.0%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/klausberg-tauferer-ahrntal/,Bergfex Italy Bulk Table (Klausberg Klausberg – Skiworld Ahrntal (2.510 m) 2.510 m): €77.00
+312,Italy,Sulden am Ortler,€60.00,€63.00,+5.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/sulden-ortler/,Bergfex Italy Bulk Table (Sulden Sulden am Ortler (3.250 m) 3.250 m): €63.00
+313,Italy,Tarvisio,€44.00,€44.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/tarvisio-monte-lussari/,Skiresort.info Italy Directory (Tarvisio – Monte Lussari): €44.00
+314,Italy,Val di Fassa,€70.00,€83.00,+18.6%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/sellaronda-dolomiten/,Bergfex Italy Bulk Table (Sellaronda Sellaronda - Dolomiten (3.000 m) 3.000 m): €83.00
+315,Italy,Val di Fiemme,€69.00,€71.41,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://alpecermis.it,
+316,Italy,Val Gardena,€76.00,€83.00,+9.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/groeden-wolkenstein/,Bergfex Italy Bulk Table (Gröden Dolomites Val Gardena / Gröden - Wolkenstein (2.500 m) 2.500 m): €83.00
+317,Italy,Watles,€51.00,€59.00,+15.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/watles-malles-venosta-mals/,Skiresort.info Italy Directory (Watles – Malles Venosta (Mals)): €59.00
+318,Liechtenstein,Malbun,CHF58.00,CHF55.00,-5.2%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/malbun/,"Day ticket Main season Adults Youth Children SFr. 55,-"
+319,Montenegro,Kolašin,€25.00,€25.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kolasin-1450-kolasin-1600/,Skiresort.info Montenegro Directory (Kolašin 1450/​Kolašin 1600): €25.00
+320,Norway,Geilo,€58.00,€72.00,+24.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/geilo/,Skiresort.info Norway Directory (Geilo): €72.00
+321,Norway,Hafjell,€59.00,€66.00,+11.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/hafjell/,Skiresort.info Norway Directory (Hafjell): €66.00
+322,Norway,Hemsedal,€62.00,€65.00,+4.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/hemsedal/,Skiresort.info Norway Directory (Hemsedal): €65.00
+323,Norway,Hovden,€52.00,€70.00,+34.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/hovden/,Skiresort.info Norway Directory (Hovden): €70.00
+324,Norway,Kvitfjell,€59.00,€66.00,+11.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kvitfjell/,Skiresort.info Norway Directory (Kvitfjell): €66.00
+325,Norway,Myrkdalen,€56.00,€65.00,+16.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/myrkdalen/,Skiresort.info Norway Directory (Myrkdalen): €65.00
+326,Norway,Narvik,€48.00,€51.00,+6.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/narvikfjellet-narvik/,Skiresort.info Norway Directory (Narvikfjellet – Narvik): €51.00
+327,Norway,Oppdal,€54.00,€59.00,+9.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/oppdal/,Skiresort.info Norway Directory (Oppdal): €59.00
+328,Norway,Strandafjellet,€50.00,€63.00,+26.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/strandafjellet/,Skiresort.info Norway Directory (Strandafjellet): €63.00
+329,Norway,Trysil,€63.00,€76.00,+20.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/trysil/,Skiresort.info Norway Directory (Trysil): €76.00
+330,Poland,Białka Tatrzańska,€38.00,€42.00,+10.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/bialka-tatrzanska-kotelnica-kaniowka-bania/,Skiresort.info Poland Directory (Białka Tatrzańska – Kotelnica/​Kaniówka/​Bania): €42.00
+331,Poland,Szczyrk,€42.00,€40.00,-4.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/beskid-sport-arena-szczyrk/,Skiresort.info Poland Directory (Beskid Sport Arena (Szczyrk)): €40.00
+332,Poland,Zakopane,€36.00,€45.00,+25.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kasprowy-wierch-zakopane/,"Day ticket Main season Adults Children PLN 199,- PLN 159,- approx. € 45,-"
+333,Portugal,Serra da Estrela,€25.00,€30.00,+20.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/serra-da-estrela/,"Day ticket Main season Adults Children € 30,-"
+334,Romania,Poiana Brasov,€35.00,€45.00,+28.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/poiana-brasov/,Skiresort.info Romania Directory (Poiana Brașov): €45.00
+335,Romania,Sinaia,€35.00,€43.00,+22.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/sinaia/,Skiresort.info Romania Directory (Sinaia): €43.00
+336,Scotland,Cairngorm,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://cairngormmountain.co.uk,
+337,Scotland,Glencoe,€35.00,€36.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://glencoemountain.co.uk,
+338,Scotland,Glenshee,€35.00,€43.00,+22.9%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/glenshee/,"Day ticket Main season Adults Children £ 36,- £ 28,- approx. € 43,-"
+339,Scotland,Nevis Range,€35.00,€47.00,+34.3%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/nevis-range/,"Day ticket Main season Adults Youth Children £ 39.95 £ 29.95 £ 25.95 approx. € 47,-"
+340,Serbia,Kopaonik,€37.00,€37.00,+0.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kopaonik/,"Ski pass prices Day ticket Main season Adults Children RSD 5900,- RSD 4400,- approx. € 50,- approx. € 37,- Night Skiing » Kopaonik Accommoda"
+341,Slovakia,Donovaly,€39.00,€45.00,+15.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/donovaly-park-snow/,Skiresort.info Slovakia Directory (Donovaly (Park Snow)): €45.00
+342,Slovakia,Jasná,€59.00,€71.00,+20.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/jasna-nizke-tatry-chopok/,Skiresort.info Slovakia Directory (Jasná Nízke Tatry – Chopok): €71.00
+343,Slovakia,Kubínska hoľa,€34.00,€39.00,+14.7%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kubinska-hola/,"%) Ski lifts » Total: 10 2 7 1 Ski pass prices Day ticket Main season Adults Youth Children € 48,- € 39,- € 30,- Night Skiing » Kubínska hoľ"
+344,Slovakia,Tatranská Lomnica,€49.00,€58.00,+18.4%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/tatranska-lomnica/,"Day ticket Main season Adults Youth Children € 58,-"
+345,Slovakia,Vrátna,€36.00,€39.00,+8.3%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/vratna/,"Day ticket Main season Adults Youth Children € 39,-"
+346,Slovenia,Cerkno,€36.00,€43.00,+19.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/cerkno/,Skiresort.info Slovenia Directory (Cerkno): €43.00
+347,Slovenia,Kanin,€0.00,€49.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kanin-sella-nevea-bovec/,Skiresort.info Slovenia Directory (Kanin – Sella Nevea/​Bovec): €49.00
+348,Slovenia,Kranjska Gora,€40.00,€49.00,+22.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/kranjska-gora/,Skiresort.info Slovenia Directory (Kranjska Gora): €49.00
+349,Slovenia,Krvavec,€39.00,€45.00,+15.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/krvavec/,Skiresort.info Slovenia Directory (Krvavec): €45.00
+350,Slovenia,Mariborsko Pohorje,€43.00,€49.00,+14.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/mariborsko-pohorje-maribor/,Skiresort.info Slovenia Directory (Mariborsko Pohorje – Maribor): €49.00
+351,Slovenia,Rogla,€39.00,€47.00,+20.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/rogla/,Skiresort.info Slovenia Directory (Rogla): €47.00
+352,Slovenia,Vogel,€40.00,€45.00,+12.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/vogel-bohinj/,Skiresort.info Slovenia Directory (Vogel – Bohinj): €45.00
+353,Spain,Alto Campoo,€37.00,€42.00,+13.5%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/alto-campoo/,Skiresort.info Spain Directory (Alto Campoo): €42.00
+354,Spain,Astún,€50.00,€50.00,+0.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/astun/,Bergfex Spain Bulk Table (Astún Astún (2.300 m) 2.300 m Pendientes: 50 km Remontes: 0/12 Nieve: - Precio: ): €50.00
+355,Spain,Baqueira-Beret,€66.00,€63.00,-4.5%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/baqueira-beret/,Bergfex Spain Bulk Table (Baqueira-Beret Baqueira-Beret (2.510 m) 2.510 m Pendientes: 153 km Remontes: 0/3): €63.00
+356,Spain,Boí Taüll,€42.00,€42.00,+0.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/boi-taull/,Bergfex Spain Bulk Table (Boi-Taüll Resort Boi-Taüll Resort (2.751 m) 2.751 m Pendientes: 46 km Remontes: ): €42.00
+357,Spain,Candanchú,€49.00,€50.00,+2.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/candanchu/,"Bergfex Spain Bulk Table (Candanchú Candanchú (2.400 m) 2.400 m Pendientes: 50,5 km Remontes: 0/25 Nieve: ): €50.00"
+358,Spain,Cerler,€51.50,€49.50,-3.9%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/cerler/,Bergfex Spain Bulk Table (Cerler Cerler (2.610 m) 2.610 m Pendientes: 79 km Remontes: 0/13 Nieve: - Precio): €49.50
+359,Spain,Cerler,€54.00,€58.50,+8.3%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/cerler/,Skiresort.info Spain Directory (Cerler): €58.50
+360,Spain,Formigal,€56.00,€54.00,-3.6%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/formigal/,Bergfex Spain Bulk Table (Formigal Formigal (2.250 m) 2.250 m Pendientes: 137 km Remontes: 0/16 Nieve: - P): €54.00
+361,Spain,La Molina,€48.00,€49.00,+2.1%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/la-molina/,Bergfex Spain Bulk Table (La Molina La Molina / Alp 2500 (2.406 m) 2.406 m Pendientes: 61 km Remontes: 0/1): €49.00
+362,Spain,Manzaneda,€27.00,€28.00,+3.7%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/manzaneda/,Skiresort.info Spain Directory (Manzaneda): €28.00
+363,Spain,Masella,€49.00,€54.00,+10.2%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/la-masella/,Bergfex Spain Bulk Table (Masella / Alp 2500 Masella / Alp 2500 (2.509 m) 2.509 m Pendientes: - Remontes: ): €54.00
+364,Spain,Panticosa,€56.00,€54.00,-3.6%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.bergfex.at/formigal/,Bergfex Spain Bulk Table (Formigal Formigal (2.250 m) 2.250 m Pendientes: 137 km Remontes: 0/16 Nieve: - P): €54.00
+365,Spain,Puerto de Navacerrada,€32.00,€32.00,+0.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/puerto-navacerrada/,Skiresort.info Spain Directory (Puerto de Navacerrada): €32.00
+366,Spain,Sierra Nevada,€57.00,€75.00,+31.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/sierra-nevada-pradollano/,Skiresort.info Spain Directory (Sierra Nevada – Pradollano): €75.00
+367,Spain,Valdesquí,€40.00,€44.00,+10.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/valdesqui/,Skiresort.info Spain Directory (Valdesquí): €44.00
+368,Spain,Valgrande-Pajares,€29.00,€29.00,+0.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/valgrande-pajares/,"Bergfex Spain Bulk Table (Valgrande-Pajares Valgrande-Pajares (1.862 m) 1.862 m Pendientes: 30,9 km Remont): €29.00"
+369,Sweden,Åre,€58.00,€72.00,+24.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/aare/,Skiresort.info Sweden Directory (Åre): €72.00
+370,Sweden,Branäs,€45.00,€49.00,+8.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/branaes/,Skiresort.info Sweden Directory (Branäs): €49.00
+371,Sweden,Idre Fjäll,€49.00,€50.71,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://idrefjall.se,
+372,Sweden,Riksgränsen,€48.00,€47.00,-2.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/riksgraensen/,Skiresort.info Sweden Directory (Riksgränsen): €47.00
+373,Sweden,Romme Alpin,€46.00,€52.00,+13.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/romme-alpin/,Skiresort.info Sweden Directory (Romme Alpin): €52.00
+374,Sweden,Sälen,€54.00,€61.00,+13.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/tandaadalen-hundfjaellet-saelen/,Skiresort.info Sweden Directory (Tandådalen/​Hundfjället (Sälen)): €61.00
+375,Sweden,Stöten,€52.00,€49.00,-5.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/stoeten/,Skiresort.info Sweden Directory (Stöten): €49.00
+376,Sweden,Vemdalen,€54.00,€61.00,+13.0%,Stage 0 (Shared Ski Area Domain Cache),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/tandaadalen-hundfjaellet-saelen/,Skiresort.info Sweden Directory (Tandådalen/​Hundfjället (Sälen)): €61.00
+377,Switzerland,Adelboden-Lenk,CHF79.00,CHF81.77,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://adelboden.ch,
+378,Switzerland,Airolo-Pesciüm,CHF50.00,CHF59.00,+18.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/airolo-pesciuem/,Skiresort.info Switzerland Directory (Airolo – Pesciüm): CHF59.00
+379,Switzerland,Aletsch Arena,CHF65.00,CHF75.00,+15.4%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/aletsch-arena-riederalp-bettmeralp-fiesch-eggishorn/,"1 5 4 1 8 13 3 Additional 2 Ski pass prices Day ticket Main season Adults Youth Children SFr. 89,- SFr. 75,- SFr. 45,- approx. € 96,- approx"
+380,Switzerland,Andermatt,CHF89.00,CHF92.00,+3.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/andermatt-oberalp-sedrun/,Skiresort.info Switzerland Directory (Andermatt/​Oberalp/​Sedrun): CHF92.00
+381,Switzerland,Anzère,CHF63.00,CHF68.00,+7.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/anzere/,Skiresort.info Switzerland Directory (Anzère): CHF68.00
+382,Switzerland,Arolla,CHF42.00,CHF50.00,+19.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/arolla/,Skiresort.info Switzerland Directory (Arolla): CHF50.00
+383,Switzerland,Arosa,CHF84.00,CHF89.00,+6.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/arosa-lenzerheide/,Skiresort.info Switzerland Directory (Arosa Lenzerheide): CHF89.00
+384,Switzerland,Brigels (Breil),CHF54.00,CHF65.00,+20.4%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/brigels-waltensburg-andiast/,Skiresort.info Switzerland Directory (Brigels/​Waltensburg/​Andiast): CHF65.00
+385,Switzerland,Brunni-Alpthal,CHF41.00,CHF48.00,+17.1%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/brunni-engelberg/,Skiresort.info Switzerland Directory (Brunni – Engelberg): CHF48.00
+386,Switzerland,Champex-Lac,CHF43.00,CHF46.00,+7.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/champex-lac-orsieres/,Skiresort.info Switzerland Directory (Champex-Lac (Orsières)): CHF46.00
+387,Switzerland,Crans-Montana,CHF89.00,CHF94.00,+5.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/crans-montana/,Skiresort.info Switzerland Directory (Crans-Montana): CHF94.00
+388,Switzerland,Davos Klosters,CHF85.00,CHF86.00,+1.2%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/parsenn-davos-klosters/,Skiresort.info Switzerland Directory (Parsenn (Davos Klosters)): CHF86.00
+389,Switzerland,Disentis 3000,CHF64.00,CHF64.00,+0.0%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/disentis/,"Day ticket Main season Adults Youth Children SFr. 64,-"
+390,Switzerland,Elm,CHF49.00,CHF59.00,+20.4%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/elm/,Bergfex Switzerland Bulk Table (Elm Elm (2.100 m) 2.100 m): CHF59.00
+391,Switzerland,Engelberg,CHF72.00,CHF82.00,+13.9%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/brunni-engelberg/,"Unterland Schwaz Zillertal Zell-Gerlos Test result 1920 m ( 580 m - 2500 m ) 150.1 km 52 ski lifts € 82,- Details Further interesting ski re"
+392,Switzerland,Flumserberg,CHF68.00,CHF72.00,+5.9%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/flumserberg/,Bergfex Switzerland Bulk Table (Flumserberg Flumserberg (2.222 m) 2.222 m): CHF72.00
+393,Switzerland,Grindelwald-Wengen,CHF79.00,CHF79.00,+0.0%,Stage 1A (Bergfex Bulk Country Table),VERIFIED_SCRAPE,https://www.bergfex.at/jungfrau-grindelwald-wengen/,Bergfex Switzerland Bulk Table (Wengen Jungfrau Ski Region Grindelwald - Wengen (2.500 m) 2.500 m): CHF79.00
+394,Switzerland,Gstaad,CHF79.00,CHF94.00,+19.0%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/wasserngrat-gstaad/,Skiresort.info Switzerland Directory (Wasserngrat – Gstaad): CHF94.00
+395,Switzerland,Hoch-Ybrig,CHF57.00,CHF62.00,+8.8%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/hoch-ybrig-unteriberg-oberiberg/,Skiresort.info Switzerland Directory (Hoch-Ybrig – Unteriberg/​Oberiberg): CHF62.00
+396,Switzerland,Kandersteg,CHF48.00,CHF49.68,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://kandersteg.ch,
+397,Switzerland,Klewenalp-Stockhütte,CHF51.00,CHF61.00,+19.6%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/klewenalp-stockhuette-beckenried-emmetten/,Skiresort.info Switzerland Directory (Klewenalp/​Stockhütte – Beckenried/​Emmetten): CHF61.00
+398,Switzerland,Laax,CHF92.00,CHF95.22,+3.5%,Fallback (Index +3.5%),ESTIMATED,https://flimslaax.com,
+399,Switzerland,Lauchernalp,CHF62.00,CHF70.00,+12.9%,Stage 1B (Skiresort.info Bulk Directory),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/lauchernalp-loetschental/,Skiresort.info Switzerland Directory (Lauchernalp – Lötschental): CHF70.00
+400,Switzerland,Lenk,CHF79.00,CHF82.00,+3.8%,Stage 1D (Skiresort.info Detail Page),VERIFIED_SCRAPE,https://www.skiresort.com/en/ski-resort/betelberg-lenk/,"zburger Land) Pinzgau Zell am See-Kaprun Test result 2261 m ( 768 m - 3029 m ) 62.5 km 24 ski lifts € 82,- Details Ski Juwel Alpbachtal Wild"
