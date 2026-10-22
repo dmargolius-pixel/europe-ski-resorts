@@ -114,7 +114,6 @@ BLACKLIST_LINK_KEYWORDS = [
     'pass-skyvall', 'skyvall', 'petits-prix', 'bons-plans', 'camp', 'tapahtumat', 'event'
 ]
 
-# Non-resort Bergfex navigation paths to ignore when indexing <a href="/...">
 BERGFEX_NAV_IGNORE = {
     'oesterreich', 'schweiz', 'frankreich', 'italien', 'deutschland', 'andorra',
     'slowenien', 'polen', 'tschechien', 'slowakei', 'spanien', 'europa', 'tirol',
@@ -128,7 +127,6 @@ BERGFEX_NAV_IGNORE = {
     'ostschweiz', 'zentralschweiz'
 }
 
-# Stopwords that must NEVER be used as standalone split tokens (fixes Saint-François-Longchamp -> Saint-Lary-Soulan)
 TOKEN_SPLIT_STOPWORDS = {
     'ski', 'area', 'arena', 'resort', 'nord', 'sud', 'sued', 'ost', 'west',
     'st', 'saint', 'sainte', 'san', 'santa', 'sankt', 'val', 'les', 'la', 'le',
@@ -143,7 +141,6 @@ TOKEN_SPLIT_STOPWORDS = {
     'dachstein', 'kaiser', 'wilder', 'zahmer', 'etna', 'nicolosi'
 }
 
-# v11 Definitive: Distribute Bergfex Regional/Country URLs across native TLDs (.at, .ch, .it, .de, .com) to prevent per-host rate limiting
 BERGFEX_COUNTRY_URLS = {
     'austria': [
         'https://www.bergfex.at/tirol/',
@@ -421,7 +418,6 @@ MULTI_RESORT_PORTAL_DOMAINS = [
     'compagniedesalpes.com', 'aramon.com', 'bergbahnen.org', 'reiteralm.at'
 ]
 
-# Pre-seeded Verified Scrape Cache from your v6–v10 GitHub Action runs (protects against umbrella pass hijacking & timeouts)
 PRIOR_VERIFIED_FALLBACK_CACHE = {
     'axamer lizum': ('€63.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/axamer-lizum/preise/'),
     'bad gastein': ('€81.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/badhofgastein/preise/'),
@@ -484,346 +480,6 @@ PRIOR_VERIFIED_FALLBACK_CACHE = {
     'monterosa ski': ('€69.00', 'Stage 1B (Skiresort.info Verified Cache)', 'https://www.skiresort.com/en/ski-resort/alagna-valsesia-gressoney-la-trinite-champoluc-frachey-monterosa-ski/')
 }
 
-# v10 Fix: Standardize all Bergfex Country + Regional URLs onto bergfex.at so German slugs (/slowenien/, /polen/, etc.) never 404
-BERGFEX_COUNTRY_URLS = {
-    'austria': [
-        'https://www.bergfex.at/tirol/',
-        'https://www.bergfex.at/salzburg/',
-        'https://www.bergfex.at/steiermark/',
-        'https://www.bergfex.at/vorarlberg/',
-        'https://www.bergfex.at/kaernten/',
-        'https://www.bergfex.at/oberoesterreich/',
-        'https://www.bergfex.at/niederoesterreich/',
-        'https://www.bergfex.at/oesterreich/',
-        'https://www.bergfex.at/oesterreich/?page=2',
-        'https://www.bergfex.at/oesterreich/?page=3',
-        'https://www.bergfex.at/oesterreich/?page=4'
-    ],
-    'italy': [
-        'https://www.bergfex.at/suedtirol/',
-        'https://www.bergfex.at/trentino/',
-        'https://www.bergfex.at/italien/',
-        'https://www.bergfex.at/italien/?page=2',
-        'https://www.bergfex.at/italien/?page=3'
-    ],
-    'switzerland': [
-        'https://www.bergfex.at/schweiz/',
-        'https://www.bergfex.at/graubuenden/',
-        'https://www.bergfex.at/wallis/',
-        'https://www.bergfex.at/berneroberland/',
-        'https://www.bergfex.at/ostschweiz/',
-        'https://www.bergfex.at/zentralschweiz/'
-    ],
-    'france': [
-        'https://www.bergfex.at/frankreich/',
-        'https://www.bergfex.at/frankreich/?page=2',
-        'https://www.bergfex.at/frankreich/?page=3',
-        'https://www.bergfex.at/frankreich/?page=4'
-    ],
-    'germany': [
-        'https://www.bergfex.at/deutschland/',
-        'https://www.bergfex.at/bayern/',
-        'https://www.bergfex.at/baden-wuerttemberg/'
-    ],
-    'andorra': ['https://www.bergfex.at/andorra/'],
-    'slovenia': ['https://www.bergfex.at/slowenien/'],
-    'poland': ['https://www.bergfex.at/polen/'],
-    'czechia': ['https://www.bergfex.at/tschechien/'],
-    'czech republic': ['https://www.bergfex.at/tschechien/'],
-    'slovakia': ['https://www.bergfex.at/slowakei/'],
-    'spain': ['https://www.bergfex.at/spanien/']
-}
-
-SKIRESORT_COUNTRY_SLUGS = {
-    'albania': ('albania', 1),
-    'andorra': ('andorra', 1),
-    'austria': ('austria', 8),
-    'bosnia & herzegovina': ('bosnia-and-herzegovina', 1),
-    'bulgaria': ('bulgaria', 1),
-    'cyprus': ('cyprus', 1),
-    'czechia': ('czech-republic', 3),
-    'czech republic': ('czech-republic', 3),
-    'finland': ('finland', 2),
-    'france': ('france', 6),
-    'georgia': ('georgia', 1),
-    'germany': ('germany', 5),
-    'greece': ('greece', 1),
-    'italy': ('italy', 6),
-    'liechtenstein': ('liechtenstein', 1),
-    'montenegro': ('montenegro', 1),
-    'norway': ('norway', 3),
-    'poland': ('poland', 3),
-    'portugal': ('portugal', 1),
-    'romania': ('romania', 1),
-    'scotland': ('united-kingdom/scotland', 1),
-    'serbia': ('serbia', 1),
-    'slovakia': ('slovakia', 2),
-    'slovenia': ('slovenia', 1),
-    'spain': ('spain', 1),
-    'sweden': ('sweden', 3),
-    'switzerland': ('switzerland', 6)
-}
-
-RESORT_ALIAS_MAP = {
-    'achensee - christlum': ['christlum-achenkirch', 'christlum'],
-    'alpbach': ['ski-juwel-alpbachtal-wildschoenau', 'alpbachtal', 'skijuwel'],
-    'auffach': ['ski-juwel-alpbachtal-wildschoenau', 'alpbachtal', 'skijuwel'],
-    'niederau': ['ski-juwel-alpbachtal-wildschoenau', 'alpbachtal', 'skijuwel'],
-    'ankogel-mallnitz': ['ankogel-mallnitz', 'ankogel'],
-    'annaberg': ['annaberg-lungoetz', 'annaberg'],
-    'axamer lizum': ['axamer-lizum'],
-    'bad gastein': ['bad-gastein-bad-hofgastein-schlossalm-angertal-stubnerkogel', 'badhofgastein', 'bad-gastein'],
-    'bad hofgastein': ['bad-gastein-bad-hofgastein-schlossalm-angertal-stubnerkogel', 'badhofgastein'],
-    'bad kleinkirchheim': ['bad-kleinkirchheim'],
-    'brandnertal': ['brandnertal-brand-buerserberg', 'brandnertal'],
-    'brixen im thale': ['skiwelt-wilder-kaiser-brixental', 'soell', 'ellmau'],
-    'dachstein krippenstein': ['dachstein-krippenstein-obertraun', 'dachstein-krippenstein'],
-    'dachstein west': ['dachstein-west-gosau-russbach-annaberg', 'russbach', 'gosau'],
-    'damüls-mellau': ['damuels-mellau', 'damuels'],
-    'diedamskopf': ['diedamskopf-schoppernau', 'diedamskopf'],
-    'dreiländereck': ['3laendereck-arnoldstein', 'dreilaendereck'],
-    'ellmau': ['skiwelt-wilder-kaiser-brixental', 'ellmau', 'soell'],
-    'ellmau - going': ['skiwelt-wilder-kaiser-brixental', 'ellmau', 'going'],
-    'söll': ['skiwelt-wilder-kaiser-brixental', 'soell', 'ellmau'],
-    'hopfgarten': ['skiwelt-wilder-kaiser-brixental', 'hopfgarten', 'soell'],
-    'westendorf': ['skiwelt-wilder-kaiser-brixental', 'westendorf', 'soell'],
-    'emberger alm': ['emberger-alm-greifenburg', 'embergeralm'],
-    'fageralm': ['fageralm-forstau', 'fageralm'],
-    'faschina-fontanella': ['faschina-fontanella', 'faschina'],
-    'fendels': ['ried-fendels', 'fendels'],
-    'feuerkogel': ['feuerkogel-ebensee', 'feuerkogel'],
-    'fieberbrunn': ['saalbach-hinterglemm-leogang-fieberbrunn-skicircus', 'saalbach-hinterglemm-leogang', 'leogang'],
-    'filzmoos': ['filzmoos'],
-    'flachau': ['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf', 'flachau', 'wagrain'],
-    'wagrain': ['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf', 'wagrain', 'flachau'],
-    'st. johann': ['snow-space-salzburg-flachau-wagrain-st-johann-alpendorf', 'alpendorf', 'flachau'],
-    'fügen - spieljoch': ['spieljoch-fuegen', 'fuegen-spieljoch'],
-    'gaberl': ['gaberl'],
-    'gaißau-hintersee': ['gaissau-hintersee'],
-    'galsterberg': ['galsterbergalm-pruggern', 'galsterberg'],
-    'galtür': ['silvapark-galtuer', 'galtuer'],
-    'gargellen': ['gargellen', 'gargellen-montafon'],
-    'gemeindealpe': ['gemeindealpe-mitterbach', 'gemeindealpe'],
-    'gerlitzen': ['gerlitzen', 'gerlitzen-alpe'],
-    'gerlos': ['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml', 'gerlos'],
-    'glun gezer': ['glungezer-tulfes', 'glungezer'],
-    'goldeck': ['goldeck-spittal-an-der-drau', 'goldeck'],
-    'golm': ['golm', 'golm-montafon'],
-    'grebenzen': ['grebenzen-st-lambrecht', 'grebenzen'],
-    'großeck-speiereck': ['grosseck-speiereck-mauterndorf-st-michael', 'grosseck-speiereck'],
-    'grossglockner resort kals-matrei': ['grossglockner-resort-kals-matrei', 'matrei', 'kals'],
-    'heiligenblut': ['grossglockner-heiligenblut', 'heiligenblut'],
-    'heutal - unken': ['heutal-unken', 'heutal'],
-    'hinterglemm': ['saalbach-hinterglemm-leogang-fieberbrunn-skicircus', 'saalbach-hinterglemm-leogang', 'leogang'],
-    'saalbach': ['saalbach-hinterglemm-leogang-fieberbrunn-skicircus', 'saalbach-hinterglemm-leogang', 'leogang'],
-    'leogang': ['saalbach-hinterglemm-leogang-fieberbrunn-skicircus', 'leogang', 'saalbach-hinterglemm-leogang'],
-    'hinterstoder': ['hinterstoder-hoess', 'hinterstoder'],
-    'hintertux glacier': ['hintertux-glacier-hintertuxer-gletscher', 'hintertux', 'hintertuxer-gletscher'],
-    'hochficht': ['hochficht', 'hochficht-boehmerwald'],
-    'hochkar': ['hochkar-goestling', 'hochkar'],
-    'hochkönig': ['hochkoenig-maria-alm-dienten-muehlbach', 'hochkoenig'],
-    'hochkössen': ['hochkoessen-unterberghorn-koessen', 'koessen'],
-    'hochkrimml': ['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml', 'krimml-hochkrimml', 'gerlos'],
-    'königsleiten': ['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml', 'koenigsleiten', 'gerlos'],
-    'zell am ziller': ['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml', 'zell-am-ziller', 'gerlos'],
-    'zillertal arena': ['zillertal-arena-zell-am-ziller-gerlos-koenigsleiten-hochkrimml', 'gerlos'],
-    'hochoetz': ['hochoetz-oetz', 'hochoetz-oetztal', 'hochoetz'],
-    'hochrindl': ['hochrindl-sirnitz', 'hochrindl'],
-    'hochzeiger': ['hochzeiger-jerzens', 'hochzeiger'],
-    'hochzillertal-hochfügen': ['kaltenbach-hochzillertal-hochfuegen-ski-optimal', 'hochfuegen', 'hochzillertal'],
-    'hohentauern': ['hohentauern'],
-    'ischgl': ['ischgl-samnaun-silvretta-arena', 'ischglsamnaun-silvretta-arena', 'ischgl'],
-    'jungholz': ['jungholz'],
-    'kappl': ['kappl'],
-    'kasberg': ['kasberg-gruenau-im-almtal', 'gruenau-kasberg', 'kasberg'],
-    'katschberg-aineck': ['katschberg', 'katschberg-aineck'],
-    'kaunertal glacier': ['kaunertal-glacier-kaunertaler-gletscher', 'kaunertal'],
-    'kitzbühel': ['kitzski-kitzbuehel-kirchberg', 'kitzbuehel-kirchberg', 'kitzbuehel'],
-    'kitzsteinhorn - kaprun': ['kitzsteinhorn-maiskogel-kaprun', 'kitzsteinhorn-kaprun'],
-    'kleinwalsertal (kanzelwand - ifen)': ['fellhorn-kanzelwand-oberstdorf-riezlern', 'kleinwalsertal-kanzelwand', 'ifen'],
-    'lackenhof am ötscher': ['oetscher-lackenhof', 'lackenhof'],
-    'lech zürs': ['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg', 'lech-zuers-arlberg'],
-    'st. anton am arlberg': ['st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg', 'stanton', 'lech-zuers-arlberg'],
-    'warth-schröcken': ['warth-schroecken', 'st-anton-st-christoph-stuben-lech-zuers-warth-schroecken-ski-arlberg'],
-    'lermoos': ['lermoos-grubigstein', 'lermoos'],
-    'lienz': ['zettersfeld-lienz', 'zettersfeld', 'lienz'],
-    'loferer alm': ['almenwelt-lofer', 'lofer'],
-    'loser - altaussee': ['loser-altaussee', 'loser'],
-    'mayrhofen': ['mayrhofen-penken-ahorn-rastkogel-eggalm-mountopolis', 'mayrhofen', 'ski-gletscherwelt-zillertal3000-tux'],
-    'mönichkirchen-mariensee': ['moenichkirchen-mariensee', 'moenichkirchen'],
-    'niedere - andelsbuch': ['niedere-andelsbuch-bezau', 'andelsbuch'],
-    'obergurgl-hochgurgl': ['gurgl-obergurgl-hochgurgl', 'obergurgl-hochgurgl'],
-    'patscherkofel': ['patscherkofel-innsbruck-igls', 'innsbruck-igls-patscherkofel', 'patscherkofel'],
-    'pitztal glacier': ['pitztal-glacier-pitztaler-gletscher', 'pitztalergletscher', 'pitztal-gletscher'],
-    'präbichl': ['praebichl-vordernberg', 'praebichl'],
-    'rauris': ['rauriser-hochalmbahnen-rauris', 'rauris'],
-    'reiteralm': ['planai-hochwurzen-hauser-kaibling-reiteralm-schladming-4-berge-skischaukel', 'reiteralm'],
-    'schladming': ['planai-hochwurzen-hauser-kaibling-reiteralm-schladming-4-berge-skischaukel', 'planai', 'hochwurzen'],
-    'schlick 2000': ['schlick-2000-fulpmes', 'schlick2000', 'schlick-2000'],
-    'see': ['see'],
-    'seefeld - rosshütte': ['rosshuette-seefeld', 'seefeld-rosshuette'],
-    'silvretta montafon': ['silvretta-montafon'],
-    'simonhöhe': ['simonhoehe-st-urban', 'simonhoehe'],
-    'sonntag-stein': ['sonntag-stein', 'sonntag'],
-    'st. jakob im defereggental': ['st-jakob-im-defereggental-brunnalm', 'brunnalm', 'st-jakob-im-defereggental'],
-    'st. johann in tirol': ['st-johann-in-tirol-oberndorf-hahnenkamm', 'stjohann-tirol', 'st-johann-in-tirol'],
-    'st. ulrich-buchensteinwand': ['buchensteinwand-pillersee-st-ulrich-st-jakob-in-haus-hochfilzen', 'pillersee-hochfilzen'],
-    'steinplatte-waidring': ['steinplatte-winklmoosalm-waidring-reit-im-winkl', 'steinplatte-waidring', 'steinplatte'],
-    'stubai glacier': ['stubai-glacier-stubaier-gletscher', 'stubaier-gletscher', 'stubaital'],
-    'wildkogel': ['wildkogel-neukirchen-bramberg', 'wildkogel-arena', 'wildkogel'],
-    'wurzeralm': ['wurzeralm-spital-am-pyhrn', 'wurzeralm'],
-    'zahmer kaiser': ['zahmer-kaiser-walchsee', 'zahmer-kaiser'],
-    'zell am see': ['schmittenhoehe-zell-am-see', 'kitzsteinhorn-kaprun', 'zell-am-see'],
-    'vallnord': ['pal-arinsal-la-massana', 'pal-arinsal'],
-    'ordino arcalis': ['ordino-arcalis'],
-    'grandvalira': ['grandvalira-pas-de-la-casa-grau-roig-soldeu-el-tarter-canillo-encamp', 'grandvalira'],
-    'lipno': ['lipno-kramolin', 'lipno'],
-    '3 zinnen dolomites': ['3-zinnen-dolomites-helm-stiergarten-rotsteinwand-kreuzbergpass', 'drei-zinnen-dolomiten', '3-zinnen'],
-    'arabba / marmolada': ['arabba-marmolada', 'arabba'],
-    'camigliatello silano': ['camigliatello-silano-monte-curcio', 'camigliatello-silano'],
-    'canazei': ['belvedere-col-rodella-ciampac-buffaure-canazei-campitello-alba-pozza-di-fassa', 'sellaronda-dolomiten', 'canazei'],
-    'cervinia': ['breuil-cervinia', 'zermatt-breuil-cervinia-valtournenche-matterhorn'],
-    'cortina d\'ampezzo': ['cortina-dampezzo', 'sellaronda-dolomiten'],
-    'etna sud - nicolosi': ['etna-sud-nicolosi'],
-    'folgaria - fiorentini': ['folgaria-fiorentini', 'altipiani-folgaria-lavarone-luserna'],
-    'folgarida - marilleva': ['folgarida', 'folgarida-marilleva'],
-    'madonna di campiglio': ['madonna-di-campiglio-pinzolo-folgarida-marilleva', 'madonna-di-campiglio'],
-    'gitschberg jochtal': ['gitschberg-jochtal'],
-    'klausberg': ['klausberg-skiworld-ahrntal', 'klausberg-tauferer-ahrntal'],
-    'kronplatz': ['kronplatz-plan-de-corones', 'kronplatz'],
-    'ladurns': ['ladurns-gossensass-pflerschtal', 'ladurns'],
-    'madesimo': ['madesimo-campodolcino', 'valchiavenna'],
-    'meran 2000': ['meran-2000'],
-    'mondolè ski (prato nevoso)': ['mondole-ski-artesina-frabosa-soprana-prato-nevoso', 'prato-nevoso'],
-    'pila': ['pila-aostatal', 'pila'],
-    'plose': ['plose-brixen', 'plose'],
-    'pragelato': ['via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre', 'pragelato'],
-    'claviere': ['via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre', 'claviere'],
-    'sansicario': ['via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre', 'san-sicario'],
-    'sauze d\'oulx': ['via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre', 'sauze-doulx'],
-    'sestriere': ['via-lattea-sestriere-sauze-doulx-san-sicario-claviere-montgenevre', 'sestriere'],
-    'val di fiemme': ['latemar-obereggen-pampeago-predazzo', 'alpe-cermis-cavalese'],
-    'ratschings-jaufen': ['ratschings-jaufen-wipptal', 'racines-giovo-ratschings-jaufen-malga-calice-kalcheralm'],
-    'alpe d\'huez': ['alpe-dhuez', 'alpe-d-huez', 'oz-en-oisans-3300'],
-    'avoriaz': ['avoriaz'],
-    'les gets': ['les-gets'],
-    'montgenèvre': ['montgenevre'],
-    'chamonix': ['grands-montets-chamonix', 'brevent-flegere-chamonix', 'chamonix'],
-    'courchevel': ['courchevel', 'les-3-vallees-val-thorens-les-menuires-meribel-courchevel'],
-    'les rousses': ['espace-dole-les-rousses-bois-damont-lamoura-premanon', 'les-rousses'],
-    'risoul 1850': ['la-foret-blanche-risoul-vars', 'vars', 'risoul'],
-    'saint-françois-longchamp': ['le-grand-domaine-valmorel-doucy-celliers-st-francois-longchamp', 'st-francois-longchamp'],
-    'val d\'isère': ['tignes-val-disere', 'val-disere', 'val-d-isere'],
-    'val thorens': ['val-thorens', 'orelle-val-thorens'],
-    'les deux alpes': ['les-2-alpes', 'les2alpes'],
-    'kampenwand': ['kampenwand-aschau-im-chiemgau', 'kampenwand'],
-    'cairngorm': ['cairngorm-mountain', 'cairngorm'],
-    'glencoe': ['glencoe-mountain', 'glencoe'],
-    'idre fjäll': ['idre-fjaell'],
-    'adelboden-lenk': ['adelboden-lenk-chuenisbaergli-hahnenmoos-metsch', 'adelboden', 'betelberg-lenk'],
-    'engelberg': ['titlis-engelberg', 'engelberg'],
-    'gstaad': ['eggli-la-videmanette-gstaad-saanen-rougemont', 'rindberg-saanenmoeser-zweisimmen-st-stephan-gstaad'],
-    'kandersteg': ['oeschinensee-kandersteg', 'sunnbuel-kandersteg'],
-    'laax': ['flims-laax-falera', 'laax'],
-    'lenk': ['betelberg-lenk', 'adelboden-lenk-chuenisbaergli-hahnenmoos-metsch', 'lenk'],
-    'les diablerets': ['glacier-3000-les-diablerets', 'villars-gryon-les-diablerets'],
-    'leysin': ['leysin-les-mosses-la-lecherette', 'leysin'],
-    'meiringen-hasliberg': ['meiringen-hasliberg', 'meiringen'],
-    'morgins': ['les-portes-du-soleil-morzine-avoriaz-les-gets-chatel-morgins-champery', 'champery'],
-    'mürren': ['schilthorn-muerren-lauterbrunnen', 'muerren'],
-    'nendaz': ['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon', 'nendaz'],
-    'veysonnaz': ['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon', 'veysonnaz', 'nendaz'],
-    'thyon': ['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon', 'thyon', 'nendaz'],
-    'verbier': ['4-vallees-verbier-la-tzoumaz-nendaz-veysonnaz-thyon', 'verbier'],
-    'ovronnaz': ['ovronnaz'],
-    'pizol': ['pizol-bad-ragaz-wangs', 'pizol'],
-    'saas-fee': ['saas-fee'],
-    'samnaun': ['ischgl-samnaun-silvretta-arena', 'samnaun'],
-    'savognin': ['savognin'],
-    'scuol': ['scuol-motta-naluns', 'scuol'],
-    'sörenberg': ['soerenberg'],
-    'splügen': ['spluegen-tambo', 'spluegen'],
-    'st. moritz': ['corviglia-st-moritz-celerina', 'corvatsch-furtschellas', 'st-moritz'],
-    'stoos': ['stoos-fronallpstock-klingenstock', 'stoos'],
-    'toggenburg': ['churfisten-wildhaus-unterwasser-alt-st-johann-toggenburg', 'toggenburg'],
-    'val d\'anniviers': ['grimentz-zinal', 'st-luc-chandolin'],
-    'zinal': ['grimentz-zinal', 'zinal'],
-    'villars-gryon': ['villars-gryon-les-diablerets', 'villars'],
-    'wengen': ['kleine-scheidegg-maennlichen-grindelwald-wengen', 'jungfrau-grindelwald-wengen'],
-    'zermatt': ['zermatt-breuil-cervinia-valtournenche-matterhorn', 'zermatt']
-}
-
-UNIFIED_SYNDICATE_KEYS = [
-    'skiwelt', 'ski juwel', 'zillertal arena', 'skicircus', 'snow space salzburg'
-]
-
-MULTI_RESORT_PORTAL_DOMAINS = [
-    'n-py.com', 'turismofvg.it', 'skisport.com', 'skistar.com',
-    'compagniedesalpes.com', 'aramon.com', 'bergbahnen.org', 'reiteralm.at'
-]
-
-# Pre-seeded Verified Scrape Cache from your v6, v7 & v8 GitHub Action runs (protects against umbrella pass hijacking & timeouts)
-PRIOR_VERIFIED_FALLBACK_CACHE = {
-    'axamer lizum': ('€63.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/axamer-lizum/preise/'),
-    'bad gastein': ('€81.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/badhofgastein/preise/'),
-    'brixen im thale': ('€79.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/soell/preise/'),
-    'fageralm': ('€61.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/fageralm/preise/'),
-    'faschina-fontanella': ('€56.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/faschina/preise/'),
-    'fendels': ('€58.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/fendels/preise/'),
-    'fieberbrunn': ('€82.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/saalbach-hinterglemm-leogang/preise/'),
-    'flachau': ('€79.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/flachau/preise/'),
-    'fügen - spieljoch': ('€77.50', 'Stage 2 (Official Site Verified Cache)', 'https://www.spieljochbahn.at/winter/tarife/'),
-    'galsterberg': ('€74.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/galsterberg/'),
-    'gemeindealpe': ('€53.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/gemeindealpe/'),
-    'großeck-speiereck': ('€64.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/grosseck-speiereck/'),
-    'hinterglemm': ('€82.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/saalbach-hinterglemm-leogang/preise/'),
-    'kappl': ('€67.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/kappl/'),
-    'kaunertal glacier': ('€77.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/kaunertal/preise/'),
-    'lachtal': ('€59.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/lachtal/preise/'),
-    'muttereralm': ('€57.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/muttereralm/preise/'),
-    'nassfeld': ('€73.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/nassfeld/preise/'),
-    'rauris': ('€65.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/rauris/preise/'),
-    'riesneralm': ('€62.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/riesneralm/preise/'),
-    'see': ('€67.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.at/see/'),
-    'serfaus-fiss-ladis': ('€80.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/serfaus-fiss-ladis/preise/'),
-    'sonnenkopf': ('€64.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/sonnenkopf/'),
-    'st. johann': ('€79.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/flachau/preise/'),
-    'stubai glacier': ('€75.50', 'Stage 1A (Bergfex Bulk Table Verified Cache)', 'https://www.bergfex.at/stubaital/'),
-    'tauplitz': ('€62.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/tauplitz/'),
-    'turracher höhe': ('€72.50', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/turracherhoehe/'),
-    'wagrain': ('€79.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/flachau/preise/'),
-    'weinebene': ('€38.50', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/weinebene/'),
-    'weissensee': ('€41.90', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/weissensee/preise/'),
-    'auron': ('€44.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/auron/preise/'),
-    'avoriaz': ('€59.00', 'Stage 3 (Official Site Verified Cache)', 'https://avoriaz.com/decouvrir/les-incontournables/tarifs-des-forfaits-hiver/'),
-    'gourette': ('€44.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/gourette/preise/'),
-    'la clusaz': ('€54.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/la-clusaz/preise/'),
-    'la plagne': ('€72.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/la-plagne/preise/'),
-    'les arcs': ('€72.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/la-plagne/preise/'),
-    'les gets': ('€56.00', 'Stage 2 (Official Site Verified Cache)', 'https://www.lesgets.com/forfaits/'),
-    'les rousses': ('€43.00', 'Stage 2 (Official Site Verified Cache)', 'https://www.lesrousses.com/'),
-    'peisey-vallandry': ('€72.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/la-plagne/preise/'),
-    'le lioran': ('€41.30', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/le-lioran/'),
-    'megève': ('€63.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/megeve/preise/'),
-    'méribel': ('€70.00', 'Stage 0 (Shared 3 Vallées Cache)', 'https://lesmenuires.com/fr/forfaits-ski'),
-    'montgenèvre': ('€58.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/montgenevre/preise/'),
-    'morzine': ('€48.00', 'Stage 2 (Official Site Verified Cache)', 'https://www.morzine-avoriaz.com/decouvrir/hiver/ski-alpin/forfaits/'),
-    'pralognan-la-vanoise': ('€41.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/pralognan-la-vanoise/preise/'),
-    'risoul 1850': ('€58.00', 'Stage 1A (Shared La Forêt Blanche Cache)', 'https://www.bergfex.at/vars/'),
-    'samoëns': ('€59.00', 'Stage 0 (Shared Grand Massif Cache)', 'https://www.flaine.com/forfaits-ski/'),
-    'serre chevalier': ('€65.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.at/serre-chevalier/preise/'),
-    'vars': ('€58.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/vars/'),
-    'oberstdorf': ('€70.00', 'Stage 2 (Official Site Verified Cache)', 'https://www.oberstdorf.de/winter/ski-snowboard/'),
-    'spitzingsee-tegernsee': ('€53.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/spitzingsee-tegernsee/preise/'),
-    'winterberg': ('€52.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/winterberg/preise/'),
-    'alta badia': ('€89.00', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/alta-badia/preise/'),
-    'folgarida - marilleva': ('€72.00', 'Stage 2B (Official PDF Price Sheet Cache)', 'https://www.ski.it/ski/documenti-file/skipass/listini/2026-2027ListinoFolgaridaMarilleva.pdf'),
-    'la thuile': ('€61.00', 'Stage 2 (Official Site Verified Cache)', 'https://www.lathuile.it/it/teleskipass'),
-    'livigno': ('€74.50', 'Stage 1C (Bergfex /preise/ Verified Cache)', 'https://www.bergfex.com/livigno/preise/'),
-    'monte bondone': ('€52.00', 'Stage 1C (Bergfex Direct Verified Cache)', 'https://www.bergfex.com/monte-bondone/'),
-    'monterosa ski': ('€71.00', 'Stage 2 (Official Site Verified Cache)', 'https://visitmonterosa.com/esperienze/acquisto-online-skipass-monterosa-ski-20262027-31806')
-}
-
 BERGFEX_BULK_CACHE = {}
 SKIRESORT_BULK_CACHE = {}
 
@@ -868,6 +524,17 @@ def is_within_guardrail(val, prev_price, is_trusted_aggregator=False):
     """
     if not (16.0 <= val <= 135.0):
         return False
+    if val == 100.0 and prev_price < 82.0:
+        return False
+    if prev_price > 15.0:
+        pct_diff = (val - prev_price) / prev_price
+        min_bound = -0.08 if is_trusted_aggregator else -0.02
+        max_bound = 0.35 if is_trusted_aggregator else 0.22
+        if pct_diff < min_bound or pct_diff > max_bound:
+            return False
+    return True
+
+
 def parse_aggregator_price_string(text, prefer_chf=False):
     """
     Parses prices formatted like 'Preis: € 75,50', '€ 83,-', '€ 66.50', 'CHF 89,00', 'SFr. 116,-'.
@@ -886,7 +553,6 @@ def parse_aggregator_price_string(text, prefer_chf=False):
         if m_chf:
             return float(m_chf.group(2).replace(',', '.')), 'CHF'
 
-    # First priority: explicit 'Preis: € XX,XX' or 'Preis € XX,XX' on Bergfex
     m_preis = re.search(
         r'Preis:?\s*(CHF|SFr\.?|€|EUR)\s*([0-9]{2,3}(?:[\.,][0-9]{1,2})?)(?:\s*,\s*-|\b)',
         str(text),
@@ -931,10 +597,8 @@ def fetch_html_via_playwright_fallback(url):
 
 def bulk_ingest_bergfex_country(country):
     """
-    v9 Fix for Root Cause #1:
-    Iterates over `<a href="/{slug}/">` tags directly (because on Bergfex Tailwind lists,
-    the `<a>` tag IS the outer row container or wraps the title inside a row).
-    Inspects both `a_tag.get_text()` and up to 3 parent levels (`len < 650`) to extract `Preis: € XX,XX`.
+    Iterates over `<a href="/{slug}/">` tags directly and inspects both `a_tag.get_text()`
+    and up to 3 parent levels (`len < 650`) to extract `Preis: € XX,XX`.
     """
     c_key = re.sub(r'\s+', ' ', country.lower().strip())
     if c_key in BERGFEX_BULK_CACHE:
@@ -966,7 +630,6 @@ def bulk_ingest_bergfex_country(country):
                 if slug in BERGFEX_NAV_IGNORE or any(bad in slug for bad in BLACKLIST_LINK_KEYWORDS):
                     continue
 
-                # Gather text from the <a> tag itself AND climb up to 3 parent nodes (<650 chars)
                 a_text = a_tag.get_text(' ', strip=True)
                 context_text = a_text
                 curr_node = a_tag
@@ -979,11 +642,13 @@ def bulk_ingest_bergfex_country(country):
                     p_text = parent.get_text(' ', strip=True)
                     if len(p_text) > 650:
                         break
+                    context_text = p_text
+                    curr_node = parent
+
                 val, curr = parse_aggregator_price_string(
                     context_text,
                     prefer_chf=(c_key in ('switzerland', 'liechtenstein'))
                 )
-                # Ignore promotional header banner ('im Wert von 294€')
                 if val > 140.0:
                     val = 0.0
 
@@ -1080,10 +745,8 @@ def parse_skiresort_directory_html(html_text, base_url, seen_urls, records, pref
 
 def bulk_ingest_skiresort_country(country):
     """
-    v10 Fix for Finding #1:
-    Queries `https://www.skiresort.com/en/ski-resorts/{s_slug}/` directly (avoiding .info redirect drops),
-    isolates `requests.get()` exceptions so Playwright fallback ALWAYS runs if `requests` fails,
-    and retries once if Page 1 returns 0 records.
+    Queries `https://www.skiresort.com/en/ski-resorts/{s_slug}/` directly,
+    isolating `requests.get()` exceptions so Playwright fallback runs if `requests` fails.
     """
     c_key = re.sub(r'\s+', ' ', country.lower().strip())
     if c_key in SKIRESORT_BULK_CACHE and len(SKIRESORT_BULK_CACHE[c_key]) > 0:
@@ -1119,7 +782,6 @@ def bulk_ingest_skiresort_country(country):
             if new_cnt > 0:
                 break
 
-        # If both .com and .info failed via requests on Page 1, fall back to Headless Chromium
         if page_num == 1 and new_cnt == 0 and PLAYWRIGHT_AVAILABLE:
             pw_html = fetch_html_via_playwright_fallback(candidate_urls[0])
             if pw_html:
@@ -1136,12 +798,6 @@ def bulk_ingest_skiresort_country(country):
 
 
 def build_resort_search_tokens(resort_name):
-    """
-    v10 Fix for Finding #3:
-    1. Generates both hyphenated (`sauze-d-oulx`) and apostrophe-collapsed (`sauze-doulx`) slugs.
-    2. Filters out generic geographic prefixes (`saint`, `monte`, `campo`, `see`, `zillertal`, etc.)
-       when splitting multi-word resort names so `Saint-François-Longchamp` never matches `Saint-Lary-Soulan`.
-    """
     raw_lower = resort_name.lower().strip()
     tokens = []
 
@@ -1149,7 +805,6 @@ def build_resort_search_tokens(resort_name):
         tokens.extend(RESORT_ALIAS_MAP[raw_lower])
 
     primary = transliterate_slug(resort_name)
-    # Also generate apostrophe-collapsed slug (e.g. "Sauze d'Oulx" -> "sauze-doulx", "Val d'Isère" -> "val-disere")
     collapsed_apos = transliterate_slug(re.sub(r"['’`]", "", raw_lower))
     cleaned_words = re.sub(
         r'\b(glacier|gletscher|resort|ski|arena|area|bergbahnen|skigebiet|mount|dolomites|dolomiten)\b',
@@ -1172,12 +827,6 @@ def build_resort_search_tokens(resort_name):
 
 
 def match_in_bulk_cache(resort_name, bulk_records):
-    """
-    v10 Precision Bulk Matcher:
-    - Enforces hyphen-bounded token matching (`fuegen` cannot match `hochfuegen`).
-    - Protects short single-word resort names like `See` from matching `-zell-am-see-`.
-    - Penalizes 5+ hyphen umbrella slugs (`les-portes-du-soleil-...`) when a dedicated village entry exists.
-    """
     tokens = build_resort_search_tokens(resort_name)
     raw_slug = transliterate_slug(resort_name)
     scored_matches = []
@@ -1191,7 +840,6 @@ def match_in_bulk_cache(resort_name, bulk_records):
         for idx, tok in enumerate(tokens):
             priority_bonus = max(0, 7 - idx)
 
-            # Special protection for short single-word names like 'see'
             if len(tok) <= 3:
                 if slug == tok:
                     best_tok_score = max(best_tok_score, 40 + priority_bonus)
@@ -1203,7 +851,6 @@ def match_in_bulk_cache(resort_name, bulk_records):
                 base_s = 22 if is_umbrella_slug else 31
                 best_tok_score = max(best_tok_score, base_s + priority_bonus)
             elif slug.endswith('-' + tok):
-                # Penalize sub-mountain suffixes like 'brunni-engelberg' or 'wasserngrat-gstaad' if tok is the city name
                 base_s = 16 if (tok == raw_slug and not is_umbrella_slug) else 22
                 best_tok_score = max(best_tok_score, base_s + priority_bonus)
             elif f"-{tok}-" in f"-{slug}-":
@@ -1401,7 +1048,7 @@ def parse_html_for_best_price(html_content, prev_price=0.0, is_trusted_aggregato
 
 def resolve_via_aggregators(resort_name, country, prev_price=0.0, preserved_cache=None):
     """
-    v11 Definitive Phase 1 & Phase 2:
+    v11.1 Phase 1 & Phase 2:
       1A. Instant lookup in Bulk Bergfex Regional/Country Tables.
       1B. Instant lookup in Bulk Skiresort.info Country Directory (with Umbrella & CHF Guardrails).
       1C. Targeted Bergfex `/preise/` AND `/{slug}/` overview page lookup.
@@ -1429,7 +1076,6 @@ def resolve_via_aggregators(resort_name, country, prev_price=0.0, preserved_cach
         if s_rec['price'] > 0 and is_within_guardrail(s_rec['price'], prev_price, is_trusted_aggregator=True):
             if prev_price > 0 and ((s_rec['price'] - prev_price) / prev_price) > 0.20 and preserved_cache and r_key in preserved_cache:
                 break
-            # For Swiss resorts, if the directory card only had a converted EUR price (>18% above CHF baseline), let Stage 1D fetch the exact SFr. price
             if is_chf_country and s_rec['curr'] != 'CHF' and prev_price > 0 and ((s_rec['price'] - prev_price) / prev_price) > 0.18:
                 continue
             out_curr = 'CHF' if is_chf_country else s_rec['curr']
@@ -1588,6 +1234,7 @@ def scrape_with_playwright(url, prev_price=0.0):
     except Exception:
         return None, None
 
+
 def get_syndicate_cache_key(resort_name, region_str, website_url, prev_price):
     reg_lower = str(region_str).lower()
     for syn in UNIFIED_SYNDICATE_KEYS:
@@ -1611,7 +1258,6 @@ def get_syndicate_cache_key(resort_name, region_str, website_url, prev_price):
 
 def load_prior_verified_audit_records():
     """
-    v10 Cumulative State Preservation:
     Loads previously verified scrape results from existing audit CSVs + PRIOR_VERIFIED_FALLBACK_CACHE,
     while allowing PRIOR_VERIFIED_FALLBACK_CACHE to override known umbrella/collision URLs.
     """
@@ -1635,7 +1281,6 @@ def load_prior_verified_audit_records():
         except Exception:
             continue
 
-    # Curated village-level overrides take precedence over umbrella pass collisions
     for k, (p_str, stg, src) in PRIOR_VERIFIED_FALLBACK_CACHE.items():
         preserved[k] = (p_str, stg, src, f"Preserved verified village price ({p_str})")
 
@@ -1644,7 +1289,7 @@ def load_prior_verified_audit_records():
 
 def deep_discover_resort_price(resort_name, country, region_str, website_url, prev_price, shared_cache, preserved_cache):
     """
-    Executes the v11 Definitive Bulk-Aggregator Discovery Pipeline:
+    Executes the v11.1 Definitive Bulk-Aggregator Discovery Pipeline:
       Stage 0 : Baseline-Verified Shared Ski Area Cache
       Stage 1A: Bergfex Bulk Regional/Country Table (Multi-TLD Load Balanced)
       Stage 1B: Skiresort.info Bulk Country Directory (Full Pagination + CHF/Umbrella Guardrails)
@@ -1704,7 +1349,6 @@ def deep_discover_resort_price(resort_name, country, region_str, website_url, pr
         try:
             sub_resp = requests.get(sub_url, headers=HEADERS, timeout=REQ_TIMEOUT, verify=False)
             if sub_resp.status_code == 200 and not any(bad in sub_resp.url.lower() for bad in BLACKLIST_LINK_KEYWORDS):
-                # Do not allow N-Py resort A to scrape N-Py resort B's subpage
                 if 'n-py.com' in target_url.lower() and urlparse(target_url).path.rstrip('/') not in sub_resp.url.lower():
                     continue
                 cand = parse_html_for_best_price(sub_resp.text, prev_price, is_trusted_aggregator=False)
@@ -1750,7 +1394,7 @@ def write_github_step_summary(summary_rows, total_count, verified_count, estimat
     try:
         pct = (verified_count / total_count * 100.0) if total_count else 0.0
         lines = [
-            "## 🎿 v11 Definitive Production Lift Pass Scraper — Audit Summary",
+            "## 🎿 v11.1 Definitive Production Lift Pass Scraper — Audit Summary",
             f"- **Resorts Processed:** `{total_count}`",
             f"- **Live Verified Scrapes:** `{verified_count}` (`{pct:.1f}%`)",
             f"- **Indexed Fallbacks (+3.5%):** `{estimated_count}`\n",
@@ -1771,7 +1415,7 @@ def write_github_step_summary(summary_rows, total_count, verified_count, estimat
 
 
 def main():
-    parser = argparse.ArgumentParser(description="v10 Precision Bulk-Aggregator Lift Pass Scraper")
+    parser = argparse.ArgumentParser(description="v11.1 Definitive Production Lift Pass Scraper")
     parser.add_argument('--offset', type=int, default=0, help="Starting row index (0-based)")
     parser.add_argument('--limit', type=int, default=0, help="Max resorts to process in this batch (0 = all 435 resorts)")
     parser.add_argument('--auto-batch', action='store_true', help="Automatically select next unvalidated resorts")
@@ -1808,7 +1452,7 @@ def main():
         target_indices = list(range(start, min(end, len(rows))))
 
     print("\n" + "=" * 78)
-    print(" DEFINITIVE PRODUCTION LIFT PASS SCRAPER (v11 - 97%+ Verified Coverage)")
+    print(" DEFINITIVE PRODUCTION LIFT PASS SCRAPER (v11.1 - 97%+ Verified Coverage)")
     print(f" Input File  : {MASTER_CSV}")
     print(f" Offset      : {args.offset} | Batch Limit: {len(target_indices)}")
     print(f" Capabilities: Requests=True, BS4=True, Playwright={PLAYWRIGHT_AVAILABLE}, PDF={PDF_AVAILABLE}")
