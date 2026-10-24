@@ -47,7 +47,8 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
             "snow_anomaly_pct": previous_resort_data.get("snow_anomaly_pct", 0.0),
             "weekly_precip_mm": previous_resort_data.get("weekly_precip_mm", 0.0),
             "avg_freezing_level_m": previous_resort_data.get("avg_freezing_level_m", 0),
-            "snow_depth_cm": previous_resort_data.get("snow_depth_cm", 0.0)
+            "snow_depth_cm": previous_resort_data.get("snow_depth_cm", 0.0),
+            "baseline_snow_depth_cm": previous_resort_data.get("baseline_snow_depth_cm", 0.0)
         }
 
     snow_list = current_data.get("snowfall") or []
@@ -66,6 +67,7 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
     today = datetime.now(timezone.utc).date()
     start_date = today - timedelta(days=7)
     era5_snow_totals = []
+    era5_depth_totals = []
     
     for year in range(2014, 2024):
         hist_start = f"{year}-{start_date.strftime('%m-%d')}"
@@ -75,7 +77,7 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
             f"https://archive-api.open-meteo.com/v1/archive?"
             f"latitude={lat}&longitude={lon}&elevation={elevation}"
             f"&start_date={hist_start}&end_date={hist_end}"
-            f"&hourly=snowfall"
+            f"&hourly=snowfall,snow_depth"
             f"&timezone=auto"
         )
         try:
@@ -84,10 +86,17 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
             hist_snow_list = hist_data.get("snowfall") or []
             total_hist = sum(s for s in hist_snow_list if s is not None)
             era5_snow_totals.append(total_hist)
+
+            hist_depth_list = [d for d in (hist_data.get("snow_depth") or []) if d is not None]
+            if hist_depth_list:
+                depth_cm = hist_depth_list[-1] * 100
+                if depth_cm < 250:
+                    era5_depth_totals.append(depth_cm)
         except Exception:
             continue
 
     baseline_snow = sum(era5_snow_totals) / len(era5_snow_totals) if era5_snow_totals else 0.0
+    baseline_depth = sum(era5_depth_totals) / len(era5_depth_totals) if era5_depth_totals else 0.0
 
     if baseline_snow < 2.0 and current_snow < 2.0:
         snow_anomaly_pct = 0.0
@@ -103,7 +112,8 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
         "snow_anomaly_pct": snow_anomaly_pct,
         "weekly_precip_mm": round(current_precip, 1),
         "avg_freezing_level_m": round(avg_freezing_level),
-        "snow_depth_cm": round(current_snow_depth, 1)
+        "snow_depth_cm": round(current_snow_depth, 1),
+        "baseline_snow_depth_cm": round(baseline_depth, 1)
     }
 
 def main():
@@ -168,7 +178,6 @@ def main():
 
     history_entries = [entry for entry in history_data.get("history", []) if entry.get("date") != today_str]
     
-    # Build a history entry storing each personal resort's depth so they can all be plotted on the private line chart
     entry = {"date": today_str, "average_snow_depth_cm": avg_snow_depth}
     for r in results:
         entry[f"{r['id']}_depth_cm"] = r["snow_depth_cm"]
