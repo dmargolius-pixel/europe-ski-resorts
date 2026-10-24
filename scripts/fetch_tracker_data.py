@@ -49,7 +49,9 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
             "snow_anomaly_pct": previous_resort_data.get("snow_anomaly_pct", 0.0),
             "weekly_precip_mm": previous_resort_data.get("weekly_precip_mm", 0.0),
             "avg_freezing_level_m": previous_resort_data.get("avg_freezing_level_m", 0),
-            "snow_depth_cm": previous_resort_data.get("snow_depth_cm", 0.0)
+            "snow_depth_cm": previous_resort_data.get("snow_depth_cm", 0.0),
+            "baseline_snow_depth_cm": previous_resort_data.get("baseline_snow_depth_cm", 0.0),
+            "snow_depth_diff_cm": previous_resort_data.get("snow_depth_diff_cm", 0.0)
         }
 
     snow_list = current_data.get("snowfall") or []
@@ -68,6 +70,7 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
     today = datetime.now(timezone.utc).date()
     start_date = today - timedelta(days=7)
     era5_snow_totals = []
+    era5_depth_totals = []
     
     for year in range(2014, 2024):
         hist_start = f"{year}-{start_date.strftime('%m-%d')}"
@@ -77,7 +80,7 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
             f"https://archive-api.open-meteo.com/v1/archive?"
             f"latitude={lat}&longitude={lon}&elevation={elevation}"
             f"&start_date={hist_start}&end_date={hist_end}"
-            f"&hourly=snowfall"
+            f"&hourly=snowfall,snow_depth"
             f"&timezone=auto"
         )
         try:
@@ -86,10 +89,16 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
             hist_snow_list = hist_data.get("snowfall") or []
             total_hist = sum(s for s in hist_snow_list if s is not None)
             era5_snow_totals.append(total_hist)
+
+            hist_depth_list = [d for d in (hist_data.get("snow_depth") or []) if d is not None]
+            if hist_depth_list:
+                era5_depth_totals.append(hist_depth_list[-1] * 100)
         except Exception:
             continue
 
     baseline_snow = sum(era5_snow_totals) / len(era5_snow_totals) if era5_snow_totals else 0.0
+    baseline_depth = sum(era5_depth_totals) / len(era5_depth_totals) if era5_depth_totals else 0.0
+    snow_depth_diff = round(current_snow_depth - baseline_depth, 1)
 
     # Prevent early-season distortions when both current and baseline snow are negligible (< 2.0 cm)
     if baseline_snow < 2.0 and current_snow < 2.0:
@@ -106,7 +115,9 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
         "snow_anomaly_pct": snow_anomaly_pct,
         "weekly_precip_mm": round(current_precip, 1),
         "avg_freezing_level_m": round(avg_freezing_level),
-        "snow_depth_cm": round(current_snow_depth, 1)
+        "snow_depth_cm": round(current_snow_depth, 1),
+        "baseline_snow_depth_cm": round(baseline_depth, 1),
+        "snow_depth_diff_cm": snow_depth_diff
     }
 
 def main():
@@ -117,7 +128,6 @@ def main():
     with open(RESORTS_FILE, "r") as f:
         resorts = json.load(f)
 
-    # Load previous tracker output as a fallback cache in case of API 503 errors
     previous_resorts_map = {}
     if os.path.exists(OUTPUT_FILE):
         try:
@@ -148,15 +158,22 @@ def main():
         if r["id"] in target_marquee_ids:
             marquee_depths[r["id"]] = resort_data["snow_depth_cm"]
 
-    # Group by mid-mountain elevation: High (>= 2200m) vs Low (< 1800m)
+    # Group by mid-mountain elevation: High (>= 2200m), Mid (1800-2199m), Low (< 1800m)
     high_alt = [r for r in results if r.get("mid_elevation", 0) >= 2200]
+    mid_alt = [r for r in results if 1800 <= r.get("mid_elevation", 0) < 2200]
     low_alt = [r for r in results if r.get("mid_elevation", 0) < 1800]
 
     avg_high_anomaly = sum(r["snow_anomaly_pct"] for r in high_alt) / len(high_alt) if high_alt else 0.0
+    avg_mid_anomaly = sum(r["snow_anomaly_pct"] for r in mid_alt) / len(mid_alt) if mid_alt else 0.0
     avg_low_anomaly = sum(r["snow_anomaly_pct"] for r in low_alt) / len(low_alt) if low_alt else 0.0
 
     avg_high_depth = sum(r["snow_depth_cm"] for r in high_alt) / len(high_alt) if high_alt else 0.0
+    avg_mid_depth = sum(r["snow_depth_cm"] for r in mid_alt) / len(mid_alt) if mid_alt else 0.0
     avg_low_depth = sum(r["snow_depth_cm"] for r in low_alt) / len(low_alt) if low_alt else 0.0
+
+    avg_high_base_depth = sum(r["baseline_snow_depth_cm"] for r in high_alt) / len(high_alt) if high_alt else 0.0
+    avg_mid_base_depth = sum(r["baseline_snow_depth_cm"] for r in mid_alt) / len(mid_alt) if mid_alt else 0.0
+    avg_low_base_depth = sum(r["baseline_snow_depth_cm"] for r in low_alt) / len(low_alt) if low_alt else 0.0
 
     valid_freezing_all = [r["avg_freezing_level_m"] for r in results if r.get("avg_freezing_level_m", 0) > 0]
     overall_freezing_level = round(sum(valid_freezing_all) / len(valid_freezing_all)) if valid_freezing_all else 0
@@ -168,9 +185,14 @@ def main():
         "summary": {
             "overall_sample_size": len(results),
             "high_altitude_snow_anomaly_pct": round(avg_high_anomaly, 1),
+            "mid_altitude_snow_anomaly_pct": round(avg_mid_anomaly, 1),
             "low_altitude_snow_anomaly_pct": round(avg_low_anomaly, 1),
             "high_altitude_snow_depth_cm": round(avg_high_depth, 1),
+            "mid_altitude_snow_depth_cm": round(avg_mid_depth, 1),
             "low_altitude_snow_depth_cm": round(avg_low_depth, 1),
+            "high_altitude_baseline_depth_cm": round(avg_high_base_depth, 1),
+            "mid_altitude_baseline_depth_cm": round(avg_mid_base_depth, 1),
+            "low_altitude_baseline_depth_cm": round(avg_low_base_depth, 1),
             "overall_avg_freezing_level_m": overall_freezing_level
         },
         "resorts": results
