@@ -92,7 +92,9 @@ def get_resort_metrics(lat, lon, elevation, previous_resort_data=None):
 
             hist_depth_list = [d for d in (hist_data.get("snow_depth") or []) if d is not None]
             if hist_depth_list:
-                era5_depth_totals.append(hist_depth_list[-1] * 100)
+                depth_cm = hist_depth_list[-1] * 100
+                if depth_cm < 250:  # Ignore ERA5 permanent-glacier ice grid cell artefacts
+                    era5_depth_totals.append(depth_cm)
         except Exception:
             continue
 
