@@ -62,6 +62,15 @@
       "zermatt_snow_depth_cm": 33.0,
       "kitzbuhel_snow_depth_cm": 0.0,
       "cortina_snow_depth_cm": 5.0
+    },
+    {
+      "date": "2026-10-25",
+      "high_alt_snow_depth_cm": 8.4,
+      "low_alt_snow_depth_cm": 0.3,
+      "meribel_snow_depth_cm": 4.0,
+      "zermatt_snow_depth_cm": 34.0,
+      "kitzbuhel_snow_depth_cm": 0.0,
+      "cortina_snow_depth_cm": 6.0
     }
   ]
 }
