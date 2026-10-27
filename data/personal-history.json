@@ -90,6 +90,19 @@
       "avoriaz_depth_cm": 2.0,
       "tignes_depth_cm": 5.0,
       "val-disere_depth_cm": 4.0
+    },
+    {
+      "date": "2026-10-27",
+      "average_snow_depth_cm": 0.9,
+      "saas-fee_depth_cm": 2.0,
+      "zell-am-see_depth_cm": 0.0,
+      "kaprun_depth_cm": 0.0,
+      "meribel_depth_cm": 1.0,
+      "isola-2000_depth_cm": 0.0,
+      "belle-plagne_depth_cm": 3.0,
+      "avoriaz_depth_cm": 0.0,
+      "tignes_depth_cm": 1.0,
+      "val-disere_depth_cm": 1.0
     }
   ]
 }
