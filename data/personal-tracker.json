@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-11-03T10:44:14.162586+00:00",
+  "last_updated": "2026-11-04T10:04:51.411740+00:00",
   "summary": {
     "sample_size": 9,
-    "average_snow_depth_cm": 0.4,
-    "overall_avg_freezing_level_m": 2687
+    "average_snow_depth_cm": 0.8,
+    "overall_avg_freezing_level_m": 2499
   },
   "resorts": [
     {
@@ -16,12 +16,12 @@
       "peak_elevation": 3600,
       "mid_elevation": 2700,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 32.3,
+      "baseline_snowfall_cm": 37.8,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 2916,
-      "snow_depth_cm": 3.0,
-      "baseline_snow_depth_cm": 34.1
+      "avg_freezing_level_m": 2716,
+      "snow_depth_cm": 4.0,
+      "baseline_snow_depth_cm": 39.6
     },
     {
       "id": "zell-am-see",
@@ -36,9 +36,9 @@
       "baseline_snowfall_cm": 9.5,
       "snow_anomaly_pct": -99.3,
       "weekly_precip_mm": 6.9,
-      "avg_freezing_level_m": 1963,
+      "avg_freezing_level_m": 1828,
       "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 6.1
+      "baseline_snow_depth_cm": 8.5
     },
     {
       "id": "kaprun",
@@ -50,12 +50,12 @@
       "peak_elevation": 3029,
       "mid_elevation": 1970,
       "current_snowfall_cm": 1.2,
-      "baseline_snowfall_cm": 17.2,
-      "snow_anomaly_pct": -93.1,
+      "baseline_snowfall_cm": 17.0,
+      "snow_anomaly_pct": -93.0,
       "weekly_precip_mm": 10.7,
-      "avg_freezing_level_m": 1962,
+      "avg_freezing_level_m": 1857,
       "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 14.9
+      "baseline_snow_depth_cm": 18.4
     },
     {
       "id": "meribel",
@@ -67,12 +67,12 @@
       "peak_elevation": 2952,
       "mid_elevation": 2201,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 17.4,
+      "baseline_snowfall_cm": 19.5,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 2893,
+      "avg_freezing_level_m": 2685,
       "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 14.6
+      "baseline_snow_depth_cm": 18.6
     },
     {
       "id": "isola-2000",
@@ -83,13 +83,13 @@
       "base_elevation": 1800,
       "peak_elevation": 2610,
       "mid_elevation": 2205,
-      "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 8.6,
-      "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 1.4,
-      "avg_freezing_level_m": 2802,
-      "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 2.5
+      "current_snowfall_cm": 0.9,
+      "baseline_snowfall_cm": 9.6,
+      "snow_anomaly_pct": -90.5,
+      "weekly_precip_mm": 6.0,
+      "avg_freezing_level_m": 2546,
+      "snow_depth_cm": 2.0,
+      "baseline_snow_depth_cm": 2.7
     },
     {
       "id": "belle-plagne",
@@ -101,12 +101,12 @@
       "peak_elevation": 3250,
       "mid_elevation": 2650,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 19.1,
+      "baseline_snowfall_cm": 22.2,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 2916,
+      "avg_freezing_level_m": 2713,
       "snow_depth_cm": 1.0,
-      "baseline_snow_depth_cm": 21.4
+      "baseline_snow_depth_cm": 27.1
     },
     {
       "id": "avoriaz",
@@ -118,12 +118,12 @@
       "peak_elevation": 2466,
       "mid_elevation": 2133,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 9.7,
+      "baseline_snowfall_cm": 10.4,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 2831,
+      "avg_freezing_level_m": 2640,
       "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 3.5
+      "baseline_snow_depth_cm": 4.3
     },
     {
       "id": "tignes",
@@ -135,12 +135,12 @@
       "peak_elevation": 3456,
       "mid_elevation": 2778,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 23.3,
+      "baseline_snowfall_cm": 28.8,
       "snow_anomaly_pct": -100.0,
       "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 2946,
+      "avg_freezing_level_m": 2757,
       "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 18.8
+      "baseline_snow_depth_cm": 24.2
     },
     {
       "id": "val-disere",
@@ -152,12 +152,12 @@
       "peak_elevation": 3456,
       "mid_elevation": 2653,
       "current_snowfall_cm": 0.0,
-      "baseline_snowfall_cm": 23.7,
+      "baseline_snowfall_cm": 29.2,
       "snow_anomaly_pct": -100.0,
-      "weekly_precip_mm": 0.0,
-      "avg_freezing_level_m": 2953,
+      "weekly_precip_mm": 0.1,
+      "avg_freezing_level_m": 2752,
       "snow_depth_cm": 0.0,
-      "baseline_snow_depth_cm": 22.9
+      "baseline_snow_depth_cm": 29.3
     }
   ]
 }
