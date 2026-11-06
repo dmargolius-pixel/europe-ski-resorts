@@ -111,10 +111,15 @@ def get_resort_metrics(lat, lon, base_elev, mid_elev, peak_elev, previous_resort
 
     today = datetime.now(timezone.utc).date()
     start_date = today - timedelta(days=7)
+    # Dynamically calculate the last 10 completed calendar years
+    current_calendar_year = datetime.now(timezone.utc).year
+    start_historical_year = current_calendar_year - 10
+    end_historical_year = current_calendar_year - 1
+    
     era5_snow_totals = []
     era5_depth_totals = []
     
-    for year in range(2014, 2024):
+    for year in range(start_historical_year, end_historical_year + 1):
         hist_start = f"{year}-{start_date.strftime('%m-%d')}"
         hist_end = f"{year}-{today.strftime('%m-%d')}"
         
@@ -139,7 +144,6 @@ def get_resort_metrics(lat, lon, base_elev, mid_elev, peak_elev, previous_resort
                     era5_depth_totals.append(depth_cm)
         except Exception:
             continue
-
     baseline_snow = sum(era5_snow_totals) / len(era5_snow_totals) if era5_snow_totals else 0.0
     baseline_depth = sum(era5_depth_totals) / len(era5_depth_totals) if era5_depth_totals else 0.0
 
