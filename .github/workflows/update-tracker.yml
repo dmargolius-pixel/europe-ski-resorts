@@ -25,8 +25,7 @@ jobs:
 
       - name: Run Data Collector Scripts
         run: |
-          python scripts/fetch_tracker_data.py
-          python scripts/fetch_personal_tracker_data.py
+          python scripts/fetch_all_trackers.py
 
       - name: Commit and Push Updated Data
         run: |
