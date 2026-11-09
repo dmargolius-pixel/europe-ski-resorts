@@ -1,0 +1,52 @@
+name: Assign Ski Resort Characteristics & Features
+
+on:
+  workflow_dispatch:
+    inputs:
+      offset:
+        description: 'Starting row offset (0 for beginning)'
+        required: false
+        default: '0'
+      limit:
+        description: 'Batch size limit (0 = all 435 resorts at once)'
+        required: false
+        default: '0'
+      live_scrape:
+        description: 'Run live Skiresort.info web scraping in addition to Hybrid Engine? (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  assign-characteristics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 urllib3
+
+      - name: Run Resort Characteristics Classifier
+        run: |
+          EXTRA_FLAG=""
+          if [ "${{ github.event.inputs.live_scrape }}" = "true" ]; then
+            EXTRA_FLAG="--live-scrape"
+          fi
+          python assign_resort_characteristics.py --offset ${{ github.event.inputs.offset || 0 }} --limit ${{ github.event.inputs.limit || 0 }} $EXTRA_FLAG
+
+      - name: Upload Enriched Master CSV & Audit Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ski-resorts-with-characteristics
+          path: |
+            Ski resorts - Master with Characteristics.csv
+            resort_characteristics_audit.csv
+          retention-days: 30
