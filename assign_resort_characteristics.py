@@ -28,51 +28,54 @@ HEADERS = {
 }
 
 # ==============================================================================
-# STRICT, SENSE-CHECKED EUROPEAN SKI RESORT KNOWLEDGE BASE (v2)
+# STRICT, SENSE-CHECKED EUROPEAN SKI RESORT KNOWLEDGE BASE (v3)
 # ==============================================================================
 
-# 1. Resorts with a verified Winter Half-Pipe / Superpipe (~28 resorts)
+# 1. Resorts with a Verified Winter Half-Pipe / Superpipe (~22 resorts)
 HALF_PIPE_RESORTS = {
-    'laax', 'avoriaz', 'tignes', 'livigno', 'crans-montana', 'zermatt',
-    'saas-fee', 'stubai glacier', 'kitzsteinhorn - kaprun', 'mayrhofen',
-    'les deux alpes', 'davos klosters', 'kühtai', 'ischgl', 'st. moritz',
-    'grindelwald-wengen', 'flachau', 'serfaus-fiss-ladis', 'alpe d\'huez',
-    'val thorens', 'les arcs', 'la plagne', 'chamonix', 'courchevel',
-    'méribel', 'sierra nevada', 'baqueira-beret', 'hemsedal', 'trysil',
-    'åre', 'ruka', 'levi', 'špindlerův mlýn', 'sölden'
+    'laax', 'crans-montana', 'saas-fee', 'zermatt', 'davos klosters',
+    'st. moritz', 'grindelwald-wengen', 'leysin', 'avoriaz', 'tignes',
+    'les deux alpes', 'châtel', 'livigno', 'bardonecchia',
+    'madonna di campiglio', 'monte bondone', 'kitzsteinhorn - kaprun',
+    'mayrhofen', 'kühtai', 'kreischberg', 'diedamskopf', 'sierra nevada',
+    'grandvalira', 'špindlerův mlýn', 'ruka'
 }
 
-# 2. Resorts with Major Dedicated Snowparks / Terrain Parks
+# 2. Resorts with Major Dedicated Snowparks / Terrain Parks (~135 resorts)
 SNOWPARK_RESORTS = HALF_PIPE_RESORTS | {
-    'les gets', 'morzine', 'châtel', 'flaine', 'samoëns', 'les menuires',
-    'val d\'isère', 'serre chevalier', 'vars', 'risoul 1850', 'isola 2000',
-    'les 7 laux', 'la clusaz', 'le grand bornand', 'chamrousse', 'les orres',
-    'montgenèvre', 'valmorel', 'grand tourmalet', 'saint-lary-soulan',
-    'cauterets', 'grandvalira', 'vallnord', 'formigal', 'cerler',
-    'la molina', 'masella', 'saalbach', 'hinterglemm', 'leogang', 'fieberbrunn',
+    'les gets', 'morzine', 'flaine', 'samoëns', 'les menuires',
+    'val thorens', 'méribel', 'courchevel', 'les arcs', 'la plagne',
+    'val d\'isère', 'alpe d\'huez', 'chamonix', 'serre chevalier', 'vars',
+    'risoul 1850', 'isola 2000', 'les 7 laux', 'la clusaz',
+    'le grand bornand', 'chamrousse', 'les orres', 'montgenèvre',
+    'valmorel', 'grand tourmalet', 'saint-lary-soulan', 'cauterets',
+    'vallnord', 'baqueira-beret', 'formigal', 'cerler', 'la molina',
+    'masella', 'saalbach', 'hinterglemm', 'leogang', 'fieberbrunn',
     'zell am ziller', 'gerlos', 'königsleiten', 'zillertal arena',
-    'hochzillertal-hochfügen', 'schladming', 'reiteralm', 'obertauern',
-    'nassfeld', 'bad gastein', 'hochkönig', 'steinplatte-waidring',
-    'kitzbühel', 'westendorf', 'ellmau', 'söll', 'st. anton am arlberg',
-    'lech zürs', 'axamer lizum', 'hochoetz', 'hochzeiger', 'nauders',
-    'kaunertal glacier', 'pitztal glacier', 'hintertux glacier', 'kreischberg',
-    'turracher höhe', 'gerlitzen', 'katschberg-aineck', 'diedamskopf',
-    'damüls-mellau', 'silvretta montafon', 'brandnertal', 'golm', 'alpbach',
-    'kronplatz', 'alta badia', 'val gardena', 'obereggen',
-    'alpe lusia / san pellegrino', 'val di fassa', 'canazei',
-    'madonna di campiglio', 'passo tonale', 'bormio', 'bardonecchia',
-    'sestriere', 'sauze d\'oulx', 'cervinia', 'pila',
-    'mondolè ski (prato nevoso)', '3 zinnen dolomites', 'carezza', 'plose',
-    'schöneben-haideralm', 'verbier', 'nendaz', 'veysonnaz', 'thyon',
-    'adelboden-lenk', 'lenk', 'arosa', 'flumserberg', 'hoch-ybrig',
-    'engelberg', 'andermatt', 'melchsee-frutt', 'scuol', 'savognin',
-    'villars-gryon', 'leysin', 'val d\'anniviers', 'feldberg', 'oberstdorf',
-    'brauneck', 'spitzingsee-tegernsee', 'sudelfeld', 'winterberg',
-    'großer arber', 'klínovec', 'pec pod sněžkou', 'jasná', 'donovaly',
+    'hochzillertal-hochfügen', 'schladming', 'reiteralm', 'flachau',
+    'wagrain', 'zauchensee', 'obertauern', 'nassfeld', 'bad gastein',
+    'hochkönig', 'steinplatte-waidring', 'kitzbühel', 'westendorf',
+    'ellmau', 'söll', 'st. anton am arlberg', 'lech zürs', 'ischgl',
+    'sölden', 'serfaus-fiss-ladis', 'axamer lizum', 'hochoetz',
+    'hochzeiger', 'nauders', 'stubai glacier', 'kaunertal glacier',
+    'pitztal glacier', 'hintertux glacier', 'turracher höhe', 'gerlitzen',
+    'katschberg-aineck', 'damüls-mellau', 'silvretta montafon',
+    'brandnertal', 'golm', 'alpbach', 'kronplatz', 'alta badia',
+    'val gardena', 'obereggen', 'alpe lusia / san pellegrino',
+    'val di fassa', 'canazei', 'passo tonale', 'bormio', 'sestriere',
+    'sauze d\'oulx', 'cervinia', 'pila', 'mondolè ski (prato nevoso)',
+    '3 zinnen dolomites', 'carezza', 'plose', 'schöneben-haideralm',
+    'verbier', 'nendaz', 'veysonnaz', 'thyon', 'adelboden-lenk', 'lenk',
+    'arosa', 'flumserberg', 'hoch-ybrig', 'engelberg', 'andermatt',
+    'melchsee-frutt', 'scuol', 'savognin', 'villars-gryon',
+    'val d\'anniviers', 'feldberg', 'oberstdorf', 'brauneck',
+    'spitzingsee-tegernsee', 'sudelfeld', 'winterberg', 'großer arber',
+    'klínovec', 'pec pod sněžkou', 'jasná', 'donovaly',
     'białka tatrzańska', 'szczyrk', 'vogel', 'krvavec', 'kranjska gora',
     'jahorina', 'kopaonik', 'bansko', 'borovets', 'pamporovo', 'gudauri',
-    'bukovel', 'geilo', 'hafjell', 'kvitfjell', 'myrkdalen', 'sälen',
-    'idre fjäll', 'branäs', 'vemdalen', 'stöten', 'ylläs'
+    'bukovel', 'geilo', 'hafjell', 'kvitfjell', 'myrkdalen', 'hemsedal',
+    'trysil', 'åre', 'sälen', 'idre fjäll', 'branäs', 'vemdalen',
+    'stöten', 'levi', 'ylläs'
 }
 
 # 3. True Operational Alpine Glacier Ski Resorts (Requires Top Elevation >= 2650m)
@@ -85,30 +88,31 @@ GLACIER_RESORTS = {
     'arabba / marmolada'
 }
 
-# 4. Famous Lively Après-Ski Hubs
+# 4. Famous Lively Après-Ski Hubs (~75 resorts)
 LIVELY_APRES_RESORTS = {
     'ischgl', 'st. anton am arlberg', 'lech zürs', 'sölden', 'saalbach',
     'hinterglemm', 'mayrhofen', 'flachau', 'wagrain', 'schladming',
-    'obertauern', 'kitzbühel', 'westendorf', 'söll', 'ellmau',
-    'gerlos', 'zell am ziller', 'zillertal arena', 'bad gastein',
+    'obertauern', 'kitzbühel', 'westendorf', 'söll', 'ellmau', 'gerlos',
+    'zell am ziller', 'zillertal arena', 'bad gastein',
     'serfaus-fiss-ladis', 'nassfeld', 'zell am see',
-    'kitzsteinhorn - kaprun', 'hochzillertal-hochfügen', 'fügen - spieljoch',
-    'val d\'isère', 'tignes', 'val thorens', 'méribel', 'courchevel',
-    'les deux alpes', 'alpe d\'huez', 'chamonix', 'avoriaz', 'morzine',
-    'les gets', 'les arcs', 'la clusaz', 'serre chevalier', 'vars',
-    'risoul 1850', 'grandvalira', 'verbier', 'zermatt', 'davos klosters',
-    'laax', 'st. moritz', 'grindelwald-wengen', 'crans-montana', 'engelberg',
-    'arosa', 'saas-fee', 'livigno', 'madonna di campiglio',
-    'val gardena', 'canazei', 'val di fassa', 'alta badia', 'cortina d\'ampezzo',
+    'kitzsteinhorn - kaprun', 'hochzillertal-hochfügen',
+    'fügen - spieljoch', 'val d\'isère', 'tignes', 'val thorens',
+    'méribel', 'courchevel', 'les deux alpes', 'alpe d\'huez', 'chamonix',
+    'avoriaz', 'morzine', 'les gets', 'les arcs', 'la clusaz',
+    'serre chevalier', 'vars', 'risoul 1850', 'grandvalira', 'verbier',
+    'zermatt', 'davos klosters', 'laax', 'st. moritz',
+    'grindelwald-wengen', 'crans-montana', 'engelberg', 'arosa',
+    'saas-fee', 'livigno', 'madonna di campiglio', 'val gardena',
+    'canazei', 'val di fassa', 'alta badia', 'cortina d\'ampezzo',
     'cervinia', 'sauze d\'oulx', 'sestriere', 'bormio', 'passo tonale',
-    'kronplatz', 'winterberg', 'garmisch-partenkirchen',
-    'bansko', 'borovets', 'špindlerův mlýn', 'jasná', 'zakopane',
+    'kronplatz', 'winterberg', 'garmisch-partenkirchen', 'bansko',
+    'borovets', 'špindlerův mlýn', 'jasná', 'zakopane',
     'białka tatrzańska', 'kranjska gora', 'baqueira-beret', 'formigal',
     'sierra nevada', 'åre', 'hemsedal', 'trysil', 'levi', 'ruka',
     'gudauri', 'bukovel', 'kopaonik', 'jahorina', 'poiana brasov'
 }
 
-# 5. True Doorstep Ski-in / Ski-out Resorts (Purpose-built stations & car-free slope villages)
+# 5. True Doorstep Ski-in / Ski-out Resorts (~80 purpose-built stations & car-free slope villages)
 SKI_IN_SKI_OUT_RESORTS = {
     'avoriaz', 'val thorens', 'les menuires', 'st martin de belleville',
     'méribel', 'courchevel', 'la plagne', 'les arcs', 'peisey-vallandry',
@@ -125,54 +129,53 @@ SKI_IN_SKI_OUT_RESORTS = {
     'nassfeld', 'hochrindl', 'klippitztörl', 'weinebene', 'cervinia',
     'sestriere', 'sansicario', 'claviere', 'pragelato', 'passo tonale',
     'folgarida - marilleva', 'monte bondone', 'mondolè ski (prato nevoso)',
-    'aletsch arena', 'mürren', 'grindelwald-wengen', 'melchsee-frutt',
-    'stoos', 'flumserberg', 'crans-montana', 'anzère', 'thyon',
-    'grandvalira', 'baqueira-beret', 'sierra nevada', 'formigal',
-    'trysil', 'hemsedal', 'hafjell', 'kvitfjell', 'myrkdalen', 'sälen',
+    'aletsch arena', 'mürren', 'melchsee-frutt', 'stoos', 'flumserberg',
+    'anzère', 'thyon', 'baqueira-beret', 'sierra nevada', 'trysil',
+    'hemsedal', 'hafjell', 'kvitfjell', 'myrkdalen', 'sälen',
     'idre fjäll', 'branäs', 'vemdalen', 'stöten', 'levi', 'ruka',
     'gudauri', 'kopaonik', 'jahorina'
 }
 
-# 6. Genuine Challenging Runs & Steep Black Terrain
+# 6. Genuine Challenging Runs & Steep Black Terrain (~115 resorts)
 CHALLENGING_RESORTS = {
     'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'ischgl',
-    'sölden', 'kitzbühel', 'mayrhofen', 'hintertux glacier', 'stubai glacier',
-    'pitztal glacier', 'kaunertal glacier', 'kitzsteinhorn - kaprun',
-    'obergurgl-hochgurgl', 'serfaus-fiss-ladis', 'silvretta montafon',
-    'gargellen', 'golm', 'sonnenkopf', 'damüls-mellau', 'diedamskopf',
-    'schladming', 'reiteralm', 'zauchensee', 'bad gastein', 'obertauern',
-    'saalbach', 'hinterglemm', 'fieberbrunn', 'zell am see', 'nassfeld',
-    'bad kleinkirchheim', 'grossglockner resort kals-matrei', 'heiligenblut',
+    'sölden', 'kitzbühel', 'mayrhofen', 'hintertux glacier',
+    'stubai glacier', 'pitztal glacier', 'kaunertal glacier',
+    'kitzsteinhorn - kaprun', 'obergurgl-hochgurgl', 'serfaus-fiss-ladis',
+    'silvretta montafon', 'gargellen', 'golm', 'sonnenkopf',
+    'damüls-mellau', 'diedamskopf', 'schladming', 'reiteralm',
+    'zauchensee', 'bad gastein', 'obertauern', 'saalbach', 'hinterglemm',
+    'fieberbrunn', 'zell am see', 'nassfeld', 'bad kleinkirchheim',
+    'grossglockner resort kals-matrei', 'heiligenblut',
     'ankogel-mallnitz', 'mölltal glacier', 'dachstein krippenstein',
-    'axamer lizum', 'nordkette', 'hochzillertal-hochfügen',
-    'chamonix', 'la grave', 'val d\'isère', 'tignes', 'val thorens',
-    'les menuires', 'méribel', 'courchevel', 'les arcs', 'la plagne',
-    'peisey-vallandry', 'alpe d\'huez', 'les deux alpes', 'serre chevalier',
-    'avoriaz', 'flaine', 'la clusaz', 'le grand bornand', 'megève',
-    'les contamines-montjoie', 'sainte-foy', 'bonneval-sur-arc', 'les 7 laux',
-    'chamrousse', 'isola 2000', 'vars', 'risoul 1850', 'grand tourmalet',
-    'gourette', 'cauterets', 'luz-ardiden', 'piau engaly', 'saint-lary-soulan',
-    'verbier', 'zermatt', 'saas-fee', 'engelberg', 'andermatt', 'mürren',
-    'grindelwald-wengen', 'laax', 'davos klosters', 'st. moritz', 'arosa',
+    'axamer lizum', 'nordkette', 'hochzillertal-hochfügen', 'chamonix',
+    'la grave', 'val d\'isère', 'tignes', 'val thorens', 'les menuires',
+    'méribel', 'courchevel', 'les arcs', 'la plagne', 'peisey-vallandry',
+    'alpe d\'huez', 'les deux alpes', 'serre chevalier', 'avoriaz',
+    'flaine', 'la clusaz', 'le grand bornand', 'les contamines-montjoie',
+    'sainte-foy', 'bonneval-sur-arc', 'les 7 laux', 'chamrousse',
+    'isola 2000', 'grand tourmalet', 'gourette', 'cauterets',
+    'luz-ardiden', 'piau engaly', 'saint-lary-soulan', 'verbier',
+    'zermatt', 'saas-fee', 'engelberg', 'andermatt', 'mürren',
+    'grindelwald-wengen', 'laax', 'davos klosters', 'st. moritz',
     'crans-montana', 'nendaz', 'veysonnaz', 'thyon', 'val d\'anniviers',
-    'adelboden-lenk', 'flumserberg', 'pizol', 'scuol', 'splügen-tambo',
-    'disentis 3000', 'lauchernalp', 'arolla', 'arabba / marmolada',
-    'cortina d\'ampezzo', 'val gardena', 'alta badia', 'kronplatz',
-    '3 zinnen dolomites', 'madonna di campiglio', 'passo tonale', 'bormio',
-    'santa caterina valfurva', 'livigno', 'madesimo', 'cervinia',
-    'courmayeur', 'la thuile', 'monterosa ski', 'sestriere', 'sauze d\'oulx',
-    'bardonecchia', 'limone piemonte', 'pila', 'ravascletto-zoncolan',
-    'tarvisio', 'sella nevea', 'schnalstal', 'sulden am ortler', 'klausberg',
-    'plose', 'campo imperatore', 'roccaraso', 'garmisch-partenkirchen',
-    'oberstdorf', 'jenner', 'kampenwand', 'feldberg', 'grandvalira',
-    'ordino arcalis', 'baqueira-beret', 'boí taüll', 'cerler', 'formigal',
-    'astún', 'candanchú', 'sierra nevada', 'jasná', 'tatranská lomnica',
+    'flumserberg', 'pizol', 'scuol', 'splügen-tambo', 'disentis 3000',
+    'lauchernalp', 'arolla', 'arabba / marmolada', 'cortina d\'ampezzo',
+    'val gardena', 'madonna di campiglio', 'passo tonale', 'bormio',
+    'santa caterina valfurva', 'livigno', 'madesimo', 'courmayeur',
+    'la thuile', 'monterosa ski', 'sestriere', 'sauze d\'oulx',
+    'bardonecchia', 'limone piemonte', 'ravascletto-zoncolan', 'tarvisio',
+    'sella nevea', 'schnalstal', 'sulden am ortler', 'campo imperatore',
+    'roccaraso', 'garmisch-partenkirchen', 'oberstdorf', 'jenner',
+    'kampenwand', 'feldberg', 'grandvalira', 'ordino arcalis',
+    'baqueira-beret', 'boí taüll', 'cerler', 'formigal', 'astún',
+    'candanchú', 'sierra nevada', 'jasná', 'tatranská lomnica',
     'zakopane', 'szczyrk', 'krvavec', 'kanin', 'bansko', 'borovets',
     'gudauri', 'bukovel', 'åre', 'riksgränsen', 'hemsedal', 'narvik',
     'strandafjellet', 'myrkdalen', 'kvitfjell', 'glencoe', 'nevis range'
 }
 
-# 7. Renowned Freeride & Off-Piste Terrain
+# 7. Renowned Freeride & Off-Piste Terrain (~115 resorts)
 FREERIDE_RESORTS = {
     'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'sonnenkopf',
     'ischgl', 'kappl', 'galtür', 'sölden', 'obergurgl-hochgurgl',
@@ -183,41 +186,55 @@ FREERIDE_RESORTS = {
     'heiligenblut', 'ankogel-mallnitz', 'mölltal glacier',
     'hintertux glacier', 'stubai glacier', 'pitztal glacier',
     'kaunertal glacier', 'kühtai', 'axamer lizum', 'nordkette',
-    'hochzillertal-hochfügen', 'mayrhofen', 'damüls-mellau', 'diedamskopf',
-    'gargellen', 'silvretta montafon', 'chamonix', 'la grave', 'val d\'isère',
-    'tignes', 'val thorens', 'les arcs', 'peisey-vallandry', 'la plagne',
-    'sainte-foy', 'la rosière', 'les deux alpes', 'alpe d\'huez',
-    'serre chevalier', 'montgenèvre', 'la clusaz', 'flaine', 'avoriaz',
-    'les 7 laux', 'pralognan-la-vanoise', 'bonneval-sur-arc',
-    'grand tourmalet', 'piau engaly', 'cauterets', 'luz-ardiden',
-    'verbier', 'nendaz', 'veysonnaz', 'thyon', 'zermatt', 'saas-fee',
-    'engelberg', 'andermatt', 'disentis 3000', 'laax', 'davos klosters',
-    'st. moritz', 'arosa', 'splügen-tambo', 'lauchernalp', 'arolla',
-    'val d\'anniviers', 'mürren', 'pizol', 'elm', 'scuol', 'vals 3000',
-    'monterosa ski', 'courmayeur', 'la thuile', 'cervinia',
-    'arabba / marmolada', 'cortina d\'ampezzo', 'val gardena', 'canazei',
-    'passo tonale', 'livigno', 'bormio', 'madesimo', 'sestriere',
-    'sauze d\'oulx', 'pragelato', 'sella nevea', 'kanin',
-    'sulden am ortler', 'schnalstal', 'campo imperatore',
-    'etna nord - piano provenzana', 'ordino arcalis', 'grandvalira',
-    'baqueira-beret', 'boí taüll', 'cerler', 'formigal', 'astún',
-    'candanchú', 'riksgränsen', 'narvik', 'strandafjellet', 'myrkdalen',
-    'hemsedal', 'åre', 'gudauri', 'bansko', 'jasná', 'zakopane',
-    'glencoe', 'nevis range'
+    'hochzillertal-hochfügen', 'mayrhofen', 'damüls-mellau',
+    'diedamskopf', 'gargellen', 'silvretta montafon', 'chamonix',
+    'la grave', 'val d\'isère', 'tignes', 'val thorens', 'les arcs',
+    'peisey-vallandry', 'la plagne', 'sainte-foy', 'la rosière',
+    'les deux alpes', 'alpe d\'huez', 'serre chevalier', 'montgenèvre',
+    'la clusaz', 'flaine', 'avoriaz', 'les 7 laux',
+    'pralognan-la-vanoise', 'bonneval-sur-arc', 'grand tourmalet',
+    'piau engaly', 'cauterets', 'luz-ardiden', 'verbier', 'nendaz',
+    'veysonnaz', 'thyon', 'zermatt', 'saas-fee', 'engelberg', 'andermatt',
+    'disentis 3000', 'laax', 'davos klosters', 'st. moritz', 'arosa',
+    'splügen-tambo', 'lauchernalp', 'arolla', 'val d\'anniviers',
+    'mürren', 'pizol', 'elm', 'scuol', 'vals 3000', 'monterosa ski',
+    'courmayeur', 'la thuile', 'cervinia', 'arabba / marmolada',
+    'cortina d\'ampezzo', 'val gardena', 'canazei', 'passo tonale',
+    'livigno', 'bormio', 'madesimo', 'sestriere', 'sauze d\'oulx',
+    'pragelato', 'sella nevea', 'kanin', 'sulden am ortler', 'schnalstal',
+    'campo imperatore', 'etna nord - piano provenzana', 'ordino arcalis',
+    'grandvalira', 'baqueira-beret', 'boí taüll', 'cerler', 'formigal',
+    'astún', 'candanchú', 'riksgränsen', 'narvik', 'strandafjellet',
+    'myrkdalen', 'hemsedal', 'åre', 'gudauri', 'bansko', 'jasná',
+    'zakopane', 'glencoe', 'nevis range'
 }
 
-# 8. Steep / Expert-Focused Resorts That Must NEVER Receive "Good for Beginners"
-EXPERT_ONLY_NOT_BEGINNER = {
-    'la grave', 'chamonix', 'st. anton am arlberg', 'verbier', 'andermatt',
-    'engelberg', 'mürren', 'cortina d\'ampezzo', 'arabba / marmolada',
+# 8. Steep / Advanced / Party-Focused Resorts Excluded From "Good for Beginners"
+NOT_BEGINNER_RESORTS = {
+    'la grave', 'chamonix', 'st. anton am arlberg', 'lech zürs', 'ischgl',
+    'sölden', 'mayrhofen', 'kitzbühel', 'obergurgl-hochgurgl',
+    'hintertux glacier', 'pitztal glacier', 'kaunertal glacier',
     'dachstein krippenstein', 'ankogel-mallnitz', 'mölltal glacier',
-    'weisssee gletscherwelt', 'nordkette', 'disentis 3000', 'kanin',
-    'sella nevea', 'campo imperatore', 'jenner', 'kampenwand', 'riksgränsen',
-    'narvik', 'strandafjellet', 'glencoe', 'nevis range', 'arolla',
-    'lauchernalp', 'vals 3000', 'monterosa ski'
+    'weisssee gletscherwelt', 'nordkette', 'heiligenblut',
+    'grossglockner resort kals-matrei', 'axamer lizum', 'fieberbrunn',
+    'bad gastein', 'zauchensee', 'val d\'isère', 'tignes', 'val thorens',
+    'les deux alpes', 'alpe d\'huez', 'les arcs', 'serre chevalier',
+    'la clusaz', 'les 7 laux', 'grand tourmalet', 'piau engaly', 'verbier',
+    'zermatt', 'saas-fee', 'engelberg', 'andermatt', 'mürren',
+    'disentis 3000', 'laax', 'davos klosters', 'st. moritz',
+    'lauchernalp', 'arolla', 'vals 3000', 'val d\'anniviers',
+    'splügen-tambo', 'pizol', 'cortina d\'ampezzo', 'arabba / marmolada',
+    'bormio', 'santa caterina valfurva', 'la thuile', 'courmayeur',
+    'monterosa ski', 'madesimo', 'sestriere', 'sauze d\'oulx',
+    'sella nevea', 'kanin', 'campo imperatore', 'sulden am ortler',
+    'schnalstal', 'jenner', 'kampenwand', 'garmisch-partenkirchen',
+    'oberstdorf', 'ordino arcalis', 'boí taüll', 'astún', 'candanchú',
+    'cerler', 'jasná', 'zakopane', 'szczyrk', 'krvavec', 'bansko',
+    'gudauri', 'åre', 'riksgränsen', 'narvik', 'strandafjellet',
+    'myrkdalen', 'kvitfjell', 'glencoe', 'nevis range'
 }
 
-# 9. Busy / Commuter / Major Resorts That Must NEVER Receive "Quiet Slopes"
+# 9. Busy / Commuter / Major Resorts Excluded From "Quiet Slopes"
 BUSY_RESORTS_NOT_QUIET = LIVELY_APRES_RESORTS | {
     'winterberg', 'feldberg', 'brauneck', 'spitzingsee-tegernsee',
     'sudelfeld', 'oberstdorf', 'garmisch-partenkirchen', 'großer arber',
@@ -234,599 +251,239 @@ BUSY_RESORTS_NOT_QUIET = LIVELY_APRES_RESORTS | {
     'puerto de navacerrada', 'valdesquí', 'astún', 'candanchú', 'cerler',
     'flumserberg', 'hoch-ybrig', 'mythenregion', 'stoos', 'sörenberg',
     'melchsee-frutt', 'adelboden-lenk', 'lenk', 'gstaad', 'villars-gryon',
-    'leysin', 'pizol', 'toggenburg', 'romme alpin', 'branäs', 'idre fjäll',
-    'sälen', 'vemdalen', 'hafjell', 'kvitfjell', 'geilo', 'oppdal'
+    'leysin', 'pizol', 'toggenburg', 'romme alpin', 'branäs',
+    'idre fjäll', 'sälen', 'vemdalen', 'hafjell', 'kvitfjell', 'geilo',
+    'oppdal'
 }
 
-# 10. Charming Traditional Alpine Villages
+# 10. Charming Traditional Alpine Villages (~140 resorts)
 CHARMING_VILLAGE_RESORTS = {
     'alpbach', 'auffach', 'niederau', 'ellmau', 'ellmau - going', 'söll',
     'westendorf', 'brixen im thale', 'hopfgarten', 'kitzbühel',
-    'st. johann in tirol', 'fieberbrunn', 'filzmoos', 'hochkönig', 'wagrain',
-    'radstadt-altenmarkt', 'schladming', 'tauplitz', 'loser - altaussee',
-    'dachstein west', 'annaberg', 'werfenweng', 'rauris', 'zell am see',
-    'bad gastein', 'bad kleinkirchheim', 'heiligenblut', 'lienz',
-    'grossglockner resort kals-matrei', 'st. jakob im defereggental',
-    'sillian-hochpustertal', 'seefeld - rosshütte', 'lermoos',
-    'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'galtür',
-    'ischgl', 'kappl', 'see', 'serfaus-fiss-ladis', 'nauders', 'mayrhofen',
-    'zell am ziller', 'gerlos', 'damüls-mellau', 'diedamskopf',
-    'brandnertal', 'gargellen', 'silvretta montafon', 'weissensee',
-    'megève', 'chamonix', 'les contamines-montjoie', 'la clusaz',
-    'le grand bornand', 'samoëns', 'les gets', 'morzine', 'châtel',
-    'bonneval-sur-arc', 'val d\'isère', 'st martin de belleville',
-    'valloire', 'val cenis', 'pralognan-la-vanoise', 'aussois', 'sainte-foy',
-    'serre chevalier', 'montgenèvre', 'cauterets', 'saint-lary-soulan',
-    'le mont-dore', 'zermatt', 'saas-fee', 'mürren', 'grindelwald-wengen',
-    'adelboden-lenk', 'lenk', 'gstaad', 'kandersteg', 'meiringen-hasliberg',
-    'engelberg', 'andermatt', 'davos klosters', 'st. moritz', 'scuol',
-    'arosa', 'brigels (breil)', 'disentis 3000', 'savognin', 'splügen-tambo',
-    'elm', 'val d\'anniviers', 'arolla', 'champex-lac', 'verbier',
-    'villars-gryon', 'malbun', 'cortina d\'ampezzo', 'val gardena',
-    'alta badia', 'canazei', 'val di fassa', 'arabba / marmolada',
-    '3 zinnen dolomites', 'madonna di campiglio', 'bormio', 'livigno',
-    'courmayeur', 'la thuile', 'monterosa ski', 'bardonecchia',
-    'sauze d\'oulx', 'limone piemonte', 'madesimo', 'santa caterina valfurva',
+    'st. johann in tirol', 'fieberbrunn', 'filzmoos', 'hochkönig',
+    'wagrain', 'radstadt-altenmarkt', 'schladming', 'tauplitz',
+    'loser - altaussee', 'dachstein west', 'annaberg', 'werfenweng',
+    'rauris', 'zell am see', 'bad gastein', 'bad kleinkirchheim',
+    'heiligenblut', 'lienz', 'grossglockner resort kals-matrei',
+    'st. jakob im defereggental', 'sillian-hochpustertal',
+    'seefeld - rosshütte', 'lermoos', 'st. anton am arlberg', 'lech zürs',
+    'warth-schröcken', 'galtür', 'ischgl', 'kappl', 'see',
+    'serfaus-fiss-ladis', 'nauders', 'mayrhofen', 'zell am ziller',
+    'gerlos', 'damüls-mellau', 'diedamskopf', 'brandnertal', 'gargellen',
+    'silvretta montafon', 'weissensee', 'megève', 'chamonix',
+    'les contamines-montjoie', 'la clusaz', 'le grand bornand', 'samoëns',
+    'les gets', 'morzine', 'châtel', 'bonneval-sur-arc', 'val d\'isère',
+    'st martin de belleville', 'valloire', 'val cenis',
+    'pralognan-la-vanoise', 'aussois', 'sainte-foy', 'serre chevalier',
+    'montgenèvre', 'cauterets', 'saint-lary-soulan', 'le mont-dore',
+    'zermatt', 'saas-fee', 'mürren', 'grindelwald-wengen',
+    'adelboden-lenk', 'lenk', 'gstaad', 'kandersteg',
+    'meiringen-hasliberg', 'engelberg', 'andermatt', 'davos klosters',
+    'st. moritz', 'scuol', 'arosa', 'brigels (breil)', 'disentis 3000',
+    'savognin', 'splügen-tambo', 'elm', 'val d\'anniviers', 'arolla',
+    'champex-lac', 'verbier', 'villars-gryon', 'malbun',
+    'cortina d\'ampezzo', 'val gardena', 'alta badia', 'canazei',
+    'val di fassa', 'arabba / marmolada', '3 zinnen dolomites',
+    'madonna di campiglio', 'bormio', 'livigno', 'courmayeur',
+    'la thuile', 'monterosa ski', 'bardonecchia', 'sauze d\'oulx',
+    'limone piemonte', 'madesimo', 'santa caterina valfurva',
     'val di fiemme', 'obereggen', 'carezza', 'meran 2000',
-    'monte cavallo - vipiteno', 'gitschberg jochtal', 'plose', 'reinswald',
-    'sulden am ortler', 'ladurns', 'civetta', 'san martino di castrozza',
-    'andalo - paganella', 'ravascletto-zoncolan', 'garmisch-partenkirchen',
-    'oberstdorf', 'reit im winkl', 'brauneck', 'sudelfeld',
-    'spitzingsee-tegernsee', 'balderschwang', 'oberjoch', 'baqueira-beret',
-    'cerler', 'formigal', 'panticosa', 'zakopane', 'białka tatrzańska',
-    'kranjska gora', 'špindlerův mlýn', 'pec pod sněžkou', 'bansko',
-    'sinaia', 'åre', 'geilo'
+    'monte cavallo - vipiteno', 'gitschberg jochtal', 'plose',
+    'reinswald', 'sulden am ortler', 'ladurns', 'civetta',
+    'san martino di castrozza', 'andalo - paganella',
+    'ravascletto-zoncolan', 'garmisch-partenkirchen', 'oberstdorf',
+    'reit im winkl', 'brauneck', 'sudelfeld', 'spitzingsee-tegernsee',
+    'balderschwang', 'oberjoch', 'baqueira-beret', 'cerler', 'formigal',
+    'panticosa', 'zakopane', 'białka tatrzańska', 'kranjska gora',
+    'špindlerův mlýn', 'pec pod sněžkou', 'bansko', 'sinaia', 'åre',
+    'geilo'
 }
 
-# 11. Verified Tree-Lined Runs (Wooded Slopes for Bad-Weather Visibility)
+# 11. Verified Tree-Lined Runs (~175 genuinely forested resorts)
 TREE_SKIING_RESORTS = {
-    'schladming', 'reiteralm', 'fageralm', 'flachau', 'wagrain', 'st. johann',
-    'radstadt-altenmarkt', 'zauchensee', 'filzmoos', 'hochkönig', 'bad gastein',
-    'grossarl', 'werfenweng', 'annaberg', 'dachstein west', 'tauplitz',
-    'loser - altaussee', 'riesneralm', 'galsterberg', 'kreischberg', 'lachtal',
-    'grebenzen', 'turracher höhe', 'bad kleinkirchheim', 'gerlitzen',
-    'nassfeld', 'katschberg-aineck', 'dreiländereck', 'simonhöhe', 'hochrindl',
-    'klippitztörl', 'kitzbühel', 'st. johann in tirol', 'steinplatte-waidring',
-    'st. ulrich-buchensteinwand', 'fieberbrunn', 'saalbach', 'hinterglemm',
-    'leogang', 'zell am see', 'ellmau', 'ellmau - going', 'söll',
-    'westendorf', 'brixen im thale', 'hopfgarten', 'alpbach', 'auffach',
-    'niederau', 'zahmer kaiser', 'hochkössen', 'achensee - christlum',
-    'fügen - spieljoch', 'hochzillertal-hochfügen', 'zell am ziller',
-    'patscherkofel', 'muttereralm', 'ranggerköpfl', 'schlick 2000',
-    'bergeralm', 'seefeld - rosshütte', 'lermoos', 'fendels',
-    'serfaus-fiss-ladis', 'nauders', 'hochoetz', 'hochzeiger', 'brandnertal',
-    'golm', 'silvretta montafon', 'kleinwalsertal (kanzelwand - ifen)',
-    'diedamskopf', 'laterns - gapfohl', 'hinterstoder', 'wurzeralm',
-    'kasberg', 'hochficht', 'hochkar', 'lackenhof am ötscher',
-    'gemeindealpe', 'semmering (stuhleck)', 'semmering (hirschenkogel)',
+    'schladming', 'reiteralm', 'fageralm', 'flachau', 'wagrain',
+    'st. johann', 'radstadt-altenmarkt', 'filzmoos', 'hochkönig',
+    'bad gastein', 'grossarl', 'werfenweng', 'annaberg', 'dachstein west',
+    'tauplitz', 'loser - altaussee', 'riesneralm', 'galsterberg',
+    'kreischberg', 'lachtal', 'grebenzen', 'turracher höhe',
+    'bad kleinkirchheim', 'gerlitzen', 'nassfeld', 'katschberg-aineck',
+    'dreiländereck', 'simonhöhe', 'hochrindl', 'klippitztörl',
+    'kitzbühel', 'st. johann in tirol', 'steinplatte-waidring',
+    'st. ulrich-buchensteinwand', 'fieberbrunn', 'saalbach',
+    'hinterglemm', 'leogang', 'zell am see', 'ellmau', 'ellmau - going',
+    'söll', 'westendorf', 'brixen im thale', 'hopfgarten', 'alpbach',
+    'auffach', 'niederau', 'zahmer kaiser', 'hochkössen',
+    'achensee - christlum', 'fügen - spieljoch', 'patscherkofel',
+    'muttereralm', 'ranggerköpfl', 'schlick 2000', 'bergeralm',
+    'seefeld - rosshütte', 'lermoos', 'fendels', 'nauders', 'hochoetz',
+    'hochzeiger', 'brandnertal', 'golm',
+    'kleinwalsertal (kanzelwand - ifen)', 'diedamskopf',
+    'laterns - gapfohl', 'hinterstoder', 'wurzeralm', 'kasberg',
+    'hochficht', 'hochkar', 'lackenhof am ötscher', 'gemeindealpe',
+    'semmering (stuhleck)', 'semmering (hirschenkogel)',
     'mönichkirchen-mariensee', 'serre chevalier', 'montgenèvre', 'vars',
-    'risoul 1850', 'les orres', 'praloup', 'val d\'allos (la foux)', 'auron',
-    'valberg', 'megève', 'les contamines-montjoie', 'la clusaz',
+    'risoul 1850', 'les orres', 'praloup', 'val d\'allos (la foux)',
+    'auron', 'valberg', 'megève', 'les contamines-montjoie', 'la clusaz',
     'le grand bornand', 'les gets', 'morzine', 'châtel', 'samoëns',
     'les carroz', 'praz de lys - sommand', 'les saisies', 'courchevel',
-    'méribel', 'peisey-vallandry', 'les arcs', 'la plagne', 'sainte-foy',
-    'la rosière', 'valmorel', 'val cenis', 'aussois', 'valfréjus',
-    'pralognan-la-vanoise', 'les 7 laux', 'chamrousse', 'les rousses',
-    'métabief', 'lélex-crozet', 'la bresse-hohneck', 'le lioran',
-    'le mont-dore', 'les angles', 'ax 3 domaines', 'guzet-neige',
-    'saint-lary-soulan', 'cauterets', 'gourette', 'la pierre saint-martin',
-    'madonna di campiglio', 'folgarida - marilleva', 'passo tonale',
-    'andalo - paganella', 'folgaria - fiorentini', 'monte bondone',
-    'kronplatz', '3 zinnen dolomites', 'alta badia', 'val gardena',
-    'obereggen', 'val di fiemme', 'carezza', 'alpe lusia / san pellegrino',
-    'canazei', 'val di fassa', 'civetta', 'cortina d\'ampezzo',
-    'san martino di castrozza', 'gitschberg jochtal', 'plose', 'meran 2000',
-    'reinswald', 'ratschings-jaufen', 'monte cavallo - vipiteno', 'ladurns',
-    'klausberg', 'speikboden', 'schöneben-haideralm', 'watles', 'schwemmalm',
-    'bormio', 'santa caterina valfurva', 'aprica', 'madesimo', 'pila',
-    'courmayeur', 'la thuile', 'sauze d\'oulx', 'bardonecchia', 'pragelato',
-    'claviere', 'sansicario', 'limone piemonte', 'tarvisio',
-    'ravascletto-zoncolan', 'abetone', 'camigliatello silano',
-    'garmisch-partenkirchen', 'brauneck', 'spitzingsee-tegernsee',
-    'sudelfeld', 'oberstdorf', 'oberjoch', 'balderschwang', 'reit im winkl',
-    'hocheck', 'großer arber', 'feldberg', 'winterberg', 'oberwiesenthal',
+    'méribel', 'peisey-vallandry', 'sainte-foy', 'la rosière', 'valmorel',
+    'val cenis', 'aussois', 'valfréjus', 'pralognan-la-vanoise',
+    'les 7 laux', 'chamrousse', 'les rousses', 'métabief', 'lélex-crozet',
+    'la bresse-hohneck', 'le lioran', 'le mont-dore', 'les angles',
+    'ax 3 domaines', 'guzet-neige', 'saint-lary-soulan', 'cauterets',
+    'gourette', 'la pierre saint-martin', 'madonna di campiglio',
+    'folgarida - marilleva', 'andalo - paganella',
+    'folgaria - fiorentini', 'monte bondone', 'kronplatz',
+    '3 zinnen dolomites', 'alta badia', 'val gardena', 'obereggen',
+    'val di fiemme', 'carezza', 'alpe lusia / san pellegrino', 'civetta',
+    'san martino di castrozza', 'gitschberg jochtal', 'plose',
+    'meran 2000', 'reinswald', 'ratschings-jaufen',
+    'monte cavallo - vipiteno', 'ladurns', 'klausberg', 'speikboden',
+    'schöneben-haideralm', 'watles', 'schwemmalm',
+    'santa caterina valfurva', 'aprica', 'pila', 'courmayeur',
+    'la thuile', 'sauze d\'oulx', 'bardonecchia', 'pragelato', 'claviere',
+    'sansicario', 'limone piemonte', 'tarvisio', 'ravascletto-zoncolan',
+    'abetone', 'camigliatello silano', 'garmisch-partenkirchen',
+    'brauneck', 'spitzingsee-tegernsee', 'sudelfeld', 'oberstdorf',
+    'oberjoch', 'balderschwang', 'reit im winkl', 'hocheck',
+    'großer arber', 'feldberg', 'winterberg', 'oberwiesenthal',
     'villars-gryon', 'leysin', 'crans-montana', 'anzère', 'nendaz',
-    'veysonnaz', 'val d\'anniviers', 'gstaad', 'adelboden-lenk', 'lenk',
-    'grindelwald-wengen', 'meiringen-hasliberg', 'sörenberg',
-    'klewenalp-stockhütte', 'mythenregion', 'hoch-ybrig', 'flumserberg',
-    'toggenburg', 'savognin', 'arosa', 'davos klosters', 'scuol',
+    'veysonnaz', 'gstaad', 'adelboden-lenk', 'lenk',
+    'meiringen-hasliberg', 'sörenberg', 'klewenalp-stockhütte',
+    'mythenregion', 'hoch-ybrig', 'flumserberg', 'toggenburg', 'savognin',
     'vallnord', 'baqueira-beret', 'formigal', 'panticosa', 'la molina',
     'masella', 'krvavec', 'rogla', 'mariborsko pohorje', 'kranjska gora',
     'cerkno', 'jasná', 'donovaly', 'tatranská lomnica', 'kubínska hoľa',
-    'vrátna', 'špindlerův mlýn', 'klínovec', 'pec pod sněžkou', 'harrachov',
-    'lipno', 'zakopane', 'białka tatrzańska', 'szczyrk', 'bansko',
-    'borovets', 'pamporovo', 'kopaonik', 'jahorina', 'poiana brasov',
-    'sinaia', 'bukovel', 'åre', 'sälen', 'vemdalen', 'idre fjäll',
-    'branäs', 'romme alpin', 'stöten', 'trysil', 'hafjell', 'kvitfjell',
-    'hemsedal', 'geilo', 'myrkdalen', 'oppdal', 'hovden', 'levi', 'ruka',
-    'ylläs'
+    'vrátna', 'špindlerův mlýn', 'klínovec', 'pec pod sněžkou',
+    'harrachov', 'lipno', 'zakopane', 'białka tatrzańska', 'szczyrk',
+    'bansko', 'borovets', 'pamporovo', 'kopaonik', 'jahorina',
+    'poiana brasov', 'sinaia', 'bukovel', 'åre', 'sälen', 'vemdalen',
+    'idre fjäll', 'branäs', 'romme alpin', 'stöten', 'trysil', 'hafjell',
+    'kvitfjell', 'hemsedal', 'geilo', 'myrkdalen', 'oppdal', 'hovden',
+    'levi', 'ruka', 'ylläs'
 }
 
-# 12. Verified Rail-to-Slopes Resorts (Direct Train Station in Resort or Base Lift Link)
+# 12. Verified Rail-to-Slopes Resorts (Direct Train Station in Resort or Base Gondola Link)
 RAIL_TO_SLOPES_RESORTS = {
     'st. anton am arlberg', 'zell am see', 'bad gastein', 'schladming',
-    'hopfgarten', 'brixen im thale', 'fügen - spieljoch', 'zell am ziller',
-    'mayrhofen', 'st. johann in tirol', 'fieberbrunn', 'kitzbühel',
-    'leogang', 'seefeld - rosshütte', 'lermoos', 'semmering (hirschenkogel)',
-    'semmering (stuhleck)', 'ankogel-mallnitz', 'lienz', 'st. johann',
-    'radstadt-altenmarkt', 'achensee - christlum', 'rofan', 'kellerjoch',
-    'chamonix', 'les arcs', 'peisey-vallandry', 'orelle', 'megève',
-    'les contamines-montjoie', 'serre chevalier', 'montgenèvre',
+    'hopfgarten', 'brixen im thale', 'fügen - spieljoch',
+    'zell am ziller', 'mayrhofen', 'st. johann in tirol', 'fieberbrunn',
+    'kitzbühel', 'leogang', 'seefeld - rosshütte', 'lermoos',
+    'semmering (hirschenkogel)', 'semmering (stuhleck)',
+    'ankogel-mallnitz', 'lienz', 'st. johann', 'radstadt-altenmarkt',
+    'achensee - christlum', 'rofan', 'kellerjoch', 'chamonix', 'les arcs',
+    'peisey-vallandry', 'les contamines-montjoie', 'serre chevalier',
     'ax 3 domaines', 'le mont-dore', 'le lioran', 'les rousses',
-    'zermatt', 'saas-fee', 'grindelwald-wengen', 'mürren', 'adelboden-lenk',
-    'lenk', 'gstaad', 'kandersteg', 'meiringen-hasliberg', 'engelberg',
+    'zermatt', 'saas-fee', 'grindelwald-wengen', 'mürren', 'lenk',
+    'gstaad', 'kandersteg', 'meiringen-hasliberg', 'engelberg',
     'andermatt', 'disentis 3000', 'davos klosters', 'arosa', 'st. moritz',
     'scuol', 'flumserberg', 'pizol', 'villars-gryon', 'leysin',
     'crans-montana', 'nendaz', 'verbier', 'aletsch arena', 'lauchernalp',
     'champex-lac', 'sattel-hochstuckli', 'stoos', 'klewenalp-stockhütte',
     'kronplatz', '3 zinnen dolomites', 'monte cavallo - vipiteno',
     'bardonecchia', 'limone piemonte', 'ravascletto-zoncolan', 'tarvisio',
-    'garmisch-partenkirchen', 'oberstdorf', 'brauneck', 'spitzingsee-tegernsee',
-    'sudelfeld', 'winterberg', 'feldberg', 'oberwiesenthal', 'la molina',
-    'masella', 'puerto de navacerrada', 'valdesquí', 'zakopane',
-    'tatranská lomnica', 'harrachov', 'špindlerův mlýn', 'sinaia',
-    'åre', 'riksgränsen', 'geilo', 'oppdal', 'narvik', 'kvitfjell'
+    'garmisch-partenkirchen', 'oberstdorf', 'brauneck',
+    'spitzingsee-tegernsee', 'sudelfeld', 'winterberg', 'feldberg',
+    'oberwiesenthal', 'la molina', 'masella', 'puerto de navacerrada',
+    'valdesquí', 'zakopane', 'tatranská lomnica', 'harrachov',
+    'špindlerův mlýn', 'sinaia', 'åre', 'riksgränsen', 'geilo', 'oppdal',
+    'narvik', 'kvitfjell'
 }
 
-# 13. Select Standout Beginner & Family Resorts
-BEGINNER_STANDOUT_RESORTS = {
+# 13. Genuinely Ideal Beginner Resorts (~135 resorts with gentle progression & wide nursery/blue runs)
+GOOD_FOR_BEGINNERS_RESORTS = {
     'alpbach', 'auffach', 'niederau', 'ellmau', 'ellmau - going', 'söll',
     'westendorf', 'brixen im thale', 'hopfgarten', 'filzmoos', 'wagrain',
-    'flachau', 'st. johann', 'radstadt-altenmarkt', 'hochkönig', 'wildkogel',
-    'loferer alm', 'steinplatte-waidring', 'st. johann in tirol',
-    'st. ulrich-buchensteinwand', 'zahmer kaiser', 'hochkössen', 'fageralm',
-    'galsterberg', 'riesneralm', 'planneralm', 'turracher höhe',
-    'kreischberg', 'katschberg-aineck', 'gerlitzen', 'bad kleinkirchheim',
-    'weissensee', 'dreiländereck', 'simonhöhe', 'hochrindl', 'klippitztörl',
-    'koralpe', 'weinebene', 'petzen', 'emberger alm', 'kötschach-mauthen',
-    'serfaus-fiss-ladis', 'fendels', 'nauders', 'hochoetz', 'hochzeiger',
-    'muttereralm', 'ranggerköpfl', 'patscherkofel', 'schlick 2000',
-    'bergeralm', 'kellerjoch', 'glun gezer', 'seefeld - rosshütte',
-    'lermoos', 'jungholz', 'achensee - christlum', 'rofan',
-    'fügen - spieljoch', 'gerlos', 'zell am ziller', 'königsleiten',
-    'hochkrimml', 'zillertal arena', 'obergurgl-hochgurgl', 'lech zürs',
-    'warth-schröcken', 'galtür', 'see', 'brandnertal', 'golm',
-    'diedamskopf', 'faschina-fontanella', 'sonntag-stein', 'laterns - gapfohl',
-    'schetteregg', 'niedere - andelsbuch', 'hinterstoder', 'wurzeralm',
-    'kasberg', 'dachstein west', 'annaberg', 'postalm', 'abtenau',
+    'flachau', 'st. johann', 'radstadt-altenmarkt', 'hochkönig',
+    'wildkogel', 'loferer alm', 'steinplatte-waidring',
+    'st. johann in tirol', 'st. ulrich-buchensteinwand', 'zahmer kaiser',
+    'hochkössen', 'fageralm', 'galsterberg', 'riesneralm', 'planneralm',
+    'turracher höhe', 'kreischberg', 'katschberg-aineck', 'gerlitzen',
+    'weissensee', 'dreiländereck', 'simonhöhe', 'hochrindl',
+    'klippitztörl', 'koralpe', 'weinebene', 'petzen', 'emberger alm',
+    'kötschach-mauthen', 'serfaus-fiss-ladis', 'fendels', 'nauders',
+    'hochoetz', 'hochzeiger', 'muttereralm', 'ranggerköpfl',
+    'patscherkofel', 'schlick 2000', 'bergeralm', 'kellerjoch',
+    'glun gezer', 'seefeld - rosshütte', 'lermoos', 'jungholz',
+    'achensee - christlum', 'rofan', 'fügen - spieljoch', 'gerlos',
+    'zell am ziller', 'königsleiten', 'hochkrimml', 'zillertal arena',
+    'galtür', 'see', 'brandnertal', 'faschina-fontanella',
+    'sonntag-stein', 'laterns - gapfohl', 'schetteregg',
+    'niedere - andelsbuch', 'hinterstoder', 'wurzeralm', 'kasberg',
+    'dachstein west', 'annaberg', 'postalm', 'abtenau',
     'zinkenlifte hallein', 'naglköpfl piesendorf', 'heutal - unken',
     'gaißau-hintersee', 'werfenweng', 'rauris', 'fanningberg',
-    'großeck-speiereck', 'hochficht', 'lackenhof am ötscher', 'gemeindealpe',
-    'semmering (stuhleck)', 'mönichkirchen-mariensee', 'unterberg',
+    'großeck-speiereck', 'hochficht', 'lackenhof am ötscher',
+    'gemeindealpe', 'mönichkirchen-mariensee', 'unterberg',
     'st. jakob im walde', 'gaberl', 'präbichl', 'hohentauern', 'lachtal',
     'grebenzen', 'les gets', 'morzine', 'avoriaz', 'châtel', 'flaine',
     'samoëns', 'les carroz', 'megève', 'les contamines-montjoie',
-    'la clusaz', 'le grand bornand', 'praz de lys - sommand', 'les saisies',
+    'le grand bornand', 'praz de lys - sommand', 'les saisies',
     'la plagne', 'peisey-vallandry', 'les menuires', 'courchevel',
     'méribel', 'st martin de belleville', 'valmorel',
     'saint-françois-longchamp', 'la rosière', 'val cenis', 'aussois',
-    'valfréjus', 'valloire', 'les sybelles', 'les karellis', 'alpe d\'huez',
-    'les deux alpes', 'chamrousse', 'montgenèvre', 'vars', 'risoul 1850',
-    'les orres', 'orcières merlette', 'praloup', 'val d\'allos (la foux)',
+    'valfréjus', 'valloire', 'les sybelles', 'les karellis', 'chamrousse',
+    'montgenèvre', 'vars', 'risoul 1850', 'les orres',
+    'orcières merlette', 'praloup', 'val d\'allos (la foux)',
     'isola 2000', 'auron', 'valberg', 'superbesse', 'le mont-dore',
     'le lioran', 'la bresse-hohneck', 'métabief', 'les rousses',
     'lélex-crozet', 'saint-lary-soulan', 'peyragudes', 'luz-ardiden',
     'gourette', 'la pierre saint-martin', 'gavarnie-gèdre', 'hautacam',
     'guzet-neige', 'ax 3 domaines', 'les angles', 'alta badia',
-    'val gardena', 'kronplatz', '3 zinnen dolomites', 'gitschberg jochtal',
-    'plose', 'meran 2000', 'carezza', 'obereggen', 'val di fiemme',
-    'alpe lusia / san pellegrino', 'canazei', 'val di fassa',
-    'san martino di castrozza', 'civetta', 'passo tonale',
-    'folgarida - marilleva', 'andalo - paganella', 'folgaria - fiorentini',
-    'monte bondone', 'livigno', 'aprica', 'pila', 'cervinia', 'crévacol',
-    'bardonecchia', 'claviere', 'sansicario', 'pragelato',
-    'mondolè ski (prato nevoso)', 'ratschings-jaufen',
+    'val gardena', 'kronplatz', '3 zinnen dolomites',
+    'gitschberg jochtal', 'plose', 'meran 2000', 'carezza', 'obereggen',
+    'val di fiemme', 'alpe lusia / san pellegrino', 'canazei',
+    'val di fassa', 'san martino di castrozza', 'civetta', 'passo tonale',
+    'folgarida - marilleva', 'andalo - paganella',
+    'folgaria - fiorentini', 'monte bondone', 'livigno', 'aprica', 'pila',
+    'cervinia', 'crévacol', 'bardonecchia', 'claviere', 'sansicario',
+    'pragelato', 'mondolè ski (prato nevoso)', 'ratschings-jaufen',
     'monte cavallo - vipiteno', 'ladurns', 'klausberg', 'speikboden',
     'reinswald', 'schöneben-haideralm', 'watles', 'schwemmalm',
     'ravascletto-zoncolan', 'abetone', 'campo felice',
     'camigliatello silano', 'gambarie d\'aspromonte', 'piano battaglia',
     'aletsch arena', 'arosa', 'savognin', 'scuol', 'brigels (breil)',
-    'adelboden-lenk', 'lenk', 'gstaad', 'meiringen-hasliberg', 'kandersteg',
-    'sörenberg', 'melchsee-frutt', 'klewenalp-stockhütte', 'stoos',
-    'mythenregion', 'hoch-ybrig', 'sattel-hochstuckli', 'brunni-alpthal',
-    'flumserberg', 'toggenburg', 'elm', 'villars-gryon', 'leysin',
-    'crans-montana', 'anzère', 'nendaz', 'veysonnaz', 'thyon', 'leukerbad',
-    'champex-lac', 'malbun', 'grandvalira', 'vallnord', 'baqueira-beret',
-    'formigal', 'panticosa', 'la molina', 'masella', 'alto campoo',
-    'valgrande-pajares', 'puerto de navacerrada', 'valdesquí', 'manzaneda',
-    'serra da estrela', 'brauneck', 'spitzingsee-tegernsee', 'sudelfeld',
-    'reit im winkl', 'oberjoch', 'balderschwang', 'hocheck', 'großer arber',
-    'feldberg', 'winterberg', 'oberwiesenthal', 'lipno', 'špindlerův mlýn',
-    'klínovec', 'pec pod sněžkou', 'harrachov', 'białka tatrzańska',
-    'donovaly', 'kubínska hoľa', 'kranjska gora', 'rogla',
-    'mariborsko pohorje', 'cerkno', 'pamporovo', 'kopaonik', 'kolašin',
-    'poiana brasov', 'bukovel', 'parnassos', 'troodos - mount olympus',
-    'bigëll - dardhë', 'cairngorm', 'glenshee', 'sälen', 'idre fjäll',
-    'branäs', 'vemdalen', 'romme alpin', 'stöten', 'trysil', 'hafjell',
-    'geilo', 'hemsedal', 'oppdal', 'hovden', 'levi', 'ruka', 'ylläs'
-}
-
-# 2. Resorts with Major Snowparks / Terrain Parks
-SNOWPARK_RESORTS = HALF_PIPE_RESORTS | {
-    'les gets', 'morzine', 'châtel', 'flaine', 'samoëns', 'les menuires',
-    'val d\'isère', 'serre chevalier', 'vars', 'risoul 1850', 'isola 2000',
-    'les 7 laux', 'la clusaz', 'le grand bornand', 'chamrousse', 'les orres',
-    'montgenèvre', 'valmorel', 'grand tourmalet', 'saint-lary-soulan',
-    'cauterets', 'pyrenees', 'grandvalira', 'vallnord', 'formigal', 'cerler',
-    'la molina', 'masella', 'saalbach', 'hinterglemm', 'leogang', 'fieberbrunn',
-    'zell am ziller', 'gerlos', 'königsleiten', 'zillertal arena',
-    'hochzillertal-hochfügen', 'schladming', 'reiteralm', 'obertauern',
-    'nassfeld', 'bad gastein', 'hochkönig', 'steinplatte-waidring',
-    'kitzbühel', 'westendorf', 'ellmau', 'söll', 'st. anton am arlberg',
-    'lech zürs', 'axamer lizum', 'hochoetz', 'hochzeiger', 'nauders',
-    'kaunertal glacier', 'pitztal glacier', 'hintertux glacier', 'kreischberg',
-    'turracher höhe', 'gerlitzen', 'katschberg-aineck', 'diedamskopf',
-    'brandnertal', 'golm', 'gargellen', 'alpbach', 'kronplatz', 'alta badia',
-    'val gardena', 'obereggen', 'alpe lusia / san pellegrino', 'val di fassa',
-    'canazei', 'madonna di campiglio', 'passo tonale', 'bormio', 'bardonecchia',
-    'sestriere', 'sauze d\'oulx', 'cervinia', 'pila', 'prato nevoso',
-    'mondolè ski (prato nevoso)', '3 zinnen dolomites', 'carezza', 'plose',
-    'schöneben-haideralm', 'verbier', 'nendaz', 'veysonnaz', 'thyon',
-    'adelboden-lenk', 'lenk', 'arosa', 'flumserberg', 'hoch-ybrig',
-    'engelberg', 'andermatt', 'melchsee-frutt', 'scuol', 'savognin',
-    'villars-gryon', 'leysin', 'les diablerets', 'val d\'anniviers',
-    'grimentz', 'brauneck', 'spitzingsee-tegernsee', 'sudelfeld', 'winterberg',
-    'großer arber', 'klínovec', 'pec pod sněžkou', 'jasná', 'donovaly',
-    'białka tatrzańska', 'szczyrk', 'vogel', 'krvavec', 'kranjska gora',
-    'jahorina', 'kopaonik', 'bansko', 'borovets', 'pamporovo', 'gudauri',
-    'bukovel', 'geilo', 'hafjell', 'kvitfjell', 'myrkdalen', 'sälen',
-    'idre fjäll', 'branäs', 'vemdalen', 'stöten', 'ylläs'
-}
-
-# 3. Glacier Skiing Resorts
-GLACIER_RESORTS = {
-    'hintertux glacier', 'stubai glacier', 'sölden', 'pitztal glacier',
-    'kaunertal glacier', 'kitzsteinhorn - kaprun', 'mölltal glacier',
-    'dachstein krippenstein', 'schladming', 'weisssee gletscherwelt',
-    'tignes', 'val d\'isère', 'les deux alpes', 'la grave', 'chamonix',
-    'val thorens', 'les arcs', 'zermatt', 'saas-fee', 'engelberg',
-    'crans-montana', 'diavolezza', 'st. moritz', 'andermatt', 'glacier 3000',
-    'les diablerets', 'cervinia', 'passo tonale', 'schnalstal',
-    'arabba / marmolada', 'sulden am ortler', 'bormio', 'folgefonna', 'stranda'
-}
-
-# 4. Famous Lively Après-Ski Hubs
-LIVELY_APRES_RESORTS = {
-    'ischgl', 'st. anton am arlberg', 'lech zürs', 'sölden', 'saalbach',
-    'hinterglemm', 'mayrhofen', 'flachau', 'wagrain', 'schladming',
-    'obertauern', 'kitzbühel', 'kirchberg', 'westendorf', 'söll', 'ellmau',
-    'gerlos', 'zell am ziller', 'zillertal arena', 'bad gastein',
-    'serfaus-fiss-ladis', 'nassfeld', 'zell am see', 'kaprun',
-    'kitzsteinhorn - kaprun', 'hochzillertal-hochfügen', 'fügen - spieljoch',
-    'val d\'isère', 'tignes', 'val thorens', 'méribel', 'courchevel',
-    'les deux alpes', 'alpe d\'huez', 'chamonix', 'avoriaz', 'morzine',
-    'les gets', 'les arcs', 'la clusaz', 'serre chevalier', 'vars',
-    'risoul 1850', 'grandvalira', 'verbier', 'zermatt', 'davos klosters',
-    'laax', 'st. moritz', 'grindelwald-wengen', 'crans-montana', 'engelberg',
-    'arosa', 'saas-fee', 'livigno', 'madonna di campiglio', 'selva',
-    'val gardena', 'canazei', 'val di fassa', 'alta badia', 'cortina d\'ampezzo',
-    'cervinia', 'sauze d\'oulx', 'sestriere', 'bormio', 'passo tonale',
-    'kronplatz', 'ischgl', 'winterberg', 'garmisch-partenkirchen',
-    'bansko', 'borovets', 'špindlerův mlýn', 'jasná', 'zakopane',
-    'białka tatrzańska', 'kranjska gora', 'baqueira-beret', 'formigal',
-    'sierra nevada', 'åre', 'hemsedal', 'trysil', 'levi', 'ruka',
-    'gudauri', 'bukovel', 'kopaonik', 'jahorina', 'poiana brasov'
-}
-
-# 5. Ski-in / Ski-out Convenience Resorts
-SKI_IN_SKI_OUT_RESORTS = {
-    'avoriaz', 'val thorens', 'les menuires', 'st martin de belleville',
-    'méribel', 'courchevel', 'la plagne', 'les arcs', 'peisey-vallandry',
-    'tignes', 'val d\'isère', 'flaine', 'les carroz', 'alpe d\'huez',
-    'les deux alpes', 'isola 2000', 'auron', 'valmorel', 'saint-françois-longchamp',
-    'la rosière', 'les saisies', 'les sybelles', 'orcières merlette',
-    'superbesse', 'le lioran', 'les orres', 'risoul 1850', 'vars',
-    'montgenèvre', 'valfréjus', 'val cenis', 'bonneval-sur-arc', 'sainte-foy',
-    'les karellis', 'praloup', 'val d\'allos (la foux)', 'valberg',
-    'peyragudes', 'piau engaly', 'grand tourmalet', 'la pierre saint-martin',
-    'gourette', 'obertauern', 'kühtai', 'hochgurgl', 'obergurgl-hochgurgl',
-    'damüls-mellau', 'faschina-fontanella', 'warth-schröcken', 'lech zürs',
-    'gargellen', 'silvretta montafon', 'serfaus-fiss-ladis', 'hochfügen',
-    'hochzillertal-hochfügen', 'königsleiten', 'hochkrimml', 'zauchensee',
-    'tauplitz', 'turracher höhe', 'katschberg-aineck', 'nassfeld',
-    'bad kleinkirchheim', 'gerlitzen', 'hochrindl', 'klippitztörl',
-    'weinebene', 'lermoos', 'berwang', 'alpbach', 'auffach', 'saalbach',
-    'hinterglemm', 'leogang', 'fieberbrunn', 'ladis', 'cervinia',
-    'sestriere', 'sansicario', 'claviere', 'pragelato', 'la thuile',
-    'pila', 'livigno', 'passo tonale', 'folgarida - marilleva',
-    'madonna di campiglio', 'arabba / marmolada', 'alta badia', 'val gardena',
-    'canazei', 'obereggen', 'carezza', 'alpe di siusi', 'monte bondone',
-    'prato nevoso', 'mondolè ski (prato nevoso)', 'abetone', 'roccaraso',
-    'aletsch arena', 'mürren', 'wengen', 'grindelwald-wengen', 'zermatt',
-    'saas-fee', 'arosa', 'lenzerheide', 'laax', 'davos klosters',
-    'andermatt', 'melchsee-frutt', 'stoos', 'hoch-ybrig', 'flumserberg',
-    'braunwald', 'crans-montana', 'anzère', 'nendaz', 'veysonnaz', 'thyon',
-    'verbier', 'val d\'anniviers', 'grimentz', 'villars-gryon', 'samnaun',
-    'malbun', 'grandvalira', 'ordino arcalis', 'vallnord', 'baqueira-beret',
-    'sierra nevada', 'formigal', 'cerler', 'astún', 'candanchú', 'boí taüll',
-    'trysil', 'hemsedal', 'hafjell', 'kvitfjell', 'myrkdalen', 'geilo',
-    'sälen', 'idre fjäll', 'åre', 'branäs', 'vemdalen', 'stöten',
-    'levi', 'ruka', 'ylläs', 'jasná', 'poiana brasov', 'kopaonik',
-    'jahorina', 'gudauri', 'bukovel'
-}
-
-# 6. Challenging Runs & Steep Terrain
-CHALLENGING_RESORTS = {
-    'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'ischgl',
-    'sölden', 'kitzbühel', 'mayrhofen', 'hintertux glacier', 'stubai glacier',
-    'pitztal glacier', 'kaunertal glacier', 'kitzsteinhorn - kaprun',
-    'obergurgl-hochgurgl', 'serfaus-fiss-ladis', 'silvretta montafon',
-    'gargellen', 'golm', 'sonnenkopf', 'damüls-mellau', 'diedamskopf',
-    'schladming', 'reiteralm', 'zauchensee', 'bad gastein', 'obertauern',
-    'saalbach', 'hinterglemm', 'fieberbrunn', 'leogang', 'zell am see',
-    'nassfeld', 'bad kleinkirchheim', 'grossglockner resort kals-matrei',
-    'heiligenblut', 'ankogel-mallnitz', 'mölltal glacier', 'lienz',
-    'dachstein krippenstein', 'axamer lizum', 'nordkette', 'st. jakob im defereggental',
-    'hochzillertal-hochfügen', 'zillertal arena', 'gerlos', 'alpbach',
-    'wildkogel', 'tauplitz', 'chamonix', 'la grave', 'val d\'isère',
-    'tignes', 'val thorens', 'les menuires', 'méribel', 'courchevel',
-    'les arcs', 'la plagne', 'peisey-vallandry', 'alpe d\'huez',
-    'les deux alpes', 'serre chevalier', 'avoriaz', 'flaine', 'la clusaz',
-    'le grand bornand', 'megève', 'les contamines-montjoie', 'sainte-foy',
-    'bonneval-sur-arc', 'valmorel', 'les 7 laux', 'chamrousse', 'isola 2000',
-    'auron', 'vars', 'risoul 1850', 'montgenèvre', 'grand tourmalet',
-    'pic du midi', 'gourette', 'cauterets', 'luz-ardiden', 'piau engaly',
-    'saint-lary-soulan', 'verbier', 'zermatt', 'saas-fee', 'engelberg',
-    'andermatt', 'mürren', 'grindelwald-wengen', 'laax', 'davos klosters',
-    'st. moritz', 'arosa', 'crans-montana', 'nendaz', 'veysonnaz', 'thyon',
-    'val d\'anniviers', 'diablerets', 'les diablerets', 'adelboden-lenk',
-    'flumserberg', 'pizol', 'scuol', 'splügen-tambo', 'disentis 3000',
-    'lauchernalp', 'arolla', 'arabba / marmolada', 'cortina d\'ampezzo',
-    'val gardena', 'alta badia', 'kronplatz', '3 zinnen dolomites',
-    'madonna di campiglio', 'passo tonale', 'bormio', 'santa caterina valfurva',
-    'livigno', 'madesimo', 'cervinia', 'courmayeur', 'la thuile',
-    'monterosa ski', 'sestriere', 'sauze d\'oulx', 'bardonecchia',
-    'limone piemonte', 'pila', 'ravascletto-zoncolan', 'tarvisio',
-    'sella nevea', 'schnalstal', 'sulden am ortler', 'klausberg',
-    'speikboden', 'ratschings-jaufen', 'gitschberg jochtal', 'plose',
-    'campo imperatore', 'roccaraso', 'garmisch-partenkirchen', 'oberstdorf',
-    'jenner', 'kampenwand', 'feldberg', 'grandvalira', 'ordino arcalis',
-    'baqueira-beret', 'boí taüll', 'cerler', 'formigal', 'astún',
-    'candanchú', 'sierra nevada', 'la molina', 'masella', 'jasná',
-    'tatranská lomnica', 'zakopane', 'szczyrk', 'krvavec', 'kanin',
-    'vogel', 'bansko', 'borovets', 'kopaonik', 'jahorina', 'bjelasnica',
-    'gudauri', 'bukovel', 'åre', 'riksgränsen', 'hemsedal', 'narvik',
-    'strandafjellet', 'myrkdalen', 'kvitfjell', 'tryvann', 'glencoe',
-    'nevis range'
-}
-
-# 7. Renowned Freeride & Off-Piste Meccas
-FREERIDE_RESORTS = {
-    'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'sonnenkopf',
-    'ischgl', 'kappl', 'galtür', 'sölden', 'obergurgl-hochgurgl',
-    'fieberbrunn', 'saalbach', 'hinterglemm', 'leogang', 'kitzbühel',
-    'dachstein krippenstein', 'tauplitz', 'loser - altaussee', 'planneralm',
-    'hohentauern', 'sportgastein', 'bad gastein', 'zauchensee', 'obertauern',
-    'kitzsteinhorn - kaprun', 'weißsee gletscherwelt', 'weisssee gletscherwelt',
-    'grossglockner resort kals-matrei', 'heiligenblut', 'ankogel-mallnitz',
-    'mölltal glacier', 'st. jakob im defereggental', 'hintertux glacier',
-    'stubai glacier', 'pitztal glacier', 'kaunertal glacier', 'kühtai',
-    'axamer lizum', 'nordkette', 'hochfügen', 'hochzillertal-hochfügen',
-    'mayrhofen', 'alpbach', 'auffach', 'damüls-mellau', 'diedamskopf',
-    'gargellen', 'silvretta montafon', 'chamonix', 'la grave', 'val d\'isère',
-    'tignes', 'val thorens', 'les arcs', 'peisey-vallandry', 'la plagne',
-    'sainte-foy', 'la rosière', 'les deux alpes', 'alpe d\'huez',
-    'serre chevalier', 'montgenèvre', 'la clusaz', 'flaine', 'avoriaz',
-    'les 7 laux', 'pralognan-la-vanoise', 'bonneval-sur-arc', 'isola 2000',
-    'vars', 'grand tourmalet', 'piau engaly', 'cauterets', 'luz-ardiden',
-    'verbier', 'nendaz', 'veysonnaz', 'thyon', 'zermatt', 'saas-fee',
-    'engelberg', 'andermatt', 'disentis 3000', 'laax', 'davos klosters',
-    'st. moritz', 'arosa', 'splügen-tambo', 'lauchernalp', 'arolla',
-    'val d\'anniviers', 'grimentz', 'mürren', 'les diablerets', 'pizol',
-    'elm', 'scuol', 'bivio', 'vals 3000', 'monterosa ski', 'courmayeur',
-    'la thuile', 'cervinia', 'arabba / marmolada', 'cortina d\'ampezzo',
-    'selva', 'val gardena', 'alta badia', 'canazei', 'val di fassa',
-    'passo tonale', 'livigno', 'bormio', 'santa caterina valfurva',
-    'madesimo', 'sestriere', 'sauze d\'oulx', 'pragelato', 'limone piemonte',
-    'sella nevea', 'kanin', 'sulden am ortler', 'schnalstal',
-    'campo imperatore', 'etna nord - piano provenzana', 'ordino arcalis',
-    'grandvalira', 'baqueira-beret', 'boí taüll', 'cerler', 'formigal',
-    'astún', 'candanchú', 'riksgränsen', 'narvik', 'strandafjellet',
-    'myrkdalen', 'hemsedal', 'åre', 'gudauri', 'bansko', 'jasná',
-    'zakopane', 'tetnuldi', 'glencoe', 'nevis range'
-}
-
-# 8. Charming Traditional Alpine Villages
-CHARMING_VILLAGE_RESORTS = {
-    'alpbach', 'auffach', 'niederau', 'ellmau', 'ellmau - going', 'söll',
-    'westendorf', 'brixen im thale', 'hopfgarten', 'kitzbühel', 'st. johann in tirol',
-    'fieberbrunn', 'filzmoos', 'maria alm', 'hochkönig', 'wagrain',
-    'radstadt-altenmarkt', 'schladming', 'ramsau', 'tauplitz', 'altaussee',
-    'loser - altaussee', 'hallstatt', 'dachstein krippenstein', 'gosau',
-    'dachstein west', 'annaberg', 'werfenweng', 'rauris', 'zell am see',
-    'bad gastein', 'bad kleinkirchheim', 'heiligenblut', 'lienz',
-    'kals', 'grossglockner resort kals-matrei', 'st. jakob im defereggental',
-    'sillian-hochpustertal', 'obsteig', 'seefeld - rosshütte', 'lermoos',
-    'ehrwald', 'berwang', 'st. anton am arlberg', 'lech zürs', 'warth-schröcken',
-    'galtür', 'ischgl', 'kappl', 'see', 'serfaus-fiss-ladis', 'nauders',
-    'mayrhofen', 'zell am ziller', 'gerlos', 'damüls-mellau', 'schoppernau',
-    'diedamskopf', 'brandnertal', 'gargellen', 'schruns', 'silvretta montafon',
-    'turracher höhe', 'weissensee', 'megève', 'chamonix', 'les contamines-montjoie',
-    'la clusaz', 'le grand bornand', 'samoëns', 'les gets', 'morzine',
-    'châtel', 'bonneval-sur-arc', 'val d\'isère', 'st martin de belleville',
-    'valloire', 'val cenis', 'pralognan-la-vanoise', 'aussois', 'sainte-foy',
-    'serre chevalier', 'montgenèvre', 'cauterets', 'saint-lary-soulan',
-    'le mont-dore', 'la bresse-hohneck', 'zermatt', 'saas-fee', 'grächen',
-    'wengen', 'mürren', 'grindelwald-wengen', 'adelboden-lenk', 'lenk',
-    'gstaad', 'kandersteg', 'meiringen-hasliberg', 'engelberg', 'andermatt',
-    'klosters', 'davos klosters', 'st. moritz', 'pontresina', 'scuol',
-    'arosa', 'brigels (breil)', 'disentis 3000', 'savognin', 'splügen-tambo',
-    'elm', 'braunwald', 'val d\'anniviers', 'grimentz', 'zinal', 'arolla',
-    'champex-lac', 'Verbier', 'villars-gryon', 'les diablerets', 'champery',
-    'morgins', 'samnaun', 'malbun', 'cortina d\'ampezzo', 'val gardena',
-    'alta badia', 'canazei', 'val di fassa', 'arabba / marmolada',
-    '3 zinnen dolomites', 'kronplatz', 'madonna di campiglio', 'bormio',
-    'livigno', 'courmayeur', 'la thuile', 'gressoney', 'alagna',
-    'monterosa ski', 'bardonecchia', 'sauze d\'oulx', 'limone piemonte',
-    'madesimo', 'aprica', 'santa caterina valfurva', 'cavalese',
-    'val di fiemme', 'obereggen', 'carezza', 'meran 2000', 'ratschings-jaufen',
-    'vipiteno', 'monte cavallo - vipiteno', 'klausberg', 'speikboden',
-    'gitschberg jochtal', 'plose', 'reinswald', 'sulden am ortler',
-    'schnalstal', 'schwemmalm', 'ladurns', 'alleghe', 'civetta',
-    'san martino di castrozza', 'folgaria - fiorentini', 'andalo - paganella',
-    'tarvisio', 'ravascletto-zoncolan', 'roccaraso', 'garmisch-partenkirchen',
-    'oberstdorf', 'reit im winkl', 'lenggries', 'brauneck', 'bayrischzell',
-    'sudelfeld', 'spitzingsee-tegernsee', 'balderschwang', 'oberjoch',
-    'berchtesgaden', 'jenner', 'baqueira-beret', 'cerler', 'sallent de gallego',
-    'formigal', 'panticosa', 'zakopane', 'białka tatrzańska', 'kranjska gora',
-    'bohinj', 'vogel', 'špindlerův mlýn', 'pec pod sněžkou', 'harrachov',
-    'tatranská lomnica', 'bansko', 'sinaia', 'åre', 'geilo', 'hemsedal'
-}
-
-# 9. Tree-Lined Runs (Great Bad-Weather Visibility)
-TREE_SKIING_RESORTS = {
-    'schladming', 'reiteralm', 'fageralm', 'flachau', 'wagrain', 'st. johann',
-    'radstadt-altenmarkt', 'zauchensee', 'filzmoos', 'hochkönig', 'bad gastein',
-    'grossarl', 'werfenweng', 'annaberg', 'dachstein west', 'tauplitz',
-    'loser - altaussee', 'riesneralm', 'galsterberg', 'kreischberg', 'lachtal',
-    'grebenzen', 'turracher höhe', 'bad kleinkirchheim', 'gerlitzen',
-    'nassfeld', 'katschberg-aineck', 'dreiländereck', 'simonhöhe', 'hochrindl',
-    'klippitztörl', 'koralpe', 'weinebene', 'petzen', 'kitzbühel',
-    'st. johann in tirol', 'steinplatte-waidring', 'st. ulrich-buchensteinwand',
-    'fieberbrunn', 'saalbach', 'hinterglemm', 'leogang', 'zell am see',
-    'ellmau', 'ellmau - going', 'söll', 'scheffau', 'westendorf',
-    'brixen im thale', 'hopfgarten', 'alpbach', 'auffach', 'niederau',
-    'zahmer kaiser', 'hochkössen', 'achensee - christlum', 'rofan',
-    'kellerjoch', 'fügen - spieljoch', 'hochzillertal-hochfügen',
-    'zell am ziller', 'mayrhofen', 'patscherkofel', 'muttereralm',
-    'ranggerköpfl', 'schlick 2000', 'bergeralm', 'seefeld - rosshütte',
-    'lermoos', 'fendels', 'serfaus-fiss-ladis', 'nauders', 'hochoetz',
-    'hochzeiger', 'brandnertal', 'golm', 'montafon', 'silvretta montafon',
-    'kleinwalsertal (kanzelwand - ifen)', 'diedamskopf', 'laterns - gapfohl',
-    'hinterstoder', 'wurzeralm', 'kasberg', 'feuerkogel', 'hochficht',
-    'hochkar', 'lackenhof am ötscher', 'gemeindealpe', 'semmering (stuhleck)',
-    'semmering (hirschenkogel)', 'mönichkirchen-mariensee', 'serre chevalier',
-    'montgenèvre', 'vars', 'risoul 1850', 'puy-saint-vincent', 'les orres',
-    'praloup', 'val d\'allos (la foux)', 'auron', 'isola 2000', 'valberg',
-    'megève', 'les contamines-montjoie', 'chamonix', 'les houches',
-    'st-gervais', 'la clusaz', 'le grand bornand', 'les gets', 'morzine',
-    'châtel', 'abondance', 'samoëns', 'les carroz', 'praz de lys - sommand',
-    'les saisies', 'notre-dame-de-bellecombe', 'courchevel', 'méribel',
-    'la Tania', 'peisey-vallandry', 'les arcs', 'la plagne', 'champagny',
-    'sainte-foy', 'la rosière', 'valmorel', 'val cenis', 'aussois',
-    'valfréjus', 'valloire', 'pralognan-la-vanoise', 'les 7 laux',
-    'chamrousse', 'villard-de-lans', 'les rousses', 'métabief', 'lélex-crozet',
-    'la bresse-hohneck', 'gérardmer', 'le lioran', 'le mont-dore', 'superbesse',
-    'font-romeu', 'les angles', 'ax 3 domaines', 'guzet-neige', 'saint-lary-soulan',
-    'peyragudes', 'cauterets', 'gourette', 'la pierre saint-martin',
-    'madonna di campiglio', 'folgarida - marilleva', 'pinzolo', 'passo tonale',
-    'ponte di legno', 'andalo - paganella', 'folgaria - fiorentini',
-    'monte bondone', 'kronplatz', '3 zinnen dolomites', 'alta badia',
-    'val gardena', 'obereggen', 'val di fiemme', 'carezza', 'alpe lusia / san Pellegrino',
-    'canazei', 'val di fassa', 'civetta', 'cortina d\'ampezzo',
-    'san martino di castrozza', 'gitschberg jochtal', 'plose', 'meran 2000',
-    'reinswald', 'ratschings-jaufen', 'monte cavallo - vipiteno', 'ladurns',
-    'klausberg', 'speikboden', 'schöneben-haideralm', 'watles', 'schwemmalm',
-    'bormio', 'santa caterina valfurva', 'aprica', 'madesimo', 'pila',
-    'courmayeur', 'la thuile', 'sauze d\'oulx', 'sestriere', 'bardonecchia',
-    'pragelato', 'claviere', 'sansicario', 'limone piemonte',
-    'mondolè ski (prato nevoso)', 'tarvisio', 'ravascletto-zoncolan',
-    'abetone', 'roccaraso', 'camigliatello silano', 'garmisch-partenkirchen',
-    'brauneck', 'spitzingsee-tegernsee', 'sudelfeld', 'oberstdorf', 'oberjoch',
-    'balderschwang', 'reit im winkl', 'hocheck', 'kampenwand', 'jenner',
-    'großer arber', 'feldberg', 'winterberg', 'oberwiesenthal', 'villars-gryon',
-    'leysin', 'les diablerets', 'champery', 'morgins', 'crans-montana',
-    'anzère', 'nendaz', 'veysonnaz', 'thyon', 'val d\'anniviers', 'grimentz',
-    'zermatt', 'grächen', 'lauchernalp', 'gstaad', 'adelboden-lenk', 'lenk',
-    'grindelwald-wengen', 'meiringen-hasliberg', 'sörenberg', 'melchsee-frutt',
-    'engelberg', 'klewenalp-stockhütte', 'stoos', 'mythenregion', 'hoch-ybrig',
-    'flumserberg', 'pizol', 'toggenburg', 'braunwald', 'elm', 'laax',
-    'brigels (breil)', 'obersaxen', 'savognin', 'lenzerheide', 'arosa',
-    'davos klosters', 'st. moritz', 'scuol', 'samnaun', 'airolo-pesciüm',
-    'grandvalira', 'vallnord', 'baqueira-beret', 'formigal', 'panticosa',
-    'cerler', 'la molina', 'masella', 'alto campoo', 'valgrande-pajares',
-    'puerto de navacerrada', 'valdesquí', 'manzaneda', 'krvavec', 'rogla',
-    'mariborsko pohorje', 'kranjska gora', 'cerkno', 'vogel', 'jasná',
-    'donovaly', 'tatranská lomnica', 'kubínska hoľa', 'vrátna',
-    'špindlerův mlýn', 'klínovec', 'pec pod sněžkou', 'harrachov', 'lipno',
-    'zakopane', 'białka tatrzańska', 'szczyrk', 'bansko', 'borovets',
-    'pamporovo', 'kopaonik', 'jahorina', 'bjelasnica', 'kolašin',
-    'poiana brasov', 'sinaia', 'bukovel', 'åre', 'sälen', 'vemdalen',
-    'idre fjäll', 'branäs', 'romme alpin', 'stöten', 'trysil', 'hafjell',
-    'kvitfjell', 'hemsedal', 'geilo', 'myrkdalen', 'oppdal', 'hovden',
-    'narvik', 'levi', 'ruka', 'ylläs'
-}
-
-# 10. Explicit Beginner & Family-Friendly Standouts
-BEGINNER_FAMILY_RESORTS = {
-    'alpbach', 'auffach', 'niederau', 'ellmau', 'ellmau - going', 'söll',
-    'scheffau', 'westendorf', 'brixen im thale', 'hopfgarten', 'filzmoos',
-    'wagrain', 'flachau', 'st. johann', 'radstadt-altenmarkt', 'hochkönig',
-    'wildkogel', 'loferer alm', 'steinplatte-waidring', 'st. johann in tirol',
-    'st. ulrich-buchensteinwand', 'zahmer kaiser', 'hochkössen', 'fageralm',
-    'ramsau', 'galsterberg', 'riesneralm', 'planneralm', 'turracher höhe',
-    'kreischberg', 'katschberg-aineck', 'gerlitzen', 'bad kleinkirchheim',
-    'nassfeld', 'weissensee', 'dreiländereck', 'simonhöhe', 'hochrindl',
-    'klippitztörl', 'koralpe', 'weinebene', 'petzen', 'emberger alm',
-    'kötschach-mauthen', 'serfaus-fiss-ladis', 'fendels', 'nauders',
-    'hochoetz', 'hochzeiger', 'kühtai', 'muttereralm', 'ranggerköpfl',
-    'patscherkofel', 'schlick 2000', 'bergeralm', 'kellerjoch', 'glun gezer',
-    'seefeld - rosshütte', 'lermoos', 'ehrwald', 'berwang', 'jungholz',
-    'achensee - christlum', 'rofan', 'fügen - spieljoch', 'gerlos',
-    'zell am ziller', 'königsleiten', 'hochkrimml', 'zillertal arena',
-    'obergurgl-hochgurgl', 'lech zürs', 'warth-schröcken', 'galtür', 'see',
-    'brandnertal', 'golm', 'diedamskopf', 'faschina-fontanella', 'sonntag-stein',
-    'laterns - gapfohl', 'schetteregg', 'niedere - andelsbuch', 'hinterstoder',
-    'wurzeralm', 'kasberg', 'dachstein west', 'annaberg', 'feuerkogel',
-    'postalm', 'abtenau', 'zinkenlifte hallein', 'naglköpfl piesendorf',
-    'heutal - unken', 'gaißau-hintersee', 'werfenweng', 'rauris', 'fanningberg',
-    'grosseck-speiereck', 'großeck-speiereck', 'hochficht', 'hochkar',
-    'lackenhof am ötscher', 'gemeindealpe', 'semmering (stuhleck)',
-    'semmering (hirschenkogel)', 'mönichkirchen-mariensee', 'unterberg',
-    'st. jakob im walde', 'gaberl', 'präbichl', 'hohentauern', 'lachtal',
-    'grebenzen', 'les gets', 'morzine', 'avoriaz', 'châtel', 'flaine',
-    'samoëns', 'les carroz', 'megève', 'les contamines-montjoie', 'la clusaz',
-    'le grand bornand', 'praz de lys - sommand', 'les saisies', 'la plagne',
-    'peisey-vallandry', 'les arcs', 'les menuires', 'courchevel', 'méribel',
-    'st martin de belleville', 'valmorel', 'saint-françois-longchamp',
-    'la rosière', 'sainte-foy', 'val cenis', 'aussois', 'valfréjus',
-    'valloire', 'les sybelles', 'les karellis', 'alpe d\'huez',
-    'les deux alpes', 'chamrousse', 'les 7 laux', 'montgenèvre',
-    'serre chevalier', 'vars', 'risoul 1850', 'les orres', 'orcières merlette',
-    'praloup', 'val d\'allos (la foux)', 'isola 2000', 'auron', 'valberg',
-    'superbesse', 'le mont-dore', 'le lioran', 'la bresse-hohneck', 'métabief',
-    'les rousses', 'lélex-crozet', 'saint-lary-soulan', 'peyragudes',
-    'piau engaly', 'grand tourmalet', 'luz-ardiden', 'cauterets', 'gourette',
-    'la pierre saint-martin', 'gavarnie-gèdre', 'hautacam', 'guzet-neige',
-    'ax 3 domaines', 'les angles', 'font-romeu', 'val d\'ese', 'ghisoni - capanelle',
-    'alta badia', 'val gardena', 'alpe di siusi', 'kronplatz', '3 zinnen dolomites',
-    'gitschberg jochtal', 'plose', 'meran 2000', 'carezza', 'obereggen',
-    'val di fiemme', 'alpe lusia / san pellegrino', 'canazei', 'val di fassa',
-    'san martino di castrozza', 'civetta', 'passo tonale', 'folgarida - marilleva',
-    'madonna di campiglio', 'andalo - paganella', 'folgaria - fiorentini',
-    'monte bondone', 'livigno', 'bormio', 'aprica', 'madesimo', 'pila',
-    'cervinia', 'la thuile', 'crévacol', 'bardonecchia', 'sauze d\'oulx',
-    'sestriere', 'claviere', 'sansicario', 'pragelato', 'limone piemonte',
-    'mondolè ski (prato nevoso)', 'ratschings-jaufen', 'monte cavallo - vipiteno',
-    'ladurns', 'klausberg', 'speikboden', 'reinswald', 'schöneben-haideralm',
-    'watles', 'schwemmalm', 'sulden am ortler', 'tarvisio', 'ravascletto-zoncolan',
-    'abetone', 'roccaraso', 'campo felice', 'camigliatello silano',
-    'gambarie d\'aspromonte', 'piano battaglia', 'aletsch arena', 'arosa',
-    'lenzerheide', 'flims', 'laax', 'savognin', 'scuol', 'brigels (breil)',
-    'splügen-tambo', 'davos klosters', 'adelboden-lenk', 'lenk', 'gstaad',
-    'grindelwald-wengen', 'wengen', 'meiringen-hasliberg', 'kandersteg',
-    'sörenberg', 'melchsee-frutt', 'klewenalp-stockhütte', 'stoos',
-    'mythenregion', 'hoch-ybrig', 'sattel-hochstuckli', 'brunni-alpthal',
-    'flumserberg', 'pizol', 'toggenburg', 'elm', 'braunwald', 'villars-gryon',
-    'leysin', 'les diablerets', 'crans-montana', 'anzère', 'nendaz',
-    'veysonnaz', 'thyon', 'grächen', 'lauchernalp', 'leukerbad', 'champex-lac',
-    'val d\'anniviers', 'malbun', 'grandvalira', 'vallnord', 'ordino arcalis',
-    'baqueira-beret', 'formigal', 'panticosa', 'cerler', 'la molina', 'masella',
-    'boí taüll', 'astún', 'candanchú', 'sierra nevada', 'alto campoo',
-    'valgrande-pajares', 'puerto de navacerrada', 'valdesquí', 'manzaneda',
-    'serra da estrela', 'brauneck', 'spitzingsee-tegernsee', 'sudelfeld',
-    'winklmoosalm', 'reit im winkl', 'oberjoch', 'balderschwang', 'hocheck',
-    'oberstdorf', 'garmisch-partenkirchen', 'großer arber', 'feldberg',
-    'winterberg', 'oberwiesenthal', 'lipno', 'špindlerův mlýn', 'klínovec',
-    'pec pod sněžkou', 'harrachov', 'białka tatrzańska', 'szczyrk',
-    'donovaly', 'jasná', 'tatranská lomnica', 'kubínska hoľa', 'vrátna',
-    'kranjska gora', 'rogla', 'mariborsko pohorje', 'cerkno', 'krvavec',
-    'vogel', 'bansko', 'borovets', 'pamporovo', 'kopaonik', 'jahorina',
-    'kolašin', 'poiana brasov', 'sinaia', 'bukovel', 'gudauri', 'parnassos',
+    'adelboden-lenk', 'lenk', 'gstaad', 'meiringen-hasliberg',
+    'kandersteg', 'sörenberg', 'melchsee-frutt', 'klewenalp-stockhütte',
+    'stoos', 'mythenregion', 'hoch-ybrig', 'sattel-hochstuckli',
+    'brunni-alpthal', 'flumserberg', 'toggenburg', 'elm', 'villars-gryon',
+    'leysin', 'crans-montana', 'anzère', 'leukerbad', 'champex-lac',
+    'malbun', 'grandvalira', 'vallnord', 'baqueira-beret', 'formigal',
+    'panticosa', 'la molina', 'masella', 'alto campoo',
+    'valgrande-pajares', 'puerto de navacerrada', 'valdesquí',
+    'manzaneda', 'serra da estrela', 'brauneck', 'spitzingsee-tegernsee',
+    'sudelfeld', 'reit im winkl', 'oberjoch', 'balderschwang', 'hocheck',
+    'großer arber', 'feldberg', 'winterberg', 'oberwiesenthal', 'lipno',
+    'špindlerův mlýn', 'klínovec', 'pec pod sněžkou', 'harrachov',
+    'białka tatrzańska', 'donovaly', 'kubínska hoľa', 'kranjska gora',
+    'rogla', 'mariborsko pohorje', 'cerkno', 'pamporovo', 'kopaonik',
+    'kolašin', 'poiana brasov', 'bukovel', 'parnassos',
     'troodos - mount olympus', 'bigëll - dardhë', 'cairngorm', 'glenshee',
     'sälen', 'idre fjäll', 'branäs', 'vemdalen', 'romme alpin', 'stöten',
-    'åre', 'trysil', 'hafjell', 'geilo', 'hemsedal', 'myrkdalen', 'oppdal',
-    'hovden', 'levi', 'ruka', 'ylläs'
+    'trysil', 'hafjell', 'geilo', 'hemsedal', 'oppdal', 'hovden', 'levi',
+    'ruka', 'ylläs'
+}
+
+# 14. Dedicated Family-Friendly Resorts (Includes Beginner Resorts + Larger Family Infrastructure Hubs)
+FAMILY_FRIENDLY_RESORTS = GOOD_FOR_BEGINNERS_RESORTS | {
+    'stubai glacier', 'obergurgl-hochgurgl', 'lech zürs',
+    'warth-schröcken', 'golm', 'diedamskopf', 'schladming', 'reiteralm',
+    'bad kleinkirchheim', 'nassfeld', 'zell am see', 'saalbach',
+    'hinterglemm', 'leogang', 'semmering (stuhleck)', 'les arcs',
+    'la clusaz', 'sainte-foy', 'cauterets', 'grand tourmalet',
+    'madonna di campiglio', 'limone piemonte', 'roccaraso',
+    'grindelwald-wengen', 'nendaz', 'veysonnaz', 'thyon', 'davos klosters',
+    'laax', 'sierra nevada', 'tatranská lomnica', 'jasná', 'borovets',
+    'jahorina', 'myrkdalen', 'åre'
+}
+
+# Southern / Mediterranean / Non-Alpine Hills Excluded From "High Altitude & Snow-Sure" Unless "Excellent"
+SOUTHERN_VARIABLE_HILLS = {
+    'ghisoni - capanelle', 'val d\'ese', 'etna nord - piano provenzana',
+    'etna sud - nicolosi', 'gambarie d\'aspromonte', 'piano battaglia',
+    'camigliatello silano', 'campo felice', 'campo imperatore',
+    'parnassos', 'troodos - mount olympus', 'bigëll - dardhë',
+    'valdesquí', 'puerto de navacerrada', 'manzaneda', 'serra da estrela'
 }
 
 
@@ -922,10 +579,10 @@ def scrape_skiresort_features(resort_name):
 
 def classify_resort(row, col_map, live_scrape=False):
     """
-    v2 Sense-Checked Classification Engine:
-    Enforces strict altitude, piste-length, and mutual-exclusion guardrails so
-    low-level hills never get Glacier/High-Altitude tags and expert mountains
-    never get Beginner tags.
+    v3 Audited Classification Engine:
+    Enforces strict altitude, snow-reliability, piste-length, and mutual-exclusion
+    guardrails so low/variable hills never get Glacier/High-Altitude tags and
+    expert mountains never get Beginner/Cruisy tags.
     """
     country = row[col_map['country']].strip()
     name = row[col_map['name']].strip()
@@ -940,10 +597,9 @@ def classify_resort(row, col_map, live_scrape=False):
 
     runs_km = parse_float(runs_str)
     low_m, high_m = parse_elevations(elev_str)
-    vert_m = max(0, high_m - low_m)
     pass_price = parse_float(pass_str)
-    lifts_cnt = int(parse_float(lifts_str))
     airport_km = parse_airport_km(airport_str)
+    snow_lower = snow_str.lower()
     is_chf = 'CHF' in pass_str or country.lower() in ('switzerland', 'liechtenstein')
 
     tags = set()
@@ -962,15 +618,26 @@ def classify_resort(row, col_map, live_scrape=False):
         tags.add('High Altitude & Snow-Sure')
 
     # ------------------------------------------------------------------
-    # 3. High Altitude & Snow-Sure (STRICT GATE: Top >= 2400m OR Base >= 1600m & Top >= 2200m)
+    # 3. High Altitude & Snow-Sure
+    #    STRICT GATE: Never assign if Snow Reliability is 'Variable'/'Poor'
+    #    or if it is a Southern/Mediterranean micro-hill.
     # ------------------------------------------------------------------
-    if high_m >= 2650 or (high_m >= 2400 and snow_str.lower() in ('excellent', 'very good', 'good')) or (low_m >= 1600 and high_m >= 2200):
-        tags.add('High Altitude & Snow-Sure')
+    if snow_lower not in ('variable', 'poor', 'low', '') and name_lower not in SOUTHERN_VARIABLE_HILLS:
+        if (
+            high_m >= 2650
+            or (high_m >= 2400 and snow_lower in ('excellent', 'very good'))
+            or (low_m >= 1600 and high_m >= 2300 and snow_lower in ('excellent', 'very good'))
+        ):
+            tags.add('High Altitude & Snow-Sure')
 
     # ------------------------------------------------------------------
-    # 4. Cruisy Intermediates (Requires >= 50km of runs and not an extreme freeride-only mountain)
+    # 4. Cruisy Intermediates (Requires >= 45km of runs and excludes steep expert-only mountains)
     # ------------------------------------------------------------------
-    if runs_km >= 50 and name_lower not in ('la grave', 'dachstein krippenstein'):
+    if runs_km >= 45 and name_lower not in (
+        'la grave', 'chamonix', 'st. anton am arlberg', 'verbier',
+        'andermatt', 'engelberg', 'mürren', 'disentis 3000',
+        'dachstein krippenstein', 'ankogel-mallnitz', 'nordkette'
+    ):
         tags.add('Cruisy Intermediates')
 
     # ------------------------------------------------------------------
@@ -1021,16 +688,18 @@ def classify_resort(row, col_map, live_scrape=False):
         tags.add('Ski-in / Ski-out')
 
     # ------------------------------------------------------------------
-    # 10. Good for Beginners & Family Friendly (Blocked on Expert-Only Mountains)
+    # 10. Good for Beginners & Family Friendly (Decoupled & Guardrailed)
     # ------------------------------------------------------------------
-    if name_lower in BEGINNER_STANDOUT_RESORTS and name_lower not in EXPERT_ONLY_NOT_BEGINNER:
+    if name_lower in GOOD_FOR_BEGINNERS_RESORTS and name_lower not in NOT_BEGINNER_RESORTS:
         tags.add('Good for Beginners')
+
+    if name_lower in FAMILY_FRIENDLY_RESORTS and name_lower not in ('la grave', 'dachstein krippenstein'):
         tags.add('Family Friendly')
 
     # ------------------------------------------------------------------
     # 11. Budget Friendly, Short Airport Transfer & Rail-to-Slopes
     # ------------------------------------------------------------------
-    budget_threshold = 54.0 if is_chf else 48.0
+    budget_threshold = 55.0 if is_chf else 50.0
     if 0 < pass_price <= budget_threshold:
         tags.add('Budget Friendly')
 
@@ -1047,7 +716,7 @@ def classify_resort(row, col_map, live_scrape=False):
     if live_scrape:
         scraped_tags = scrape_skiresort_features(name)
         for st in scraped_tags:
-            if st == 'Good for Beginners' and name_lower in EXPERT_ONLY_NOT_BEGINNER:
+            if st == 'Good for Beginners' and name_lower in NOT_BEGINNER_RESORTS:
                 continue
             tags.add(st)
         time.sleep(0.2)
@@ -1074,7 +743,7 @@ def classify_resort(row, col_map, live_scrape=False):
         'Rail-to-Slopes Access'
     ]
     ordered_tags = [t for t in CANONICAL_ORDER if t in tags]
-    source_mode = "Hybrid v2 (Strict Guardrails + Live DOM)" if scraped_tags else "Hybrid v2 (Strict Sense-Checked Guardrails)"
+    source_mode = "Hybrid v3 (Audited Guardrails + Live DOM)" if scraped_tags else "Hybrid v3 (Audited & Sense-Checked)"
     return ordered_tags, source_mode
 
 
