@@ -28,19 +28,417 @@ HEADERS = {
 }
 
 # ==============================================================================
-# CURATED EUROPEAN SKI RESORT KNOWLEDGE BASE (ALL 435 RESORTS)
+# STRICT, SENSE-CHECKED EUROPEAN SKI RESORT KNOWLEDGE BASE (v2)
 # ==============================================================================
 
-# 1. Resorts with a verified Half-Pipe / Superpipe
+# 1. Resorts with a verified Winter Half-Pipe / Superpipe (~28 resorts)
 HALF_PIPE_RESORTS = {
     'laax', 'avoriaz', 'tignes', 'livigno', 'crans-montana', 'zermatt',
     'saas-fee', 'stubai glacier', 'kitzsteinhorn - kaprun', 'mayrhofen',
     'les deux alpes', 'davos klosters', 'kühtai', 'ischgl', 'st. moritz',
     'grindelwald-wengen', 'flachau', 'serfaus-fiss-ladis', 'alpe d\'huez',
     'val thorens', 'les arcs', 'la plagne', 'chamonix', 'courchevel',
-    'méribel', 'font-romeu', 'sierra nevada', 'baqueira-beret', 'tryvann',
-    'hemsedal', 'trysil', 'åre', 'ruka', 'levi', 'špindlerův mlýn',
-    'feldberg', 'oberstdorf', 'sölden', 'silvretta montafon', 'damüls-mellau'
+    'méribel', 'sierra nevada', 'baqueira-beret', 'hemsedal', 'trysil',
+    'åre', 'ruka', 'levi', 'špindlerův mlýn', 'sölden'
+}
+
+# 2. Resorts with Major Dedicated Snowparks / Terrain Parks
+SNOWPARK_RESORTS = HALF_PIPE_RESORTS | {
+    'les gets', 'morzine', 'châtel', 'flaine', 'samoëns', 'les menuires',
+    'val d\'isère', 'serre chevalier', 'vars', 'risoul 1850', 'isola 2000',
+    'les 7 laux', 'la clusaz', 'le grand bornand', 'chamrousse', 'les orres',
+    'montgenèvre', 'valmorel', 'grand tourmalet', 'saint-lary-soulan',
+    'cauterets', 'grandvalira', 'vallnord', 'formigal', 'cerler',
+    'la molina', 'masella', 'saalbach', 'hinterglemm', 'leogang', 'fieberbrunn',
+    'zell am ziller', 'gerlos', 'königsleiten', 'zillertal arena',
+    'hochzillertal-hochfügen', 'schladming', 'reiteralm', 'obertauern',
+    'nassfeld', 'bad gastein', 'hochkönig', 'steinplatte-waidring',
+    'kitzbühel', 'westendorf', 'ellmau', 'söll', 'st. anton am arlberg',
+    'lech zürs', 'axamer lizum', 'hochoetz', 'hochzeiger', 'nauders',
+    'kaunertal glacier', 'pitztal glacier', 'hintertux glacier', 'kreischberg',
+    'turracher höhe', 'gerlitzen', 'katschberg-aineck', 'diedamskopf',
+    'damüls-mellau', 'silvretta montafon', 'brandnertal', 'golm', 'alpbach',
+    'kronplatz', 'alta badia', 'val gardena', 'obereggen',
+    'alpe lusia / san pellegrino', 'val di fassa', 'canazei',
+    'madonna di campiglio', 'passo tonale', 'bormio', 'bardonecchia',
+    'sestriere', 'sauze d\'oulx', 'cervinia', 'pila',
+    'mondolè ski (prato nevoso)', '3 zinnen dolomites', 'carezza', 'plose',
+    'schöneben-haideralm', 'verbier', 'nendaz', 'veysonnaz', 'thyon',
+    'adelboden-lenk', 'lenk', 'arosa', 'flumserberg', 'hoch-ybrig',
+    'engelberg', 'andermatt', 'melchsee-frutt', 'scuol', 'savognin',
+    'villars-gryon', 'leysin', 'val d\'anniviers', 'feldberg', 'oberstdorf',
+    'brauneck', 'spitzingsee-tegernsee', 'sudelfeld', 'winterberg',
+    'großer arber', 'klínovec', 'pec pod sněžkou', 'jasná', 'donovaly',
+    'białka tatrzańska', 'szczyrk', 'vogel', 'krvavec', 'kranjska gora',
+    'jahorina', 'kopaonik', 'bansko', 'borovets', 'pamporovo', 'gudauri',
+    'bukovel', 'geilo', 'hafjell', 'kvitfjell', 'myrkdalen', 'sälen',
+    'idre fjäll', 'branäs', 'vemdalen', 'stöten', 'ylläs'
+}
+
+# 3. True Operational Alpine Glacier Ski Resorts (Requires Top Elevation >= 2650m)
+GLACIER_RESORTS = {
+    'hintertux glacier', 'stubai glacier', 'sölden', 'pitztal glacier',
+    'kaunertal glacier', 'kitzsteinhorn - kaprun', 'mölltal glacier',
+    'weisssee gletscherwelt', 'tignes', 'val d\'isère', 'les deux alpes',
+    'la grave', 'chamonix', 'alpe d\'huez', 'zermatt', 'saas-fee',
+    'engelberg', 'cervinia', 'passo tonale', 'schnalstal',
+    'arabba / marmolada'
+}
+
+# 4. Famous Lively Après-Ski Hubs
+LIVELY_APRES_RESORTS = {
+    'ischgl', 'st. anton am arlberg', 'lech zürs', 'sölden', 'saalbach',
+    'hinterglemm', 'mayrhofen', 'flachau', 'wagrain', 'schladming',
+    'obertauern', 'kitzbühel', 'westendorf', 'söll', 'ellmau',
+    'gerlos', 'zell am ziller', 'zillertal arena', 'bad gastein',
+    'serfaus-fiss-ladis', 'nassfeld', 'zell am see',
+    'kitzsteinhorn - kaprun', 'hochzillertal-hochfügen', 'fügen - spieljoch',
+    'val d\'isère', 'tignes', 'val thorens', 'méribel', 'courchevel',
+    'les deux alpes', 'alpe d\'huez', 'chamonix', 'avoriaz', 'morzine',
+    'les gets', 'les arcs', 'la clusaz', 'serre chevalier', 'vars',
+    'risoul 1850', 'grandvalira', 'verbier', 'zermatt', 'davos klosters',
+    'laax', 'st. moritz', 'grindelwald-wengen', 'crans-montana', 'engelberg',
+    'arosa', 'saas-fee', 'livigno', 'madonna di campiglio',
+    'val gardena', 'canazei', 'val di fassa', 'alta badia', 'cortina d\'ampezzo',
+    'cervinia', 'sauze d\'oulx', 'sestriere', 'bormio', 'passo tonale',
+    'kronplatz', 'winterberg', 'garmisch-partenkirchen',
+    'bansko', 'borovets', 'špindlerův mlýn', 'jasná', 'zakopane',
+    'białka tatrzańska', 'kranjska gora', 'baqueira-beret', 'formigal',
+    'sierra nevada', 'åre', 'hemsedal', 'trysil', 'levi', 'ruka',
+    'gudauri', 'bukovel', 'kopaonik', 'jahorina', 'poiana brasov'
+}
+
+# 5. True Doorstep Ski-in / Ski-out Resorts (Purpose-built stations & car-free slope villages)
+SKI_IN_SKI_OUT_RESORTS = {
+    'avoriaz', 'val thorens', 'les menuires', 'st martin de belleville',
+    'méribel', 'courchevel', 'la plagne', 'les arcs', 'peisey-vallandry',
+    'tignes', 'val d\'isère', 'flaine', 'alpe d\'huez', 'les deux alpes',
+    'isola 2000', 'valmorel', 'saint-françois-longchamp', 'la rosière',
+    'les saisies', 'les sybelles', 'orcières merlette', 'superbesse',
+    'le lioran', 'les orres', 'risoul 1850', 'vars', 'montgenèvre',
+    'valfréjus', 'val cenis', 'sainte-foy', 'les karellis', 'praloup',
+    'val d\'allos (la foux)', 'peyragudes', 'piau engaly',
+    'la pierre saint-martin', 'gourette', 'obertauern', 'kühtai',
+    'obergurgl-hochgurgl', 'damüls-mellau', 'faschina-fontanella',
+    'warth-schröcken', 'lech zürs', 'königsleiten', 'hochkrimml',
+    'zauchensee', 'tauplitz', 'turracher höhe', 'katschberg-aineck',
+    'nassfeld', 'hochrindl', 'klippitztörl', 'weinebene', 'cervinia',
+    'sestriere', 'sansicario', 'claviere', 'pragelato', 'passo tonale',
+    'folgarida - marilleva', 'monte bondone', 'mondolè ski (prato nevoso)',
+    'aletsch arena', 'mürren', 'grindelwald-wengen', 'melchsee-frutt',
+    'stoos', 'flumserberg', 'crans-montana', 'anzère', 'thyon',
+    'grandvalira', 'baqueira-beret', 'sierra nevada', 'formigal',
+    'trysil', 'hemsedal', 'hafjell', 'kvitfjell', 'myrkdalen', 'sälen',
+    'idre fjäll', 'branäs', 'vemdalen', 'stöten', 'levi', 'ruka',
+    'gudauri', 'kopaonik', 'jahorina'
+}
+
+# 6. Genuine Challenging Runs & Steep Black Terrain
+CHALLENGING_RESORTS = {
+    'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'ischgl',
+    'sölden', 'kitzbühel', 'mayrhofen', 'hintertux glacier', 'stubai glacier',
+    'pitztal glacier', 'kaunertal glacier', 'kitzsteinhorn - kaprun',
+    'obergurgl-hochgurgl', 'serfaus-fiss-ladis', 'silvretta montafon',
+    'gargellen', 'golm', 'sonnenkopf', 'damüls-mellau', 'diedamskopf',
+    'schladming', 'reiteralm', 'zauchensee', 'bad gastein', 'obertauern',
+    'saalbach', 'hinterglemm', 'fieberbrunn', 'zell am see', 'nassfeld',
+    'bad kleinkirchheim', 'grossglockner resort kals-matrei', 'heiligenblut',
+    'ankogel-mallnitz', 'mölltal glacier', 'dachstein krippenstein',
+    'axamer lizum', 'nordkette', 'hochzillertal-hochfügen',
+    'chamonix', 'la grave', 'val d\'isère', 'tignes', 'val thorens',
+    'les menuires', 'méribel', 'courchevel', 'les arcs', 'la plagne',
+    'peisey-vallandry', 'alpe d\'huez', 'les deux alpes', 'serre chevalier',
+    'avoriaz', 'flaine', 'la clusaz', 'le grand bornand', 'megève',
+    'les contamines-montjoie', 'sainte-foy', 'bonneval-sur-arc', 'les 7 laux',
+    'chamrousse', 'isola 2000', 'vars', 'risoul 1850', 'grand tourmalet',
+    'gourette', 'cauterets', 'luz-ardiden', 'piau engaly', 'saint-lary-soulan',
+    'verbier', 'zermatt', 'saas-fee', 'engelberg', 'andermatt', 'mürren',
+    'grindelwald-wengen', 'laax', 'davos klosters', 'st. moritz', 'arosa',
+    'crans-montana', 'nendaz', 'veysonnaz', 'thyon', 'val d\'anniviers',
+    'adelboden-lenk', 'flumserberg', 'pizol', 'scuol', 'splügen-tambo',
+    'disentis 3000', 'lauchernalp', 'arolla', 'arabba / marmolada',
+    'cortina d\'ampezzo', 'val gardena', 'alta badia', 'kronplatz',
+    '3 zinnen dolomites', 'madonna di campiglio', 'passo tonale', 'bormio',
+    'santa caterina valfurva', 'livigno', 'madesimo', 'cervinia',
+    'courmayeur', 'la thuile', 'monterosa ski', 'sestriere', 'sauze d\'oulx',
+    'bardonecchia', 'limone piemonte', 'pila', 'ravascletto-zoncolan',
+    'tarvisio', 'sella nevea', 'schnalstal', 'sulden am ortler', 'klausberg',
+    'plose', 'campo imperatore', 'roccaraso', 'garmisch-partenkirchen',
+    'oberstdorf', 'jenner', 'kampenwand', 'feldberg', 'grandvalira',
+    'ordino arcalis', 'baqueira-beret', 'boí taüll', 'cerler', 'formigal',
+    'astún', 'candanchú', 'sierra nevada', 'jasná', 'tatranská lomnica',
+    'zakopane', 'szczyrk', 'krvavec', 'kanin', 'bansko', 'borovets',
+    'gudauri', 'bukovel', 'åre', 'riksgränsen', 'hemsedal', 'narvik',
+    'strandafjellet', 'myrkdalen', 'kvitfjell', 'glencoe', 'nevis range'
+}
+
+# 7. Renowned Freeride & Off-Piste Terrain
+FREERIDE_RESORTS = {
+    'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'sonnenkopf',
+    'ischgl', 'kappl', 'galtür', 'sölden', 'obergurgl-hochgurgl',
+    'fieberbrunn', 'saalbach', 'hinterglemm', 'leogang',
+    'dachstein krippenstein', 'tauplitz', 'loser - altaussee',
+    'bad gastein', 'zauchensee', 'obertauern', 'kitzsteinhorn - kaprun',
+    'weisssee gletscherwelt', 'grossglockner resort kals-matrei',
+    'heiligenblut', 'ankogel-mallnitz', 'mölltal glacier',
+    'hintertux glacier', 'stubai glacier', 'pitztal glacier',
+    'kaunertal glacier', 'kühtai', 'axamer lizum', 'nordkette',
+    'hochzillertal-hochfügen', 'mayrhofen', 'damüls-mellau', 'diedamskopf',
+    'gargellen', 'silvretta montafon', 'chamonix', 'la grave', 'val d\'isère',
+    'tignes', 'val thorens', 'les arcs', 'peisey-vallandry', 'la plagne',
+    'sainte-foy', 'la rosière', 'les deux alpes', 'alpe d\'huez',
+    'serre chevalier', 'montgenèvre', 'la clusaz', 'flaine', 'avoriaz',
+    'les 7 laux', 'pralognan-la-vanoise', 'bonneval-sur-arc',
+    'grand tourmalet', 'piau engaly', 'cauterets', 'luz-ardiden',
+    'verbier', 'nendaz', 'veysonnaz', 'thyon', 'zermatt', 'saas-fee',
+    'engelberg', 'andermatt', 'disentis 3000', 'laax', 'davos klosters',
+    'st. moritz', 'arosa', 'splügen-tambo', 'lauchernalp', 'arolla',
+    'val d\'anniviers', 'mürren', 'pizol', 'elm', 'scuol', 'vals 3000',
+    'monterosa ski', 'courmayeur', 'la thuile', 'cervinia',
+    'arabba / marmolada', 'cortina d\'ampezzo', 'val gardena', 'canazei',
+    'passo tonale', 'livigno', 'bormio', 'madesimo', 'sestriere',
+    'sauze d\'oulx', 'pragelato', 'sella nevea', 'kanin',
+    'sulden am ortler', 'schnalstal', 'campo imperatore',
+    'etna nord - piano provenzana', 'ordino arcalis', 'grandvalira',
+    'baqueira-beret', 'boí taüll', 'cerler', 'formigal', 'astún',
+    'candanchú', 'riksgränsen', 'narvik', 'strandafjellet', 'myrkdalen',
+    'hemsedal', 'åre', 'gudauri', 'bansko', 'jasná', 'zakopane',
+    'glencoe', 'nevis range'
+}
+
+# 8. Steep / Expert-Focused Resorts That Must NEVER Receive "Good for Beginners"
+EXPERT_ONLY_NOT_BEGINNER = {
+    'la grave', 'chamonix', 'st. anton am arlberg', 'verbier', 'andermatt',
+    'engelberg', 'mürren', 'cortina d\'ampezzo', 'arabba / marmolada',
+    'dachstein krippenstein', 'ankogel-mallnitz', 'mölltal glacier',
+    'weisssee gletscherwelt', 'nordkette', 'disentis 3000', 'kanin',
+    'sella nevea', 'campo imperatore', 'jenner', 'kampenwand', 'riksgränsen',
+    'narvik', 'strandafjellet', 'glencoe', 'nevis range', 'arolla',
+    'lauchernalp', 'vals 3000', 'monterosa ski'
+}
+
+# 9. Busy / Commuter / Major Resorts That Must NEVER Receive "Quiet Slopes"
+BUSY_RESORTS_NOT_QUIET = LIVELY_APRES_RESORTS | {
+    'winterberg', 'feldberg', 'brauneck', 'spitzingsee-tegernsee',
+    'sudelfeld', 'oberstdorf', 'garmisch-partenkirchen', 'großer arber',
+    'oberwiesenthal', 'semmering (hirschenkogel)', 'semmering (stuhleck)',
+    'hinterstoder', 'wurzeralm', 'kasberg', 'feuerkogel', 'hochkar',
+    'hochficht', 'nassfeld', 'gerlitzen', 'bad kleinkirchheim',
+    'turracher höhe', 'kreischberg', 'katschberg-aineck', 'obertauern',
+    'roccaraso', 'campo felice', 'abetone', 'mondolè ski (prato nevoso)',
+    'bardonecchia', 'pila', 'monte bondone', 'andalo - paganella',
+    'folgaria - fiorentini', 'kronplatz', 'obereggen', 'carezza',
+    'klínovec', 'pec pod sněžkou', 'harrachov', 'lipno',
+    'tatranská lomnica', 'donovaly', 'szczyrk', 'krvavec', 'rogla',
+    'mariborsko pohorje', 'pamporovo', 'sinaia', 'la molina', 'masella',
+    'puerto de navacerrada', 'valdesquí', 'astún', 'candanchú', 'cerler',
+    'flumserberg', 'hoch-ybrig', 'mythenregion', 'stoos', 'sörenberg',
+    'melchsee-frutt', 'adelboden-lenk', 'lenk', 'gstaad', 'villars-gryon',
+    'leysin', 'pizol', 'toggenburg', 'romme alpin', 'branäs', 'idre fjäll',
+    'sälen', 'vemdalen', 'hafjell', 'kvitfjell', 'geilo', 'oppdal'
+}
+
+# 10. Charming Traditional Alpine Villages
+CHARMING_VILLAGE_RESORTS = {
+    'alpbach', 'auffach', 'niederau', 'ellmau', 'ellmau - going', 'söll',
+    'westendorf', 'brixen im thale', 'hopfgarten', 'kitzbühel',
+    'st. johann in tirol', 'fieberbrunn', 'filzmoos', 'hochkönig', 'wagrain',
+    'radstadt-altenmarkt', 'schladming', 'tauplitz', 'loser - altaussee',
+    'dachstein west', 'annaberg', 'werfenweng', 'rauris', 'zell am see',
+    'bad gastein', 'bad kleinkirchheim', 'heiligenblut', 'lienz',
+    'grossglockner resort kals-matrei', 'st. jakob im defereggental',
+    'sillian-hochpustertal', 'seefeld - rosshütte', 'lermoos',
+    'st. anton am arlberg', 'lech zürs', 'warth-schröcken', 'galtür',
+    'ischgl', 'kappl', 'see', 'serfaus-fiss-ladis', 'nauders', 'mayrhofen',
+    'zell am ziller', 'gerlos', 'damüls-mellau', 'diedamskopf',
+    'brandnertal', 'gargellen', 'silvretta montafon', 'weissensee',
+    'megève', 'chamonix', 'les contamines-montjoie', 'la clusaz',
+    'le grand bornand', 'samoëns', 'les gets', 'morzine', 'châtel',
+    'bonneval-sur-arc', 'val d\'isère', 'st martin de belleville',
+    'valloire', 'val cenis', 'pralognan-la-vanoise', 'aussois', 'sainte-foy',
+    'serre chevalier', 'montgenèvre', 'cauterets', 'saint-lary-soulan',
+    'le mont-dore', 'zermatt', 'saas-fee', 'mürren', 'grindelwald-wengen',
+    'adelboden-lenk', 'lenk', 'gstaad', 'kandersteg', 'meiringen-hasliberg',
+    'engelberg', 'andermatt', 'davos klosters', 'st. moritz', 'scuol',
+    'arosa', 'brigels (breil)', 'disentis 3000', 'savognin', 'splügen-tambo',
+    'elm', 'val d\'anniviers', 'arolla', 'champex-lac', 'verbier',
+    'villars-gryon', 'malbun', 'cortina d\'ampezzo', 'val gardena',
+    'alta badia', 'canazei', 'val di fassa', 'arabba / marmolada',
+    '3 zinnen dolomites', 'madonna di campiglio', 'bormio', 'livigno',
+    'courmayeur', 'la thuile', 'monterosa ski', 'bardonecchia',
+    'sauze d\'oulx', 'limone piemonte', 'madesimo', 'santa caterina valfurva',
+    'val di fiemme', 'obereggen', 'carezza', 'meran 2000',
+    'monte cavallo - vipiteno', 'gitschberg jochtal', 'plose', 'reinswald',
+    'sulden am ortler', 'ladurns', 'civetta', 'san martino di castrozza',
+    'andalo - paganella', 'ravascletto-zoncolan', 'garmisch-partenkirchen',
+    'oberstdorf', 'reit im winkl', 'brauneck', 'sudelfeld',
+    'spitzingsee-tegernsee', 'balderschwang', 'oberjoch', 'baqueira-beret',
+    'cerler', 'formigal', 'panticosa', 'zakopane', 'białka tatrzańska',
+    'kranjska gora', 'špindlerův mlýn', 'pec pod sněžkou', 'bansko',
+    'sinaia', 'åre', 'geilo'
+}
+
+# 11. Verified Tree-Lined Runs (Wooded Slopes for Bad-Weather Visibility)
+TREE_SKIING_RESORTS = {
+    'schladming', 'reiteralm', 'fageralm', 'flachau', 'wagrain', 'st. johann',
+    'radstadt-altenmarkt', 'zauchensee', 'filzmoos', 'hochkönig', 'bad gastein',
+    'grossarl', 'werfenweng', 'annaberg', 'dachstein west', 'tauplitz',
+    'loser - altaussee', 'riesneralm', 'galsterberg', 'kreischberg', 'lachtal',
+    'grebenzen', 'turracher höhe', 'bad kleinkirchheim', 'gerlitzen',
+    'nassfeld', 'katschberg-aineck', 'dreiländereck', 'simonhöhe', 'hochrindl',
+    'klippitztörl', 'kitzbühel', 'st. johann in tirol', 'steinplatte-waidring',
+    'st. ulrich-buchensteinwand', 'fieberbrunn', 'saalbach', 'hinterglemm',
+    'leogang', 'zell am see', 'ellmau', 'ellmau - going', 'söll',
+    'westendorf', 'brixen im thale', 'hopfgarten', 'alpbach', 'auffach',
+    'niederau', 'zahmer kaiser', 'hochkössen', 'achensee - christlum',
+    'fügen - spieljoch', 'hochzillertal-hochfügen', 'zell am ziller',
+    'patscherkofel', 'muttereralm', 'ranggerköpfl', 'schlick 2000',
+    'bergeralm', 'seefeld - rosshütte', 'lermoos', 'fendels',
+    'serfaus-fiss-ladis', 'nauders', 'hochoetz', 'hochzeiger', 'brandnertal',
+    'golm', 'silvretta montafon', 'kleinwalsertal (kanzelwand - ifen)',
+    'diedamskopf', 'laterns - gapfohl', 'hinterstoder', 'wurzeralm',
+    'kasberg', 'hochficht', 'hochkar', 'lackenhof am ötscher',
+    'gemeindealpe', 'semmering (stuhleck)', 'semmering (hirschenkogel)',
+    'mönichkirchen-mariensee', 'serre chevalier', 'montgenèvre', 'vars',
+    'risoul 1850', 'les orres', 'praloup', 'val d\'allos (la foux)', 'auron',
+    'valberg', 'megève', 'les contamines-montjoie', 'la clusaz',
+    'le grand bornand', 'les gets', 'morzine', 'châtel', 'samoëns',
+    'les carroz', 'praz de lys - sommand', 'les saisies', 'courchevel',
+    'méribel', 'peisey-vallandry', 'les arcs', 'la plagne', 'sainte-foy',
+    'la rosière', 'valmorel', 'val cenis', 'aussois', 'valfréjus',
+    'pralognan-la-vanoise', 'les 7 laux', 'chamrousse', 'les rousses',
+    'métabief', 'lélex-crozet', 'la bresse-hohneck', 'le lioran',
+    'le mont-dore', 'les angles', 'ax 3 domaines', 'guzet-neige',
+    'saint-lary-soulan', 'cauterets', 'gourette', 'la pierre saint-martin',
+    'madonna di campiglio', 'folgarida - marilleva', 'passo tonale',
+    'andalo - paganella', 'folgaria - fiorentini', 'monte bondone',
+    'kronplatz', '3 zinnen dolomites', 'alta badia', 'val gardena',
+    'obereggen', 'val di fiemme', 'carezza', 'alpe lusia / san pellegrino',
+    'canazei', 'val di fassa', 'civetta', 'cortina d\'ampezzo',
+    'san martino di castrozza', 'gitschberg jochtal', 'plose', 'meran 2000',
+    'reinswald', 'ratschings-jaufen', 'monte cavallo - vipiteno', 'ladurns',
+    'klausberg', 'speikboden', 'schöneben-haideralm', 'watles', 'schwemmalm',
+    'bormio', 'santa caterina valfurva', 'aprica', 'madesimo', 'pila',
+    'courmayeur', 'la thuile', 'sauze d\'oulx', 'bardonecchia', 'pragelato',
+    'claviere', 'sansicario', 'limone piemonte', 'tarvisio',
+    'ravascletto-zoncolan', 'abetone', 'camigliatello silano',
+    'garmisch-partenkirchen', 'brauneck', 'spitzingsee-tegernsee',
+    'sudelfeld', 'oberstdorf', 'oberjoch', 'balderschwang', 'reit im winkl',
+    'hocheck', 'großer arber', 'feldberg', 'winterberg', 'oberwiesenthal',
+    'villars-gryon', 'leysin', 'crans-montana', 'anzère', 'nendaz',
+    'veysonnaz', 'val d\'anniviers', 'gstaad', 'adelboden-lenk', 'lenk',
+    'grindelwald-wengen', 'meiringen-hasliberg', 'sörenberg',
+    'klewenalp-stockhütte', 'mythenregion', 'hoch-ybrig', 'flumserberg',
+    'toggenburg', 'savognin', 'arosa', 'davos klosters', 'scuol',
+    'vallnord', 'baqueira-beret', 'formigal', 'panticosa', 'la molina',
+    'masella', 'krvavec', 'rogla', 'mariborsko pohorje', 'kranjska gora',
+    'cerkno', 'jasná', 'donovaly', 'tatranská lomnica', 'kubínska hoľa',
+    'vrátna', 'špindlerův mlýn', 'klínovec', 'pec pod sněžkou', 'harrachov',
+    'lipno', 'zakopane', 'białka tatrzańska', 'szczyrk', 'bansko',
+    'borovets', 'pamporovo', 'kopaonik', 'jahorina', 'poiana brasov',
+    'sinaia', 'bukovel', 'åre', 'sälen', 'vemdalen', 'idre fjäll',
+    'branäs', 'romme alpin', 'stöten', 'trysil', 'hafjell', 'kvitfjell',
+    'hemsedal', 'geilo', 'myrkdalen', 'oppdal', 'hovden', 'levi', 'ruka',
+    'ylläs'
+}
+
+# 12. Verified Rail-to-Slopes Resorts (Direct Train Station in Resort or Base Lift Link)
+RAIL_TO_SLOPES_RESORTS = {
+    'st. anton am arlberg', 'zell am see', 'bad gastein', 'schladming',
+    'hopfgarten', 'brixen im thale', 'fügen - spieljoch', 'zell am ziller',
+    'mayrhofen', 'st. johann in tirol', 'fieberbrunn', 'kitzbühel',
+    'leogang', 'seefeld - rosshütte', 'lermoos', 'semmering (hirschenkogel)',
+    'semmering (stuhleck)', 'ankogel-mallnitz', 'lienz', 'st. johann',
+    'radstadt-altenmarkt', 'achensee - christlum', 'rofan', 'kellerjoch',
+    'chamonix', 'les arcs', 'peisey-vallandry', 'orelle', 'megève',
+    'les contamines-montjoie', 'serre chevalier', 'montgenèvre',
+    'ax 3 domaines', 'le mont-dore', 'le lioran', 'les rousses',
+    'zermatt', 'saas-fee', 'grindelwald-wengen', 'mürren', 'adelboden-lenk',
+    'lenk', 'gstaad', 'kandersteg', 'meiringen-hasliberg', 'engelberg',
+    'andermatt', 'disentis 3000', 'davos klosters', 'arosa', 'st. moritz',
+    'scuol', 'flumserberg', 'pizol', 'villars-gryon', 'leysin',
+    'crans-montana', 'nendaz', 'verbier', 'aletsch arena', 'lauchernalp',
+    'champex-lac', 'sattel-hochstuckli', 'stoos', 'klewenalp-stockhütte',
+    'kronplatz', '3 zinnen dolomites', 'monte cavallo - vipiteno',
+    'bardonecchia', 'limone piemonte', 'ravascletto-zoncolan', 'tarvisio',
+    'garmisch-partenkirchen', 'oberstdorf', 'brauneck', 'spitzingsee-tegernsee',
+    'sudelfeld', 'winterberg', 'feldberg', 'oberwiesenthal', 'la molina',
+    'masella', 'puerto de navacerrada', 'valdesquí', 'zakopane',
+    'tatranská lomnica', 'harrachov', 'špindlerův mlýn', 'sinaia',
+    'åre', 'riksgränsen', 'geilo', 'oppdal', 'narvik', 'kvitfjell'
+}
+
+# 13. Select Standout Beginner & Family Resorts
+BEGINNER_STANDOUT_RESORTS = {
+    'alpbach', 'auffach', 'niederau', 'ellmau', 'ellmau - going', 'söll',
+    'westendorf', 'brixen im thale', 'hopfgarten', 'filzmoos', 'wagrain',
+    'flachau', 'st. johann', 'radstadt-altenmarkt', 'hochkönig', 'wildkogel',
+    'loferer alm', 'steinplatte-waidring', 'st. johann in tirol',
+    'st. ulrich-buchensteinwand', 'zahmer kaiser', 'hochkössen', 'fageralm',
+    'galsterberg', 'riesneralm', 'planneralm', 'turracher höhe',
+    'kreischberg', 'katschberg-aineck', 'gerlitzen', 'bad kleinkirchheim',
+    'weissensee', 'dreiländereck', 'simonhöhe', 'hochrindl', 'klippitztörl',
+    'koralpe', 'weinebene', 'petzen', 'emberger alm', 'kötschach-mauthen',
+    'serfaus-fiss-ladis', 'fendels', 'nauders', 'hochoetz', 'hochzeiger',
+    'muttereralm', 'ranggerköpfl', 'patscherkofel', 'schlick 2000',
+    'bergeralm', 'kellerjoch', 'glun gezer', 'seefeld - rosshütte',
+    'lermoos', 'jungholz', 'achensee - christlum', 'rofan',
+    'fügen - spieljoch', 'gerlos', 'zell am ziller', 'königsleiten',
+    'hochkrimml', 'zillertal arena', 'obergurgl-hochgurgl', 'lech zürs',
+    'warth-schröcken', 'galtür', 'see', 'brandnertal', 'golm',
+    'diedamskopf', 'faschina-fontanella', 'sonntag-stein', 'laterns - gapfohl',
+    'schetteregg', 'niedere - andelsbuch', 'hinterstoder', 'wurzeralm',
+    'kasberg', 'dachstein west', 'annaberg', 'postalm', 'abtenau',
+    'zinkenlifte hallein', 'naglköpfl piesendorf', 'heutal - unken',
+    'gaißau-hintersee', 'werfenweng', 'rauris', 'fanningberg',
+    'großeck-speiereck', 'hochficht', 'lackenhof am ötscher', 'gemeindealpe',
+    'semmering (stuhleck)', 'mönichkirchen-mariensee', 'unterberg',
+    'st. jakob im walde', 'gaberl', 'präbichl', 'hohentauern', 'lachtal',
+    'grebenzen', 'les gets', 'morzine', 'avoriaz', 'châtel', 'flaine',
+    'samoëns', 'les carroz', 'megève', 'les contamines-montjoie',
+    'la clusaz', 'le grand bornand', 'praz de lys - sommand', 'les saisies',
+    'la plagne', 'peisey-vallandry', 'les menuires', 'courchevel',
+    'méribel', 'st martin de belleville', 'valmorel',
+    'saint-françois-longchamp', 'la rosière', 'val cenis', 'aussois',
+    'valfréjus', 'valloire', 'les sybelles', 'les karellis', 'alpe d\'huez',
+    'les deux alpes', 'chamrousse', 'montgenèvre', 'vars', 'risoul 1850',
+    'les orres', 'orcières merlette', 'praloup', 'val d\'allos (la foux)',
+    'isola 2000', 'auron', 'valberg', 'superbesse', 'le mont-dore',
+    'le lioran', 'la bresse-hohneck', 'métabief', 'les rousses',
+    'lélex-crozet', 'saint-lary-soulan', 'peyragudes', 'luz-ardiden',
+    'gourette', 'la pierre saint-martin', 'gavarnie-gèdre', 'hautacam',
+    'guzet-neige', 'ax 3 domaines', 'les angles', 'alta badia',
+    'val gardena', 'kronplatz', '3 zinnen dolomites', 'gitschberg jochtal',
+    'plose', 'meran 2000', 'carezza', 'obereggen', 'val di fiemme',
+    'alpe lusia / san pellegrino', 'canazei', 'val di fassa',
+    'san martino di castrozza', 'civetta', 'passo tonale',
+    'folgarida - marilleva', 'andalo - paganella', 'folgaria - fiorentini',
+    'monte bondone', 'livigno', 'aprica', 'pila', 'cervinia', 'crévacol',
+    'bardonecchia', 'claviere', 'sansicario', 'pragelato',
+    'mondolè ski (prato nevoso)', 'ratschings-jaufen',
+    'monte cavallo - vipiteno', 'ladurns', 'klausberg', 'speikboden',
+    'reinswald', 'schöneben-haideralm', 'watles', 'schwemmalm',
+    'ravascletto-zoncolan', 'abetone', 'campo felice',
+    'camigliatello silano', 'gambarie d\'aspromonte', 'piano battaglia',
+    'aletsch arena', 'arosa', 'savognin', 'scuol', 'brigels (breil)',
+    'adelboden-lenk', 'lenk', 'gstaad', 'meiringen-hasliberg', 'kandersteg',
+    'sörenberg', 'melchsee-frutt', 'klewenalp-stockhütte', 'stoos',
+    'mythenregion', 'hoch-ybrig', 'sattel-hochstuckli', 'brunni-alpthal',
+    'flumserberg', 'toggenburg', 'elm', 'villars-gryon', 'leysin',
+    'crans-montana', 'anzère', 'nendaz', 'veysonnaz', 'thyon', 'leukerbad',
+    'champex-lac', 'malbun', 'grandvalira', 'vallnord', 'baqueira-beret',
+    'formigal', 'panticosa', 'la molina', 'masella', 'alto campoo',
+    'valgrande-pajares', 'puerto de navacerrada', 'valdesquí', 'manzaneda',
+    'serra da estrela', 'brauneck', 'spitzingsee-tegernsee', 'sudelfeld',
+    'reit im winkl', 'oberjoch', 'balderschwang', 'hocheck', 'großer arber',
+    'feldberg', 'winterberg', 'oberwiesenthal', 'lipno', 'špindlerův mlýn',
+    'klínovec', 'pec pod sněžkou', 'harrachov', 'białka tatrzańska',
+    'donovaly', 'kubínska hoľa', 'kranjska gora', 'rogla',
+    'mariborsko pohorje', 'cerkno', 'pamporovo', 'kopaonik', 'kolašin',
+    'poiana brasov', 'bukovel', 'parnassos', 'troodos - mount olympus',
+    'bigëll - dardhë', 'cairngorm', 'glenshee', 'sälen', 'idre fjäll',
+    'branäs', 'vemdalen', 'romme alpin', 'stöten', 'trysil', 'hafjell',
+    'geilo', 'hemsedal', 'oppdal', 'hovden', 'levi', 'ruka', 'ylläs'
 }
 
 # 2. Resorts with Major Snowparks / Terrain Parks
@@ -474,8 +872,10 @@ def transliterate_slug(text):
 
 def scrape_skiresort_features(resort_name):
     """
-    Optional Live Scraper (Layer 3):
-    Queries Skiresort.info detail page for official Test Report awards and slope breakdown.
+    Optional Live Scraper (Layer 3 - v2 DOM-Scoped):
+    Uses BeautifulSoup to inspect ONLY the resort's main content area (stripping
+    out global navigation menus so 'Glacier ski resorts' and 'Snow parks' menu links
+    never trigger false positives).
     """
     slug = transliterate_slug(resort_name)
     url = f"https://www.skiresort.com/en/ski-resort/{slug}/"
@@ -485,32 +885,35 @@ def scrape_skiresort_features(resort_name):
         if resp.status_code != 200 or '/ski-resort/' not in resp.url:
             return scraped_tags
 
-        text = resp.text.lower()
-        if 'top for beginners' in text:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        # Remove global nav, header, footer, and sidebars so menu links never pollute matching
+        for nav_el in soup.find_all(['nav', 'header', 'footer', 'aside']):
+            nav_el.decompose()
+
+        body_text = re.sub(r'\s+', ' ', soup.get_text(' ', strip=True)).lower()
+
+        # Only match explicit Skiresort.info Test Report award badges ('Top ... »')
+        if 'top for beginners »' in body_text:
             scraped_tags.add('Good for Beginners')
-        if 'top for families' in text:
+        if 'top for families »' in body_text:
             scraped_tags.add('Family Friendly')
-        if 'top for experts/freeriders' in text:
+        if 'top for experts/freeriders »' in body_text:
             scraped_tags.add('Challenging Runs')
             scraped_tags.add('Freeride & Off-Piste')
-        if 'top snow park offering' in text or 'snow park' in text:
+        if 'top snow park offering »' in body_text:
             scraped_tags.add('Snowpark & Terrain Park')
-        if 'halfpipe' in text or 'half-pipe' in text or 'superpipe' in text:
-            scraped_tags.add('Half-Pipe')
-        if 'top après-ski' in text:
+        if 'top après-ski »' in body_text:
             scraped_tags.add('Lively Après-Ski')
-        if 'glacier ski resort' in text:
-            scraped_tags.add('Glacier Skiing')
 
-        # Parse Easy / Intermediate / Difficult percentages
-        m_easy = re.search(r'easy\s+[0-9\.]+\s*km\s*\(([0-9]+)\s*%\)', text)
-        m_inter = re.search(r'intermediate\s+[0-9\.]+\s*km\s*\(([0-9]+)\s*%\)', text)
-        m_diff = re.search(r'difficult\s+[0-9\.]+\s*km\s*\(([0-9]+)\s*%\)', text)
-        if m_easy and int(m_easy.group(1)) >= 35:
+        # Parse Easy / Intermediate / Difficult slope breakdown percentages
+        m_easy = re.search(r'easy\s+[0-9\.]+\s*km\s*\(([0-9]+)\s*%\)', body_text)
+        m_inter = re.search(r'intermediate\s+[0-9\.]+\s*km\s*\(([0-9]+)\s*%\)', body_text)
+        m_diff = re.search(r'difficult\s+[0-9\.]+\s*km\s*\(([0-9]+)\s*%\)', body_text)
+        if m_easy and int(m_easy.group(1)) >= 40:
             scraped_tags.add('Good for Beginners')
-        if m_inter and int(m_inter.group(1)) >= 45:
+        if m_inter and int(m_inter.group(1)) >= 48:
             scraped_tags.add('Cruisy Intermediates')
-        if m_diff and int(m_diff.group(1)) >= 20:
+        if m_diff and int(m_diff.group(1)) >= 22:
             scraped_tags.add('Challenging Runs')
     except Exception:
         pass
@@ -519,13 +922,14 @@ def scrape_skiresort_features(resort_name):
 
 def classify_resort(row, col_map, live_scrape=False):
     """
-    Combines Layer 1 (Quantitative CSV Rules), Layer 2 (Curated 435-Resort Knowledge Base),
-    and optional Layer 3 (Live Skiresort.info Scraping) into a clean, ordered list of tags.
+    v2 Sense-Checked Classification Engine:
+    Enforces strict altitude, piste-length, and mutual-exclusion guardrails so
+    low-level hills never get Glacier/High-Altitude tags and expert mountains
+    never get Beginner tags.
     """
     country = row[col_map['country']].strip()
     name = row[col_map['name']].strip()
     name_lower = name.lower()
-    region = row[col_map['region']].strip() if col_map['region'] < len(row) else ''
     runs_str = row[col_map['runs']].strip() if col_map['runs'] < len(row) else '0'
     elev_str = row[col_map['elev']].strip() if col_map['elev'] < len(row) else ''
     pass_str = row[col_map['pass']].strip() if col_map['pass'] < len(row) else ''
@@ -533,7 +937,6 @@ def classify_resort(row, col_map, live_scrape=False):
     visitors_str = row[col_map['visitors']].strip() if col_map['visitors'] < len(row) else ''
     snow_str = row[col_map['snow']].strip() if col_map['snow'] < len(row) else ''
     airport_str = row[col_map['airport']].strip() if col_map['airport'] < len(row) else ''
-    train_str = row[col_map['train']].strip() if col_map['train'] < len(row) else ''
 
     runs_km = parse_float(runs_str)
     low_m, high_m = parse_elevations(elev_str)
@@ -546,101 +949,107 @@ def classify_resort(row, col_map, live_scrape=False):
     tags = set()
 
     # ------------------------------------------------------------------
-    # LAYER 1: Quantitative Rules from Master CSV
-    # ------------------------------------------------------------------
     # 1. Mega Ski Area (150km+)
-    if runs_km >= 150 or 'area' in runs_str.lower() and runs_km >= 140:
+    # ------------------------------------------------------------------
+    if runs_km >= 150 or ('area' in runs_str.lower() and runs_km >= 140):
         tags.add('Mega Ski Area (150km+)')
 
-    # 2. Cruisy Intermediates
-    if runs_km >= 45:
-        tags.add('Cruisy Intermediates')
-
-    # 3. Challenging Runs (Vertical drop >= 1150m or large high-alpine domain)
-    if vert_m >= 1150 or (high_m >= 2600 and runs_km >= 60):
-        tags.add('Challenging Runs')
-
-    # 4. High Altitude & Snow-Sure
-    if high_m >= 2500 or snow_str.lower() in ('excellent', 'very good') or low_m >= 1550:
-        tags.add('High Altitude & Snow-Sure')
-
-    # 5. Glacier Skiing
-    if 'glacier' in name_lower or 'gletscher' in name_lower or name_lower in GLACIER_RESORTS:
+    # ------------------------------------------------------------------
+    # 2. Glacier Skiing (STRICT GATE: Must be in GLACIER_RESORTS and high_m >= 2650m)
+    # ------------------------------------------------------------------
+    if name_lower in GLACIER_RESORTS and high_m >= 2650:
         tags.add('Glacier Skiing')
         tags.add('High Altitude & Snow-Sure')
 
-    # 6. Budget Friendly
-    budget_threshold = 54.0 if is_chf else 48.0
-    if 0 < pass_price <= budget_threshold:
-        tags.add('Budget Friendly')
-
-    # 7. Short Airport Transfer (<= 75km)
-    if airport_km <= 75:
-        tags.add('Short Airport Transfer')
-
-    # 8. Rail-to-Slopes Access
-    if train_str and train_str.lower() not in ('n/a', 'none', '-', ''):
-        train_clean = re.sub(r'\s*\(.*?\)', '', train_str).strip().lower()
-        # Check if train station name matches resort name or is within <=15km
-        m_train_km = re.search(r'\(([0-9]+)\s*km\)', train_str, re.IGNORECASE)
-        if (
-            train_clean in name_lower
-            or name_lower in train_clean
-            or (m_train_km and int(m_train_km.group(1)) <= 15)
-            or any(w in name_lower for w in train_clean.split() if len(w) >= 4)
-        ):
-            tags.add('Rail-to-Slopes Access')
-
-    # 9. Quiet Slopes (Uncrowded hidden gems & low visitor density)
-    vis_lower = visitors_str.lower()
-    is_quiet = (
-        vis_lower in ('small', 'low', 'medium')
-        or (runs_km <= 55 and name_lower not in LIVELY_APRES_RESORTS and name_lower != 'winterberg')
-        or (runs_km > 0 and lifts_cnt > 0 and (runs_km / max(1, lifts_cnt)) >= 4.2 and name_lower not in LIVELY_APRES_RESORTS)
-    )
-    if is_quiet:
-        tags.add('Quiet Slopes')
+    # ------------------------------------------------------------------
+    # 3. High Altitude & Snow-Sure (STRICT GATE: Top >= 2400m OR Base >= 1600m & Top >= 2200m)
+    # ------------------------------------------------------------------
+    if high_m >= 2650 or (high_m >= 2400 and snow_str.lower() in ('excellent', 'very good', 'good')) or (low_m >= 1600 and high_m >= 2200):
+        tags.add('High Altitude & Snow-Sure')
 
     # ------------------------------------------------------------------
-    # LAYER 2: Curated European Ski Resort Knowledge Base
+    # 4. Cruisy Intermediates (Requires >= 50km of runs and not an extreme freeride-only mountain)
+    # ------------------------------------------------------------------
+    if runs_km >= 50 and name_lower not in ('la grave', 'dachstein krippenstein'):
+        tags.add('Cruisy Intermediates')
+
+    # ------------------------------------------------------------------
+    # 5. Challenging Runs & Freeride
+    # ------------------------------------------------------------------
+    if name_lower in CHALLENGING_RESORTS:
+        tags.add('Challenging Runs')
+
+    if name_lower in FREERIDE_RESORTS:
+        tags.add('Freeride & Off-Piste')
+
+    # ------------------------------------------------------------------
+    # 6. Half-Pipe & Snowpark
     # ------------------------------------------------------------------
     if name_lower in HALF_PIPE_RESORTS:
         tags.add('Half-Pipe')
         tags.add('Snowpark & Terrain Park')
-
-    if name_lower in SNOWPARK_RESORTS or runs_km >= 100:
+    elif name_lower in SNOWPARK_RESORTS:
         tags.add('Snowpark & Terrain Park')
 
+    # ------------------------------------------------------------------
+    # 7. Lively Après-Ski vs. Quiet Slopes (Mutually Exclusive!)
+    # ------------------------------------------------------------------
     if name_lower in LIVELY_APRES_RESORTS:
         tags.add('Lively Après-Ski')
+    else:
+        vis_lower = visitors_str.lower()
+        if (
+            name_lower not in BUSY_RESORTS_NOT_QUIET
+            and runs_km <= 75
+            and vis_lower not in ('large', 'high', 'very large')
+        ):
+            tags.add('Quiet Slopes')
 
-    if name_lower in SKI_IN_SKI_OUT_RESORTS or low_m >= 1650:
-        tags.add('Ski-in / Ski-out')
-
-    if name_lower in CHALLENGING_RESORTS:
-        tags.add('Challenging Runs')
-
-    if name_lower in FREERIDE_RESORTS or (high_m >= 2650 and vert_m >= 1100):
-        tags.add('Freeride & Off-Piste')
-
+    # ------------------------------------------------------------------
+    # 8. Charming Alpine Village & Tree-Lined Runs
+    # ------------------------------------------------------------------
     if name_lower in CHARMING_VILLAGE_RESORTS:
         tags.add('Charming Alpine Village')
 
-    if name_lower in TREE_SKIING_RESORTS or (high_m <= 2150 and country not in ('Scotland', 'Cyprus', 'Iceland')):
+    if name_lower in TREE_SKIING_RESORTS:
         tags.add('Tree-Lined Runs')
 
-    if name_lower in BEGINNER_FAMILY_RESORTS or runs_km <= 45:
-        if name_lower not in ('la grave', 'nordkette'):
-            tags.add('Good for Beginners')
-            tags.add('Family Friendly')
+    # ------------------------------------------------------------------
+    # 9. Ski-in / Ski-out (Strictly Verified Doorstep Stations & Villages)
+    # ------------------------------------------------------------------
+    if name_lower in SKI_IN_SKI_OUT_RESORTS:
+        tags.add('Ski-in / Ski-out')
 
     # ------------------------------------------------------------------
-    # LAYER 3: Optional Live Batch Web-Scraping
+    # 10. Good for Beginners & Family Friendly (Blocked on Expert-Only Mountains)
+    # ------------------------------------------------------------------
+    if name_lower in BEGINNER_STANDOUT_RESORTS and name_lower not in EXPERT_ONLY_NOT_BEGINNER:
+        tags.add('Good for Beginners')
+        tags.add('Family Friendly')
+
+    # ------------------------------------------------------------------
+    # 11. Budget Friendly, Short Airport Transfer & Rail-to-Slopes
+    # ------------------------------------------------------------------
+    budget_threshold = 54.0 if is_chf else 48.0
+    if 0 < pass_price <= budget_threshold:
+        tags.add('Budget Friendly')
+
+    if airport_km <= 75:
+        tags.add('Short Airport Transfer')
+
+    if name_lower in RAIL_TO_SLOPES_RESORTS:
+        tags.add('Rail-to-Slopes Access')
+
+    # ------------------------------------------------------------------
+    # Optional Layer 3: DOM-Scoped Live Skiresort.info Scraping
     # ------------------------------------------------------------------
     scraped_tags = set()
     if live_scrape:
         scraped_tags = scrape_skiresort_features(name)
-        tags |= scraped_tags
+        for st in scraped_tags:
+            if st == 'Good for Beginners' and name_lower in EXPERT_ONLY_NOT_BEGINNER:
+                continue
+            tags.add(st)
         time.sleep(0.2)
 
     # Canonical ordering for clean, scannable display
@@ -665,7 +1074,7 @@ def classify_resort(row, col_map, live_scrape=False):
         'Rail-to-Slopes Access'
     ]
     ordered_tags = [t for t in CANONICAL_ORDER if t in tags]
-    source_mode = "Hybrid (CSV + Knowledge Base + Live Scrape)" if scraped_tags else "Hybrid (CSV + Curated Knowledge Base)"
+    source_mode = "Hybrid v2 (Strict Guardrails + Live DOM)" if scraped_tags else "Hybrid v2 (Strict Sense-Checked Guardrails)"
     return ordered_tags, source_mode
 
 
