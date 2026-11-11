@@ -1,14 +1,14 @@
 {
-  "last_updated": "2026-11-11T13:19:15.745191+00:00",
+  "last_updated": "2026-11-11T13:52:23.803018+00:00",
   "summary": {
     "overall_sample_size": 41,
-    "high_altitude_snow_anomaly_pct": -98.8,
+    "high_altitude_snow_anomaly_pct": -87.8,
     "mid_altitude_snow_anomaly_pct": -98.8,
     "low_altitude_snow_anomaly_pct": -99.5,
     "high_altitude_snow_depth_cm": 18.9,
     "mid_altitude_snow_depth_cm": 1.6,
     "low_altitude_snow_depth_cm": 0.0,
-    "high_altitude_baseline_depth_cm": 34.2,
+    "high_altitude_baseline_depth_cm": 29.7,
     "mid_altitude_baseline_depth_cm": 21.8,
     "low_altitude_baseline_depth_cm": 14.2,
     "overall_avg_freezing_level_m": 2420
@@ -26,14 +26,14 @@
       "current_snowfall_cm": 0.2,
       "snowfall_base_cm": 0.0,
       "snowfall_peak_cm": 0.6,
-      "baseline_snowfall_cm": 25.2,
-      "snow_anomaly_pct": -99.2,
+      "baseline_snowfall_cm": 0.0,
+      "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 39.2,
       "avg_freezing_level_m": 2512,
       "snow_depth_cm": 3.0,
       "snow_depth_base_cm": 0.0,
       "snow_depth_peak_cm": 85.6,
-      "baseline_snow_depth_cm": 40.6
+      "baseline_snow_depth_cm": 0.0
     },
     {
       "id": "val-disere",
@@ -47,14 +47,14 @@
       "current_snowfall_cm": 0.4,
       "snowfall_base_cm": 0.0,
       "snowfall_peak_cm": 1.9,
-      "baseline_snowfall_cm": 24.3,
-      "snow_anomaly_pct": -98.3,
+      "baseline_snowfall_cm": 0.0,
+      "snow_anomaly_pct": 0.0,
       "weekly_precip_mm": 14.5,
       "avg_freezing_level_m": 2527,
       "snow_depth_cm": 2.0,
       "snow_depth_base_cm": 0.0,
       "snow_depth_peak_cm": 86.7,
-      "baseline_snow_depth_cm": 39.4
+      "baseline_snow_depth_cm": 0.0
     },
     {
       "id": "meribel",
