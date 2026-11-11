@@ -24,7 +24,7 @@ RESORT_GEO_OVERRIDES = {
     # Switzerland
     "zermatt":        {"peak_lat": 45.9383, "peak_lon": 7.7297,  "mid_elev": 2939, "glacier_peak": True,  "glacier_mid": True},
     "saas-fee":       {"peak_lat": 46.0583, "peak_lon": 7.9050,  "mid_elev": 2870, "glacier_peak": True,  "glacier_mid": True},
-    "engelberg":      {"peak_lat": 46.7720, "peak_lon": 8.4378,  "mid_elev": 2428, "glacier_peak": True,  "glacier_mid": False},
+    "engelberg":      {"peak_lat": 46.7720, "peak_lon": 8.4378,  "glacier_peak": True,  "glacier_mid": False},    
     "verbier":        {"peak_lat": 46.0803, "peak_lon": 7.3189,  "glacier_peak": True,  "glacier_mid": False},
     "crans-montana":  {"peak_lat": 46.3820, "peak_lon": 7.5160,  "glacier_peak": True,  "glacier_mid": False},
     "st-moritz":      {"peak_lat": 46.5040, "peak_lon": 9.7950,  "glacier_peak": False, "glacier_mid": False},
