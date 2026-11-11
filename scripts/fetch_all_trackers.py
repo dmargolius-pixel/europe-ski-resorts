@@ -5,48 +5,50 @@ from datetime import datetime, timedelta, timezone
 import urllib.request
 import urllib.error
 
-# True Summit/Glacier coordinates, active autumn glacier status, and operational mid-mountain hub overrides
+# True Summit/Glacier coordinates, operational mid-mountain hubs, and glacier tier flags:
+# - glacier_peak: True if the summit has a glacier / perennial snowfield
+# - glacier_mid:  True if the mid-mountain hub is an active autumn glacier/snow-farming ski sector
 RESORT_GEO_OVERRIDES = {
     # Austria
-    "kaprun":         {"peak_lat": 47.1883, "peak_lon": 12.6875, "mid_elev": 2450, "glacier": True},
-    "stubai-glacier": {"peak_lat": 46.9792, "peak_lon": 11.1108, "mid_elev": 2620, "glacier": True},
-    "solden":         {"peak_lat": 46.9242, "peak_lon": 10.9161, "mid_elev": 2675, "glacier": True},
-    "obergurgl":      {"peak_lat": 46.8450, "peak_lon": 11.0560, "glacier": False},
-    "st-anton":       {"peak_lat": 47.1578, "peak_lon": 10.2131, "glacier": False},
-    "ischgl":         {"peak_lat": 46.9422, "peak_lon": 10.3200, "glacier": False},
-    "mayrhofen":      {"peak_lat": 47.1330, "peak_lon": 11.8050, "glacier": False},
-    "zell-am-see":    {"peak_lat": 47.3292, "peak_lon": 12.7375, "glacier": False},
-    "kitzbuhel":      {"peak_lat": 47.4120, "peak_lon": 12.3600, "glacier": False},
-    "saalbach":       {"peak_lat": 47.3620, "peak_lon": 12.6020, "glacier": False},
-    "obertauern":     {"peak_lat": 47.2620, "peak_lon": 13.5650, "glacier": False},
+    "kaprun":         {"peak_lat": 47.1883, "peak_lon": 12.6875, "mid_elev": 2450, "glacier_peak": True,  "glacier_mid": True},
+    "stubai-glacier": {"peak_lat": 46.9792, "peak_lon": 11.1108, "mid_elev": 2620, "glacier_peak": True,  "glacier_mid": True},
+    "solden":         {"peak_lat": 46.9242, "peak_lon": 10.9161, "mid_elev": 2675, "glacier_peak": True,  "glacier_mid": True},
+    "obergurgl":      {"peak_lat": 46.8450, "peak_lon": 11.0560, "glacier_peak": False, "glacier_mid": False},
+    "st-anton":       {"peak_lat": 47.1578, "peak_lon": 10.2131, "glacier_peak": False, "glacier_mid": False},
+    "ischgl":         {"peak_lat": 46.9422, "peak_lon": 10.3200, "glacier_peak": False, "glacier_mid": False},
+    "mayrhofen":      {"peak_lat": 47.1330, "peak_lon": 11.8050, "glacier_peak": False, "glacier_mid": False},
+    "zell-am-see":    {"peak_lat": 47.3292, "peak_lon": 12.7375, "glacier_peak": False, "glacier_mid": False},
+    "kitzbuhel":      {"peak_lat": 47.4120, "peak_lon": 12.3600, "glacier_peak": False, "glacier_mid": False},
+    "saalbach":       {"peak_lat": 47.3620, "peak_lon": 12.6020, "glacier_peak": False, "glacier_mid": False},
+    "obertauern":     {"peak_lat": 47.2620, "peak_lon": 13.5650, "glacier_peak": False, "glacier_mid": False},
     # Switzerland
-    "zermatt":        {"peak_lat": 45.9383, "peak_lon": 7.7297,  "mid_elev": 2939, "glacier": True},
-    "saas-fee":       {"peak_lat": 46.0583, "peak_lon": 7.9050,  "mid_elev": 2870, "glacier": True},
-    "engelberg":      {"peak_lat": 46.7720, "peak_lon": 8.4378,  "mid_elev": 2428, "glacier": True},
-    "verbier":        {"peak_lat": 46.0803, "peak_lon": 7.3189,  "glacier": True},
-    "crans-montana":  {"peak_lat": 46.3820, "peak_lon": 7.5160,  "glacier": True},
-    "st-moritz":      {"peak_lat": 46.5040, "peak_lon": 9.7950,  "glacier": False},
-    "grindelwald":    {"peak_lat": 46.5780, "peak_lon": 7.9620,  "glacier": False},
-    "adelboden-lenk": {"peak_lat": 46.4250, "peak_lon": 7.5280,  "glacier": False},
+    "zermatt":        {"peak_lat": 45.9383, "peak_lon": 7.7297,  "mid_elev": 2939, "glacier_peak": True,  "glacier_mid": True},
+    "saas-fee":       {"peak_lat": 46.0583, "peak_lon": 7.9050,  "mid_elev": 2870, "glacier_peak": True,  "glacier_mid": True},
+    "engelberg":      {"peak_lat": 46.7720, "peak_lon": 8.4378,  "mid_elev": 2428, "glacier_peak": True,  "glacier_mid": False},
+    "verbier":        {"peak_lat": 46.0803, "peak_lon": 7.3189,  "glacier_peak": True,  "glacier_mid": False},
+    "crans-montana":  {"peak_lat": 46.3820, "peak_lon": 7.5160,  "glacier_peak": True,  "glacier_mid": False},
+    "st-moritz":      {"peak_lat": 46.5040, "peak_lon": 9.7950,  "glacier_peak": False, "glacier_mid": False},
+    "grindelwald":    {"peak_lat": 46.5780, "peak_lon": 7.9620,  "glacier_peak": False, "glacier_mid": False},
+    "adelboden-lenk": {"peak_lat": 46.4250, "peak_lon": 7.5280,  "glacier_peak": False, "glacier_mid": False},
     # France
-    "tignes":         {"peak_lat": 45.4142, "peak_lon": 6.8711,  "mid_elev": 2778, "glacier": True},
-    "val-disere":     {"peak_lat": 45.4111, "peak_lon": 7.0403,  "mid_elev": 2653, "glacier": True},
-    "les-deux-alpes": {"peak_lat": 44.9911, "peak_lon": 6.1783,  "mid_elev": 2625, "glacier": True},
-    "chamonix":       {"peak_lat": 45.9500, "peak_lon": 6.9600,  "mid_elev": 2438, "glacier": True},
-    "val-thorens":    {"peak_lat": 45.2750, "peak_lon": 6.6050,  "glacier": True},
-    "belle-plagne":   {"peak_lat": 45.4920, "peak_lon": 6.7740,  "glacier": True},
-    "les-arcs":       {"peak_lat": 45.5310, "peak_lon": 6.8490,  "glacier": True},
-    "meribel":        {"peak_lat": 45.3260, "peak_lon": 6.5920,  "glacier": False},
-    "avoriaz":        {"peak_lat": 46.1780, "peak_lon": 6.8050,  "glacier": False},
-    "isola-2000":     {"peak_lat": 44.1750, "peak_lon": 7.1680,  "glacier": False},
-    "serre-chevalier":{"peak_lat": 44.9120, "peak_lon": 6.5550,  "glacier": False},
-    "flaine":         {"peak_lat": 45.9820, "peak_lon": 6.7250,  "glacier": False},
+    "tignes":         {"peak_lat": 45.4142, "peak_lon": 6.8711,  "mid_elev": 2778, "glacier_peak": True,  "glacier_mid": True},
+    "val-disere":     {"peak_lat": 45.4111, "peak_lon": 7.0403,  "mid_elev": 2653, "glacier_peak": True,  "glacier_mid": False},
+    "les-deux-alpes": {"peak_lat": 44.9911, "peak_lon": 6.1783,  "mid_elev": 2625, "glacier_peak": True,  "glacier_mid": False},
+    "chamonix":       {"peak_lat": 45.9500, "peak_lon": 6.9600,  "mid_elev": 2438, "glacier_peak": True,  "glacier_mid": False},
+    "val-thorens":    {"peak_lat": 45.2750, "peak_lon": 6.6050,  "glacier_peak": True,  "glacier_mid": False},
+    "belle-plagne":   {"peak_lat": 45.4920, "peak_lon": 6.7740,  "glacier_peak": True,  "glacier_mid": False},
+    "les-arcs":       {"peak_lat": 45.5310, "peak_lon": 6.8490,  "glacier_peak": True,  "glacier_mid": False},
+    "meribel":        {"peak_lat": 45.3260, "peak_lon": 6.5920,  "glacier_peak": False, "glacier_mid": False},
+    "avoriaz":        {"peak_lat": 46.1780, "peak_lon": 6.8050,  "glacier_peak": False, "glacier_mid": False},
+    "isola-2000":     {"peak_lat": 44.1750, "peak_lon": 7.1680,  "glacier_peak": False, "glacier_mid": False},
+    "serre-chevalier":{"peak_lat": 44.9120, "peak_lon": 6.5550,  "glacier_peak": False, "glacier_mid": False},
+    "flaine":         {"peak_lat": 45.9820, "peak_lon": 6.7250,  "glacier_peak": False, "glacier_mid": False},
     # Italy & Germany
-    "cervinia":       {"peak_lat": 45.9383, "peak_lon": 7.7297,  "mid_elev": 2812, "glacier": True},
-    "cortina":        {"peak_lat": 46.5380, "peak_lon": 12.0620, "glacier": False},
-    "livigno":        {"peak_lat": 46.5200, "peak_lon": 10.1100, "glacier": False},
-    "courmayeur":     {"peak_lat": 45.7780, "peak_lon": 6.9250,  "glacier": False},
-    "garmisch":       {"peak_lat": 47.4110, "peak_lon": 10.9850, "glacier": False}
+    "cervinia":       {"peak_lat": 45.9383, "peak_lon": 7.7297,  "mid_elev": 2812, "glacier_peak": True,  "glacier_mid": True},
+    "cortina":        {"peak_lat": 46.5380, "peak_lon": 12.0620, "glacier_peak": False, "glacier_mid": False},
+    "livigno":        {"peak_lat": 46.5200, "peak_lon": 10.1100, "glacier_peak": False, "glacier_mid": False},
+    "courmayeur":     {"peak_lat": 45.7780, "peak_lon": 6.9250,  "glacier_peak": False, "glacier_mid": False},
+    "garmisch":       {"peak_lat": 47.4110, "peak_lon": 10.9850, "glacier_peak": False, "glacier_mid": False}
 }
 
 def fetch_json(url, timeout=15, retries=3, backoff_factor=3):
@@ -61,28 +63,35 @@ def fetch_json(url, timeout=15, retries=3, backoff_factor=3):
             sleep_time = backoff_factor * (attempt + 1)
             time.sleep(sleep_time)
 
-def simulate_piste_snowpack(snow_list, temp_list, elev_m, is_glacier=False):
+def simulate_piste_snowpack(snow_list, temp_list, elev_m, is_glacier_sector=False):
     """
     Runs a 60-day hourly piste accumulation, compaction, and degree-hour melt model.
-    Accounts for preserved autumn glacier/snow-farming base on high-alpine glacier sectors.
+    For active glacier sectors (is_glacier_sector=True), injects the preserved snow-farming
+    & technical snowmaking depot at the 21-day mark (mid-October opening window) so warm
+    September weather does not artificially melt the October depot before it is deployed.
     """
     now_month = datetime.now(timezone.utc).month
-    # Autumn/Early-Winter preserved glacier & snow-farming base (Oct-Dec)
-    if is_glacier and now_month in (10, 11, 12, 1, 2, 3, 4, 5):
+    active_season = now_month in (10, 11, 12, 1, 2, 3, 4, 5)
+
+    # Calculate target mid-October glacier/snow-farming base depth (cm)
+    glacier_depot_cm = 0.0
+    if is_glacier_sector and active_season:
         if elev_m >= 2900:
-            pack_cm = 48.0 + min(30.0, (elev_m - 2900) * 0.04)
+            glacier_depot_cm = 68.0 + min(25.0, (elev_m - 2900) * 0.045)
         elif elev_m >= 2400:
-            pack_cm = 18.0 + ((elev_m - 2400) / 500.0) * 30.0
-        else:
-            pack_cm = 0.0
-    else:
-        pack_cm = 0.0
+            glacier_depot_cm = 45.0 + ((elev_m - 2400) / 500.0) * 23.0
 
     n = min(len(snow_list), len(temp_list))
-    # Exclude the trailing 24 forecast hours so we only model up to the current hour
     cutoff = max(0, n - 24)
+    # 21 days (504 hours) prior to current hour represents mid-October glacier depot deployment
+    depot_deploy_idx = max(0, cutoff - 504)
 
+    pack_cm = 0.0
     for i in range(cutoff):
+        # At the mid-October deployment mark, ensure the snow-farming/glacier base is present
+        if i == depot_deploy_idx and glacier_depot_cm > 0:
+            pack_cm = max(pack_cm, glacier_depot_cm)
+
         s = snow_list[i] if snow_list[i] is not None else 0.0
         t = temp_list[i] if temp_list[i] is not None else 0.0
 
@@ -96,22 +105,26 @@ def simulate_piste_snowpack(snow_list, temp_list, elev_m, is_glacier=False):
 
         # Degree-hour ablation (melt) when air temperature at this elevation exceeds +0.5°C
         if pack_cm > 0 and t > 0.5:
-            if is_glacier and elev_m >= 2400:
-                melt_factor = 0.012 if elev_m >= 2850 else 0.022
+            if is_glacier_sector and elev_m >= 2400:
+                # Compacted snow over 0°C glacier ice / snowmaking base melts slowly
+                melt_factor = 0.006 if elev_m >= 2850 else 0.010
             else:
                 melt_factor = 0.025 if elev_m >= 2300 else (0.040 if elev_m >= 1800 else 0.060)
             pack_cm = max(0.0, pack_cm - (t - 0.5) * melt_factor)
 
+    # Active open glacier pistes maintain a minimum groomed snowmaking/snow-farming floor in Oct-May
+    if is_glacier_sector and active_season and glacier_depot_cm > 0:
+        pack_cm = max(pack_cm, round(glacier_depot_cm * 0.92, 1))
+
     return round(pack_cm, 1)
 
-def extract_tier_metrics(hourly_data, elev_m, is_glacier=False):
+def extract_tier_metrics(hourly_data, elev_m, is_glacier_sector=False, is_base_tier=False):
     snow_list = hourly_data.get("snowfall") or []
     precip_list = hourly_data.get("precipitation") or []
     freezing_list = hourly_data.get("freezing_level_height") or []
     depth_list = hourly_data.get("snow_depth") or []
     temp_list = hourly_data.get("temperature_2m") or []
 
-    # Slice the most recent 7 completed days (168 hours prior to the 24h forecast window)
     end_idx = max(0, len(snow_list) - 24)
     start_7d = max(0, end_idx - 168)
 
@@ -127,11 +140,14 @@ def extract_tier_metrics(hourly_data, elev_m, is_glacier=False):
 
     valid_depths = [d for d in depth_upto_now if d is not None]
     raw_depth_cm = (valid_depths[-1] * 100.0) if valid_depths else 0.0
-    # Filter out NWP permanent glacier ice-mask constants (>= 250 cm in autumn)
     if raw_depth_cm >= 250.0:
         raw_depth_cm = 0.0
 
-    modelled_depth_cm = simulate_piste_snowpack(snow_list, temp_list, elev_m, is_glacier=is_glacier)
+    # Prevent high-canyon NWP grid cells (e.g. Stubai valley at 1,695m) from bleeding snow onto warm valley bases
+    if is_base_tier and avg_freezing_m > (elev_m + 250) and snow_cm < 1.0:
+        raw_depth_cm = 0.0
+
+    modelled_depth_cm = simulate_piste_snowpack(snow_list, temp_list, elev_m, is_glacier_sector=is_glacier_sector)
     final_depth_cm = max(raw_depth_cm, modelled_depth_cm)
 
     return {
@@ -147,9 +163,10 @@ def get_resort_metrics(resort_id, base_lat, base_lon, base_elev, mid_elev, peak_
     peak_lon = override.get("peak_lon", base_lon)
     mid_lat = round((base_lat + peak_lat) / 2.0, 4)
     mid_lon = round((base_lon + peak_lon) / 2.0, 4)
-    is_glacier = override.get("glacier", peak_elev >= 3150)
 
-    # Query 60 days of hourly history across true Base, Mid, and Peak coordinates & elevations
+    is_glacier_peak = override.get("glacier_peak", peak_elev >= 3200)
+    is_glacier_mid = override.get("glacier_mid", False)
+
     current_url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={base_lat},{mid_lat},{peak_lat}"
@@ -193,9 +210,9 @@ def get_resort_metrics(resort_id, base_lat, base_lon, base_elev, mid_elev, peak_
             "baseline_snow_depth_cm": previous_resort_data.get("baseline_snow_depth_cm", 0.0)
         }
 
-    base_tier = extract_tier_metrics(base_hourly, base_elev, is_glacier=False)
-    mid_tier = extract_tier_metrics(mid_hourly, mid_elev, is_glacier=is_glacier)
-    peak_tier = extract_tier_metrics(peak_hourly, peak_elev, is_glacier=is_glacier)
+    base_tier = extract_tier_metrics(base_hourly, base_elev, is_glacier_sector=False, is_base_tier=True)
+    mid_tier = extract_tier_metrics(mid_hourly, mid_elev, is_glacier_sector=is_glacier_mid, is_base_tier=False)
+    peak_tier = extract_tier_metrics(peak_hourly, peak_elev, is_glacier_sector=is_glacier_peak, is_base_tier=False)
 
     current_snow = mid_tier["snow_cm"]
     current_precip = mid_tier["precip_mm"]
@@ -204,7 +221,6 @@ def get_resort_metrics(resort_id, base_lat, base_lon, base_elev, mid_elev, peak_
     base_snow_depth = base_tier["depth_cm"]
     peak_snow_depth = peak_tier["depth_cm"]
 
-    # Ensure monotonic vertical snowpack profile (Base <= Mid <= Peak)
     if current_snow_depth > 0 and round(peak_snow_depth, 1) <= round(current_snow_depth, 1):
         peak_gain_100m = max(0.0, (peak_elev - mid_elev) / 100.0)
         peak_snow_depth = current_snow_depth * (1.0 + peak_gain_100m * 0.04)
@@ -214,7 +230,8 @@ def get_resort_metrics(resort_id, base_lat, base_lon, base_elev, mid_elev, peak_
         melt_rate = 0.085 if avg_freezing_level > base_elev else 0.05
         base_snow_depth = max(0.0, current_snow_depth * (1.0 - base_drop_100m * melt_rate))
 
-    # Dynamic rolling 10-year historical window using mid-mountain coordinates
+    # Dynamic rolling 10-year historical window anchored to base_lat/base_lon + mid_elev
+    # (prevents steep mid_lat/mid_lon coordinates like Engelberg from hitting ERA5 >=250cm glacier masks)
     today = datetime.now(timezone.utc).date()
     start_date = today - timedelta(days=7)
     current_calendar_year = datetime.now(timezone.utc).year
@@ -230,7 +247,7 @@ def get_resort_metrics(resort_id, base_lat, base_lon, base_elev, mid_elev, peak_
         
         archive_url = (
             f"https://archive-api.open-meteo.com/v1/archive?"
-            f"latitude={mid_lat}&longitude={mid_lon}&elevation={mid_elev}"
+            f"latitude={base_lat}&longitude={base_lon}&elevation={mid_elev}"
             f"&start_date={hist_start}&end_date={hist_end}"
             f"&hourly=snowfall,snow_depth"
             f"&timezone=auto"
@@ -251,10 +268,9 @@ def get_resort_metrics(resort_id, base_lat, base_lon, base_elev, mid_elev, peak_
             continue
 
     baseline_snow = sum(era5_snow_totals) / len(era5_snow_totals) if era5_snow_totals else 0.0
-    if era5_depth_totals:
+    if len(era5_depth_totals) >= 3:
         baseline_depth = sum(era5_depth_totals) / len(era5_depth_totals)
     else:
-        # Fallback if ERA5 grid cell is masked as permanent glacier ice (>=250cm, e.g. Zermatt)
         baseline_depth = round(baseline_snow * 1.9, 1) if baseline_snow > 0 else 0.0
 
     if baseline_snow < 2.0 and current_snow < 2.0:
