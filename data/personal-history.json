@@ -1053,6 +1053,37 @@
       "val-disere_depth_cm": 106.4,
       "val-disere_base_depth_cm": 72.0,
       "val-disere_peak_depth_cm": 181.5
+    },
+    {
+      "date": "2026-11-23",
+      "average_snow_depth_cm": 98.8,
+      "saas-fee_depth_cm": 102.3,
+      "saas-fee_base_depth_cm": 36.0,
+      "saas-fee_peak_depth_cm": 155.0,
+      "zell-am-see_depth_cm": 0.6,
+      "zell-am-see_base_depth_cm": 0.0,
+      "zell-am-see_peak_depth_cm": 5.6,
+      "kaprun_depth_cm": 53.3,
+      "kaprun_base_depth_cm": 0.0,
+      "kaprun_peak_depth_cm": 81.8,
+      "meribel_depth_cm": 98.6,
+      "meribel_base_depth_cm": 26.5,
+      "meribel_peak_depth_cm": 157.8,
+      "isola-2000_depth_cm": 34.4,
+      "isola-2000_base_depth_cm": 0.0,
+      "isola-2000_peak_depth_cm": 58.2,
+      "belle-plagne_depth_cm": 154.7,
+      "belle-plagne_base_depth_cm": 100.2,
+      "belle-plagne_peak_depth_cm": 245.6,
+      "avoriaz_depth_cm": 119.9,
+      "avoriaz_base_depth_cm": 87.0,
+      "avoriaz_peak_depth_cm": 145.4,
+      "tignes_depth_cm": 203.2,
+      "tignes_base_depth_cm": 92.0,
+      "tignes_peak_depth_cm": 234.4,
+      "val-disere_depth_cm": 122.0,
+      "val-disere_base_depth_cm": 87.0,
+      "val-disere_peak_depth_cm": 196.1
     }
   ]
 }
