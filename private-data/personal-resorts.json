@@ -79,5 +79,14 @@
     "longitude": 6.9883,
     "base_elevation": 1850,
     "peak_elevation": 3456
+  },
+  {
+    "id": "saalbach-leogang",
+    "name": "Saalbach Leogang",
+    "country": "Austria",
+    "latitude": 47.4386,
+    "longitude": 12.7599,
+    "base_elevation": 800,
+    "peak_elevation": 2096
   }
 ]

@@ -20,6 +20,7 @@ RESORT_GEO_OVERRIDES = {
     "zell-am-see":    {"peak_lat": 47.3292, "peak_lon": 12.7375, "glacier_peak": False, "glacier_mid": False},
     "kitzbuhel":      {"peak_lat": 47.4120, "peak_lon": 12.3600, "glacier_peak": False, "glacier_mid": False},
     "saalbach":       {"peak_lat": 47.3620, "peak_lon": 12.6020, "glacier_peak": False, "glacier_mid": False},
+    "saalbach-leogang": {"peak_lat": 47.3728, "peak_lon": 12.6203, "glacier_peak": False, "glacier_mid": False},
     "obertauern":     {"peak_lat": 47.2620, "peak_lon": 13.5650, "glacier_peak": False, "glacier_mid": False},
     # Switzerland
     "zermatt":        {"peak_lat": 45.9383, "peak_lon": 7.7297,  "mid_elev": 2939, "glacier_peak": True,  "glacier_mid": True},
