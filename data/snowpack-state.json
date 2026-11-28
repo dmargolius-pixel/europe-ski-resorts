@@ -1,0 +1,1064 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-28T12:31:33.125597+00:00",
+  "resorts": {
+    "chamonix": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 121.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 269.9,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "val-disere": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 35.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 105.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 184.0,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "meribel": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 32.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 107.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 129.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "val-thorens": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 117.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 126.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 200.0,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "les-arcs": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 115.2,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 215.6,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "avoriaz": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 108.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 139.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 142.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "les-deux-alpes": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 43.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 147.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 243.6,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "serre-chevalier": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 47.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 72.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "flaine": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 55.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 140.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 156.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "la-clusaz": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 53.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 55.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "megeve": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 100.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 122.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "morzine": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 70.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 109.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "zermatt": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 122.9,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 132.6,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "verbier": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 20.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 76.2,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 177.9,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "st-moritz": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 15.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 24.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 31.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "saas-fee": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 4.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 91.4,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 140.1,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "grindelwald": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 29.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 48.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "adelboden-lenk": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 54.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 76.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "engelberg": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 15.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 62.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 139.1,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "crans-montana": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 29.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 91.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 176.0,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "st-anton": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 1.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 49.2,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 55.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "ischgl": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 2.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 32.2,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 38.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "kitzbuhel": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 4.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 4.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "solden": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 1.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 65.0,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 96.9,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "mayrhofen": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 2.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 5.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 13.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "saalbach": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 4.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "zell-am-see": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 2.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 8.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "obertauern": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 8.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "obergurgl": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 11.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 16.2,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 20.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "stubai-glacier": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 6.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 66.3,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 95.3,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "cortina": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 2.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 14.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 18.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "cervinia": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 17.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 102.2,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 129.6,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "livigno": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 24.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 26.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "val-gardena": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 11.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 14.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "madonna-di-campiglio": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 18.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 20.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "courmayeur": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 2.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 79.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 168.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "kronplatz": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 8.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 13.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "3-zinnen": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 0.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.3,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 13.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "sestriere": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 26.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 34.9,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 35.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "garmisch": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 7.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 8.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 24.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "oberstdorf": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 7.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 13.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 27.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "kaprun": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 1.8,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 44.3,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 72.8,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "isola-2000": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 6.7,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 32.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 43.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "belle-plagne": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 109.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 137.5,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 220.3,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "tignes": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 89.6,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 184.6,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 213.7,
+        "depot_applied": true,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    },
+    "saalbach-leogang": {
+      "base": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 3.1,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "mid": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 6.4,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      },
+      "peak": {
+        "season": "2026-2027",
+        "last_hour": "2026-11-28T13:00",
+        "pack_cm": 10.0,
+        "depot_applied": false,
+        "nwp_glacier_floor_cm": 0.0
+      }
+    }
+  }
+}

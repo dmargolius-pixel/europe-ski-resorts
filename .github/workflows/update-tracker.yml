@@ -1,13 +1,27 @@
 name: Build and Update Ski Weather Data
 
 on:
+  # Primary trigger is the Cloudflare Worker Cron Trigger (europe-ski-tracker-cron) at 05:15 UTC via workflow_dispatch.
+  # Keep a late fallback schedule in case the external trigger ever misses a run;
+  # --skip-if-updated-today exits cleanly in ~1 second if today's data is already committed.
   schedule:
-    - cron: '47 2 * * *'
+    - cron: '47 7 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: Force refresh even if already updated today (UTC)
+        type: boolean
+        required: false
+        default: true
+
+concurrency:
+  group: update-tracker
+  cancel-in-progress: false
 
 jobs:
   build-data:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
 
@@ -20,15 +34,23 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Run Data Collector Scripts
+      - name: Run Tracker Unit Tests
         run: |
-          python scripts/fetch_all_trackers.py
+          python -m unittest discover -s scripts -p 'test_*.py' -v
+
+      - name: Run Data Collector Script
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            python scripts/fetch_all_trackers.py --skip-if-updated-today
+          else
+            python scripts/fetch_all_trackers.py
+          fi
 
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/el-nino-tracker.json data/season-history.json data/personal-tracker.json data/personal-history.json
+          git add data/el-nino-tracker.json data/season-history.json data/personal-tracker.json data/personal-history.json data/snowpack-state.json
           git diff --cached --quiet || (git commit -m "Auto-update public and personal ski trackers [skip ci]" && git push)
 
       - name: Purge jsDelivr Cache
